@@ -1,0 +1,18 @@
+{
+  "name": "cine-tasty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server:dev": "yarn workspace server dev"
+  },
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "keywords": [],
+  "author": "Stenio Wagner",
+  "license": "MIT"
+}
