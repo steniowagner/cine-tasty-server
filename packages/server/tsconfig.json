@@ -1,0 +1,17 @@
+
+{
+  // "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "strict": true
+  },
+  "exclude": [
+    "test",
+    "package.json"
+  ],
+  "include": ["src", "test", "src/*ts", "src/**/*ts"]
+}
