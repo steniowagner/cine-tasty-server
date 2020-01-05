@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "NODE_ENV=development nodemon src/app.ts",
     "build": "tsc -p ."
   },
   "keywords": [],
@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "apollo-datasource-rest": "^0.6.11",
-    "apollo-server": "^2.9.15"
+    "apollo-server": "^2.9.15",
+    "dotenv": "^8.2.0"
   }
 }

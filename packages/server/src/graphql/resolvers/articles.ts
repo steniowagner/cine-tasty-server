@@ -1,9 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 const resolvers = {
   Query: {
-    articles: () => ({
-      url: 'url',
-      title: 'title',
-    }),
+    articles: (_: any, __: any, { dataSources }: any) =>
+      dataSources.news.getAllArticles(),
   },
 };
 
