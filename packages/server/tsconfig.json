@@ -1,6 +1,5 @@
 
 {
-  // "extends": "../../tsconfig.json",
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
@@ -14,5 +13,5 @@
     "test",
     "package.json"
   ],
-  "include": ["src", "test", "src/*ts", "src/**/*ts"]
+  "include": ["src", "src/*ts", "src/**/*ts"]
 }

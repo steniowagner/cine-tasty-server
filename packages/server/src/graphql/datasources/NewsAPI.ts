@@ -3,6 +3,11 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import env from '../../config/environment';
 import { Article } from '../../lib/types';
 
+const BASE_URL = 'http://newsapi.org/v2';
+const ENDPOINT = 'everything';
+const STATUS_OK = 'ok';
+const QUERY = 'cinema';
+
 interface APIOutput {
   publishedAt: string;
   urlToImage: string;
@@ -15,12 +20,14 @@ interface APIOutput {
   url: string;
 }
 
-const BASE_URL = 'http://newsapi.org/v2';
-const ENDPOINT = 'everything';
-const STATUS_OK = 'ok';
-const QUERY = 'cinema';
+export interface INewsAPI {
+  validateAPIOutput: (output: APIOutput) => boolean;
+  parseArticle: (apiOutput: APIOutput) => Article;
+  getAllArticles: () => Promise<Article[]>;
+  getFromParam: () => string;
+}
 
-class NewsAPI extends RESTDataSource {
+class NewsAPI extends RESTDataSource implements INewsAPI {
   constructor() {
     super();
     this.baseURL = BASE_URL;

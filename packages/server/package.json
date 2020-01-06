@@ -8,23 +8,42 @@
     "build": "tsc -p .",
     "generate-types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
-    "lint:fix": "prettier '**/*.ts' --write"
+    "lint:fix": "prettier '**/*.ts' --write",
+    "test": "jest"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged && npm run build"
     }
   },
   "lint-staged": {
-    "*.ts": [
+    "**/*.+(ts|json)": [
       "npm run lint:fix",
+      "jest --findRelatedTests",
       "git add"
+    ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "functions": 100,
+        "branches": 80,
+        "lines": 100
+      }
+    },
+    "coverageReporters": [
+      "html",
+      "text"
     ]
   },
   "keywords": [],
   "author": "Stenio Wagner",
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
     "@graphql-codegen/cli": "^1.10.0",
     "@graphql-codegen/introspection": "1.10.0",
     "@graphql-codegen/typescript": "1.10.0",
@@ -34,11 +53,14 @@
     "@types/nodemon": "^1.19.0",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
+    "apollo-server-testing": "^2.9.15",
     "apollo-server-types": "^0.2.10",
+    "babel-jest": "^24.9.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "husky": "^3.1.0",
+    "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
