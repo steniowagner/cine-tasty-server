@@ -1,6 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import env from '../../config/environment';
+import { Article } from '../../lib/types';
 
 interface APIOutput {
   publishedAt: string;
@@ -12,16 +13,6 @@ interface APIOutput {
   author: string;
   title: string;
   url: string;
-}
-
-interface Article {
-  publishedAt: string;
-  source: string;
-  author: string;
-  image: string;
-  title: string;
-  url: string;
-  id: string;
 }
 
 const BASE_URL = 'http://newsapi.org/v2';

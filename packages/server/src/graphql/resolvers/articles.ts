@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-const resolvers = {
+import { QueryResolvers } from '../../lib/types';
+
+const resolvers: QueryResolvers = {
   Query: {
     articles: (_: any, __: any, { dataSources }: any) =>
       dataSources.news.getAllArticles(),

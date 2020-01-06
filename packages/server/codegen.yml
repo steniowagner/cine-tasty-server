@@ -1,0 +1,13 @@
+overwrite: true
+schema: "http://localhost:4000"
+documents: null
+config:
+  useIndexSignature: true
+generates:
+  ./src/lib/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"

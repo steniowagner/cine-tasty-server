@@ -10,6 +10,7 @@
     "strict": true
   },
   "exclude": [
+    "./src/lib/types.ts",
     "test",
     "package.json"
   ],

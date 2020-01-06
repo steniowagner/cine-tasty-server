@@ -5,13 +5,32 @@
   "main": "src/app.ts",
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "generate-types": "graphql-codegen --config codegen.yml",
+    "lint": "eslint '**/*.ts'",
+    "lint:fix": "prettier '**/*.ts' --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run lint:fix",
+      "git add"
+    ]
   },
   "keywords": [],
-  "author": "",
+  "author": "Stenio Wagner",
   "license": "MIT",
   "devDependencies": {
+    "@graphql-codegen/cli": "^1.10.0",
+    "@graphql-codegen/introspection": "1.10.0",
+    "@graphql-codegen/typescript": "1.10.0",
+    "@graphql-codegen/typescript-resolvers": "^1.10.0",
     "@types/node": "^13.1.4",
+    "@types/node-fetch": "^2.5.4",
     "@types/nodemon": "^1.19.0",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
@@ -19,6 +38,8 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.4",
