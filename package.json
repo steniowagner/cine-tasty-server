@@ -7,6 +7,11 @@
     "server:dev": "yarn workspace server dev"
   },
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn workspace server lint-staged"
+    }
+  },
   "workspaces": {
     "packages": [
       "packages/*"
@@ -14,5 +19,8 @@
   },
   "keywords": [],
   "author": "Stenio Wagner",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^4.0.0"
+  }
 }
