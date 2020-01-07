@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server:dev": "yarn workspace server dev"
+    "server:dev": "yarn workspace server dev",
+    "server:precommit": "yarn workspace server lint-staged"
   },
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "yarn workspace server lint-staged"
+      "pre-commit": "npm run server:precommit"
     }
   },
   "workspaces": {

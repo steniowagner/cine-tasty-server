@@ -28,10 +28,10 @@ type RequestParams = {
   from: string;
   to: string;
   q: string;
-}
+};
 
 export interface INewsAPI {
-  getRequestParams: (page: number, pageSize?: number, query?: string) => RequestParams ;
+  getRequestParams: (page: number, pageSize?: number, query?: string) => RequestParams;
   getAllArticles: (page: number) => Promise<Article[]>;
   validateAPIOutput: (output: APIOutput) => boolean;
   parseArticle: (apiOutput: APIOutput) => Article;
@@ -82,7 +82,11 @@ class NewsAPI extends RESTDataSource implements INewsAPI {
     return Object.entries(output).every(([, value]) => !!value);
   }
 
-  getRequestParams(page: number, pageSize: number = PAGE_SIZE, query: string = QUERY): RequestParams {
+  getRequestParams(
+    page: number,
+    pageSize: number = PAGE_SIZE,
+    query: string = QUERY,
+  ): RequestParams {
     const dateParam = this.getDateParam();
 
     const params: RequestParams = {
