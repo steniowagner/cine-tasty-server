@@ -12,6 +12,6 @@ export default gql`
   }
 
   extend type Query {
-    articles: [Article!]!
+    articles(page: Int!): [Article!]!
   }
 `;

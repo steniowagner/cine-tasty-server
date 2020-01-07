@@ -1,14 +1,13 @@
-import { QueryResolvers } from '../../lib/types';
+import { QueryResolvers, QueryArticlesArgs, Article } from '../../lib/types';
 import { Datasource } from '../datasources';
-import { Article } from '../../lib/types';
 
 const resolvers: QueryResolvers = {
   Query: {
     articles: (
       _: {},
-      __: {},
+      { page }: QueryArticlesArgs,
       { dataSources }: Datasource,
-    ): Promise<Article[]> => dataSources.news.getAllArticles(),
+    ): Promise<Article[]> => dataSources.news.getAllArticles(page),
   },
 };
 

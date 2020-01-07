@@ -1,36 +1,44 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type Maybe<T> = T | null;
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  Upload: any;
+  ID: string,
+  String: string,
+  Boolean: boolean,
+  Int: number,
+  Float: number,
+  Upload: any,
 };
 
+
 export type Article = {
-  __typename?: 'Article';
-  publishedAt: Scalars['String'];
-  source: Scalars['String'];
-  author: Scalars['String'];
-  title: Scalars['String'];
-  image: Scalars['String'];
-  url: Scalars['String'];
-  id: Scalars['ID'];
+   __typename?: 'Article',
+  publishedAt: Scalars['String'],
+  source: Scalars['String'],
+  author: Scalars['String'],
+  title: Scalars['String'],
+  image: Scalars['String'],
+  url: Scalars['String'],
+  id: Scalars['ID'],
 };
 
 export enum CacheControlScope {
   Public = 'PUBLIC',
-  Private = 'PRIVATE',
+  Private = 'PRIVATE'
 }
 
 export type Query = {
-  __typename?: 'Query';
-  _?: Maybe<Scalars['String']>;
-  articles: Array<Article>;
+   __typename?: 'Query',
+  _?: Maybe<Scalars['String']>,
+  articles: Array<Article>,
 };
+
+
+export type QueryArticlesArgs = {
+  page: Scalars['Int']
+};
+
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
@@ -41,8 +49,9 @@ export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => Promise<TResult> | TResult;
+
 
 export type StitchingResolver<TResult, TParent, TContext, TArgs> = {
   fragment: string;
@@ -57,29 +66,18 @@ export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
-export interface SubscriptionSubscriberObject<
-  TResult,
-  TKey extends string,
-  TParent,
-  TContext,
-  TArgs
-> {
-  subscribe: SubscriptionSubscribeFn<
-    { [key in TKey]: TResult },
-    TParent,
-    TContext,
-    TArgs
-  >;
+export interface SubscriptionSubscriberObject<TResult, TKey extends string, TParent, TContext, TArgs> {
+  subscribe: SubscriptionSubscribeFn<{ [key in TKey]: TResult }, TParent, TContext, TArgs>;
   resolve?: SubscriptionResolveFn<TResult, { [key in TKey]: TResult }, TContext, TArgs>;
 }
 
@@ -92,20 +90,14 @@ export type SubscriptionObject<TResult, TKey extends string, TParent, TContext, 
   | SubscriptionSubscriberObject<TResult, TKey, TParent, TContext, TArgs>
   | SubscriptionResolverObject<TResult, TParent, TContext, TArgs>;
 
-export type SubscriptionResolver<
-  TResult,
-  TKey extends string,
-  TParent = {},
-  TContext = {},
-  TArgs = {}
-> =
+export type SubscriptionResolver<TResult, TKey extends string, TParent = {}, TContext = {}, TArgs = {}> =
   | ((...args: any[]) => SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>)
   | SubscriptionObject<TResult, TKey, TParent, TContext, TArgs>;
 
 export type TypeResolveFn<TTypes, TParent = {}, TContext = {}> = (
   parent: TParent,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => Maybe<TTypes>;
 
 export type NextResolverFn<T> = () => Promise<T>;
@@ -115,86 +107,74 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   parent: TParent,
   args: TArgs,
   context: TContext,
-  info: GraphQLResolveInfo,
+  info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = ResolversObject<{
-  Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  Article: ResolverTypeWrapper<Article>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  CacheControlScope: CacheControlScope;
-  Upload: ResolverTypeWrapper<Scalars['Upload']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Query: ResolverTypeWrapper<{}>,
+  String: ResolverTypeWrapper<Scalars['String']>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  Article: ResolverTypeWrapper<Article>,
+  ID: ResolverTypeWrapper<Scalars['ID']>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  CacheControlScope: CacheControlScope,
+  Upload: ResolverTypeWrapper<Scalars['Upload']>,
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = ResolversObject<{
-  Query: {};
-  String: Scalars['String'];
-  Article: Article;
-  ID: Scalars['ID'];
-  Boolean: Scalars['Boolean'];
-  CacheControlScope: CacheControlScope;
-  Upload: Scalars['Upload'];
-  Int: Scalars['Int'];
+  Query: {},
+  String: Scalars['String'],
+  Int: Scalars['Int'],
+  Article: Article,
+  ID: Scalars['ID'],
+  Boolean: Scalars['Boolean'],
+  CacheControlScope: CacheControlScope,
+  Upload: Scalars['Upload'],
 }>;
 
-export type CacheControlDirectiveResolver<
-  Result,
-  Parent,
-  ContextType = any,
-  Args = {
-    maxAge?: Maybe<Maybe<Scalars['Int']>>;
-    scope?: Maybe<Maybe<CacheControlScope>>;
-  }
-> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type CacheControlDirectiveResolver<Result, Parent, ContextType = any, Args = {   maxAge?: Maybe<Maybe<Scalars['Int']>>,
+  scope?: Maybe<Maybe<CacheControlScope>> }> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type ArticleResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Article'] = ResolversParentTypes['Article']
-> = ResolversObject<{
-  publishedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  source?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  author?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+export type ArticleResolvers<ContextType = any, ParentType extends ResolversParentTypes['Article'] = ResolversParentTypes['Article']> = ResolversObject<{
+  publishedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  source?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  author?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 }>;
 
-export type QueryResolvers<
-  ContextType = any,
-  ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
-> = ResolversObject<{
-  _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  articles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>;
+export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+  _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  articles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
 }>;
 
-export interface UploadScalarConfig
-  extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
-  name: 'Upload';
+export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
+  name: 'Upload'
 }
 
 export type Resolvers<ContextType = any> = ResolversObject<{
-  Article?: ArticleResolvers<ContextType>;
-  Query?: QueryResolvers<ContextType>;
-  Upload?: GraphQLScalarType;
+  Article?: ArticleResolvers<ContextType>,
+  Query?: QueryResolvers<ContextType>,
+  Upload?: GraphQLScalarType,
 }>;
+
 
 /**
  * @deprecated
  * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
- */
+*/
 export type IResolvers<ContextType = any> = Resolvers<ContextType>;
 export type DirectiveResolvers<ContextType = any> = ResolversObject<{
-  cacheControl?: CacheControlDirectiveResolver<any, any, ContextType>;
+  cacheControl?: CacheControlDirectiveResolver<any, any, ContextType>,
 }>;
 
+
 /**
- * @deprecated
- * Use "DirectiveResolvers" root object instead. If you wish to get "IDirectiveResolvers", add "typesPrefix: I" to your config.
- */
+* @deprecated
+* Use "DirectiveResolvers" root object instead. If you wish to get "IDirectiveResolvers", add "typesPrefix: I" to your config.
+*/
 export type IDirectiveResolvers<ContextType = any> = DirectiveResolvers<ContextType>;

@@ -1,4 +1,6 @@
 import NewsAPI from '../../../graphql/datasources/NewsAPI';
+import getDataFormated from './helpers/getDataFormated';
+import env from '../../../config/environment';
 
 import {
   articleWithFalsyField,
@@ -7,6 +9,7 @@ import {
   rawArticleWithId,
   articleWithURLId,
   articleWithId,
+  params,
 } from './fixtures/getAllArticlesStub';
 
 const newsAPI = new NewsAPI();
@@ -21,18 +24,11 @@ describe('[NewsAPI.parseArticle]', () => {
   });
 });
 
-describe('[NewsAPI.getFromParam]', () => {
+describe('[NewsAPI.getDateParam]', () => {
   it('should get the current date following the format YYYY-MM-DD', () => {
-    const today = new Date();
+    const today = getDataFormated();
 
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const year = today.getFullYear();
-    const day = today
-      .getDate()
-      .toString()
-      .padStart(2, '0');
-
-    expect(`${year}-${month}-${day}`).toEqual(newsAPI.getFromParam());
+    expect(today).toEqual(newsAPI.getDateParam());
   });
 });
 
@@ -43,3 +39,19 @@ describe('[NewsAPI.validateAPIOutput]', () => {
     expect(newsAPI.validateAPIOutput(rawArticleWithNullId)).toEqual(true);
   });
 });
+
+describe('[NewsAPI.getRequestParams]', () => {
+  it('should return the request params correctly', () => {
+    const params = {
+      apiKey: env.NEWS_API_KEY,
+      pageSize: 12,
+      from: getDataFormated(),
+      to: getDataFormated(),
+      q: 'cinema',
+      page: 1,
+    };
+
+    expect(newsAPI.getRequestParams(params.page)).toEqual(params);
+  });
+});
+

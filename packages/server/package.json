@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.ts",
     "build": "tsc -p .",
-    "generate-types": "graphql-codegen --config codegen.yml",
+    "generate:types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "prettier '**/*.ts' --write",
     "test": "jest"
@@ -17,7 +17,7 @@
     }
   },
   "lint-staged": {
-    "**/*.+(ts|json)": [
+    "**/*.+(ts|json|md)": [
       "npm run lint:fix",
       "jest --findRelatedTests",
       "git add"
