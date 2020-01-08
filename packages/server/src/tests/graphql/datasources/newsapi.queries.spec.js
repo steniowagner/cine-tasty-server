@@ -2,7 +2,6 @@ import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
 import { rawArticleWithId, articleWithId } from './fixtures/getAllArticlesStub';
-
 import NewsAPI from '../../../graphql/datasources/NewsAPI';
 import resolvers from '../../../graphql/resolvers';
 import typeDefs from '../../../graphql/typeDefs';
@@ -10,13 +9,16 @@ import typeDefs from '../../../graphql/typeDefs';
 const GET_ARTICLES = gql`
   query GetArticles($page: Int!) {
     articles(page: $page) {
-      publishedAt
-      source
-      author
-      title
-      image
-      url
-      id
+      items {
+        publishedAt
+        source
+        author
+        title
+        image
+        url
+        id
+      }
+		  hasMore
     }
   }
 `;
@@ -51,7 +53,7 @@ describe('[Queries.NewsAPI]', () => {
       variables: { page: 1 },
     });
 
-    expect(result.data.articles).toEqual([articleWithId]);
+    expect(result.data.articles.items).toEqual([articleWithId]);
   });
 
   it("returns an empty array when the status isn't ok", async () => {
@@ -70,6 +72,63 @@ describe('[Queries.NewsAPI]', () => {
       variables: { page: 1 },
     });
 
-    expect(result.data.articles).toEqual([]);
+    expect(result.data.articles.items).toEqual([]);
+  });
+
+  it("returns an empty array when already paginated all items", async () => {
+    const { server, newsAPI } = makeTestServer();
+
+    newsAPI.get = jest.fn(() => ({
+      variables: { page: 2 },
+      status: 'error',
+      articles: [rawArticleWithId],
+    }));
+
+    const { query } = createTestClient(server);
+
+    const result = await query({
+      query: GET_ARTICLES,
+      variables: { page: 2 },
+    });
+
+    expect(result.data.articles.items).toEqual([]);
+  });
+
+  it("returns hasMany as true when has more items to be paginated", async () => {
+    const { server, newsAPI } = makeTestServer();
+
+    newsAPI.get = jest.fn(() => ({
+      variables: { page: 1 },
+      status: 'ok',
+      articles: Array(100).fill(rawArticleWithId),
+    }));
+
+    const { query } = createTestClient(server);
+
+    const result = await query({
+      query: GET_ARTICLES,
+      variables: { page: 1 },
+    });
+
+    expect(result.data.articles.hasMore).toEqual(true);
+  });
+
+  it("returns hasMany as false when has no more items to be paginated", async () => {
+    const { server, newsAPI } = makeTestServer();
+
+    newsAPI.get = jest.fn(() => ({
+      variables: { page: 1 },
+      status: 'ok',
+      articles: Array(100).fill(rawArticleWithId),
+    }));
+
+    const { query } = createTestClient(server);
+
+    const result = await query({
+      query: GET_ARTICLES,
+      variables: { page: 9 },
+    });
+
+    expect(result.data.articles.hasMore).toEqual(false);
   });
 });

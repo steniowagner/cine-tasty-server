@@ -23,6 +23,12 @@ export type Article = {
   id: Scalars['ID'],
 };
 
+export type Articles = {
+   __typename?: 'Articles',
+  items: Array<Article>,
+  hasMore: Scalars['Boolean'],
+};
+
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE'
@@ -31,7 +37,7 @@ export enum CacheControlScope {
 export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['String']>,
-  articles: Array<Article>,
+  articles: Articles,
 };
 
 
@@ -115,6 +121,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
+  Articles: ResolverTypeWrapper<Articles>,
   Article: ResolverTypeWrapper<Article>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
@@ -127,6 +134,7 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {},
   String: Scalars['String'],
   Int: Scalars['Int'],
+  Articles: Articles,
   Article: Article,
   ID: Scalars['ID'],
   Boolean: Scalars['Boolean'],
@@ -147,9 +155,14 @@ export type ArticleResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 }>;
 
+export type ArticlesResolvers<ContextType = any, ParentType extends ResolversParentTypes['Articles'] = ResolversParentTypes['Articles']> = ResolversObject<{
+  items?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>,
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+}>;
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  articles?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
+  articles?: Resolver<ResolversTypes['Articles'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -158,6 +171,7 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Article?: ArticleResolvers<ContextType>,
+  Articles?: ArticlesResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Upload?: GraphQLScalarType,
 }>;

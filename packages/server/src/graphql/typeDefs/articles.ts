@@ -11,7 +11,12 @@ export default gql`
     id: ID!
   }
 
+  type Articles {
+    items: [Article!]!
+    hasMore: Boolean!
+  }
+
   extend type Query {
-    articles(page: Int!): [Article!]!
+    articles(page: Int!): Articles!
   }
 `;

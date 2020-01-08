@@ -1,8 +1,9 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import env from '../../config/environment';
-import { Article } from '../../lib/types';
+import { Articles, Article } from '../../lib/types';
 
+const MAX_ITEMS_RETURNED = 100; // max items returned for a specific query under the developer plan (https://newsapi.org/pricing).
 const BASE_URL = 'http://newsapi.org/v2';
 const ENDPOINT = 'everything';
 const STATUS_OK = 'ok';
@@ -31,8 +32,8 @@ type RequestParams = {
 };
 
 export interface INewsAPI {
-  getRequestParams: (page: number, pageSize?: number, query?: string) => RequestParams;
-  getAllArticles: (page: number) => Promise<Article[]>;
+  getRequestParams: (page: number, query?: string) => RequestParams;
+  getAllArticles: (page: number) => Promise<Articles>;
   validateAPIOutput: (output: APIOutput) => boolean;
   parseArticle: (apiOutput: APIOutput) => Article;
   getDateParam: () => string;
@@ -82,18 +83,14 @@ class NewsAPI extends RESTDataSource implements INewsAPI {
     return Object.entries(output).every(([, value]) => !!value);
   }
 
-  getRequestParams(
-    page: number,
-    pageSize: number = PAGE_SIZE,
-    query: string = QUERY,
-  ): RequestParams {
+  getRequestParams(page: number, query: string = QUERY): RequestParams {
     const dateParam = this.getDateParam();
 
     const params: RequestParams = {
       apiKey: env.NEWS_API_KEY,
+      pageSize: PAGE_SIZE,
       from: dateParam,
       to: dateParam,
-      pageSize,
       q: query,
       page,
     };
@@ -101,20 +98,26 @@ class NewsAPI extends RESTDataSource implements INewsAPI {
     return params;
   }
 
-  async getAllArticles(page: number): Promise<Article[]> {
+  async getAllArticles(page: number): Promise<Articles> {
     const params = this.getRequestParams(page);
 
     const { status, articles } = await this.get(ENDPOINT, params);
 
     if (status !== STATUS_OK) {
-      return [];
+      return {
+        hasMore: false,
+        items: [],
+      };
     }
 
     const result = articles
       .filter((article: APIOutput) => this.validateAPIOutput(article))
       .map((article: APIOutput) => this.parseArticle(article));
 
-    return result;
+    return {
+      hasMore: PAGE_SIZE * page < MAX_ITEMS_RETURNED,
+      items: result,
+    };
   }
 }
 
