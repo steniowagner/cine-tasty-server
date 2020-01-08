@@ -1,4 +1,4 @@
-export const articleWithNullField = {
+ export const articleWithNullField = {
   publishedAt: null,
   urlToImage: 'urlToImage',
   source: {

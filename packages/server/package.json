@@ -9,17 +9,27 @@
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "prettier '**/*.ts' --write",
-    "test": "jest",
-    "test:coverage": "jest --coverage --watchAll=false"
+    "test": "jest --testPathIgnorePatterns=\"/*.stub.js\"",
+    "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.js\""
   },
   "lint-staged": {
     "**/*.+(ts|json|md)": [
       "npm run lint:fix",
-      "jest --findRelatedTests",
+      "npm run test",
       "git add"
     ]
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/src/config/",
+      "!<rootDir>/__tests__/**/*.stub.js"
+    ],
+    "displayName": {
+      "name": "SERVER",
+      "color": "blue"
+    },
     "coverageThreshold": {
       "global": {
         "statements": 100,

@@ -3,7 +3,6 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import env from '../../config/environment';
 import { ArticleQueryResult, Article, Language } from '../../lib/types';
 
-const MAX_ITEMS_RETURNED = 100; // max items returned for a specific query under the developer plan (https://newsapi.org/pricing).
 const BASE_URL = 'http://newsapi.org/v2';
 const ENDPOINT = 'everything';
 const STATUS_OK = 'ok';
@@ -136,7 +135,7 @@ class NewsAPI extends RESTDataSource implements INewsAPI {
       .map((article: APIOutput) => this.parseArticle(article));
 
     return {
-      hasMore: PAGE_SIZE * page < MAX_ITEMS_RETURNED,
+      hasMore: articles.length === PAGE_SIZE,
       items: result,
     };
   }

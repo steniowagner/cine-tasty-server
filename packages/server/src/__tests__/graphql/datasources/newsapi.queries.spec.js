@@ -1,7 +1,7 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import { rawArticleWithId, articleWithId } from './fixtures/getAllArticlesStub';
+import { rawArticleWithId, articleWithId } from './fixtures/getAllArticles.stub';
 import NewsAPI from '../../../graphql/datasources/NewsAPI';
 import resolvers from '../../../graphql/resolvers';
 import typeDefs from '../../../graphql/typeDefs';
@@ -100,7 +100,7 @@ describe('[Queries.NewsAPI]', () => {
     newsAPI.get = jest.fn(() => ({
       variables: { page: 1 },
       status: 'ok',
-      articles: Array(100).fill(rawArticleWithId),
+      articles: Array(12).fill(rawArticleWithId),
     }));
 
     const { query } = createTestClient(server);
@@ -119,14 +119,14 @@ describe('[Queries.NewsAPI]', () => {
     newsAPI.get = jest.fn(() => ({
       variables: { page: 1 },
       status: 'ok',
-      articles: Array(100).fill(rawArticleWithId),
+      articles: Array(11).fill(rawArticleWithId),
     }));
 
     const { query } = createTestClient(server);
 
     const result = await query({
       query: GET_ARTICLES,
-      variables: { page: 9 },
+      variables: { page: 1 },
     });
 
     expect(result.data.articles.hasMore).toEqual(false);
