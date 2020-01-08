@@ -1,6 +1,23 @@
 import { gql } from 'apollo-server';
 
 export default gql`
+  enum Language {
+    AR
+    DE
+    EN
+    ES
+    FR
+    HE
+    IT
+    NL
+    NO
+    PT
+    RU
+    SE
+    UD
+    ZH
+  }
+
   type Article {
     publishedAt: String!
     source: String!
@@ -11,12 +28,12 @@ export default gql`
     id: ID!
   }
 
-  type Articles {
+  type ArticleQueryResult {
     items: [Article!]!
     hasMore: Boolean!
   }
 
   extend type Query {
-    articles(page: Int!): Articles!
+    articles(page: Int!, language: Language): ArticleQueryResult!
   }
 `;

@@ -23,8 +23,8 @@ export type Article = {
   id: Scalars['ID'],
 };
 
-export type Articles = {
-   __typename?: 'Articles',
+export type ArticleQueryResult = {
+   __typename?: 'ArticleQueryResult',
   items: Array<Article>,
   hasMore: Scalars['Boolean'],
 };
@@ -34,15 +34,33 @@ export enum CacheControlScope {
   Private = 'PRIVATE'
 }
 
+export enum Language {
+  Ar = 'AR',
+  De = 'DE',
+  En = 'EN',
+  Es = 'ES',
+  Fr = 'FR',
+  He = 'HE',
+  It = 'IT',
+  Nl = 'NL',
+  No = 'NO',
+  Pt = 'PT',
+  Ru = 'RU',
+  Se = 'SE',
+  Ud = 'UD',
+  Zh = 'ZH'
+}
+
 export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['String']>,
-  articles: Articles,
+  articles: ArticleQueryResult,
 };
 
 
 export type QueryArticlesArgs = {
-  page: Scalars['Int']
+  page: Scalars['Int'],
+  language?: Maybe<Language>
 };
 
 
@@ -121,7 +139,8 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
-  Articles: ResolverTypeWrapper<Articles>,
+  Language: Language,
+  ArticleQueryResult: ResolverTypeWrapper<ArticleQueryResult>,
   Article: ResolverTypeWrapper<Article>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
@@ -134,7 +153,8 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {},
   String: Scalars['String'],
   Int: Scalars['Int'],
-  Articles: Articles,
+  Language: Language,
+  ArticleQueryResult: ArticleQueryResult,
   Article: Article,
   ID: Scalars['ID'],
   Boolean: Scalars['Boolean'],
@@ -155,14 +175,14 @@ export type ArticleResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
 }>;
 
-export type ArticlesResolvers<ContextType = any, ParentType extends ResolversParentTypes['Articles'] = ResolversParentTypes['Articles']> = ResolversObject<{
+export type ArticleQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['ArticleQueryResult'] = ResolversParentTypes['ArticleQueryResult']> = ResolversObject<{
   items?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>,
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  articles?: Resolver<ResolversTypes['Articles'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
+  articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -171,7 +191,7 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Article?: ArticleResolvers<ContextType>,
-  Articles?: ArticlesResolvers<ContextType>,
+  ArticleQueryResult?: ArticleQueryResultResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   Upload?: GraphQLScalarType,
 }>;

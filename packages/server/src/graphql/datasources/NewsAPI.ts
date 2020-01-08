@@ -1,7 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import env from '../../config/environment';
-import { Articles, Article } from '../../lib/types';
+import { ArticleQueryResult, Article, Language } from '../../lib/types';
 
 const MAX_ITEMS_RETURNED = 100; // max items returned for a specific query under the developer plan (https://newsapi.org/pricing).
 const BASE_URL = 'http://newsapi.org/v2';
@@ -32,8 +32,15 @@ type RequestParams = {
 };
 
 export interface INewsAPI {
-  getRequestParams: (page: number, query?: string) => RequestParams;
-  getAllArticles: (page: number) => Promise<Articles>;
+  getRequestParams: (
+    page: number,
+    language?: Language | null,
+    query?: string,
+  ) => RequestParams;
+  getAllArticles: (
+    page: number,
+    language?: Language | null,
+  ) => Promise<ArticleQueryResult>;
   validateAPIOutput: (output: APIOutput) => boolean;
   parseArticle: (apiOutput: APIOutput) => Article;
   getDateParam: () => string;
@@ -83,10 +90,14 @@ class NewsAPI extends RESTDataSource implements INewsAPI {
     return Object.entries(output).every(([, value]) => !!value);
   }
 
-  getRequestParams(page: number, query: string = QUERY): RequestParams {
+  getRequestParams(
+    page: number,
+    language?: Language | null,
+    query: string = QUERY,
+  ): RequestParams & { language?: string | null } {
     const dateParam = this.getDateParam();
 
-    const params: RequestParams = {
+    const params = {
       apiKey: env.NEWS_API_KEY,
       pageSize: PAGE_SIZE,
       from: dateParam,
@@ -95,11 +106,21 @@ class NewsAPI extends RESTDataSource implements INewsAPI {
       page,
     };
 
+    if (language && typeof language === 'string') {
+      return {
+        ...params,
+        language: language.toLowerCase(),
+      };
+    }
+
     return params;
   }
 
-  async getAllArticles(page: number): Promise<Articles> {
-    const params = this.getRequestParams(page);
+  async getAllArticles(
+    page: number,
+    language?: Language | null,
+  ): Promise<ArticleQueryResult> {
+    const params = this.getRequestParams(page, language);
 
     const { status, articles } = await this.get(ENDPOINT, params);
 

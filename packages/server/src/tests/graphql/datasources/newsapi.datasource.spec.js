@@ -41,7 +41,7 @@ describe('[NewsAPI.validateAPIOutput]', () => {
 });
 
 describe('[NewsAPI.getRequestParams]', () => {
-  it('should return the request params correctly', () => {
+  it('should return the request params correctly when no language is specified', () => {
     const params = {
       apiKey: env.NEWS_API_KEY,
       pageSize: 12,
@@ -52,6 +52,20 @@ describe('[NewsAPI.getRequestParams]', () => {
     };
 
     expect(newsAPI.getRequestParams(params.page)).toEqual(params);
+  });
+
+  it('should return the request params correctly when a language is specified', () => {
+    const params = {
+      apiKey: env.NEWS_API_KEY,
+      from: getDataFormated(),
+      to: getDataFormated(),
+      pageSize: 12,
+      language: 'pt',
+      q: 'cinema',
+      page: 1,
+    };
+
+    expect(newsAPI.getRequestParams(params.page, 'PT')).toEqual(params);
   });
 });
 

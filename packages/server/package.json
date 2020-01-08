@@ -9,7 +9,8 @@
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "prettier '**/*.ts' --write",
-    "test": "jest"
+    "test": "jest",
+    "test:coverage": "jest --coverage --watchAll=false"
   },
   "lint-staged": {
     "**/*.+(ts|json|md)": [
