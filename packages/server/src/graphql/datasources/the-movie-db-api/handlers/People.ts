@@ -1,3 +1,5 @@
+import { getFormatedLanguage, getGenres } from '../helpers';
+import { MediaGenre } from '../../../../types';
 import {
   PeopleQueryResult,
   Person,
@@ -21,7 +23,8 @@ interface RawKnownFor {
   genre_ids: number[];
   vote_count: number;
   video: boolean;
-  title: string;
+  title?: string;
+  name?: string;
   id: number;
 }
 
@@ -56,34 +59,39 @@ interface IPeople {
     page: number,
     language?: Iso6391Language | null,
   ) => Promise<PeopleQueryResult>;
+  tvShowGenres: MediaGenre[];
+  movieGenres: MediaGenre[];
   get: GetRequest;
 }
 
 class People implements IPeople {
+  tvShowGenres: MediaGenre[] = [];
+  movieGenres: MediaGenre[] = [];
   get: GetRequest;
 
-  constructor(execGetRequest: GetRequest) {
+  constructor(
+    execGetRequest: GetRequest,
+    tvShowGenres: MediaGenre[],
+    movieGenres: MediaGenre[],
+  ) {
+    this.tvShowGenres = tvShowGenres;
+    this.movieGenres = movieGenres;
     this.get = execGetRequest;
-  }
-
-  getFormatedLanguage(language?: Iso6391Language | null): string {
-    if (!language) {
-      return 'en-us';
-    }
-
-    if (language.length === 4) {
-      return `${language[0]}${language[1]}-${language[2]}${language[3]}`.toLowerCase();
-    }
-
-    return language.toLowerCase();
   }
 
   parseResult(rawPerson: RawPerson): Person {
     const getKnowForFieldValue = (rawKnownFor: RawKnownFor[]): KnownFor[] => {
       return rawKnownFor.map(
         (item: RawKnownFor): KnownFor => ({
-          originalTitle: item.original_title || item.original_name || '',
+          originalTitle: item.original_title || item.original_name,
           originalLanguage: item.original_language,
+          genres: getGenres({
+            tvShowGenres: this.tvShowGenres,
+            movieGenres: this.movieGenres,
+            mediaTypes: item.media_type,
+            genresIds: item.genre_ids,
+          }),
+          title: item.title || item.name,
           backdropImage: item.backdrop_path,
           releaseDate: item.release_date,
           posterImage: item.poster_path,
@@ -91,9 +99,7 @@ class People implements IPeople {
           mediaType: item.media_type,
           isAdult: item.adult,
           overview: item.overview,
-          genreIds: item.genre_ids,
           voteCount: item.vote_count,
-          title: item.title,
           id: `${item.id}`,
         }),
       );
@@ -116,7 +122,7 @@ class People implements IPeople {
     language?: Iso6391Language | null,
   ): Promise<PeopleQueryResult> {
     const { total_pages, results } = await this.get(POPULAR_PERSON_ENDPOINT, {
-      language: this.getFormatedLanguage(language),
+      language: getFormatedLanguage(language),
       page,
     });
 

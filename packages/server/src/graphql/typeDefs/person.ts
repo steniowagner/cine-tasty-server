@@ -2,30 +2,30 @@ import { gql } from 'apollo-server';
 
 export default gql`
   type KnownFor {
-    originalLanguage: String!
-    backdropImage: String!
-    originalTitle: String!
-    releaseDate: String!
-    posterImage: String!
-    voteAverage: Float!
-    mediaType: String!
-    isAdult: Boolean!
-    overview: String!
-    genreIds: [Int!]!
-    voteCount: Int!
-    title: String!
-    id: ID!
+    originalLanguage: String
+    backdropImage: String
+    originalTitle: String
+    releaseDate: String
+    posterImage: String
+    voteAverage: Float
+    mediaType: String
+    isAdult: Boolean
+    overview: String
+    genres: [String!]!
+    voteCount: Int
+    title: String
+    id: ID
   }
 
   type Person {
-    knownForDepartment: String!
+    knownForDepartment: String
     knownFor: [KnownFor!]!
-    profileImage: String!
-    popularity: Float!
-    adult: Boolean!
-    name: String!
-    gender: Int!
-    id: ID!
+    profileImage: String
+    popularity: Float
+    adult: Boolean
+    name: String
+    gender: Int
+    id: ID
   }
 
   type PeopleQueryResult {

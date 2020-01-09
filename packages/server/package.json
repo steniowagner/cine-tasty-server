@@ -24,7 +24,7 @@
       "src/**/*.ts",
       "!src/app.ts",
       "!<rootDir>/node_modules/",
-      "!<rootDir>/src/config/",
+      "!<rootDir>/src/config/**/*.ts",
       "!<rootDir>/__tests__/**/*.stub.js"
     ],
     "displayName": {

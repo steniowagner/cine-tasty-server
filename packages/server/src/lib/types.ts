@@ -256,19 +256,19 @@ export enum Iso6391Language {
 
 export type KnownFor = {
    __typename?: 'KnownFor',
-  originalLanguage: Scalars['String'],
-  backdropImage: Scalars['String'],
-  originalTitle: Scalars['String'],
-  releaseDate: Scalars['String'],
-  posterImage: Scalars['String'],
-  voteAverage: Scalars['Float'],
-  mediaType: Scalars['String'],
-  isAdult: Scalars['Boolean'],
-  overview: Scalars['String'],
-  genreIds: Array<Scalars['Int']>,
-  voteCount: Scalars['Int'],
-  title: Scalars['String'],
-  id: Scalars['ID'],
+  originalLanguage?: Maybe<Scalars['String']>,
+  backdropImage?: Maybe<Scalars['String']>,
+  originalTitle?: Maybe<Scalars['String']>,
+  releaseDate?: Maybe<Scalars['String']>,
+  posterImage?: Maybe<Scalars['String']>,
+  voteAverage?: Maybe<Scalars['Float']>,
+  mediaType?: Maybe<Scalars['String']>,
+  isAdult?: Maybe<Scalars['Boolean']>,
+  overview?: Maybe<Scalars['String']>,
+  genres: Array<Scalars['String']>,
+  voteCount?: Maybe<Scalars['Int']>,
+  title?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['ID']>,
 };
 
 export enum Language {
@@ -296,14 +296,14 @@ export type PeopleQueryResult = {
 
 export type Person = {
    __typename?: 'Person',
-  knownForDepartment: Scalars['String'],
+  knownForDepartment?: Maybe<Scalars['String']>,
   knownFor: Array<KnownFor>,
-  profileImage: Scalars['String'],
-  popularity: Scalars['Float'],
-  adult: Scalars['Boolean'],
-  name: Scalars['String'],
-  gender: Scalars['Int'],
-  id: Scalars['ID'],
+  profileImage?: Maybe<Scalars['String']>,
+  popularity?: Maybe<Scalars['Float']>,
+  adult?: Maybe<Scalars['Boolean']>,
+  name?: Maybe<Scalars['String']>,
+  gender?: Maybe<Scalars['Int']>,
+  id?: Maybe<Scalars['ID']>,
 };
 
 export type Query = {
@@ -311,6 +311,7 @@ export type Query = {
   _?: Maybe<Scalars['String']>,
   articles: ArticleQueryResult,
   people: PeopleQueryResult,
+  knownFor: Array<KnownFor>,
 };
 
 
@@ -453,19 +454,19 @@ export type ArticleQueryResultResolvers<ContextType = any, ParentType extends Re
 }>;
 
 export type KnownForResolvers<ContextType = any, ParentType extends ResolversParentTypes['KnownFor'] = ResolversParentTypes['KnownFor']> = ResolversObject<{
-  originalLanguage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  backdropImage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  originalTitle?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  releaseDate?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  posterImage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  voteAverage?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  mediaType?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  isAdult?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  overview?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  genreIds?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>,
-  voteCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  backdropImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  releaseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  posterImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  isAdult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
 }>;
 
 export type PeopleQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['PeopleQueryResult'] = ResolversParentTypes['PeopleQueryResult']> = ResolversObject<{
@@ -474,20 +475,21 @@ export type PeopleQueryResultResolvers<ContextType = any, ParentType extends Res
 }>;
 
 export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = ResolversObject<{
-  knownForDepartment?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  knownForDepartment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   knownFor?: Resolver<Array<ResolversTypes['KnownFor']>, ParentType, ContextType>,
-  profileImage?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  popularity?: Resolver<ResolversTypes['Float'], ParentType, ContextType>,
-  adult?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
-  gender?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>,
+  profileImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
+  knownFor?: Resolver<Array<ResolversTypes['KnownFor']>, ParentType, ContextType>,
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {

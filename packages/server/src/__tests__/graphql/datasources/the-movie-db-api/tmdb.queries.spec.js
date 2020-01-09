@@ -21,7 +21,7 @@ const GET_PEOPLE = gql`
           mediaType
           isAdult
           overview
-          genreIds
+          genres
           voteCount
           title
           id
@@ -48,6 +48,27 @@ const makeTestServer = () => {
       tmdb: tmdbAPI,
     }),
   });
+
+  tmdbAPI.genres = {
+    tvShow: [{
+      id: 16,
+      name: 'Animation'
+    },
+    {
+      id: 35,
+      name: 'Comedy'
+    }],
+    movie: [
+      {
+        id: 28,
+        name: 'Action'
+      },
+      {
+        id: 12,
+        name: 'Adventure'
+      },
+    ]
+  };
 
   return { server, tmdbAPI };
 };
