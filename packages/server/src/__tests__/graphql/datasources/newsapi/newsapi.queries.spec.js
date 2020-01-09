@@ -2,9 +2,9 @@ import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
 import { rawArticleWithId, articleWithId } from './fixtures/getAllArticles.stub';
-import NewsAPI from '../../../graphql/datasources/NewsAPI';
-import resolvers from '../../../graphql/resolvers';
-import typeDefs from '../../../graphql/typeDefs';
+import NewsAPI from '../../../../graphql/datasources/NewsAPI';
+import resolvers from '../../../../graphql/resolvers';
+import typeDefs from '../../../../graphql/typeDefs';
 
 const GET_ARTICLES = gql`
   query GetArticles($page: Int!) {
@@ -48,12 +48,12 @@ describe('[Queries.NewsAPI]', () => {
 
     const { query } = createTestClient(server);
 
-    const result = await query({
+    const { data } = await query({
       query: GET_ARTICLES,
       variables: { page: 1 },
     });
 
-    expect(result.data.articles.items).toEqual([articleWithId]);
+    expect(data.articles.items).toEqual([articleWithId]);
   });
 
   it("returns an empty array when the status isn't ok", async () => {

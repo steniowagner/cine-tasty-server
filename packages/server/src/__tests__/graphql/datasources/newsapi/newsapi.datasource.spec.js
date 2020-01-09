@@ -1,5 +1,5 @@
-import NewsAPI from '../../../graphql/datasources/NewsAPI';
-import env from '../../../config/environment';
+import NewsAPI from '../../../../graphql/datasources/NewsAPI';
+import env from '../../../../config/environment';
 
 import {
   articleWithFalsyField,
