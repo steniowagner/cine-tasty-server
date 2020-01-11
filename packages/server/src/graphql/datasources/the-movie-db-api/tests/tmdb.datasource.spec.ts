@@ -1,4 +1,4 @@
-import TMDBAPI from '../../../../graphql/datasources/the-movie-db-api';
+import TMDBAPI from '..';
 import env from '../../../../config/environment';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
@@ -30,7 +30,7 @@ describe('[TMDBAPI.datasource.getMediaGenres]', () => {
     expect(datasource.get).toHaveBeenLastCalledWith(GENRE_MOVIE_ENDPOINT, params);
     expect(datasource.get.mock.calls.length).toBe(2);
     expect(result).toEqual({
-      tvShow: [{ id: 1, name: 'Genre' }],
+      tv: [{ id: 1, name: 'Genre' }],
       movie: [{ id: 1, name: 'Genre' }],
     });
   });
@@ -53,7 +53,7 @@ describe('[TMDBAPI.datasource.getMediaGenres]', () => {
     expect(datasource.get).toHaveBeenLastCalledWith(GENRE_MOVIE_ENDPOINT, params);
     expect(datasource.get.mock.calls.length).toBe(2);
     expect(result).toEqual({
-      tvShow: [{ id: 1, name: 'Genre' }],
+      tv: [{ id: 1, name: 'Genre' }],
       movie: [{ id: 1, name: 'Genre' }],
     });
   });

@@ -1,4 +1,4 @@
-import { MediaGenre } from '../../../../types';
+import { MediaGenre } from '../../../../../types';
 
 const MOVIE_MEDIA_TYPE = 'movie';
 const TV_MEDIA_TYPE = 'tv';

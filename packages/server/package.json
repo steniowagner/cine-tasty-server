@@ -9,39 +9,13 @@
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "prettier '**/*.ts' --write",
-    "test": "jest --testPathIgnorePatterns=\"/*.stub.js\"",
-    "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.js\""
+    "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
+    "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
   },
   "lint-staged": {
     "**/*.+(ts|json|md)": [
       "npm run lint:fix",
-      "npm run test",
       "git add"
-    ]
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!src/app.ts",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/src/config/**/*.ts",
-      "!<rootDir>/__tests__/**/*.stub.js"
-    ],
-    "displayName": {
-      "name": "SERVER",
-      "color": "blue"
-    },
-    "coverageThreshold": {
-      "global": {
-        "statements": 100,
-        "functions": 100,
-        "branches": 80,
-        "lines": 100
-      }
-    },
-    "coverageReporters": [
-      "html",
-      "text"
     ]
   },
   "keywords": [],
@@ -55,6 +29,7 @@
     "@graphql-codegen/introspection": "1.10.0",
     "@graphql-codegen/typescript": "1.10.0",
     "@graphql-codegen/typescript-resolvers": "^1.10.0",
+    "@types/jest": "^24.0.25",
     "@types/node": "^13.1.4",
     "@types/node-fetch": "^2.5.4",
     "@types/nodemon": "^1.19.0",
@@ -72,6 +47,7 @@
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",
     "prettier-eslint-cli": "^5.0.0",
+    "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   },

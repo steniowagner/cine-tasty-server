@@ -1,42 +1,48 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import { PeopleQueryResult, Iso6391Language } from '../../../lib/types';
+import { PeopleQueryResult, Iso6391Language, Person } from '../../../lib/types';
+import PeopleHandler, { IPeopleHandler } from './handlers/people';
 import { getFormatedLanguage } from './helpers';
-import PeopleHandler from './handlers/People';
 import env from '../../../config/environment';
-import { MediaGenre } from '../../../types';
+import { Genres } from '../../../types';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';
 const BASE_URL = 'http://api.themoviedb.org/3';
 
-type Genres = {
-  tvShow: MediaGenre[];
-  movie: MediaGenre[];
-};
-
 export interface ITheMovieDBAPI {
-  getMediaGenres(language?: Iso6391Language | null): Promise<Genres>;
+  getMediaGenres(language?: Iso6391Language | null): Promise<Genres | null>;
   getPeople: (
     page: number,
     language?: Iso6391Language | null,
   ) => Promise<PeopleQueryResult>;
+  getPerson: (id: number, language?: Iso6391Language | null) => Promise<Person | null>;
+  peopleHandler: IPeopleHandler;
   genres: Genres;
 }
 
 class TheMovieDBAPI extends RESTDataSource implements ITheMovieDBAPI {
+  peopleHandler: IPeopleHandler;
   genres: Genres = {
-    tvShow: [],
     movie: [],
+    tv: [],
   };
 
   constructor() {
     super();
+    this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.baseURL = BASE_URL;
   }
 
+  execGetRequest = async <P, R>(endpoint: string, params: P): Promise<R> => {
+    return this.get(endpoint, {
+      ...params,
+      api_key: env.THE_MOVIE_DB_API_KEY,
+    });
+  };
+
   async getMediaGenres(language?: Iso6391Language | null): Promise<Genres> {
-    const hasGenres = this.genres.tvShow.length && this.genres.movie.length;
+    const hasGenres = this.genres.tv.length && this.genres.movie.length;
 
     if (!hasGenres) {
       const params = {
@@ -50,30 +56,27 @@ class TheMovieDBAPI extends RESTDataSource implements ITheMovieDBAPI {
       ]);
 
       this.genres = {
-        tvShow: tvShowGenres.genres,
         movie: movieGenres.genres,
+        tv: tvShowGenres.genres,
       };
     }
 
     return this.genres;
   }
 
-  execGetRequest = async <P, R>(endpoint: string, params: P): Promise<R> => {
-    return this.get(endpoint, {
-      ...params,
-      api_key: env.THE_MOVIE_DB_API_KEY,
-    });
-  };
-
   async getPeople(
     page: number,
     language?: Iso6391Language | null,
   ): Promise<PeopleQueryResult> {
-    const { tvShow, movie } = await this.getMediaGenres(language);
+    const genres = await this.getMediaGenres(language);
 
-    const peopleHandler = new PeopleHandler(this.execGetRequest, tvShow, movie);
+    return this.peopleHandler.getPopularPeople(page, genres, language);
+  }
 
-    return peopleHandler.getPopularPeople(page, language);
+  async getPerson(id: number, language?: Iso6391Language | null): Promise<Person | null> {
+    const genres = await this.getMediaGenres(language);
+
+    return this.peopleHandler.getPerson(id, genres, language);
   }
 }
 

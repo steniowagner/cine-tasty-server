@@ -1,5 +1,5 @@
 import TheMovieDBAPI, { ITheMovieDBAPI } from './the-movie-db-api';
-import NewsAPI, { INewsAPI } from './NewsAPI';
+import NewsAPI, { INewsAPI } from './news-api';
 
 export interface Datasource {
   dataSources: {

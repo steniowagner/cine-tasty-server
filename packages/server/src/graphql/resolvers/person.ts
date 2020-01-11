@@ -1,4 +1,10 @@
-import { QueryResolvers, QueryPeopleArgs, PeopleQueryResult } from '../../lib/types';
+import {
+  QueryResolvers,
+  QueryPeopleArgs,
+  PeopleQueryResult,
+  QueryPersonArgs,
+  Person,
+} from '../../lib/types';
 import { Datasource } from '../datasources';
 
 const resolvers: QueryResolvers = {
@@ -8,6 +14,11 @@ const resolvers: QueryResolvers = {
       { page, language }: QueryPeopleArgs,
       { dataSources }: Datasource,
     ): Promise<PeopleQueryResult> => dataSources.tmdb.getPeople(page, language),
+    person: (
+      _: {},
+      { id, language }: QueryPersonArgs,
+      { dataSources }: Datasource,
+    ): Promise<Person | null> => dataSources.tmdb.getPerson(id, language),
   },
 };
 

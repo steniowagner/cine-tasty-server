@@ -1,4 +1,5 @@
-import { getFormatedLanguage } from '../../../../../graphql/datasources/the-movie-db-api/helpers';
+import { Iso6391Language } from '../../../../../lib/types';
+import getFormatedLanguage from '.';
 
 describe('[getFormatedLanguage]', () => {
   it('should return en-us when no language is provided', () => {
@@ -14,10 +15,10 @@ describe('[getFormatedLanguage]', () => {
   });
 
   it("should format the language in lower-case and separate it in two groups of two characters separated by a '-' when the language size is 4", () => {
-    expect(getFormatedLanguage('PTBR')).toEqual('pt-br');
+    expect(getFormatedLanguage(Iso6391Language.Ptbr)).toEqual('pt-br');
   });
 
-  it("should format the language in lower-case when the language size is 2", () => {
-    expect(getFormatedLanguage('NL')).toEqual('nl');
+  it('should format the language in lower-case when the language size is 2', () => {
+    expect(getFormatedLanguage(Iso6391Language.Nl)).toEqual('nl');
   });
 });

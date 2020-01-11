@@ -19,13 +19,15 @@ export default gql`
   }
 
   type Article {
-    publishedAt: String!
-    source: String!
-    author: String!
-    title: String!
-    image: String!
-    url: String!
-    id: ID!
+    publishedAt: String
+    description: String
+    content: String
+    source: String
+    author: String
+    title: String
+    image: String
+    url: String
+    id: ID
   }
 
   type ArticleQueryResult {

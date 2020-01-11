@@ -1,4 +1,7 @@
-const rawKnowForWithOriginalTitle = {
+import { KnownFor, PeopleQueryItem } from '../../lib/types';
+import { RawKnownFor, RawPerson } from '../../types';
+
+const rawKnowForWithOriginalTitle: RawKnownFor = {
   original_title: 'original_title',
   original_language: 'original_language',
   backdrop_path: 'backdrop_path',
@@ -7,14 +10,15 @@ const rawKnowForWithOriginalTitle = {
   vote_average: 1.2,
   media_type: 'tv',
   adult: true,
+  video: false,
   overview: 'overview',
   genre_ids: [16, 35],
   vote_count: 12,
   title: 'title',
-  id: 'id',
+  id: 1,
 };
 
-const knowForWithOriginalTitle = {
+const knowForWithOriginalTitle: KnownFor = {
   originalTitle: 'original_title',
   originalLanguage: 'original_language',
   backdropImage: 'backdrop_path',
@@ -27,10 +31,10 @@ const knowForWithOriginalTitle = {
   genres: ['Animation', 'Comedy'],
   voteCount: 12,
   title: 'title',
-  id: 'id',
+  id: '1',
 };
 
-const rawKnowForWithOriginalName = {
+const rawKnowForWithOriginalName: RawKnownFor = {
   original_name: 'original_name',
   original_language: 'original_language',
   backdrop_path: 'backdrop_path',
@@ -41,13 +45,13 @@ const rawKnowForWithOriginalName = {
   adult: true,
   overview: 'overview',
   genre_ids: [28, 12],
+  video: false,
   vote_count: 12,
   name: 'name',
-  id: 'id',
+  id: 2,
 };
 
-
-const knowForWithOriginalName = {
+const knowForWithOriginalName: KnownFor = {
   originalTitle: 'original_name',
   originalLanguage: 'original_language',
   backdropImage: 'backdrop_path',
@@ -60,10 +64,10 @@ const knowForWithOriginalName = {
   genres: ['Action', 'Adventure'],
   voteCount: 12,
   title: 'name',
-  id: 'id',
+  id: '2',
 };
 
-export const rawPerson = {
+export const rawPerson: RawPerson = {
   known_for_department: 'known_for_department',
   profile_path: 'profile_path',
   known_for: [rawKnowForWithOriginalName, rawKnowForWithOriginalTitle],
@@ -71,10 +75,10 @@ export const rawPerson = {
   adult: true,
   name: 'name',
   gender: 1,
-  id: 'id',
+  id: 3,
 };
 
-export const person = {
+export const person: PeopleQueryItem = {
   knownForDepartment: 'known_for_department',
   profileImage: 'profile_path',
   knownFor: [knowForWithOriginalName, knowForWithOriginalTitle],
@@ -82,5 +86,5 @@ export const person = {
   adult: true,
   name: 'name',
   gender: 1,
-  id: 'id',
-}
+  id: '3',
+};

@@ -1,10 +1,10 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import TheMovieDBAPI from '../../../../graphql/datasources/the-movie-db-api';
-import { rawPerson, person } from './fixtures/parseResult.stub';
-import resolvers from '../../../../graphql/resolvers';
-import typeDefs from '../../../../graphql/typeDefs';
+import { rawPerson, person } from '../../../../__tests__/mocks/people.stub';
+import resolvers from '../../../resolvers';
+import typeDefs from '../../../typeDefs';
+import TheMovieDBAPI from '..';
 
 const GET_PEOPLE = gql`
   query GetPeople($page: Int!) {
@@ -33,7 +33,7 @@ const GET_PEOPLE = gql`
         gender
         id
       }
-		  hasMore
+      hasMore
     }
   }
 `;
@@ -50,24 +50,26 @@ const makeTestServer = () => {
   });
 
   tmdbAPI.genres = {
-    tvShow: [{
-      id: 16,
-      name: 'Animation'
-    },
-    {
-      id: 35,
-      name: 'Comedy'
-    }],
+    tv: [
+      {
+        id: 16,
+        name: 'Animation',
+      },
+      {
+        id: 35,
+        name: 'Comedy',
+      },
+    ],
     movie: [
       {
         id: 28,
-        name: 'Action'
+        name: 'Action',
       },
       {
         id: 12,
-        name: 'Adventure'
+        name: 'Adventure',
       },
-    ]
+    ],
   };
 
   return { server, tmdbAPI };
@@ -79,6 +81,7 @@ describe('[Queries.TheMovieDBAPI]', () => {
 
     tmdbAPI.get = jest.fn(() => ({
       results: [rawPerson],
+      total_pages: 2,
     }));
 
     const { query } = createTestClient(server);

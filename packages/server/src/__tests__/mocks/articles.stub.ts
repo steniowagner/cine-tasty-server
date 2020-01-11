@@ -1,19 +1,23 @@
- export const articleWithNullField = {
+import { GetArticlesResultItem } from '../../types';
+import { Article } from '../../lib/types';
+
+export const articleWithNullField: GetArticlesResultItem = {
   publishedAt: null,
   urlToImage: 'urlToImage',
+  content: 'content',
   source: {
     id: null,
     name: 'name',
   },
-  source: 'source',
   author: 'author',
   title: 'title',
   url: 'url',
 };
 
-export const articleWithFalsyField = {
+export const articleWithFalsyField: GetArticlesResultItem = {
   publishedAt: '',
   urlToImage: 'urlToImage',
+  content: 'content',
   source: {
     id: null,
     name: 'name',
@@ -23,21 +27,23 @@ export const articleWithFalsyField = {
   url: 'url',
 };
 
-export const rawArticleWithNullId = {
+export const rawArticleWithNullId: GetArticlesResultItem = {
   publishedAt: 'publishedAt',
   urlToImage: 'urlToImage',
   source: {
     id: null,
     name: 'name',
   },
+  content: 'content',
   author: 'author',
   title: 'title',
   url: 'url',
 };
 
-export const rawArticleWithId = {
+export const rawArticleWithId: GetArticlesResultItem = {
   publishedAt: 'publishedAt',
   urlToImage: 'urlToImage',
+  content: 'content',
   source: {
     id: 'id',
     name: 'name',
@@ -47,20 +53,22 @@ export const rawArticleWithId = {
   url: 'url',
 };
 
-export const articleWithURLId = {
+export const articleWithURLId: Article = {
   image: 'urlToImage',
   id: 'url',
   source: 'name',
+  content: 'content',
   publishedAt: 'publishedAt',
   author: 'author',
   title: 'title',
   url: 'url',
 };
 
-export const articleWithId = {
+export const articleWithId: Article = {
   image: 'urlToImage',
   id: 'id',
   source: 'name',
+  content: 'content',
   publishedAt: 'publishedAt',
   author: 'author',
   title: 'title',
