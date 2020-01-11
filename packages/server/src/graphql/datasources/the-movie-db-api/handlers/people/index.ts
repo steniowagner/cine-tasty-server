@@ -84,7 +84,7 @@ class PeopleHandler implements IPeopleHandler {
       language: getFormatedLanguage(language),
     };
 
-    const [details, { cast: castDetails }, images] = await Promise.all<
+    const [details, { cast }, images] = await Promise.all<
       GetPersonDetailsResult,
       GetPersonCastResult,
       GetPersonImagesResult
@@ -94,7 +94,11 @@ class PeopleHandler implements IPeopleHandler {
       this.get(`${PERSON_ENDPOINT}/${id}${IMAGES_ENDPOINT}`, params),
     ]);
 
-    const person = parsePersonQueryResult({ genres, details, castDetails, images });
+    if (details.success === false) {
+      return null;
+    }
+
+    const person = parsePersonQueryResult({ genres, details, cast, images });
 
     return person;
   }

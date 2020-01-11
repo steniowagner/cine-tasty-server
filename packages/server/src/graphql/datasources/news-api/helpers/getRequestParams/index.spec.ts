@@ -1,3 +1,4 @@
+import { Language } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
 import getDateFormated from '../getDateParam';
 import getRequestParams from '.';
@@ -27,6 +28,6 @@ describe('[getRequestParams]', () => {
       page: 1,
     };
 
-    expect(getRequestParams(params.page, 'PT')).toEqual(params);
+    expect(getRequestParams(params.page, Language.Pt)).toEqual(params);
   });
 });

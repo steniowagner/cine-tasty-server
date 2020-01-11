@@ -1,6 +1,6 @@
 module.exports = {
   roots: ['<rootDir>/src'],
-  testMatch: ['**/*.(spec|test).ts'],
+  testMatch: ['**/*.(spec|test).ts', '**/*.(spec|test).js'],
   testEnvironment: 'node',
   transform: {
     '^.+\\.ts$': 'ts-jest'
@@ -8,6 +8,7 @@ module.exports = {
   collectCoverageFrom: [
     "src/**/*.ts",
     "!src/app.ts",
+    "!src/graphql/datasources/index.ts",
     "!<rootDir>/node_modules/",
     "!<rootDir>/src/config/**/*.ts",
     "!<rootDir>/src/**/*.stub.ts"

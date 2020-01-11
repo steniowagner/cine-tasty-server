@@ -1,4 +1,5 @@
 import { KnownFor, PeopleQueryItem } from '../../lib/types';
+import { movieGenres, tvGenres } from './mediaGenres.stub';
 import { RawKnownFor, RawPerson } from '../../types';
 
 const rawKnowForWithOriginalTitle: RawKnownFor = {
@@ -12,7 +13,7 @@ const rawKnowForWithOriginalTitle: RawKnownFor = {
   adult: true,
   video: false,
   overview: 'overview',
-  genre_ids: [16, 35],
+  genre_ids: tvGenres.map(genre => genre.id),
   vote_count: 12,
   title: 'title',
   id: 1,
@@ -28,7 +29,7 @@ const knowForWithOriginalTitle: KnownFor = {
   mediaType: 'tv',
   isAdult: true,
   overview: 'overview',
-  genres: ['Animation', 'Comedy'],
+  genres: tvGenres.map(genre => genre.name),
   voteCount: 12,
   title: 'title',
   id: '1',
@@ -44,7 +45,7 @@ const rawKnowForWithOriginalName: RawKnownFor = {
   media_type: 'movie',
   adult: true,
   overview: 'overview',
-  genre_ids: [28, 12],
+  genre_ids: movieGenres.map(genre => genre.id),
   video: false,
   vote_count: 12,
   name: 'name',
@@ -61,7 +62,7 @@ const knowForWithOriginalName: KnownFor = {
   mediaType: 'movie',
   isAdult: true,
   overview: 'overview',
-  genres: ['Action', 'Adventure'],
+  genres: movieGenres.map(genre => genre.name),
   voteCount: 12,
   title: 'name',
   id: '2',

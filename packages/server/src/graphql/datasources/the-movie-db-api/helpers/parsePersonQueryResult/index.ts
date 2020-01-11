@@ -54,19 +54,14 @@ const parseCast = (cast: GetPersonCastResultType, genres: Genres): Cast => ({
 });
 
 interface Params {
-  castDetails: GetPersonCastResultType[];
+  cast: GetPersonCastResultType[];
   details: GetPersonDetailsResult;
   images: GetPersonImagesResult;
   genres: Genres;
 }
 
-const parsePersonQueryResult = ({
-  castDetails,
-  details,
-  genres,
-  images,
-}: Params): Person => {
-  const personCast = castDetails.map(castDetail => parseCast(castDetail, genres));
+const parsePersonQueryResult = ({ details, genres, images, cast }: Params): Person => {
+  const personCast = cast.map(castDetail => parseCast(castDetail, genres));
   const personDetails = parseDetails(details);
   const imagesGallery = parseImages(images);
 

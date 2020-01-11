@@ -1,6 +1,7 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
+import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
 import { rawPerson, person } from '../../../../__tests__/mocks/people.stub';
 import resolvers from '../../../resolvers';
 import typeDefs from '../../../typeDefs';
@@ -38,8 +39,26 @@ const GET_PEOPLE = gql`
   }
 `;
 
+const mockRestDataSourceGet = jest.fn();
+
+jest.mock('apollo-datasource-rest', () => {
+  class MockRESTDataSource {
+    baseUrl = '';
+    get = mockRestDataSourceGet;
+  }
+
+  return {
+    RESTDataSource: MockRESTDataSource,
+  };
+});
+
 const makeTestServer = () => {
   const tmdbAPI = new TheMovieDBAPI();
+
+  tmdbAPI.genres = {
+    movie: movieGenres,
+    tv: tvGenres,
+  };
 
   const server = new ApolloServer({
     typeDefs,
@@ -49,40 +68,21 @@ const makeTestServer = () => {
     }),
   });
 
-  tmdbAPI.genres = {
-    tv: [
-      {
-        id: 16,
-        name: 'Animation',
-      },
-      {
-        id: 35,
-        name: 'Comedy',
-      },
-    ],
-    movie: [
-      {
-        id: 28,
-        name: 'Action',
-      },
-      {
-        id: 12,
-        name: 'Adventure',
-      },
-    ],
-  };
-
-  return { server, tmdbAPI };
+  return server;
 };
 
-describe('[Queries.TheMovieDBAPI]', () => {
-  it('fetches an array of people from the TheMoviewDB API and parses the result correctly', async () => {
-    const { server, tmdbAPI } = makeTestServer();
+describe('[TheMovieDBAPI.Queries.People]', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
-    tmdbAPI.get = jest.fn(() => ({
+  it('fetches an array of people from the TheMoviewDB API and parses the result correctly', async () => {
+    mockRestDataSourceGet.mockResolvedValue({
       results: [rawPerson],
       total_pages: 2,
-    }));
+    });
+
+    const server = makeTestServer();
 
     const { query } = createTestClient(server);
 
@@ -91,16 +91,15 @@ describe('[Queries.TheMovieDBAPI]', () => {
       variables: { page: 1 },
     });
 
-    expect(data.people.items).toEqual([person]);
+    expect(data!.people.items).toEqual([person]);
   });
 
   it('returns the field hasMore as true when has more items to be paginated', async () => {
-    const { server, tmdbAPI } = makeTestServer();
-
-    tmdbAPI.get = jest.fn(() => ({
+    mockRestDataSourceGet.mockResolvedValue({
       results: [rawPerson, rawPerson],
       total_pages: 2,
-    }));
+    });
+    const server = makeTestServer();
 
     const { query } = createTestClient(server);
 
@@ -109,16 +108,16 @@ describe('[Queries.TheMovieDBAPI]', () => {
       variables: { page: 1 },
     });
 
-    expect(data.people.hasMore).toEqual(true);
+    expect(data!.people.hasMore).toEqual(true);
   });
 
   it('returns the field hasMore as false when has no more items to be paginated', async () => {
-    const { server, tmdbAPI } = makeTestServer();
-
-    tmdbAPI.get = jest.fn(() => ({
+    mockRestDataSourceGet.mockResolvedValue({
       results: [rawPerson, rawPerson],
       total_pages: 2,
-    }));
+    });
+
+    const server = makeTestServer();
 
     const { query } = createTestClient(server);
 
@@ -127,6 +126,6 @@ describe('[Queries.TheMovieDBAPI]', () => {
       variables: { page: 2 },
     });
 
-    expect(data.people.hasMore).toEqual(false);
+    expect(data!.people.hasMore).toEqual(false);
   });
 });

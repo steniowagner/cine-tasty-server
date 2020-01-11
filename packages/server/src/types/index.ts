@@ -39,6 +39,7 @@ export type Genres = {
 };
 
 export interface GetPersonDetailsResult {
+  success?: boolean;
   known_for_department: string;
   also_known_as: string[];
   place_of_birth?: string;
