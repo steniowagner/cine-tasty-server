@@ -1,10 +1,26 @@
-import {
-  GetPersonDetailsResult,
-  GetPersonImagesResult,
-  GetPersonCastResult,
-} from '../../types';
-import { Person } from '../../lib/types';
+import { GetPersonDetailsResult, GetPersonImagesResult, CastResult } from '../../types';
 import { movieGenres, tvGenres } from './mediaGenres.stub';
+
+export const images: GetPersonImagesResult = {
+  profiles: [
+    {
+      vote_average: 123,
+      aspect_ratio: 123.0033,
+      vote_count: 123,
+      file_path: '/123.jpg',
+      height: 123,
+      width: 123,
+    },
+    {
+      vote_average: 321,
+      aspect_ratio: 321.0033,
+      vote_count: 321,
+      file_path: '/321.png',
+      height: 321,
+      width: 321,
+    },
+  ],
+};
 
 export const details: GetPersonDetailsResult = {
   known_for_department: 'knownForDepartment',
@@ -21,28 +37,29 @@ export const details: GetPersonDetailsResult = {
   adult: true,
   name: 'myself',
   id: 123,
+  images,
 };
 
-export const castDetails: GetPersonCastResult = {
+export const castDetails: CastResult = {
   cast: [
     {
       original_language: 'pt-br',
-      original_title: 'original_title',
       backdrop_path: 'backdrop_path',
       poster_path: 'poster_path',
       vote_average: 123,
       media_type: 'tv',
       genre_ids: tvGenres.map(genre => genre.id),
-      release_date: '1994-02-21',
       vote_count: 12,
       popularity: 12.12,
       character: 'character',
       credit_id: '123',
       overview: 'overview',
-      adult: true,
-      video: false,
-      title: 'title',
       id: 123,
+      episode_count: 12,
+      origin_country: ['BR'],
+      original_name: 'original_name',
+      name: 'name',
+      first_air_date: 'first_air_date',
     },
     {
       original_language: 'pt-br',
@@ -66,29 +83,7 @@ export const castDetails: GetPersonCastResult = {
   ],
 };
 
-export const images: GetPersonImagesResult = {
-  id: 123,
-  profiles: [
-    {
-      vote_average: 123,
-      aspect_ratio: 123.0033,
-      vote_count: 123,
-      file_path: '/123.jpg',
-      height: 123,
-      width: 123,
-    },
-    {
-      vote_average: 321,
-      aspect_ratio: 321.0033,
-      vote_count: 321,
-      file_path: '/321.png',
-      height: 321,
-      width: 321,
-    },
-  ],
-};
-
-export const person: Person = {
+export const person = {
   knownForDepartment: 'knownForDepartment',
   imagesGallery: ['/123.jpg', '/321.png'],
   alsoKnownAs: ['aka1', 'aka2'],
@@ -102,31 +97,31 @@ export const person: Person = {
   cast: [
     {
       originalLanguage: 'pt-br',
-      originalTitle: 'original_title',
       backdropImage: 'backdrop_path',
-      releaseDate: '1994-02-21',
-      poster: 'poster_path',
+      posterImage: 'poster_path',
+      voteAverage: 123,
+      mediaType: 'tv',
       genres: tvGenres.map(genre => genre.name),
-      voteAvarage: 123,
+      voteCount: 12,
       popularity: 12.12,
       character: 'character',
-      mediaType: 'tv',
-      overview: 'overview',
-      voteCount: 12,
-      video: false,
-      adult: true,
-      title: 'title',
       creditId: '123',
+      overview: 'overview',
       id: 123,
+      episodeCount: 12,
+      originCountry: ['BR'],
+      originalName: 'original_name',
+      name: 'name',
+      firstAirDate: 'first_air_date',
     },
     {
       originalLanguage: 'pt-br',
       originalTitle: 'original_title',
       backdropImage: 'backdrop_path',
       releaseDate: '1994-02-21',
-      poster: 'poster_path',
+      posterImage: 'poster_path',
       genres: movieGenres.map(genre => genre.name),
-      voteAvarage: 123,
+      voteAverage: 123,
       popularity: 12.12,
       character: 'character',
       mediaType: 'movie',

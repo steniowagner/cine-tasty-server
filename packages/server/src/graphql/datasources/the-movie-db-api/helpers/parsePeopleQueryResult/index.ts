@@ -1,20 +1,23 @@
 import { PeopleQueryItem, KnownFor } from '../../../../../lib/types';
-import { RawKnownFor, RawPerson, Genres } from '../../../../../types';
+import { KnownForResult, BasePersonResponse, Genres } from '../../../../../types';
 import { getGenres } from '..';
 
-const parsePeopleResult = (rawPerson: RawPerson, genres: Genres): PeopleQueryItem => {
+const parsePeopleResult = (
+  personQueryResult: BasePersonResponse,
+  genres: Genres,
+): PeopleQueryItem => {
   const { movie, tv } = genres;
 
-  const getKnowForFieldValue = (rawKnownFor: RawKnownFor[]): KnownFor[] => {
-    return rawKnownFor.map(
-      (item: RawKnownFor): KnownFor => ({
+  const getKnowForFieldValue = (knownForResult: KnownForResult[]): KnownFor[] => {
+    return knownForResult.map(
+      (item: KnownForResult): KnownFor => ({
         originalTitle: item.original_title || item.original_name,
         originalLanguage: item.original_language,
         genres: getGenres({
           tvShowGenres: tv,
           movieGenres: movie,
-          mediaTypes: item.media_type,
-          genresIds: item.genre_ids,
+          mediaTypes: item.media_type || '',
+          genresIds: item.genre_ids || [],
         }),
         title: item.title || item.name,
         backdropImage: item.backdrop_path,
@@ -31,14 +34,14 @@ const parsePeopleResult = (rawPerson: RawPerson, genres: Genres): PeopleQueryIte
   };
 
   return {
-    knownForDepartment: rawPerson.known_for_department,
-    knownFor: getKnowForFieldValue(rawPerson.known_for),
-    profileImage: rawPerson.profile_path,
-    popularity: rawPerson.popularity,
-    adult: rawPerson.adult,
-    name: rawPerson.name,
-    gender: rawPerson.gender,
-    id: `${rawPerson.id}`,
+    knownForDepartment: personQueryResult.known_for_department,
+    knownFor: getKnowForFieldValue(personQueryResult.known_for || []),
+    profileImage: personQueryResult.profile_path,
+    popularity: personQueryResult.popularity,
+    adult: personQueryResult.adult,
+    name: personQueryResult.name,
+    gender: personQueryResult.gender,
+    id: `${personQueryResult.id}`,
   };
 };
 

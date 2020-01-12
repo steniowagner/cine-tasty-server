@@ -1,8 +1,8 @@
+import { KnownForResult, BasePersonResponse } from '../../types';
 import { KnownFor, PeopleQueryItem } from '../../lib/types';
 import { movieGenres, tvGenres } from './mediaGenres.stub';
-import { RawKnownFor, RawPerson } from '../../types';
 
-const rawKnowForWithOriginalTitle: RawKnownFor = {
+const rawKnowForWithOriginalTitle: KnownForResult = {
   original_title: 'original_title',
   original_language: 'original_language',
   backdrop_path: 'backdrop_path',
@@ -35,7 +35,7 @@ const knowForWithOriginalTitle: KnownFor = {
   id: '1',
 };
 
-const rawKnowForWithOriginalName: RawKnownFor = {
+const rawKnownForWithOriginalName: KnownForResult = {
   original_name: 'original_name',
   original_language: 'original_language',
   backdrop_path: 'backdrop_path',
@@ -52,7 +52,7 @@ const rawKnowForWithOriginalName: RawKnownFor = {
   id: 2,
 };
 
-const knowForWithOriginalName: KnownFor = {
+const knownForWithOriginalName: KnownFor = {
   originalTitle: 'original_name',
   originalLanguage: 'original_language',
   backdropImage: 'backdrop_path',
@@ -68,10 +68,10 @@ const knowForWithOriginalName: KnownFor = {
   id: '2',
 };
 
-export const rawPerson: RawPerson = {
+export const personQueryResult: BasePersonResponse = {
   known_for_department: 'known_for_department',
   profile_path: 'profile_path',
-  known_for: [rawKnowForWithOriginalName, rawKnowForWithOriginalTitle],
+  known_for: [rawKnownForWithOriginalName, rawKnowForWithOriginalTitle],
   popularity: 123,
   adult: true,
   name: 'name',
@@ -82,7 +82,7 @@ export const rawPerson: RawPerson = {
 export const person: PeopleQueryItem = {
   knownForDepartment: 'known_for_department',
   profileImage: 'profile_path',
-  knownFor: [knowForWithOriginalName, knowForWithOriginalTitle],
+  knownFor: [knownForWithOriginalName, knowForWithOriginalTitle],
   popularity: 123,
   adult: true,
   name: 'name',

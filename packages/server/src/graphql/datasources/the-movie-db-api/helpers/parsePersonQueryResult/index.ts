@@ -1,69 +1,47 @@
 import {
-  GetPersonCastResultType,
   GetPersonDetailsResult,
   GetPersonImagesResult,
   Genres,
+  CastResultType,
 } from '../../../../../types';
-import { Person, Cast } from '../../../../../lib/types';
+import { Person, MediaType } from '../../../../../lib/types';
 import { getGenres } from '..';
-
-const parseDetails = (person: GetPersonDetailsResult) => ({
-  knownForDepartment: person.known_for_department,
-  alsoKnownAs: person.also_known_as,
-  placeOfBirth: person.place_of_birth,
-  profileImage: person.profile_path,
-  biography: person.biography,
-  popularity: person.popularity,
-  homepage: person.homepage,
-  birthday: person.birthday,
-  deathday: person.deathday,
-  imbdId: person.imdb_id,
-  gender: person.gender,
-  adult: person.adult,
-  name: person.name,
-  id: person.id,
-});
+import parseMovieCast from './parseMovieCast';
+import parseDetails from './parseDetails';
+import parseTVCast from './parseTVCast';
 
 const parseImages = (images: GetPersonImagesResult): string[] => {
   return images.profiles.map(profile => profile.file_path);
 };
 
-const parseCast = (cast: GetPersonCastResultType, genres: Genres): Cast => ({
-  originalLanguage: cast.original_language,
-  originalTitle: cast.original_title,
-  backdropImage: cast.backdrop_path,
-  voteAvarage: cast.vote_average,
-  releaseDate: cast.release_date,
-  genres: getGenres({
-    tvShowGenres: genres.tv,
-    movieGenres: genres.movie,
-    genresIds: cast.genre_ids,
-    mediaTypes: cast.media_type,
-  }),
-  popularity: cast.popularity,
-  voteCount: cast.vote_count,
-  mediaType: cast.media_type,
-  character: cast.character,
-  creditId: cast.credit_id,
-  poster: cast.poster_path,
-  overview: cast.overview,
-  video: cast.video,
-  adult: cast.adult,
-  title: cast.title,
-  id: cast.id,
-});
+const parseCast = (cast: CastResultType, genres: Genres) => {
+  const castParsed = cast.map(castItem => {
+    const mediaGenres = getGenres({
+      mediaTypes: castItem.media_type || '',
+      movieGenres: genres.movie,
+      genresIds: castItem.genre_ids || [],
+      tvShowGenres: genres.tv,
+    });
 
-interface Params {
-  cast: GetPersonCastResultType[];
-  details: GetPersonDetailsResult;
-  images: GetPersonImagesResult;
-  genres: Genres;
-}
+    const mediaParsed =
+      castItem.media_type === MediaType.Movie.toLowerCase()
+        ? parseMovieCast(castItem, mediaGenres)
+        : parseTVCast(castItem, mediaGenres);
 
-const parsePersonQueryResult = ({ details, genres, images, cast }: Params): Person => {
-  const personCast = cast.map(castDetail => parseCast(castDetail, genres));
+    return mediaParsed;
+  });
+
+  return castParsed;
+};
+
+const parsePersonQueryResult = (
+  details: GetPersonDetailsResult,
+  genres: Genres,
+  cast: CastResultType,
+): Person => {
+  const personCast = parseCast(cast, genres);
+  const imagesGallery = parseImages(details.images);
   const personDetails = parseDetails(details);
-  const imagesGallery = parseImages(images);
 
   return {
     ...personDetails,

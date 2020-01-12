@@ -2,74 +2,109 @@ import { gql } from 'apollo-server';
 
 export default gql`
   type KnownFor {
-    originalLanguage: String
-    backdropImage: String
     originalTitle: String
+    overview: String
     releaseDate: String
     posterImage: String
+    originalLanguage: String
     voteAverage: Float
-    mediaType: String
     isAdult: Boolean
-    overview: String
+    backdropImage: String
     genres: [String!]!
     voteCount: Int
+    mediaType: String
     title: String
     id: ID
   }
 
   type PeopleQueryItem {
     knownForDepartment: String
-    knownFor: [KnownFor!]!
+    adult: Boolean
     profileImage: String
     popularity: Float
-    adult: Boolean
     name: String
+    knownFor: [KnownFor!]!
     gender: Int
     id: ID
-  }
-
-  type Cast {
-    originalLanguage: String
-    originalTitle: String
-    backdropImage: String
-    releaseDate: String
-    genres: [String!]!
-    voteAvarage: Float
-    popularity: Float
-    character: String
-    mediaType: String
-    overview: String
-    poster: String
-    voteCount: Int
-    video: Boolean
-    adult: Boolean
-    title: String
-    creditId: ID
-    id: Int
-  }
-
-  type Person {
-    knownForDepartment: String
-    imagesGallery: [String!]!
-    alsoKnownAs: [String!]!
-    placeOfBirth: String
-    profileImage: String
-    biography: String
-    popularity: Float
-    homepage: String
-    birthday: String
-    deathday: String
-    cast: [Cast!]!
-    imbdId: String
-    adult: Boolean
-    name: String
-    gender: Int
-    id: Int
   }
 
   type PeopleQueryResult {
     items: [PeopleQueryItem!]!
     hasMore: Boolean!
+  }
+
+  interface Cast {
+    character: String
+    backdropImage: String
+    overview: String
+    voteAverage: Float
+    mediaType: String
+    posterImage: String
+    popularity: Float
+    originalLanguage: String
+    genres: [String!]!
+    voteCount: Float
+    creditId: String
+    id: Int
+  }
+
+  type CastMovie implements Cast {
+    originalTitle: String
+    video: Boolean
+    title: String
+    adult: Boolean
+    releaseDate: String
+    character: String
+    backdropImage: String
+    genres: [String!]!
+    overview: String
+    voteAverage: Float
+    mediaType: String
+    posterImage: String
+    popularity: Float
+    originalLanguage: String
+    voteCount: Float
+    creditId: String
+    id: Int
+  }
+
+  type CastTV implements Cast {
+    episodeCount: Int
+    originCountry: [String!]!
+    originalName: String
+    name: String
+    firstAirDate: String
+    character: String
+    backdropImage: String
+    genres: [String!]!
+    overview: String
+    voteAverage: Float
+    mediaType: String
+    posterImage: String
+    popularity: Float
+    originalLanguage: String
+    voteCount: Float
+    creditId: String
+    id: Int
+  }
+
+  type Person {
+    alsoKnownAs: [String!]!
+    placeOfBirth: String
+    birthday: String
+    name: String
+    biography: String
+    popularity: Float
+    homepage: String
+    knownForDepartment: String
+    deathday: String
+    imagesGallery: [String!]!
+    cast: [Cast!]!
+    adult: Boolean
+    profileImage: String
+    gender: Int
+    imbdId: String
+    id: Int
   }
 
   extend type Query {

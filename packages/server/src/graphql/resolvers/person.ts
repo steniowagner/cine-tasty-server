@@ -4,10 +4,32 @@ import {
   PeopleQueryResult,
   QueryPersonArgs,
   Person,
+  MediaType,
 } from '../../lib/types';
 import { Datasource } from '../datasources';
 
+type CastType = {
+  mediaType: 'tv' | 'movie';
+};
+
+const resolveCastType = (cast: CastType) => {
+  if (cast.mediaType === MediaType.Movie.toLowerCase()) {
+    return 'CastMovie';
+  }
+
+  if (cast.mediaType === MediaType.Tv.toLowerCase()) {
+    return 'CastTV';
+  }
+
+  return null;
+};
+
 const resolvers: QueryResolvers = {
+  Cast: {
+    __resolveType(cast: CastType) {
+      return resolveCastType(cast);
+    },
+  },
   Query: {
     people: (
       _: {},

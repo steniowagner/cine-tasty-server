@@ -1,12 +1,7 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import {
-  images,
-  castDetails,
-  details,
-  person,
-} from '../../../../__tests__/mocks/person.stub';
+import { castDetails, details, person } from '../../../../__tests__/mocks/person.stub';
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
 import resolvers from '../../../resolvers';
 import typeDefs from '../../../typeDefs';
@@ -14,41 +9,51 @@ import TheMovieDBAPI from '..';
 
 const GET_PERSON = gql`
   query GetPerson($id: Int!) {
-    person(id: $id) {
-      knownForDepartment
-      imagesGallery
+    person(id: $id, language: PTBR) {
       alsoKnownAs
       placeOfBirth
-      profileImage
+      birthday
+      name
       biography
       popularity
       homepage
-      birthday
+      knownForDepartment
       deathday
+      imagesGallery
+      adult
+      profileImage
+      gender
+      imbdId
+      id
       cast {
-        originalLanguage
-        originalTitle
-        backdropImage
-        releaseDate
-        genres
-        voteAvarage
-        popularity
         character
-        mediaType
+        backdropImage
         overview
-        poster
+        voteAverage
+        mediaType
+        posterImage
+        popularity
+        originalLanguage
+        genres
         voteCount
-        video
-        adult
-        title
         creditId
         id
+        ... on CastMovie {
+          originalTitle
+          video
+          title
+          adult
+          releaseDate
+        }
+
+        ... on CastTV {
+          episodeCount
+          originCountry
+          originalName
+          name
+          firstAirDate
+        }
       }
-      imbdId
-      adult
-      name
-      gender
-      id
     }
   }
 `;
@@ -94,8 +99,7 @@ describe('[TheMovieDBAPI.Queries.Person]', () => {
     mockRestDataSourceGet = jest
       .fn()
       .mockReturnValueOnce(details)
-      .mockReturnValueOnce(castDetails)
-      .mockReturnValueOnce(images);
+      .mockReturnValueOnce(castDetails);
 
     const server = makeTestServer();
 
@@ -103,7 +107,7 @@ describe('[TheMovieDBAPI.Queries.Person]', () => {
 
     const { data } = await query({
       query: GET_PERSON,
-      variables: { id: 1 },
+      variables: { id: 123 },
     });
 
     expect(data!.person).toEqual(person);

@@ -2,7 +2,7 @@ import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
-import { rawPerson, person } from '../../../../__tests__/mocks/people.stub';
+import { personQueryResult, person } from '../../../../__tests__/mocks/people.stub';
 import resolvers from '../../../resolvers';
 import typeDefs from '../../../typeDefs';
 import TheMovieDBAPI from '..';
@@ -78,7 +78,7 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
 
   it('fetches an array of people from the TheMoviewDB API and parses the result correctly', async () => {
     mockRestDataSourceGet.mockResolvedValue({
-      results: [rawPerson],
+      results: [personQueryResult],
       total_pages: 2,
     });
 
@@ -96,7 +96,7 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
 
   it('returns the field hasMore as true when has more items to be paginated', async () => {
     mockRestDataSourceGet.mockResolvedValue({
-      results: [rawPerson, rawPerson],
+      results: [personQueryResult, personQueryResult],
       total_pages: 2,
     });
     const server = makeTestServer();
@@ -113,7 +113,7 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
 
   it('returns the field hasMore as false when has no more items to be paginated', async () => {
     mockRestDataSourceGet.mockResolvedValue({
-      results: [rawPerson, rawPerson],
+      results: [personQueryResult, personQueryResult],
       total_pages: 2,
     });
 

@@ -1,9 +1,8 @@
 import {
   Genres,
-  RawPerson,
+  BasePersonResponse,
   GetPersonDetailsResult,
-  GetPersonImagesResult,
-  GetPersonCastResult,
+  CastResult,
 } from '../../../../../types';
 import {
   getFormatedLanguage,
@@ -15,22 +14,25 @@ import { PeopleQueryResult, Iso6391Language, Person } from '../../../../../lib/t
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
-const IMAGES_ENDPOINT = '/images';
 
-interface GetPeopleParams {
+type BasePersonRequest = {
+  append_to_response: string;
+  language: string;
+};
+
+type BasePeopelRequest = {
+  language: string;
   page: number;
-}
-
-type GetRequestParams = { language: string } & GetPeopleParams;
+};
 
 type GetPopularPeopleResult = {
-  results: RawPerson[];
+  results: BasePersonResponse[];
   total_pages: number;
 };
 
 type GetRequest = <T>(
   endpoint: string,
-  params: { language: string } | GetRequestParams,
+  params: { language: string } | BasePersonRequest | BasePeopelRequest,
 ) => Promise<T>;
 
 export interface IPeopleHandler {
@@ -84,21 +86,16 @@ class PeopleHandler implements IPeopleHandler {
       language: getFormatedLanguage(language),
     };
 
-    const [details, { cast }, images] = await Promise.all<
-      GetPersonDetailsResult,
-      GetPersonCastResult,
-      GetPersonImagesResult
-    >([
-      this.get(`${PERSON_ENDPOINT}/${id}`, params),
+    const [details, { cast }] = await Promise.all<GetPersonDetailsResult, CastResult>([
+      this.get(`${PERSON_ENDPOINT}/${id}`, { ...params, append_to_response: 'images' }),
       this.get(`${PERSON_ENDPOINT}/${id}${COMBINED_CREDITS_ENDPOINT}`, params),
-      this.get(`${PERSON_ENDPOINT}/${id}${IMAGES_ENDPOINT}`, params),
     ]);
 
     if (details.success === false) {
       return null;
     }
 
-    const person = parsePersonQueryResult({ genres, details, cast, images });
+    const person = parsePersonQueryResult(details, genres, cast);
 
     return person;
   }

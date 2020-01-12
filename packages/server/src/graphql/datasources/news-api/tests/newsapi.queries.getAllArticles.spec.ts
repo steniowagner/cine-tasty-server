@@ -52,7 +52,7 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-describe('[Queries.NewsAPI]', () => {
+describe('[NewsAPI.Queries.GetAllArticles]', () => {
   it('fetches an array of articles from the News API', async () => {
     mockRestDataSourceGet.mockResolvedValueOnce({
       articles: [rawArticleWithId],
