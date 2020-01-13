@@ -1,21 +1,7 @@
-import { MediaGenre } from '../../../../../types';
+import { MediaGenre, Genres } from '../../../../../types';
+import { MediaType } from '../../../../../lib/types';
 
-const MOVIE_MEDIA_TYPE = 'movie';
-const TV_MEDIA_TYPE = 'tv';
-
-interface GetGenresParams {
-  tvShowGenres: MediaGenre[];
-  movieGenres: MediaGenre[];
-  genresIds: number[];
-  mediaTypes: string;
-}
-
-const getGenres = ({
-  tvShowGenres,
-  movieGenres,
-  genresIds,
-  mediaTypes,
-}: GetGenresParams): string[] => {
+const getGenres = (genres: Genres, genresIds: number[], mediaType: string): string[] => {
   const getMediaGenres = (genres: MediaGenre[], genresIds: number[]): string[] => {
     return genresIds
       .map(genreId => {
@@ -30,17 +16,17 @@ const getGenres = ({
       .filter(genreSeleted => !!genreSeleted);
   };
 
-  let genres: MediaGenre[] = [];
+  let genresSelected: MediaGenre[] = [];
 
-  if (mediaTypes === MOVIE_MEDIA_TYPE) {
-    genres = movieGenres;
+  if (mediaType === MediaType.Movie.toLowerCase()) {
+    genresSelected = genres.movie;
   }
 
-  if (mediaTypes === TV_MEDIA_TYPE) {
-    genres = tvShowGenres;
+  if (mediaType === MediaType.Tv.toLowerCase()) {
+    genresSelected = genres.tv;
   }
 
-  return getMediaGenres(genres, genresIds);
+  return getMediaGenres(genresSelected, genresIds);
 };
 
 export default getGenres;

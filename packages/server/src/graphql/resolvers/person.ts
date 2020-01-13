@@ -6,7 +6,7 @@ import {
   Person,
   MediaType,
 } from '../../lib/types';
-import { Datasource } from '../datasources';
+import { Context } from '../../types';
 
 type CastType = {
   mediaType: 'tv' | 'movie';
@@ -34,13 +34,14 @@ const resolvers: QueryResolvers = {
     people: (
       _: {},
       { page, language }: QueryPeopleArgs,
-      { dataSources }: Datasource,
-    ): Promise<PeopleQueryResult> => dataSources.tmdb.getPeople(page, language),
+      { dataSources, mediaGenres }: Context,
+    ): Promise<PeopleQueryResult> =>
+      dataSources.tmdb.getPeople(page, mediaGenres, language),
     person: (
       _: {},
       { id, language }: QueryPersonArgs,
-      { dataSources }: Datasource,
-    ): Promise<Person | null> => dataSources.tmdb.getPerson(id, language),
+      { dataSources, mediaGenres }: Context,
+    ): Promise<Person | null> => dataSources.tmdb.getPerson(id, mediaGenres, language),
   },
 };
 

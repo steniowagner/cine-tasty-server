@@ -1,12 +1,5 @@
-import TheMovieDBAPI, { ITheMovieDBAPI } from './the-movie-db-api';
-import NewsAPI, { INewsAPI } from './news-api';
-
-export interface Datasource {
-  dataSources: {
-    tmdb: ITheMovieDBAPI;
-    news: INewsAPI;
-  };
-}
+import TheMovieDBAPI from './the-movie-db-api';
+import NewsAPI from './news-api';
 
 export default {
   tmdb: new TheMovieDBAPI(),

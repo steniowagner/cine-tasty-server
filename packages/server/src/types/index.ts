@@ -1,3 +1,7 @@
+import { ITheMovieDBAPI } from '../graphql/datasources/the-movie-db-api';
+import { INewsAPI } from '../graphql/datasources/news-api';
+import { BaseMovie, BaseTvShow } from '../lib/types';
+
 export type MediaGenre = {
   id: number;
   name: string;
@@ -127,3 +131,20 @@ export type CastResultType = (CastMovieResult | CastTVResult)[];
 export interface CastResult {
   cast: CastResultType;
 }
+
+export type PersonKnowForResultSample = {
+  first_air_date?: string;
+  title?: string;
+};
+
+export type Context = {
+  dataSources: {
+    tmdb: ITheMovieDBAPI;
+    news: INewsAPI;
+  };
+  mediaGenres: Genres;
+};
+
+export type BaseMediaType = BaseMovie | BaseTvShow;
+
+export type MediaItem = BaseMediaType & { genre_ids: number[] };

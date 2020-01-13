@@ -1,12 +1,12 @@
 import { QueryResolvers, QueryArticlesArgs, ArticleQueryResult } from '../../lib/types';
-import { Datasource } from '../datasources';
+import { Context } from '../../types';
 
 const resolvers: QueryResolvers = {
   Query: {
     articles: (
       _: {},
       { page, language }: QueryArticlesArgs,
-      { dataSources }: Datasource,
+      { dataSources }: Context,
     ): Promise<ArticleQueryResult> => dataSources.news.getAllArticles(page, language),
   },
 };

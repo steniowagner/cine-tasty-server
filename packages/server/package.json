@@ -15,7 +15,6 @@
   "lint-staged": {
     "**/*.+(ts|json|md)": [
       "npm run lint:fix",
-      "npm run test",
       "git add"
     ]
   },

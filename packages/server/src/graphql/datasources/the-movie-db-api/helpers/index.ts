@@ -1,6 +1,6 @@
-import parsePeopleQueryResult from './parsePeopleQueryResult';
-import parsePersonQueryResult from './parsePersonQueryResult';
+import attachKnownForToPeople from './attachKnownForToPeople';
 import getFormatedLanguage from './getFormatedLanguage';
+import attachGenresToMedia from './attachGenresToMedia';
 import getGenres from './getGenres';
 
-export { parsePersonQueryResult, parsePeopleQueryResult, getFormatedLanguage, getGenres };
+export { attachKnownForToPeople, attachGenresToMedia, getFormatedLanguage, getGenres };

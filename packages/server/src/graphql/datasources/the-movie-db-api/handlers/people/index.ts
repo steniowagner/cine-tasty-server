@@ -4,11 +4,7 @@ import {
   GetPersonDetailsResult,
   CastResult,
 } from '../../../../../types';
-import {
-  getFormatedLanguage,
-  parsePeopleQueryResult,
-  parsePersonQueryResult,
-} from '../../helpers';
+import { getFormatedLanguage } from '../../helpers';
 import { PeopleQueryResult, Iso6391Language, Person } from '../../../../../lib/types';
 
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
@@ -69,11 +65,20 @@ class PeopleHandler implements IPeopleHandler {
       },
     ));
 
-    const people = results.map(result => parsePeopleQueryResult(result, genres));
-
     return {
       hasMore: page < total_pages,
-      items: people,
+      items: [
+        {
+          knownForDepartment: '',
+          adult: true,
+          profileImage: '',
+          popularity: 123.321,
+          name: '',
+          knownFor: [],
+          gender: 123,
+          id: '123',
+        },
+      ],
     };
   }
 
@@ -95,9 +100,7 @@ class PeopleHandler implements IPeopleHandler {
       return null;
     }
 
-    const person = parsePersonQueryResult(details, genres, cast);
-
-    return person;
+    return null;
   }
 }
 
