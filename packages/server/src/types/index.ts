@@ -1,5 +1,5 @@
-import { ITheMovieDBAPI } from '../graphql/datasources/the-movie-db-api';
-import { INewsAPI } from '../graphql/datasources/news-api';
+import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api';
+import { Props as NewsAPIProps } from '../graphql/datasources/news-api';
 import { BaseMovie, BaseTvShow } from '../lib/types';
 
 export type MediaGenre = {
@@ -139,10 +139,9 @@ export type PersonKnowForResultSample = {
 
 export type Context = {
   dataSources: {
-    tmdb: ITheMovieDBAPI;
-    news: INewsAPI;
+    tmdb: TheMovieDBAPIProps;
+    news: NewsAPIProps;
   };
-  mediaGenres: Genres;
 };
 
 export type BaseMediaType = BaseMovie | BaseTvShow;

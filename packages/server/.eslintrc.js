@@ -9,7 +9,7 @@ module.exports =  {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  rules:  {
-    "prefixWithI": "never"
-  },
+  rules: {
+    '@typescript-eslint/camelcase': ["error", { properties: "never" }]
+  }
 };

@@ -1,13 +1,14 @@
-import { SearchQueryEmpty } from '../../../../../errors';
-import { Genres } from '../../../../../types';
+import { SearchQueryEmpty } from '../../../../errors';
+import { Genres } from '../../../../types';
 import {
   SearchResultItem,
   SearchResult,
   QuerySearchArgs,
   SearchType,
   BasePerson,
-} from '../../../../../lib/types';
-import { attachKnownForToPeople, attachGenresToMedia } from '../../helpers';
+  Iso6391Language,
+} from '../../../../lib/types';
+import { attachKnownForToPeople, attachGenresToMedia } from '../helpers';
 
 type SearchParams = {
   page: number;
@@ -25,16 +26,17 @@ type GetRequestResult = {
 type GetRequest = <SearchParams, GetRequestResult>(
   endpoint: string,
   params: SearchParams,
+  language?: Iso6391Language | null,
 ) => Promise<GetRequestResult>;
 
-export interface ISearchHandler {
+export interface Props {
   search: (params: QuerySearchArgs, mediaGenres: Genres) => Promise<SearchResult>;
   get: GetRequest;
 }
 
 const BASE_ENDPOINT = '/search';
 
-class SearchHandler implements ISearchHandler {
+class SearchHandler implements Props {
   get: GetRequest;
 
   constructor(execGetRequest: GetRequest) {
@@ -52,11 +54,19 @@ class SearchHandler implements ISearchHandler {
       throw new SearchQueryEmpty();
     }
 
-    const { total_results, results, total_pages, page } = await this.get(endpoint, {
-      language: params.language,
-      page: params.page,
-      query: params.query,
-    });
+    const {
+      total_results: totalResults,
+      results,
+      total_pages: totalPages,
+      page,
+    } = await this.get(
+      endpoint,
+      {
+        page: params.page,
+        query: params.query,
+      },
+      params.language,
+    );
 
     const result =
       params.type.toLowerCase() === SearchType.Person.toLowerCase()
@@ -64,8 +74,8 @@ class SearchHandler implements ISearchHandler {
         : attachGenresToMedia(results, mediaGenres, params.type);
 
     return {
-      hasMore: page < total_pages,
-      total_results,
+      hasMore: page < totalPages,
+      total_results: totalResults,
       items: result,
     };
   }

@@ -50,9 +50,9 @@ const resolvers: QueryResolvers = {
     search: (
       _: {},
       { page, query, type, language }: QuerySearchArgs,
-      { dataSources, mediaGenres }: Context,
+      { dataSources }: Context,
     ): Promise<SearchResult> => {
-      return dataSources.tmdb.search({ page, query, type, language }, mediaGenres);
+      return dataSources.tmdb.search({ page, query, type, language });
     },
   },
 };

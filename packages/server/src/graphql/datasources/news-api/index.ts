@@ -9,14 +9,14 @@ const ENDPOINT = 'everything';
 const STATUS_OK = 'ok';
 const PAGE_SIZE = 12;
 
-export interface INewsAPI {
+export interface Props {
   getAllArticles: (
     page: number,
     language?: Language | null,
   ) => Promise<ArticleQueryResult>;
 }
 
-class NewsAPI extends RESTDataSource implements INewsAPI {
+class NewsAPI extends RESTDataSource implements Props {
   constructor() {
     super();
     this.baseURL = BASE_URL;

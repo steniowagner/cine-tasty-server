@@ -3,9 +3,9 @@ import {
   BasePersonResponse,
   GetPersonDetailsResult,
   CastResult,
-} from '../../../../../types';
-import { getFormatedLanguage } from '../../helpers';
-import { PeopleQueryResult, Iso6391Language, Person } from '../../../../../lib/types';
+} from '../../../../types';
+import { getFormatedLanguage } from '../helpers';
+import { PeopleQueryResult, Iso6391Language, Person } from '../../../../lib/types';
 
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
 const POPULAR_PERSON_ENDPOINT = '/popular';
@@ -31,7 +31,7 @@ type GetRequest = <T>(
   params: { language: string } | BasePersonRequest | BasePeopelRequest,
 ) => Promise<T>;
 
-export interface IPeopleHandler {
+export interface Props {
   getPopularPeople: (
     page: number,
     genres: Genres,
@@ -45,7 +45,7 @@ export interface IPeopleHandler {
   get: GetRequest;
 }
 
-class PeopleHandler implements IPeopleHandler {
+class PeopleHandler implements Props {
   get: GetRequest;
 
   constructor(execGetRequest: GetRequest) {

@@ -34,14 +34,13 @@ const resolvers: QueryResolvers = {
     people: (
       _: {},
       { page, language }: QueryPeopleArgs,
-      { dataSources, mediaGenres }: Context,
-    ): Promise<PeopleQueryResult> =>
-      dataSources.tmdb.getPeople(page, mediaGenres, language),
+      { dataSources }: Context,
+    ): Promise<PeopleQueryResult> => dataSources.tmdb.getPeople(page, language),
     person: (
       _: {},
       { id, language }: QueryPersonArgs,
-      { dataSources, mediaGenres }: Context,
-    ): Promise<Person | null> => dataSources.tmdb.getPerson(id, mediaGenres, language),
+      { dataSources }: Context,
+    ): Promise<Person | null> => dataSources.tmdb.getPerson(id, language),
   },
 };
 

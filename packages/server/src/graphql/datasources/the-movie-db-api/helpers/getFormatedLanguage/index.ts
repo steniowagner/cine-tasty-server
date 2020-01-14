@@ -1,8 +1,6 @@
 import { Iso6391Language } from '../../../../../lib/types';
 
 const getFormatedLanguage = (language?: Iso6391Language | null): string => {
-  console.log('language: ', language);
-
   if (!language) {
     return 'en-us';
   }
