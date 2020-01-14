@@ -10,6 +10,7 @@ module.exports =  {
     sourceType: 'module',
   },
   rules: {
-    '@typescript-eslint/camelcase': ["error", { properties: "never" }]
+    'camelcase': 'off',
+    '@typescript-eslint/camelcase': ["error", { properties: "never", genericType: "never", ignoreDestructuring: true }]
   }
 };

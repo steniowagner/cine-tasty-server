@@ -5,23 +5,21 @@ import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/PeopleHan
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/SearchHandler';
 import { getFormatedLanguage } from './helpers';
 import env from '../../../config/environment';
-
 import {
   PeopleQueryResult,
   Iso6391Language,
-  Person,
+  PersonProfile,
+  QueryPersonArgs,
   QuerySearchArgs,
   SearchResult,
+  QueryPeopleArgs,
 } from '../../../lib/types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
-  getPeople: (
-    page: number,
-    language?: Iso6391Language | null,
-  ) => Promise<PeopleQueryResult>;
-  getPerson: (id: number, language?: Iso6391Language | null) => Promise<Person | null>;
+  getPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
+  getPerson: (params: QueryPersonArgs) => Promise<PersonProfile | null>;
   search: (params: QuerySearchArgs) => Promise<SearchResult>;
 }
 
@@ -50,23 +48,20 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     });
   };
 
-  async getPeople(
-    page: number,
-    language?: Iso6391Language | null,
-  ): Promise<PeopleQueryResult> {
-    const mediaGenres = await this.mediaGenresHandler.load();
+  async getPeople(params: QueryPeopleArgs): Promise<PeopleQueryResult> {
+    const mediaGenres = await this.mediaGenresHandler.load(params.language);
 
-    return this.peopleHandler.getPopularPeople(page, mediaGenres, language);
+    return this.peopleHandler.getPopularPeople(params, mediaGenres);
   }
 
-  async getPerson(id: number, language?: Iso6391Language | null): Promise<Person | null> {
-    const mediaGenres = await this.mediaGenresHandler.load();
+  async getPerson(params: QueryPersonArgs): Promise<PersonProfile | null> {
+    const mediaGenres = await this.mediaGenresHandler.load(params.language);
 
-    return this.peopleHandler.getPerson(id, mediaGenres, language);
+    return this.peopleHandler.getPerson(params, mediaGenres);
   }
 
   async search(params: QuerySearchArgs): Promise<SearchResult> {
-    const mediaGenres = await this.mediaGenresHandler.load();
+    const mediaGenres = await this.mediaGenresHandler.load(params.language);
 
     return this.searchHandler.search(params, mediaGenres);
   }

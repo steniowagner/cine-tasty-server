@@ -1,7 +1,7 @@
 import { MediaGenre, Genres } from '../../../../../types';
 import { MediaType } from '../../../../../lib/types';
 
-const getGenres = (
+export const getGenres = (
   { movie, tv }: Genres,
   genresIds: number[],
   mediaType: string,
@@ -32,5 +32,3 @@ const getGenres = (
 
   return getMediaGenres(genresSelected, genresIds);
 };
-
-export default getGenres;

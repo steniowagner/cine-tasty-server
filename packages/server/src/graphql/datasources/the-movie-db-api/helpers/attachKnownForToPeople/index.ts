@@ -1,8 +1,11 @@
-import attachGenresToMedia from '../attachGenresToMedia';
-import { BasePerson } from '../../../../../lib/types';
 import { MediaItem, Genres } from '../../../../../types';
+import { BasePerson } from '../../../../../lib/types';
+import { attachGenresToMedia } from '..';
 
-const attachKnownForToPeople = (person: BasePerson, mediaGenres: Genres): BasePerson => {
+export const attachKnownForToPeople = (
+  person: BasePerson,
+  mediaGenres: Genres,
+): BasePerson => {
   const personKnowFor = (person.known_for as unknown) as MediaItem[];
 
   return {
@@ -10,5 +13,3 @@ const attachKnownForToPeople = (person: BasePerson, mediaGenres: Genres): BasePe
     known_for: attachGenresToMedia(personKnowFor, mediaGenres),
   };
 };
-
-export default attachKnownForToPeople;

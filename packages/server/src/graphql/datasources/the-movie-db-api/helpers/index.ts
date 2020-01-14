@@ -1,6 +1,5 @@
-import attachKnownForToPeople from './attachKnownForToPeople';
-import getFormatedLanguage from './getFormatedLanguage';
-import attachGenresToMedia from './attachGenresToMedia';
-import getGenres from './getGenres';
-
-export { attachKnownForToPeople, attachGenresToMedia, getFormatedLanguage, getGenres };
+export { attachKnownForToPeople } from './attachKnownForToPeople';
+export { getFormatedLanguage } from './getFormatedLanguage';
+export { attachGenresToMedia } from './attachGenresToMedia';
+export { getGenres } from './getGenres';
+export { getPersonProfileImages } from './getPersonProfileImages';

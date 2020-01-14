@@ -1,47 +1,51 @@
+import { GetPersonImagesResult, MediaItem, Genres } from '../../../../types';
 import {
-  Genres,
-  BasePersonResponse,
-  GetPersonDetailsResult,
-  CastResult,
-} from '../../../../types';
-import { getFormatedLanguage } from '../helpers';
-import { PeopleQueryResult, Iso6391Language, Person } from '../../../../lib/types';
+  getPersonProfileImages,
+  attachKnownForToPeople,
+  attachGenresToMedia,
+} from '../helpers';
+import {
+  PeopleQueryResult,
+  Iso6391Language,
+  PersonProfile,
+  BasePerson,
+  QueryPeopleArgs,
+  QueryPersonArgs,
+} from '../../../../lib/types';
 
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
+const APPEND_TO_RESPONSE_IMAGES_KEY = 'images';
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
 
-type BasePersonRequest = {
-  append_to_response: string;
-  language: string;
-};
-
-type BasePeopelRequest = {
-  language: string;
-  page: number;
-};
-
-type GetPopularPeopleResult = {
-  results: BasePersonResponse[];
+type GetPeopleResponse = {
+  results: BasePerson[];
   total_pages: number;
+  page: number;
+  total_results: number;
+};
+
+type GetPersonResponse = Omit<PersonProfile, 'images_gallery'> & {
+  images: GetPersonImagesResult;
+  success?: boolean;
+};
+
+type GetCastResponse = {
+  cast: MediaItem[];
 };
 
 type GetRequest = <T>(
   endpoint: string,
-  params: { language: string } | BasePersonRequest | BasePeopelRequest,
+  params: {} | { append_to_response: string } | { page: number },
+  language?: Iso6391Language | null,
 ) => Promise<T>;
 
 export interface Props {
   getPopularPeople: (
-    page: number,
+    params: QueryPeopleArgs,
     genres: Genres,
-    language?: Iso6391Language | null,
   ) => Promise<PeopleQueryResult>;
-  getPerson: (
-    id: number,
-    genres: Genres,
-    language?: Iso6391Language | null,
-  ) => Promise<Person | null>;
+  getPerson: (params: QueryPersonArgs, genres: Genres) => Promise<PersonProfile | null>;
   get: GetRequest;
 }
 
@@ -52,55 +56,52 @@ class PeopleHandler implements Props {
     this.get = execGetRequest;
   }
 
+  attachKnownForToPeopleResult(people: BasePerson[], mediaGenres: Genres): BasePerson[] {
+    return people.map(person => attachKnownForToPeople(person, mediaGenres));
+  }
+
   async getPopularPeople(
-    page: number,
-    genres: Genres,
-    language?: Iso6391Language | null,
+    { language, page }: QueryPeopleArgs,
+    mediaGenres: Genres,
   ): Promise<PeopleQueryResult> {
-    const { total_pages, results } = await (<Promise<GetPopularPeopleResult>>this.get(
-      `${PERSON_ENDPOINT}/${POPULAR_PERSON_ENDPOINT}`,
-      {
-        language: getFormatedLanguage(language),
-        page,
-      },
-    ));
+    const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
+
+    const { total_pages: totalPages, total_results, results } = await this.get<
+      Promise<GetPeopleResponse>
+    >(endpoint, { page }, language);
+
+    const items = this.attachKnownForToPeopleResult(results, mediaGenres);
 
     return {
-      hasMore: page < total_pages,
-      items: [
-        {
-          knownForDepartment: '',
-          adult: true,
-          profileImage: '',
-          popularity: 123.321,
-          name: '',
-          knownFor: [],
-          gender: 123,
-          id: '123',
-        },
-      ],
+      hasMore: page < totalPages,
+      total_pages: totalPages,
+      total_results,
+      items: items,
     };
   }
 
   async getPerson(
-    id: number,
+    { language, id }: QueryPersonArgs,
     genres: Genres,
-    language?: Iso6391Language | null,
-  ): Promise<Person | null> {
-    const params = {
-      language: getFormatedLanguage(language),
-    };
-
-    const [details, { cast }] = await Promise.all<GetPersonDetailsResult, CastResult>([
-      this.get(`${PERSON_ENDPOINT}/${id}`, { ...params, append_to_response: 'images' }),
-      this.get(`${PERSON_ENDPOINT}/${id}${COMBINED_CREDITS_ENDPOINT}`, params),
+  ): Promise<PersonProfile | null> {
+    const [result, { cast }] = await Promise.all<GetPersonResponse, GetCastResponse>([
+      this.get(
+        `${PERSON_ENDPOINT}/${id}`,
+        { append_to_response: APPEND_TO_RESPONSE_IMAGES_KEY },
+        language,
+      ),
+      this.get(`${PERSON_ENDPOINT}/${id}${COMBINED_CREDITS_ENDPOINT}`, {}, language),
     ]);
 
-    if (details.success === false) {
+    if (result.success === false) {
       return null;
     }
 
-    return null;
+    return {
+      ...result,
+      images_gallery: getPersonProfileImages(result.images),
+      cast: attachGenresToMedia(cast, genres),
+    };
   }
 }
 

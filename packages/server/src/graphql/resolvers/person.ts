@@ -3,21 +3,21 @@ import {
   QueryPeopleArgs,
   PeopleQueryResult,
   QueryPersonArgs,
-  Person,
+  PersonProfile,
   MediaType,
 } from '../../lib/types';
 import { Context } from '../../types';
 
 type CastType = {
-  mediaType: 'tv' | 'movie';
+  media_type: 'tv' | 'movie';
 };
 
-const resolveCastType = (cast: CastType) => {
-  if (cast.mediaType === MediaType.Movie.toLowerCase()) {
+const resolveCastType = (cast: CastType): string | null => {
+  if (cast.media_type === MediaType.Movie.toLowerCase()) {
     return 'CastMovie';
   }
 
-  if (cast.mediaType === MediaType.Tv.toLowerCase()) {
+  if (cast.media_type === MediaType.Tv.toLowerCase()) {
     return 'CastTV';
   }
 
@@ -26,21 +26,21 @@ const resolveCastType = (cast: CastType) => {
 
 const resolvers: QueryResolvers = {
   Cast: {
-    __resolveType(cast: CastType) {
+    __resolveType(cast: CastType): string | null {
       return resolveCastType(cast);
     },
   },
   Query: {
     people: (
       _: {},
-      { page, language }: QueryPeopleArgs,
+      params: QueryPeopleArgs,
       { dataSources }: Context,
-    ): Promise<PeopleQueryResult> => dataSources.tmdb.getPeople(page, language),
+    ): Promise<PeopleQueryResult> => dataSources.tmdb.getPeople(params),
     person: (
       _: {},
-      { id, language }: QueryPersonArgs,
+      params: QueryPersonArgs,
       { dataSources }: Context,
-    ): Promise<Person | null> => dataSources.tmdb.getPerson(id, language),
+    ): Promise<PersonProfile | null> => dataSources.tmdb.getPerson(params),
   },
 };
 

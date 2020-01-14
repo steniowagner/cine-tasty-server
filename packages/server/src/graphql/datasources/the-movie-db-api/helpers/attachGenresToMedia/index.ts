@@ -1,10 +1,10 @@
 import { MediaItem, BaseMediaType, Genres } from '../../../../../types';
-import getGenres from '../getGenres';
+import { getGenres } from '..';
 
-const attachGenresToMedia = (
+export const attachGenresToMedia = (
   items: MediaItem[],
   mediaGenres: Genres,
-  mediaType: string = '',
+  mediaType = '',
 ): BaseMediaType[] => {
   return items.map(item => ({
     ...item,
@@ -15,5 +15,3 @@ const attachGenresToMedia = (
     ),
   }));
 };
-
-export default attachGenresToMedia;

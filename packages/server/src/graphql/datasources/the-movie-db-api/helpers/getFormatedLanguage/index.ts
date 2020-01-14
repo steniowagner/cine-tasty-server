@@ -1,6 +1,6 @@
 import { Iso6391Language } from '../../../../../lib/types';
 
-const getFormatedLanguage = (language?: Iso6391Language | null): string => {
+export const getFormatedLanguage = (language?: Iso6391Language | null): string => {
   if (!language) {
     return 'en-us';
   }
@@ -11,5 +11,3 @@ const getFormatedLanguage = (language?: Iso6391Language | null): string => {
 
   return language.toLowerCase();
 };
-
-export default getFormatedLanguage;

@@ -15,6 +15,23 @@ export default gql`
     name: String
   }
 
+  type PersonDetails {
+    birthday: String
+    known_for_department: String
+    deathday: String
+    id: Int
+    name: String
+    also_known_as: [String!]
+    gender: Int
+    biography: String
+    popularity: Float
+    place_of_birth: String
+    profile_path: String
+    adult: Boolean
+    imdb_id: String
+    homepage: String
+  }
+
   union PersonKnowFor = BaseMovie | BaseTVShow
 
   type BaseMovie {

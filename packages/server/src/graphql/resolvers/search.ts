@@ -1,5 +1,5 @@
-import { PersonKnowForResultSample, Context } from '../../types';
 import { QuerySearchArgs, QueryResolvers, SearchResult } from '../../lib/types';
+import { Context } from '../../types';
 
 type SearchResultSample = {
   known_for_department?: string;
@@ -7,7 +7,12 @@ type SearchResultSample = {
   title?: string;
 };
 
-const resolveKnownFor = (result: SearchResultSample) => {
+type PersonKnowForResultSample = {
+  first_air_date?: string;
+  title?: string;
+};
+
+const resolveKnownFor = (result: SearchResultSample): string | null => {
   if (result.title) {
     return 'BaseMovie';
   }
@@ -19,7 +24,7 @@ const resolveKnownFor = (result: SearchResultSample) => {
   return null;
 };
 
-const resolveSearchType = (result: SearchResultSample) => {
+const resolveSearchType = (result: SearchResultSample): string | null => {
   if (result.title) {
     return 'BaseMovie';
   }
@@ -37,22 +42,22 @@ const resolveSearchType = (result: SearchResultSample) => {
 
 const resolvers: QueryResolvers = {
   SearchResultItem: {
-    __resolveType(searchResultSample: SearchResultSample) {
+    __resolveType(searchResultSample: SearchResultSample): string | null {
       return resolveSearchType(searchResultSample);
     },
   },
   PersonKnowFor: {
-    __resolveType(personKnowForSample: PersonKnowForResultSample) {
+    __resolveType(personKnowForSample: PersonKnowForResultSample): string | null {
       return resolveKnownFor(personKnowForSample);
     },
   },
   Query: {
     search: (
       _: {},
-      { page, query, type, language }: QuerySearchArgs,
+      params: QuerySearchArgs,
       { dataSources }: Context,
     ): Promise<SearchResult> => {
-      return dataSources.tmdb.search({ page, query, type, language });
+      return dataSources.tmdb.search(params);
     },
   },
 };
