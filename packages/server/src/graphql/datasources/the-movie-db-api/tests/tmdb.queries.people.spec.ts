@@ -1,8 +1,8 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
+import { rawPeopleItem, peopleItem } from '../../../../__tests__/mocks/people.stub';
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
-import { personQueryResult, person } from '../../../../__tests__/mocks/people.stub';
 import resolvers from '../../../resolvers';
 import typeDefs from '../../../typeDefs';
 import TheMovieDBAPI from '..';
@@ -10,36 +10,58 @@ import TheMovieDBAPI from '..';
 const GET_PEOPLE = gql`
   query GetPeople($page: Int!) {
     people(page: $page) {
-      items {
-        knownForDepartment
-        knownFor {
-          originalLanguage
-          backdropImage
-          originalTitle
-          releaseDate
-          posterImage
-          voteAverage
-          mediaType
-          isAdult
-          overview
-          genres
-          voteCount
-          title
-          id
-        }
-        profileImage
-        popularity
-        adult
-        name
-        gender
-        id
-      }
       hasMore
+      total_results
+      total_pages
+      items {
+        profile_path
+        adult
+        id
+        popularity
+        name
+        known_for {
+          ... on BaseMovie {
+            original_title
+            video
+            title
+            adult
+            release_date
+            backdrop_path
+            genre_ids
+            overview
+            vote_average
+            media_type
+            poster_path
+            popularity
+            original_language
+            vote_count
+            overview
+            id
+          }
+
+          ... on BaseTVShow {
+            origin_country
+            original_name
+            name
+            first_air_date
+            backdrop_path
+            genre_ids
+            overview
+            vote_average
+            media_type
+            poster_path
+            popularity
+            original_language
+            vote_count
+            id
+          }
+        }
+      }
     }
   }
 `;
 
-const mockRestDataSourceGet = jest.fn();
+let mockRestDataSourceGet = jest.fn();
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
@@ -52,13 +74,8 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-const makeTestServer = () => {
+const makeTestServer = (): ApolloServer => {
   const tmdbAPI = new TheMovieDBAPI();
-
-  tmdbAPI.genres = {
-    movie: movieGenres,
-    tv: tvGenres,
-  };
 
   const server = new ApolloServer({
     typeDefs,
@@ -76,11 +93,18 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
     jest.clearAllMocks();
   });
 
-  it('fetches an array of people from the TheMoviewDB API and parses the result correctly', async () => {
-    mockRestDataSourceGet.mockResolvedValue({
-      results: [personQueryResult],
-      total_pages: 2,
-    });
+  it('fetches the popular people from TheMoviewDB API and returns the data as expected', async () => {
+    const response = {
+      total_pages: 1,
+      total_results: 1,
+      results: [rawPeopleItem],
+    };
+
+    mockRestDataSourceGet = jest
+      .fn()
+      .mockReturnValueOnce({ genres: tvGenres })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce(response);
 
     const server = makeTestServer();
 
@@ -91,14 +115,27 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
       variables: { page: 1 },
     });
 
-    expect(data!.people.items).toEqual([person]);
+    expect(data!.people).toEqual({
+      total_pages: 1,
+      total_results: 1,
+      hasMore: false,
+      items: [peopleItem],
+    });
   });
 
   it('returns the field hasMore as true when has more items to be paginated', async () => {
-    mockRestDataSourceGet.mockResolvedValue({
-      results: [personQueryResult, personQueryResult],
+    const response = {
       total_pages: 2,
-    });
+      total_results: 2,
+      results: [rawPeopleItem],
+    };
+
+    mockRestDataSourceGet = jest
+      .fn()
+      .mockReturnValueOnce({ genres: tvGenres })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce(response);
+
     const server = makeTestServer();
 
     const { query } = createTestClient(server);
@@ -112,10 +149,17 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
   });
 
   it('returns the field hasMore as false when has no more items to be paginated', async () => {
-    mockRestDataSourceGet.mockResolvedValue({
-      results: [personQueryResult, personQueryResult],
-      total_pages: 2,
-    });
+    const response = {
+      total_pages: 1,
+      total_results: 1,
+      results: [rawPeopleItem],
+    };
+
+    mockRestDataSourceGet = jest
+      .fn()
+      .mockReturnValueOnce({ genres: tvGenres })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce(response);
 
     const server = makeTestServer();
 
@@ -123,7 +167,7 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
 
     const { data } = await query({
       query: GET_PEOPLE,
-      variables: { page: 2 },
+      variables: { page: 1 },
     });
 
     expect(data!.people.hasMore).toEqual(false);

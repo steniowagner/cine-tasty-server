@@ -1,7 +1,7 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import { castDetails, details, person } from '../../../../__tests__/mocks/person.stub';
+import { rawPerson, person, rawCast } from '../../../../__tests__/mocks/person.stub';
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
 import resolvers from '../../../resolvers';
 import typeDefs from '../../../typeDefs';
@@ -10,48 +10,72 @@ import TheMovieDBAPI from '..';
 const GET_PERSON = gql`
   query GetPerson($id: Int!) {
     person(id: $id, language: PTBR) {
-      alsoKnownAs
-      placeOfBirth
       birthday
+      known_for_department
+      deathday
+      id
       name
+      also_known_as
+      place_of_birth
+      profile_path
+      adult
+      imdb_id
+      homepage
       biography
       popularity
-      homepage
-      knownForDepartment
-      deathday
-      imagesGallery
-      adult
-      profileImage
+      images
       gender
-      imbdId
-      id
       cast {
         character
-        backdropImage
+        backdrop_path
         overview
-        voteAverage
-        mediaType
-        posterImage
+        vote_average
+        media_type
+        poster_path
         popularity
-        originalLanguage
-        genres
-        voteCount
-        creditId
+        original_language
+        genre_ids
+        vote_count
+        credit_id
         id
         ... on CastMovie {
-          originalTitle
+          original_title
           video
           title
           adult
-          releaseDate
+          release_date
+          character
+          backdrop_path
+          genre_ids
+          overview
+          vote_average
+          media_type
+          poster_path
+          popularity
+          original_language
+          vote_count
+          credit_id
+          id
         }
 
         ... on CastTV {
-          episodeCount
-          originCountry
-          originalName
+          episode_count
+          origin_country
+          original_name
           name
-          firstAirDate
+          first_air_date
+          character
+          backdrop_path
+          genre_ids
+          overview
+          vote_average
+          media_type
+          poster_path
+          popularity
+          original_language
+          vote_count
+          credit_id
+          id
         }
       }
     }
@@ -71,13 +95,8 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-const makeTestServer = () => {
+const makeTestServer = (): ApolloServer => {
   const tmdbAPI = new TheMovieDBAPI();
-
-  tmdbAPI.genres = {
-    movie: movieGenres,
-    tv: tvGenres,
-  };
 
   const server = new ApolloServer({
     typeDefs,
@@ -98,8 +117,10 @@ describe('[TheMovieDBAPI.Queries.Person]', () => {
   it('fetches a person from the TheMoviewDB API and parses the result correctly', async () => {
     mockRestDataSourceGet = jest
       .fn()
-      .mockReturnValueOnce(details)
-      .mockReturnValueOnce(castDetails);
+      .mockReturnValueOnce({ genres: tvGenres })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce(rawPerson)
+      .mockReturnValueOnce(rawCast);
 
     const server = makeTestServer();
 
