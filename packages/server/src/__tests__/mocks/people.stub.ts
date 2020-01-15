@@ -1,91 +1,64 @@
-import { KnownForResult, BasePersonResponse } from '../../types';
-import { KnownFor, PeopleQueryItem } from '../../lib/types';
 import { movieGenres, tvGenres } from './mediaGenres.stub';
 
-const rawKnowForWithOriginalTitle: KnownForResult = {
+export const rawKnowForMovie = {
+  release_date: 'release_date',
+  id: 123,
+  vote_count: 123,
+  video: false,
+  media_type: 'movie',
+  vote_average: 5.8,
+  title: 'title',
+  genre_ids: movieGenres.map(genre => genre.id),
+  popularity: 1,
   original_title: 'original_title',
   original_language: 'original_language',
-  backdrop_path: 'backdrop_path',
-  release_date: 'release_date',
-  poster_path: 'poster_path',
-  vote_average: 1.2,
-  media_type: 'tv',
-  adult: true,
-  video: false,
+  adult: false,
+  backdrop_path: '/backdrop_path.jpg',
   overview: 'overview',
-  genre_ids: tvGenres.map(genre => genre.id),
-  vote_count: 12,
-  title: 'title',
-  id: 1,
+  poster_path: '/poster_path.jpg',
 };
 
-const knowForWithOriginalTitle: KnownFor = {
-  originalTitle: 'original_title',
-  originalLanguage: 'original_language',
-  backdropImage: 'backdrop_path',
-  releaseDate: 'release_date',
-  posterImage: 'poster_path',
-  voteAverage: 1.2,
-  mediaType: 'tv',
-  isAdult: true,
-  overview: 'overview',
-  genres: tvGenres.map(genre => genre.name),
-  voteCount: 12,
-  title: 'title',
-  id: '1',
-};
-
-const rawKnownForWithOriginalName: KnownForResult = {
+export const rawKnowForTVShow = {
   original_name: 'original_name',
-  original_language: 'original_language',
-  backdrop_path: 'backdrop_path',
-  release_date: 'release_date',
-  poster_path: 'poster_path',
-  vote_average: 1.2,
-  media_type: 'movie',
-  adult: true,
-  overview: 'overview',
-  genre_ids: movieGenres.map(genre => genre.id),
-  video: false,
-  vote_count: 12,
+  id: 79574,
+  origin_country: [],
   name: 'name',
-  id: 2,
-};
-
-const knownForWithOriginalName: KnownFor = {
-  originalTitle: 'original_name',
-  originalLanguage: 'original_language',
-  backdropImage: 'backdrop_path',
-  releaseDate: 'release_date',
-  posterImage: 'poster_path',
-  voteAverage: 1.2,
-  mediaType: 'movie',
-  isAdult: true,
+  backdrop_path: '/backdrop_path.jpg',
+  original_language: 'original_language',
+  first_air_date: 'first_air_date',
+  genre_ids: tvGenres.map(genre => genre.id),
+  popularity: 1,
+  vote_count: 2,
+  media_type: 'tv',
+  vote_average: 8,
   overview: 'overview',
-  genres: movieGenres.map(genre => genre.name),
-  voteCount: 12,
-  title: 'name',
-  id: '2',
+  poster_path: '/poster_path.jpg',
 };
 
-export const personQueryResult: BasePersonResponse = {
-  known_for_department: 'known_for_department',
+export const rawPeopleItem = {
   profile_path: 'profile_path',
-  known_for: [rawKnownForWithOriginalName, rawKnowForWithOriginalTitle],
+  known_for: [rawKnowForMovie, rawKnowForTVShow],
   popularity: 123,
   adult: true,
   name: 'name',
-  gender: 1,
   id: 3,
 };
 
-export const person: PeopleQueryItem = {
-  knownForDepartment: 'known_for_department',
-  profileImage: 'profile_path',
-  knownFor: [knownForWithOriginalName, knowForWithOriginalTitle],
+export const knowForMovie = {
+  ...rawKnowForMovie,
+  genre_ids: movieGenres.map(genre => genre.name),
+};
+
+export const knowForTVShow = {
+  ...rawKnowForTVShow,
+  genre_ids: tvGenres.map(genre => genre.name),
+};
+
+export const peopleItem = {
+  profile_path: 'profile_path',
+  known_for: [knowForMovie, knowForTVShow],
   popularity: 123,
   adult: true,
   name: 'name',
-  gender: 1,
-  id: '3',
+  id: 3,
 };

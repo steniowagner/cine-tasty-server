@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { ApolloServer, ApolloError } from 'apollo-server';
 import { GraphQLError } from 'graphql';
 

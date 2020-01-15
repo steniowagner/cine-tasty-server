@@ -1,8 +1,9 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import MediaGenresHandlers, { Props as MediaGenresProps } from './handlers/MediaGenres';
-import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/PeopleHandler';
-import SearchHandler, { Props as SearchHandlerProps } from './handlers/SearchHandler';
+import MediaGenresHandlers, { Props as MediaGenresProps } from './handlers/media-genres';
+import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/people';
+import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
+import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
 import { getFormatedLanguage } from './helpers';
 import env from '../../../config/environment';
 import {
@@ -27,12 +28,14 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   searchHandler: SearchHandlerProps;
   mediaGenresHandler: MediaGenresProps;
   peopleHandler: PeopleHandlerProps;
+  personHandler: PersonHandlerProps;
 
   constructor() {
     super();
     this.mediaGenresHandler = new MediaGenresHandlers(this.execGetRequest);
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
+    this.personHandler = new PersonHandler(this.execGetRequest);
     this.baseURL = BASE_URL;
   }
 
@@ -57,7 +60,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   async getPerson(params: QueryPersonArgs): Promise<PersonProfile | null> {
     const mediaGenres = await this.mediaGenresHandler.load(params.language);
 
-    return this.peopleHandler.getPerson(params, mediaGenres);
+    return this.personHandler.getPerson(params, mediaGenres);
   }
 
   async search(params: QuerySearchArgs): Promise<SearchResult> {

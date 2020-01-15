@@ -1,5 +1,5 @@
-import { SearchQueryEmpty } from '../../../../errors';
-import { Genres } from '../../../../types';
+import { SearchQueryEmpty } from '../../../../../errors';
+import { Genres } from '../../../../../types';
 import {
   SearchResultItem,
   SearchResult,
@@ -7,8 +7,8 @@ import {
   SearchType,
   BasePerson,
   Iso6391Language,
-} from '../../../../lib/types';
-import { attachKnownForToPeople, attachGenresToMedia } from '../helpers';
+} from '../../../../../lib/types';
+import { attachKnownForToPeople, attachGenresToMedia } from '../../helpers';
 
 type SearchParams = {
   page: number;
@@ -58,7 +58,6 @@ class SearchHandler implements Props {
       total_results: totalResults,
       results,
       total_pages: totalPages,
-      page,
     } = await this.get(
       endpoint,
       {
@@ -74,7 +73,7 @@ class SearchHandler implements Props {
         : attachGenresToMedia(results, mediaGenres, params.type);
 
     return {
-      hasMore: page < totalPages,
+      hasMore: params.page < totalPages,
       total_results: totalResults,
       items: result,
     };

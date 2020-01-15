@@ -1,3 +1,4 @@
+import { Context } from '../../types';
 import {
   QueryResolvers,
   QueryPeopleArgs,
@@ -6,7 +7,6 @@ import {
   PersonProfile,
   MediaType,
 } from '../../lib/types';
-import { Context } from '../../types';
 
 type CastType = {
   media_type: 'tv' | 'movie';

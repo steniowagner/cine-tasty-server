@@ -8,7 +8,7 @@ export const attachGenresToMedia = (
 ): BaseMediaType[] => {
   return items.map(item => ({
     ...item,
-    genres: getGenres(
+    genre_ids: getGenres(
       mediaGenres,
       item.genre_ids,
       item.media_type?.toLowerCase() || mediaType.toLowerCase(),

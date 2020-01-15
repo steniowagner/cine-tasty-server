@@ -1882,7 +1882,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genres",
+            "name": "genre_ids",
             "description": "",
             "args": [],
             "type": {
@@ -2085,7 +2085,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genres",
+            "name": "genre_ids",
             "description": "",
             "args": [],
             "type": {
@@ -2694,7 +2694,7 @@
             "deprecationReason": null
           },
           {
-            "name": "imbd_id",
+            "name": "imdb_id",
             "description": "",
             "args": [],
             "type": {
@@ -2742,7 +2742,7 @@
             "deprecationReason": null
           },
           {
-            "name": "images_gallery",
+            "name": "images",
             "description": "",
             "args": [],
             "type": {
@@ -2909,7 +2909,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genres",
+            "name": "genre_ids",
             "description": "",
             "args": [],
             "type": {
@@ -3894,7 +3894,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genres",
+            "name": "genre_ids",
             "description": "",
             "args": [],
             "type": {
@@ -4139,7 +4139,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genres",
+            "name": "genre_ids",
             "description": "",
             "args": [],
             "type": {

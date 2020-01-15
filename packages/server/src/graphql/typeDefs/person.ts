@@ -10,7 +10,7 @@ export default gql`
     poster_path: String
     popularity: Float
     original_language: String
-    genres: [String!]!
+    genre_ids: [String!]!
     vote_count: Float
     credit_id: String
     id: Int
@@ -24,7 +24,7 @@ export default gql`
     release_date: String
     character: String
     backdrop_path: String
-    genres: [String!]!
+    genre_ids: [String!]!
     overview: String
     vote_average: Float
     media_type: String
@@ -44,7 +44,7 @@ export default gql`
     first_air_date: String
     character: String
     backdrop_path: String
-    genres: [String!]!
+    genre_ids: [String!]!
     overview: String
     vote_average: Float
     media_type: String
@@ -66,11 +66,11 @@ export default gql`
     place_of_birth: String
     profile_path: String
     adult: Boolean
-    imbd_id: String
+    imdb_id: String
     homepage: String
     biography: String
     popularity: Float
-    images_gallery: [String!]!
+    images: [String!]!
     gender: Int
     cast: [Cast!]!
   }

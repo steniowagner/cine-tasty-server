@@ -2,7 +2,7 @@ import { QuerySearchArgs, QueryResolvers, SearchResult } from '../../lib/types';
 import { Context } from '../../types';
 
 type SearchResultSample = {
-  known_for_department?: string;
+  profile_path?: string;
   first_air_date?: string;
   title?: string;
 };
@@ -29,7 +29,7 @@ const resolveSearchType = (result: SearchResultSample): string | null => {
     return 'BaseMovie';
   }
 
-  if (result.known_for_department) {
+  if (result.profile_path) {
     return 'BasePerson';
   }
 

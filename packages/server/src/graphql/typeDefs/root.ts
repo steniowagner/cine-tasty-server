@@ -41,7 +41,7 @@ export default gql`
     adult: Boolean
     release_date: String
     backdrop_path: String
-    genres: [String!]!
+    genre_ids: [String!]!
     overview: String
     vote_average: Float
     media_type: String
@@ -58,7 +58,7 @@ export default gql`
     name: String
     first_air_date: String
     backdrop_path: String
-    genres: [String!]!
+    genre_ids: [String!]!
     overview: String
     vote_average: Float
     media_type: String
