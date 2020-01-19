@@ -51,6 +51,11 @@ export type BaseMovie = {
   id?: Maybe<Scalars['Int']>,
 };
 
+
+export type BaseMovieGenre_IdsArgs = {
+  language?: Maybe<Iso6391Language>
+};
+
 export type BasePerson = {
    __typename?: 'BasePerson',
   profile_path?: Maybe<Scalars['String']>,
@@ -79,6 +84,11 @@ export type BaseTvShow = {
   id?: Maybe<Scalars['Int']>,
 };
 
+
+export type BaseTvShowGenre_IdsArgs = {
+  language?: Maybe<Iso6391Language>
+};
+
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE'
@@ -97,6 +107,11 @@ export type Cast = {
   vote_count?: Maybe<Scalars['Float']>,
   credit_id?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['Int']>,
+};
+
+
+export type CastGenre_IdsArgs = {
+  language?: Maybe<Iso6391Language>
 };
 
 export type CastMovie = Cast & {
@@ -120,6 +135,11 @@ export type CastMovie = Cast & {
   id?: Maybe<Scalars['Int']>,
 };
 
+
+export type CastMovieGenre_IdsArgs = {
+  language?: Maybe<Iso6391Language>
+};
+
 export type CastTv = Cast & {
    __typename?: 'CastTV',
   episode_count?: Maybe<Scalars['Int']>,
@@ -139,6 +159,11 @@ export type CastTv = Cast & {
   vote_count?: Maybe<Scalars['Float']>,
   credit_id?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['Int']>,
+};
+
+
+export type CastTvGenre_IdsArgs = {
+  language?: Maybe<Iso6391Language>
 };
 
 export enum Iso6391Language {
@@ -434,10 +459,16 @@ export type PersonProfile = {
 export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['String']>,
+  people: PeopleQueryResult,
   search?: Maybe<SearchResult>,
   articles: ArticleQueryResult,
-  people: PeopleQueryResult,
   person?: Maybe<PersonProfile>,
+};
+
+
+export type QueryPeopleArgs = {
+  page: Scalars['Int'],
+  language?: Maybe<Iso6391Language>
 };
 
 
@@ -452,12 +483,6 @@ export type QuerySearchArgs = {
 export type QueryArticlesArgs = {
   page: Scalars['Int'],
   language?: Maybe<Language>
-};
-
-
-export type QueryPeopleArgs = {
-  page: Scalars['Int'],
-  language?: Maybe<Iso6391Language>
 };
 
 
@@ -557,21 +582,21 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   Int: ResolverTypeWrapper<Scalars['Int']>,
-  SearchType: SearchType,
   ISO6391Language: Iso6391Language,
-  SearchResult: ResolverTypeWrapper<Omit<SearchResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
-  SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
+  PeopleQueryResult: ResolverTypeWrapper<PeopleQueryResult>,
   BasePerson: ResolverTypeWrapper<Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
   PersonKnowFor: ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
   BaseMovie: ResolverTypeWrapper<BaseMovie>,
   BaseTVShow: ResolverTypeWrapper<BaseTvShow>,
+  SearchType: SearchType,
+  SearchResult: ResolverTypeWrapper<Omit<SearchResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
+  SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
   Language: Language,
   ArticleQueryResult: ResolverTypeWrapper<ArticleQueryResult>,
   Article: ResolverTypeWrapper<Article>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
-  PeopleQueryResult: ResolverTypeWrapper<PeopleQueryResult>,
   PersonProfile: ResolverTypeWrapper<PersonProfile>,
   Cast: ResolverTypeWrapper<Cast>,
   CacheControlScope: CacheControlScope,
@@ -587,21 +612,21 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {},
   String: Scalars['String'],
   Int: Scalars['Int'],
-  SearchType: SearchType,
   ISO6391Language: Iso6391Language,
-  SearchResult: Omit<SearchResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
-  SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
+  PeopleQueryResult: PeopleQueryResult,
   BasePerson: Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> },
   Boolean: Scalars['Boolean'],
   Float: Scalars['Float'],
   PersonKnowFor: ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
   BaseMovie: BaseMovie,
   BaseTVShow: BaseTvShow,
+  SearchType: SearchType,
+  SearchResult: Omit<SearchResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
+  SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
   Language: Language,
   ArticleQueryResult: ArticleQueryResult,
   Article: Article,
   ID: Scalars['ID'],
-  PeopleQueryResult: PeopleQueryResult,
   PersonProfile: PersonProfile,
   Cast: Cast,
   CacheControlScope: CacheControlScope,
@@ -639,7 +664,7 @@ export type BaseMovieResolvers<ContextType = any, ParentType extends ResolversPa
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
   release_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, BaseMovieGenre_IdsArgs>,
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   media_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -665,7 +690,7 @@ export type BaseTvShowResolvers<ContextType = any, ParentType extends ResolversP
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   first_air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, BaseTvShowGenre_IdsArgs>,
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   media_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -686,7 +711,7 @@ export type CastResolvers<ContextType = any, ParentType extends ResolversParentT
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   original_language?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, CastGenre_IdsArgs>,
   vote_count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   credit_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
@@ -700,7 +725,7 @@ export type CastMovieResolvers<ContextType = any, ParentType extends ResolversPa
   release_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   character?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, CastMovieGenre_IdsArgs>,
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   media_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -720,7 +745,7 @@ export type CastTvResolvers<ContextType = any, ParentType extends ResolversParen
   first_air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   character?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, CastTvGenre_IdsArgs>,
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   media_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -781,9 +806,9 @@ export type PersonProfileResolvers<ContextType = any, ParentType extends Resolve
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
   search?: Resolver<Maybe<ResolversTypes['SearchResult']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'page' | 'query' | 'type'>>,
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
-  people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
   person?: Resolver<Maybe<ResolversTypes['PersonProfile']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'id'>>,
 }>;
 

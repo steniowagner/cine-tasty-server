@@ -26,7 +26,7 @@ type GetRequest = <T>(
 ) => Promise<T>;
 
 export interface Props {
-  getPerson: (params: QueryPersonArgs, genres: Genres) => Promise<PersonProfile | null>;
+  getPerson: (params: QueryPersonArgs) => Promise<PersonProfile | null>;
   get: GetRequest;
 }
 
@@ -37,10 +37,7 @@ class PersonHandler implements Props {
     this.get = execGetRequest;
   }
 
-  async getPerson(
-    { language, id }: QueryPersonArgs,
-    genres: Genres,
-  ): Promise<PersonProfile | null> {
+  async getPerson({ language, id }: QueryPersonArgs): Promise<PersonProfile | null> {
     const [result, { cast }] = await Promise.all<GetPersonResponse, GetCastResponse>([
       this.get(
         `${PERSON_ENDPOINT}/${id}`,
@@ -57,7 +54,8 @@ class PersonHandler implements Props {
     return {
       ...result,
       images: getPersonProfileImages(result.images),
-      cast: attachGenresToMedia(cast, genres),
+      cast,
+      // cast: attachGenresToMedia(cast, genres),
     };
   }
 }

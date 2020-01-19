@@ -1,6 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import MediaGenresHandlers, { Props as MediaGenresProps } from './handlers/media-genres';
 import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/people';
 import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
@@ -26,13 +25,11 @@ export interface Props {
 
 class TheMovieDBAPI extends RESTDataSource implements Props {
   searchHandler: SearchHandlerProps;
-  mediaGenresHandler: MediaGenresProps;
   peopleHandler: PeopleHandlerProps;
   personHandler: PersonHandlerProps;
 
   constructor() {
     super();
-    this.mediaGenresHandler = new MediaGenresHandlers(this.execGetRequest);
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
     this.personHandler = new PersonHandler(this.execGetRequest);
@@ -52,21 +49,21 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   };
 
   async getPeople(params: QueryPeopleArgs): Promise<PeopleQueryResult> {
-    const mediaGenres = await this.mediaGenresHandler.load(params.language);
-
-    return this.peopleHandler.getPopularPeople(params, mediaGenres);
+    return this.peopleHandler.getPopularPeople(params);
   }
 
   async getPerson(params: QueryPersonArgs): Promise<PersonProfile | null> {
-    const mediaGenres = await this.mediaGenresHandler.load(params.language);
-
-    return this.personHandler.getPerson(params, mediaGenres);
+    return this.personHandler.getPerson(params);
   }
 
   async search(params: QuerySearchArgs): Promise<SearchResult> {
-    const mediaGenres = await this.mediaGenresHandler.load(params.language);
-
-    return this.searchHandler.search(params, mediaGenres);
+    // const mediaGenres = await this.mediaGenresHandler.load(params.language);
+    return {
+      total_results: 1,
+      items: [],
+      hasMore: false,
+    };
+    // return this.searchHandler.search(params, { tv: [], movie: [] });
   }
 }
 

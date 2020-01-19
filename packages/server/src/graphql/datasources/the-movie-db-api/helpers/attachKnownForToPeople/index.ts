@@ -10,6 +10,6 @@ export const attachKnownForToPeople = (
 
   return {
     ...person,
-    known_for: attachGenresToMedia(personKnowFor, mediaGenres),
+    known_for: attachGenresToMedia(personKnowFor),
   };
 };

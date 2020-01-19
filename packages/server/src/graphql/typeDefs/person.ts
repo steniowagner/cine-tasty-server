@@ -10,7 +10,7 @@ export default gql`
     poster_path: String
     popularity: Float
     original_language: String
-    genre_ids: [String!]!
+    genre_ids(language: ISO6391Language): [String!]!
     vote_count: Float
     credit_id: String
     id: Int
@@ -24,7 +24,7 @@ export default gql`
     release_date: String
     character: String
     backdrop_path: String
-    genre_ids: [String!]!
+    genre_ids(language: ISO6391Language): [String!]!
     overview: String
     vote_average: Float
     media_type: String
@@ -44,7 +44,7 @@ export default gql`
     first_air_date: String
     character: String
     backdrop_path: String
-    genre_ids: [String!]!
+    genre_ids(language: ISO6391Language): [String!]!
     overview: String
     vote_average: Float
     media_type: String
@@ -75,15 +75,7 @@ export default gql`
     cast: [Cast!]!
   }
 
-  type PeopleQueryResult {
-    total_results: Int!
-    total_pages: Int!
-    items: [BasePerson!]!
-    hasMore: Boolean!
-  }
-
   extend type Query {
-    people(page: Int!, language: ISO6391Language): PeopleQueryResult!
     person(id: Int!, language: ISO6391Language): PersonProfile
   }
 `;

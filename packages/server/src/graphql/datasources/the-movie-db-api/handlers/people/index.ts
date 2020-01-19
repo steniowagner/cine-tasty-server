@@ -1,5 +1,3 @@
-import { attachKnownForToPeople } from '../../helpers';
-import { Genres } from '../../../../../types';
 import {
   PeopleQueryResult,
   Iso6391Language,
@@ -24,10 +22,7 @@ type GetRequest = <T>(
 ) => Promise<T>;
 
 export interface Props {
-  getPopularPeople: (
-    params: QueryPeopleArgs,
-    genres: Genres,
-  ) => Promise<PeopleQueryResult>;
+  getPopularPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
   get: GetRequest;
 }
 
@@ -38,27 +33,21 @@ class PeopleHandler implements Props {
     this.get = execGetRequest;
   }
 
-  attachKnownForToPeopleResult(people: BasePerson[], mediaGenres: Genres): BasePerson[] {
-    return people.map(person => attachKnownForToPeople(person, mediaGenres));
-  }
-
-  async getPopularPeople(
-    { language, page }: QueryPeopleArgs,
-    mediaGenres: Genres,
-  ): Promise<PeopleQueryResult> {
+  async getPopularPeople({
+    language,
+    page,
+  }: QueryPeopleArgs): Promise<PeopleQueryResult> {
     const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
 
     const { total_pages: totalPages, total_results, results } = await this.get<
       Promise<GetPeopleResponse>
     >(endpoint, { page }, language);
 
-    const items = this.attachKnownForToPeopleResult(results, mediaGenres);
-
     return {
       hasMore: page < totalPages,
       total_pages: totalPages,
       total_results,
-      items,
+      items: results,
     };
   }
 }

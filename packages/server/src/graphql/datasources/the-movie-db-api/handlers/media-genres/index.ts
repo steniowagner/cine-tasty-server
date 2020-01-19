@@ -50,6 +50,7 @@ class MediaGenres extends RESTDataSource {
     language?: Iso6391Language | null,
   ): Promise<MediaGenre[] | []> {
     const endpoint = this.getEndpoint(mediaType);
+
     if (!endpoint) {
       return [];
     }

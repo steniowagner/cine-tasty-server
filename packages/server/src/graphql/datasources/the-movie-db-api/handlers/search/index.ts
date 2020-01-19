@@ -67,15 +67,15 @@ class SearchHandler implements Props {
       params.language,
     );
 
-    const result =
+    /* const result =
       params.type.toLowerCase() === SearchType.Person.toLowerCase()
         ? this.attachKnownForToPeopleResult(results, mediaGenres)
-        : attachGenresToMedia(results, mediaGenres, params.type);
+        : attachGenresToMedia(results, mediaGenres, params.type); */
 
     return {
       hasMore: params.page < totalPages,
       total_results: totalResults,
-      items: result,
+      items: [],
     };
   }
 }

@@ -1,21 +1,21 @@
-import { MediaItem, Context } from '../../types';
+import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
 import {
   QueryResolvers,
-  QueryPersonArgs,
-  PersonProfile,
+  QueryPeopleArgs,
+  PeopleQueryResult,
+  BaseMovieGenre_IdsArgs as BaseMovieGenreIdsArgs,
+  BaseTvShowGenre_IdsArgs as BaseTvShowGenreIdsArgs,
   MediaType,
-  CastMovieGenre_IdsArgs as CastMovieGenreIdsArgs,
-  CastTvGenre_IdsArgs as CastTvGenreIdsArgs,
 } from '../../lib/types';
-import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
+import { Context, MediaItem } from '../../types';
 
 const mediaGenres = new MediaGenresHandler();
 
 const resolvers: QueryResolvers = {
-  CastMovie: {
+  BaseMovie: {
     genre_ids: (
       { genre_ids }: MediaItem,
-      { language }: CastMovieGenreIdsArgs,
+      { language }: BaseMovieGenreIdsArgs,
     ): Promise<string[]> => {
       return mediaGenres.getMediaGenres(
         genre_ids,
@@ -24,20 +24,20 @@ const resolvers: QueryResolvers = {
       );
     },
   },
-  CastTV: {
+  BaseTVShow: {
     genre_ids: (
       { genre_ids }: MediaItem,
-      { language }: CastTvGenreIdsArgs,
+      { language }: BaseTvShowGenreIdsArgs,
     ): Promise<string[]> => {
       return mediaGenres.getMediaGenres(genre_ids, MediaType.Tv.toLowerCase(), language);
     },
   },
   Query: {
-    person: (
+    people: (
       _: {},
-      params: QueryPersonArgs,
+      params: QueryPeopleArgs,
       { dataSources }: Context,
-    ): Promise<PersonProfile | null> => dataSources.tmdb.getPerson(params),
+    ): Promise<PeopleQueryResult> => dataSources.tmdb.getPeople(params),
   },
 };
 
