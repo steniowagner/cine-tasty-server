@@ -1,10 +1,10 @@
 import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
 import {
+  BaseTvShowGenre_IdsArgs as BaseTvShowGenreIdsArgs,
+  BaseMovieGenre_IdsArgs as BaseMovieGenreIdsArgs,
   QueryResolvers,
   QueryPeopleArgs,
   PeopleQueryResult,
-  BaseMovieGenre_IdsArgs as BaseMovieGenreIdsArgs,
-  BaseTvShowGenre_IdsArgs as BaseTvShowGenreIdsArgs,
   MediaType,
 } from '../../lib/types';
 import { Context, MediaItem } from '../../types';
@@ -16,21 +16,15 @@ const resolvers: QueryResolvers = {
     genre_ids: (
       { genre_ids }: MediaItem,
       { language }: BaseMovieGenreIdsArgs,
-    ): Promise<string[]> => {
-      return mediaGenres.getMediaGenres(
-        genre_ids,
-        MediaType.Movie.toLowerCase(),
-        language,
-      );
-    },
+    ): Promise<string[]> =>
+      mediaGenres.getMediaGenres(genre_ids, MediaType.Movie.toLowerCase(), language),
   },
   BaseTVShow: {
     genre_ids: (
       { genre_ids }: MediaItem,
       { language }: BaseTvShowGenreIdsArgs,
-    ): Promise<string[]> => {
-      return mediaGenres.getMediaGenres(genre_ids, MediaType.Tv.toLowerCase(), language);
-    },
+    ): Promise<string[]> =>
+      mediaGenres.getMediaGenres(genre_ids, MediaType.Tv.toLowerCase(), language),
   },
   Query: {
     people: (

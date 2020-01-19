@@ -30,8 +30,7 @@ type GetRequest = <SearchParams, GetRequestResult>(
 ) => Promise<GetRequestResult>;
 
 export interface Props {
-  search: (params: QuerySearchArgs, mediaGenres: Genres) => Promise<SearchResult>;
-  get: GetRequest;
+  search: (params: QuerySearchArgs) => Promise<SearchResult>;
 }
 
 const BASE_ENDPOINT = '/search';
@@ -43,11 +42,7 @@ class SearchHandler implements Props {
     this.get = execGetRequest;
   }
 
-  attachKnownForToPeopleResult(people: BasePerson[], mediaGenres: Genres): BasePerson[] {
-    return people.map(person => attachKnownForToPeople(person, mediaGenres));
-  }
-
-  async search(params: QuerySearchArgs, mediaGenres: Genres): Promise<SearchResult> {
+  async search(params: QuerySearchArgs): Promise<SearchResult> {
     const endpoint = `${BASE_ENDPOINT}/${params.type.toLowerCase()}`;
 
     if (!params.query) {
@@ -67,15 +62,10 @@ class SearchHandler implements Props {
       params.language,
     );
 
-    /* const result =
-      params.type.toLowerCase() === SearchType.Person.toLowerCase()
-        ? this.attachKnownForToPeopleResult(results, mediaGenres)
-        : attachGenresToMedia(results, mediaGenres, params.type); */
-
     return {
       hasMore: params.page < totalPages,
       total_results: totalResults,
-      items: [],
+      items: results,
     };
   }
 }

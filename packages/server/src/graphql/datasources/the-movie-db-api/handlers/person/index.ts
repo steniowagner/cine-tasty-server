@@ -1,5 +1,5 @@
-import { GetPersonImagesResult, MediaItem, Genres } from '../../../../../types';
-import { getPersonProfileImages, attachGenresToMedia } from '../../helpers';
+import { GetPersonImagesResult, MediaItem } from '../../../../../types';
+import { getPersonProfileImages } from '../../helpers';
 import {
   Iso6391Language,
   PersonProfile,
@@ -55,7 +55,6 @@ class PersonHandler implements Props {
       ...result,
       images: getPersonProfileImages(result.images),
       cast,
-      // cast: attachGenresToMedia(cast, genres),
     };
   }
 }

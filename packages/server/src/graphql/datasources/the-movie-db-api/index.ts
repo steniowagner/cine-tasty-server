@@ -57,13 +57,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   }
 
   async search(params: QuerySearchArgs): Promise<SearchResult> {
-    // const mediaGenres = await this.mediaGenresHandler.load(params.language);
-    return {
-      total_results: 1,
-      items: [],
-      hasMore: false,
-    };
-    // return this.searchHandler.search(params, { tv: [], movie: [] });
+    return this.searchHandler.search(params);
   }
 }
 

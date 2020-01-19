@@ -23,7 +23,6 @@ type GetRequest = <T>(
 
 export interface Props {
   getPopularPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
-  get: GetRequest;
 }
 
 class PeopleHandler implements Props {
