@@ -3,7 +3,7 @@ import baseMovie from './baseMovie';
 import baseTVShow from './baseTVShow';
 import cast from './cast';
 import castMovie from './castMovie';
-import castTV from './castTV';
+import castTVShow from './castTVShow';
 import people from './people';
 import person from './person';
 import personKnownFor from './personKnownFor';
@@ -15,11 +15,11 @@ export default [
   baseMovie,
   baseTVShow,
   cast,
-  castTV,
+  castTVShow,
   castMovie,
   people,
   person,
   personKnownFor,
-  search,
   searchResultItem,
+  search,
 ];

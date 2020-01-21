@@ -58,7 +58,7 @@ const GET_PERSON = gql`
           id
         }
 
-        ... on CastTV {
+        ... on CastTVShow {
           episode_count
           origin_country
           original_name

@@ -1,6 +1,20 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
+const mockRestDataSourceGet = jest.fn();
+
+jest.mock('apollo-datasource-rest', () => {
+  class MockRESTDataSource {
+    baseUrl = '';
+    get = mockRestDataSourceGet;
+  }
+
+  return {
+    RESTDataSource: MockRESTDataSource,
+    HTTPCache: class HTTPCache {},
+  };
+});
+
 import {
   rawArticleWithId,
   articleWithId,
@@ -38,19 +52,6 @@ const makeTestServer = () => {
 
   return server;
 };
-
-const mockRestDataSourceGet = jest.fn();
-
-jest.mock('apollo-datasource-rest', () => {
-  class MockRESTDataSource {
-    baseUrl = '';
-    get = mockRestDataSourceGet;
-  }
-
-  return {
-    RESTDataSource: MockRESTDataSource,
-  };
-});
 
 describe('[NewsAPI.Queries.GetAllArticles]', () => {
   it('fetches an array of articles from the News API', async () => {

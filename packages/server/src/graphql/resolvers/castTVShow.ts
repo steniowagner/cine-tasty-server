@@ -9,7 +9,7 @@ import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-g
 const mediaGenres = new MediaGenresHandler();
 
 const resolvers: QueryResolvers = {
-  CastTV: {
+  CastTVShow: {
     genre_ids: (
       { genre_ids }: MediaItem,
       { language }: CastTvGenreIdsArgs,

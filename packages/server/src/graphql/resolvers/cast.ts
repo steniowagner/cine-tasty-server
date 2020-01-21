@@ -10,7 +10,7 @@ const resolveCastType = (cast: CastType): string | null => {
   }
 
   if (cast.media_type === MediaType.Tv.toLowerCase()) {
-    return 'CastTV';
+    return 'CastTVShow';
   }
 
   return null;
