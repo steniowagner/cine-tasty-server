@@ -7,8 +7,4 @@ export default gql`
     items: [BasePerson!]!
     hasMore: Boolean!
   }
-
-  extend type Query {
-    people(page: Int!, language: ISO6391Language): PeopleQueryResult!
-  }
 `;
