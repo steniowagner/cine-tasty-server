@@ -1,6 +1,8 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
+const mockRestDataSourceGet = jest.fn();
+
 import { rawPerson, person, rawCast } from '../../../../__tests__/mocks/person.stub';
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
 import resolvers from '../../../resolvers';
@@ -82,8 +84,6 @@ const GET_PERSON = gql`
   }
 `;
 
-let mockRestDataSourceGet = jest.fn();
-
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
     baseUrl = '';
@@ -92,6 +92,7 @@ jest.mock('apollo-datasource-rest', () => {
 
   return {
     RESTDataSource: MockRESTDataSource,
+    HTTPCache: class HTTPCache {},
   };
 });
 
@@ -114,13 +115,12 @@ describe('[TheMovieDBAPI.Queries.Person]', () => {
     jest.clearAllMocks();
   });
 
-  it('fetches a person from the TheMoviewDB API and parses the result correctly', async () => {
-    mockRestDataSourceGet = jest
-      .fn()
-      .mockReturnValueOnce({ genres: tvGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
+  it('fetches a person from the TheMoviewDB API and returns it correctly', async () => {
+    mockRestDataSourceGet
       .mockReturnValueOnce(rawPerson)
-      .mockReturnValueOnce(rawCast);
+      .mockReturnValueOnce(rawCast)
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce({ genres: tvGenres });
 
     const server = makeTestServer();
 
@@ -135,7 +135,7 @@ describe('[TheMovieDBAPI.Queries.Person]', () => {
   });
 
   it("return null when the person doesn't exists", async () => {
-    mockRestDataSourceGet = jest.fn().mockReturnValue({ success: false });
+    mockRestDataSourceGet.mockReturnValue({ success: false });
 
     const server = makeTestServer();
 
