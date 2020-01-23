@@ -48,7 +48,7 @@ class MediaGenres extends RESTDataSource {
   async load(
     mediaType: string,
     language?: Iso6391Language | null,
-  ): Promise<MediaGenre[] | []> {
+  ): Promise<MediaGenre[]> {
     const endpoint = this.getEndpoint(mediaType);
 
     if (!endpoint) {
@@ -59,7 +59,6 @@ class MediaGenres extends RESTDataSource {
       language: getFormatedLanguage(language),
       api_key: env.THE_MOVIE_DB_API_KEY,
     });
-
     return genres;
   }
 }

@@ -4,18 +4,24 @@ import { ApolloServer, gql } from 'apollo-server';
 import { rawPeopleItem, peopleItem } from '../../../../__tests__/mocks/people.stub';
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
 
-let mockRestDataSourceGet = jest.fn();
+const mockRestDataSourceGet = jest.fn();
 
+import env from '../../../../config/environment';
 import resolvers from '../../../resolvers';
 import typeDefs from '../../../typeDefs';
 import TheMovieDBAPI from '..';
 
+const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
+const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';
+const POPULAR_PERSON_ENDPOINT = '/popular';
+const PERSON_ENDPOINT = '/person';
+
 const GET_PEOPLE = gql`
   query GetPeople($page: Int!) {
     people(page: $page) {
-      hasMore
       total_results
       total_pages
+      hasMore
       items {
         profile_path
         adult
@@ -33,6 +39,7 @@ const GET_PEOPLE = gql`
             overview
             vote_average
             media_type
+            genre_ids
             poster_path
             popularity
             original_language
@@ -48,6 +55,7 @@ const GET_PEOPLE = gql`
             first_air_date
             backdrop_path
             overview
+            genre_ids
             vote_average
             media_type
             poster_path
@@ -63,17 +71,13 @@ const GET_PEOPLE = gql`
 `;
 
 const makeTestServer = (): ApolloServer => {
-  const tmdbAPI = new TheMovieDBAPI();
-
-  const server = new ApolloServer({
+  return new ApolloServer({
     typeDefs,
     resolvers,
     dataSources: () => ({
-      tmdb: tmdbAPI,
+      tmdb: new TheMovieDBAPI(),
     }),
   });
-
-  return server;
 };
 
 jest.mock('apollo-datasource-rest', () => {
@@ -93,25 +97,45 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
     jest.clearAllMocks();
   });
 
-  it('fetches the popular people from TheMoviewDB API and returns the data as correctly', async () => {
-    const response = {
-      total_pages: 1,
-      total_results: 1,
-      results: [rawPeopleItem],
-    };
+  it('fetches the popular people from TheMoviewDB API and returns the data correctly', async () => {
+    mockRestDataSourceGet
+      .mockReturnValueOnce({
+        total_pages: 1,
+        total_results: 1,
+        results: [rawPeopleItem],
+      })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce({ genres: tvGenres });
 
     const server = makeTestServer();
 
-    mockRestDataSourceGet = jest.fn().mockReturnValueOnce(response);
-
     const { query } = createTestClient(server);
 
-    const { data, errors } = await query({
+    const { data } = await query({
       query: GET_PEOPLE,
       variables: { page: 1 },
     });
-    console.log(errors);
-    console.log(mockRestDataSourceGet.mock.calls.length);
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+      `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
+      {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      },
+    );
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'en-us',
+    });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'en-us',
+    });
 
     expect(data!.people).toEqual({
       total_pages: 1,
@@ -120,54 +144,52 @@ describe('[TheMovieDBAPI.Queries.People]', () => {
       items: [peopleItem],
     });
   });
-  /*
+
   it('returns the field hasMore as true when has more items to be paginated', async () => {
-    const response = {
+    mockRestDataSourceGet
+      .mockReturnValueOnce({
+        total_pages: 2,
+        total_results: 2,
+        results: [rawPeopleItem],
+      })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce({ genres: tvGenres });
+
+    const server = makeTestServer();
+
+    const { query } = createTestClient(server);
+
+    const { data } = await query({
+      query: GET_PEOPLE,
+      variables: { page: 1 },
+    });
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+      `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
+      {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      },
+    );
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'en-us',
+    });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'en-us',
+    });
+
+    expect(data!.people).toEqual({
       total_pages: 2,
       total_results: 2,
-      results: [rawPeopleItem],
-    };
-
-    mockRestDataSourceGet = jest
-      .fn()
-      .mockReturnValueOnce({ genres: tvGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce(response);
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_PEOPLE,
-      variables: { page: 1 },
+      hasMore: true,
+      items: [peopleItem],
     });
-
-    expect(data!.people.hasMore).toEqual(true);
   });
-
-  it('returns the field hasMore as false when has no more items to be paginated', async () => {
-    const response = {
-      total_pages: 1,
-      total_results: 1,
-      results: [rawPeopleItem],
-    };
-
-    mockRestDataSourceGet = jest
-      .fn()
-      .mockReturnValueOnce({ genres: tvGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce(response);
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_PEOPLE,
-      variables: { page: 1 },
-    });
-
-    expect(data!.people.hasMore).toEqual(false);
-  }); */
 });

@@ -1,18 +1,13 @@
 import { QueryResolvers } from '../../lib/types';
 
-type SearchResultSample = {
-  profile_path?: string;
+type PersonKnownForResultSample = {
+  original_title?: string;
   first_air_date?: string;
   title?: string;
 };
 
-type PersonKnowForResultSample = {
-  first_air_date?: string;
-  title?: string;
-};
-
-const resolveKnownFor = (result: SearchResultSample): string | null => {
-  if (result.title) {
+const resolveKnownFor = (result: PersonKnownForResultSample): string | null => {
+  if (result.title || result.original_title) {
     return 'BaseMovie';
   }
 
@@ -25,7 +20,7 @@ const resolveKnownFor = (result: SearchResultSample): string | null => {
 
 const resolveTypes: QueryResolvers = {
   PersonKnowFor: {
-    __resolveType(personKnowForSample: PersonKnowForResultSample): string | null {
+    __resolveType(personKnowForSample: PersonKnownForResultSample): string | null {
       return resolveKnownFor(personKnowForSample);
     },
   },
