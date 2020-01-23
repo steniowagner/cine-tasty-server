@@ -95,15 +95,6 @@ describe('[TheMovieDBAPI.Queries.Search.Movie]', () => {
   });
 
   it('should throw an error when the query is empty', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({
-        total_results: 1,
-        results: [],
-        total_pages: 1,
-      })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: tvGenres });
-
     const server = makeTestServer();
 
     const { query } = createTestClient(server);
