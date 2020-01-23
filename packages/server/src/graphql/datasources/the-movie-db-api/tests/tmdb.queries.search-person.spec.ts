@@ -1,6 +1,8 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
+const mockRestDataSourceGet = jest.fn();
+
 import { SearchType } from '../../../../lib/types';
 import { rawPeopleItem, peopleItem } from '../../../../__tests__/mocks/people.stub';
 import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
@@ -62,8 +64,6 @@ const SEARCH_PERSON = gql`
   }
 `;
 
-let mockRestDataSourceGet = jest.fn();
-
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
     baseUrl = '';
@@ -72,6 +72,7 @@ jest.mock('apollo-datasource-rest', () => {
 
   return {
     RESTDataSource: MockRESTDataSource,
+    HTTPCache: class HTTPCache {},
   };
 });
 
@@ -95,15 +96,14 @@ describe('[TheMovieDBAPI.Queries.Search.Person]', () => {
   });
 
   it('search for person on TheMoviewDB API and returns the result correctly', async () => {
-    mockRestDataSourceGet = jest
-      .fn()
-      .mockReturnValueOnce({ genres: tvGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
+    mockRestDataSourceGet
       .mockReturnValueOnce({
         total_results: 1,
         results: [rawPeopleItem],
         total_pages: 1,
-      });
+      })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce({ genres: tvGenres });
 
     const server = makeTestServer();
 
@@ -120,15 +120,14 @@ describe('[TheMovieDBAPI.Queries.Search.Person]', () => {
   });
 
   it('should throw an error when the query is empty', async () => {
-    mockRestDataSourceGet = jest
-      .fn()
-      .mockReturnValueOnce({ genres: tvGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
+    mockRestDataSourceGet
       .mockReturnValueOnce({
         total_results: 1,
         results: [],
         total_pages: 1,
-      });
+      })
+      .mockReturnValueOnce({ genres: movieGenres })
+      .mockReturnValueOnce({ genres: tvGenres });
 
     const server = makeTestServer();
 
