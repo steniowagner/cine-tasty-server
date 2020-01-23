@@ -1,14 +1,10 @@
 import { SearchQueryEmpty } from '../../../../../errors';
-import { Genres } from '../../../../../types';
 import {
   SearchResultItem,
   SearchResult,
   QuerySearchArgs,
-  SearchType,
-  BasePerson,
   Iso6391Language,
 } from '../../../../../lib/types';
-import { attachKnownForToPeople, attachGenresToMedia } from '../../helpers';
 
 type SearchParams = {
   page: number;
