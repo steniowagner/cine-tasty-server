@@ -6,7 +6,7 @@ import MediaGenres from '.';
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';
 
-let mockRestDataSourceGet = jest.fn();
+const mockRestDataSourceGet = jest.fn();
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
@@ -26,7 +26,7 @@ describe('[MediaGenres]', () => {
   });
 
   it('should get movie genres correctly when some language is provided', async () => {
-    mockRestDataSourceGet = jest.fn().mockReturnValueOnce({ genres: movieGenres });
+    mockRestDataSourceGet.mockReturnValueOnce({ genres: movieGenres });
 
     const mediaGenres = new MediaGenres();
 
@@ -49,7 +49,7 @@ describe('[MediaGenres]', () => {
   });
 
   it('should get movie genres correctly when no language is provided', async () => {
-    mockRestDataSourceGet = jest.fn().mockReturnValueOnce({ genres: movieGenres });
+    mockRestDataSourceGet.mockReturnValueOnce({ genres: movieGenres });
 
     const mediaGenres = new MediaGenres();
 
@@ -71,7 +71,7 @@ describe('[MediaGenres]', () => {
   });
 
   it('should get tv-show genres correctly when some language is provided', async () => {
-    mockRestDataSourceGet = jest.fn().mockReturnValueOnce({ genres: tvGenres });
+    mockRestDataSourceGet.mockReturnValueOnce({ genres: tvGenres });
 
     const mediaGenres = new MediaGenres();
 
@@ -94,7 +94,7 @@ describe('[MediaGenres]', () => {
   });
 
   it('should get tv-show genres correctly when no language is provided', async () => {
-    mockRestDataSourceGet = jest.fn().mockReturnValueOnce({ genres: tvGenres });
+    mockRestDataSourceGet.mockReturnValueOnce({ genres: tvGenres });
 
     const mediaGenres = new MediaGenres();
 
@@ -113,5 +113,19 @@ describe('[MediaGenres]', () => {
     });
 
     expect(resultForTVShows).toEqual(tvGenres.map(({ name }) => name));
+  });
+
+  it("should return an empty array when the media-type isn't recognized", async () => {
+    mockRestDataSourceGet.mockReturnValueOnce({ genres: tvGenres });
+
+    const mediaGenres = new MediaGenres();
+
+    const tvShowGenresIds = tvGenres.map(({ id }) => id);
+
+    const resultForTVShows = await mediaGenres.getMediaGenres(tvShowGenresIds, 'other');
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(0);
+
+    expect(resultForTVShows).toEqual([]);
   });
 });

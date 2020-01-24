@@ -15,7 +15,7 @@ module.exports = {
   ],
   displayName: {
     name: 'SERVER',
-    color: 'blue',
+    color: 'red',
   },
   coverageThreshold: {
     global: {

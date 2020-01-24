@@ -1,3 +1,5 @@
+import { movieGenres, tvGenres } from './mediaGenres.stub';
+
 export const rawPerson = {
   birthday: 'birthday',
   known_for_department: 'known_for_department',
@@ -67,7 +69,7 @@ export const person = {
       popularity: 17.87,
       title: 'title',
       original_language: 'en',
-      genre_ids: ['Movie Genre'],
+      genre_ids: movieGenres.map(({ name }) => name),
       vote_average: 5.8,
       adult: false,
       release_date: 'release_date',
@@ -82,7 +84,7 @@ export const person = {
       poster_path: '/poster_path.jpg',
       popularity: 109.559,
       original_language: 'original_language',
-      genre_ids: ['TV Genre'],
+      genre_ids: tvGenres.map(({ name }) => name),
       vote_count: 366,
       credit_id: '5b8e9e27c3a3credit_id681ae400050c',
       id: 71912,

@@ -1,3 +1,5 @@
+const mockRestDataSourceGet = jest.fn();
+
 import { rawPeopleItem } from '../../../../../__tests__/mocks/people.stub';
 import PeopleHandler from '.';
 
@@ -12,7 +14,7 @@ describe('[People]', () => {
   });
 
   it('return the list of trending famous people correctly', async () => {
-    const mockRestDataSourceGet = jest.fn().mockReturnValueOnce({
+    mockRestDataSourceGet.mockReturnValueOnce({
       total_pages: 1,
       total_results: 1,
       results: [rawPeopleItem],
@@ -31,7 +33,7 @@ describe('[People]', () => {
   });
 
   it('return the hasMore field as true when has more items to be paginated', async () => {
-    const mockRestDataSourceGet = jest.fn().mockReturnValueOnce({
+    mockRestDataSourceGet.mockReturnValueOnce({
       total_pages: 2,
       total_results: 2,
       results: [rawPeopleItem],
