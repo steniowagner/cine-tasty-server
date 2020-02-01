@@ -29,6 +29,12 @@ const resolvers: QueryResolvers = {
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
       dataSources.tmdb.getTrendingMoviesItem(input, 'top_rated'),
+    upcoming: (
+      _: {},
+      { input }: TrendingMoviesPopularArgs,
+      { dataSources }: Context,
+    ): Promise<TrendingMoviesQueryResult> =>
+      dataSources.tmdb.getTrendingMoviesItem(input, 'upcoming'),
   },
 };
 

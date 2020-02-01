@@ -15,6 +15,7 @@ const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 const POPULAR_ENDPOINT = 'movie/popular';
 const NOW_PLAYING_ENDPOINT = 'movie/now_playing';
 const TOP_RATED_ENDPOINT = 'movie/top_rated';
+const UPCOMING_ENDPOINT = 'movie/upcoming';
 
 const GET_TRENDING_MOVIES = gql`
   fragment TrendingMovieItem on BaseMovie {
@@ -54,6 +55,14 @@ const GET_TRENDING_MOVIES = gql`
         }
       }
       top_rated(input: { page: $page }) {
+        total_results
+        total_pages
+        hasMore
+        items {
+          ...TrendingMovieItem
+        }
+      }
+      upcoming(input: { page: $page }) {
         total_results
         total_pages
         hasMore
@@ -109,6 +118,12 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
         total_results: 1,
         results: [rawMovie],
       })
+      .mockReturnValueOnce({
+        total_pages: 1,
+        total_results: 1,
+        results: [rawMovie],
+      })
+      .mockReturnValueOnce({ genres: movieGenres })
       .mockReturnValueOnce({ genres: movieGenres })
       .mockReturnValueOnce({ genres: movieGenres })
       .mockReturnValueOnce({ genres: movieGenres });
@@ -122,7 +137,7 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
       variables: { page: 1 },
     });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(6);
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(8);
 
     expect(mockRestDataSourceGet).toHaveBeenCalledWith(NOW_PLAYING_ENDPOINT, {
       api_key: env.THE_MOVIE_DB_API_KEY,
@@ -140,6 +155,17 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
       api_key: env.THE_MOVIE_DB_API_KEY,
       language: 'en-us',
       page: 1,
+    });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(UPCOMING_ENDPOINT, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'en-us',
+      page: 1,
+    });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'en-us',
     });
 
     expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
@@ -171,6 +197,12 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
         items: [movie],
       },
       top_rated: {
+        hasMore: false,
+        total_pages: 1,
+        total_results: 1,
+        items: [movie],
+      },
+      upcoming: {
         hasMore: false,
         total_pages: 1,
         total_results: 1,
