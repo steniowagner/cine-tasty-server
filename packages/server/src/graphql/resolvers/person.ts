@@ -1,5 +1,5 @@
 import { Context } from '../../types';
-import { QueryResolvers, QueryPersonArgs, PersonProfile } from '../../lib/types';
+import { QueryResolvers, QueryPersonArgs, Person } from '../../lib/types';
 
 const resolvers: QueryResolvers = {
   Query: {
@@ -7,7 +7,7 @@ const resolvers: QueryResolvers = {
       _: {},
       params: QueryPersonArgs,
       { dataSources }: Context,
-    ): Promise<PersonProfile | null> => dataSources.tmdb.getPerson(params),
+    ): Promise<Person | null> => dataSources.tmdb.getPerson(params),
   },
 };
 

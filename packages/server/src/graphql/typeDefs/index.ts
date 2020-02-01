@@ -14,10 +14,12 @@ import peopleQueryResult from './types/peopleQueryResult';
 import person from './types/person';
 import searchResults from './types/searchResults';
 import searchTypes from './types/searchTypes';
+import trendingMovies from './types/trendingMovies';
 import queries from './queries';
 
 export default [
   root,
+  trendingMovies,
   article,
   peopleQueryResult,
   searchTypes,

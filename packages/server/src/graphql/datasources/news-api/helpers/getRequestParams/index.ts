@@ -1,4 +1,4 @@
-import { Language } from '../../../../../lib/types';
+import { ArticleLanguage } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
 import { getDateParam } from '..';
 
@@ -15,7 +15,7 @@ type RequestParams = {
 
 const getRequestParams = (
   page: number,
-  language?: Language | null,
+  language?: ArticleLanguage | null,
 ): RequestParams & { language?: string | null } => {
   const dateParam = getDateParam();
 

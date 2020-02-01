@@ -3,14 +3,18 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/people';
 import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
+import MoviesHandler, { Props as MoviesHandlerProps } from './handlers/movies';
+
 import { getFormatedLanguage } from './helpers';
 import env from '../../../config/environment';
 import {
   PeopleQueryResult,
   Iso6391Language,
-  PersonProfile,
+  Person,
   QueryPersonArgs,
   QuerySearchArgs,
+  TrendingMoviesQueryResult,
+  TrendingMoviesInput,
   SearchResult,
   QueryPeopleArgs,
 } from '../../../lib/types';
@@ -18,8 +22,12 @@ import {
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
+  getTrendingMoviesItem: (
+    params: TrendingMoviesInput,
+    endpoint: string,
+  ) => Promise<TrendingMoviesQueryResult>;
   getPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
-  getPerson: (params: QueryPersonArgs) => Promise<PersonProfile | null>;
+  getPerson: (params: QueryPersonArgs) => Promise<Person | null>;
   search: (params: QuerySearchArgs) => Promise<SearchResult>;
 }
 
@@ -27,12 +35,14 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   searchHandler: SearchHandlerProps;
   peopleHandler: PeopleHandlerProps;
   personHandler: PersonHandlerProps;
+  moviesHandler: MoviesHandlerProps;
 
   constructor() {
     super();
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
     this.personHandler = new PersonHandler(this.execGetRequest);
+    this.moviesHandler = new MoviesHandler(this.execGetRequest);
     this.baseURL = BASE_URL;
   }
 
@@ -52,12 +62,19 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.peopleHandler.getPopularPeople(params);
   }
 
-  async getPerson(params: QueryPersonArgs): Promise<PersonProfile | null> {
+  async getPerson(params: QueryPersonArgs): Promise<Person | null> {
     return this.personHandler.getPerson(params);
   }
 
   async search(params: QuerySearchArgs): Promise<SearchResult> {
     return this.searchHandler.search(params);
+  }
+
+  async getTrendingMoviesItem(
+    params: TrendingMoviesInput,
+    resource: string,
+  ): Promise<TrendingMoviesQueryResult> {
+    return this.moviesHandler.getTrendingItem(params, resource);
   }
 }
 

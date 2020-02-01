@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[MovieHandler] should return an array of the now playing movies from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "adult": false,
+    "backdrop_path": "/backdrop_path.jpg",
+    "genre_ids": Array [
+      2,
+    ],
+    "id": 530915,
+    "original_language": "original_language",
+    "original_title": "original_title",
+    "overview": "overview",
+    "popularity": 222.017,
+    "poster_path": "/poster_path.jpg",
+    "release_date": "release_date",
+    "title": "title",
+    "video": false,
+    "vote_average": 8.1,
+    "vote_count": 1530,
+  },
+]
+`;
+
+exports[`[MovieHandler] should return an array of the popular movies from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "adult": false,
+    "backdrop_path": "/backdrop_path.jpg",
+    "genre_ids": Array [
+      2,
+    ],
+    "id": 530915,
+    "original_language": "original_language",
+    "original_title": "original_title",
+    "overview": "overview",
+    "popularity": 222.017,
+    "poster_path": "/poster_path.jpg",
+    "release_date": "release_date",
+    "title": "title",
+    "video": false,
+    "vote_average": 8.1,
+    "vote_count": 1530,
+  },
+]
+`;
+
+exports[`[MovieHandler] should return an array of the top rated movies from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "adult": false,
+    "backdrop_path": "/backdrop_path.jpg",
+    "genre_ids": Array [
+      2,
+    ],
+    "id": 530915,
+    "original_language": "original_language",
+    "original_title": "original_title",
+    "overview": "overview",
+    "popularity": 222.017,
+    "poster_path": "/poster_path.jpg",
+    "release_date": "release_date",
+    "title": "title",
+    "video": false,
+    "vote_average": 8.1,
+    "vote_count": 1530,
+  },
+]
+`;
+
+exports[`[MovieHandler] should return an array of the upcoming movies from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "adult": false,
+    "backdrop_path": "/backdrop_path.jpg",
+    "genre_ids": Array [
+      2,
+    ],
+    "id": 530915,
+    "original_language": "original_language",
+    "original_title": "original_title",
+    "overview": "overview",
+    "popularity": 222.017,
+    "poster_path": "/poster_path.jpg",
+    "release_date": "release_date",
+    "title": "title",
+    "video": false,
+    "vote_average": 8.1,
+    "vote_count": 1530,
+  },
+]
+`;

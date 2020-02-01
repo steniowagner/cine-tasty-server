@@ -1,16 +1,12 @@
 import { GetPersonImagesResult, MediaItem } from '../../../../../types';
 import { getPersonProfileImages } from '../../helpers';
-import {
-  Iso6391Language,
-  PersonProfile,
-  QueryPersonArgs,
-} from '../../../../../lib/types';
+import { Iso6391Language, Person, QueryPersonArgs } from '../../../../../lib/types';
 
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
 const APPEND_TO_RESPONSE_IMAGES_KEY = 'images';
 const PERSON_ENDPOINT = '/person';
 
-type GetPersonResponse = Omit<PersonProfile, 'images'> & {
+type GetPersonResponse = Omit<Person, 'images'> & {
   images: GetPersonImagesResult;
   success?: boolean;
 };
@@ -26,7 +22,7 @@ type GetRequest = <T>(
 ) => Promise<T>;
 
 export interface Props {
-  getPerson: (params: QueryPersonArgs) => Promise<PersonProfile | null>;
+  getPerson: (params: QueryPersonArgs) => Promise<Person | null>;
   get: GetRequest;
 }
 
@@ -37,7 +33,7 @@ class PersonHandler implements Props {
     this.get = execGetRequest;
   }
 
-  async getPerson({ language, id }: QueryPersonArgs): Promise<PersonProfile | null> {
+  async getPerson({ language, id }: QueryPersonArgs): Promise<Person | null> {
     const [result, { cast }] = await Promise.all<GetPersonResponse, GetCastResponse>([
       this.get(
         `${PERSON_ENDPOINT}/${id}`,

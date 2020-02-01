@@ -9,11 +9,13 @@ import person from './person';
 import personKnownFor from './personKnownFor';
 import search from './search';
 import searchResultItem from './searchResultItem';
+import movies from './movies';
 
 export default [
   articles,
   baseMovie,
   baseTVShow,
+  movies,
   cast,
   castTVShow,
   castMovie,

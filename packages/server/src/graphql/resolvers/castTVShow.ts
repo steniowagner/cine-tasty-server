@@ -2,7 +2,7 @@ import { MediaItem } from '../../types';
 import {
   QueryResolvers,
   MediaType,
-  CastTvGenre_IdsArgs as CastTvGenreIdsArgs,
+  CastTvShowGenre_IdsArgs as CastTvGenreIdsArgs,
 } from '../../lib/types';
 import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
 
