@@ -55,6 +55,13 @@ export const movie = {
   release_date: 'release_date',
 };
 
+export const review = {
+  author: 'author.',
+  content: 'content',
+  id: 'id',
+  url: 'url',
+};
+
 export const rawMovieDetail = {
   adult: false,
   backdrop_path: '/backdrop_path.jpg',

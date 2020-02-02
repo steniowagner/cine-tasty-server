@@ -16,13 +16,6 @@ export default gql`
     profile_path: String
   }
 
-  type ReviewItem {
-    author: String
-    content: String
-    id: ID
-    url: String
-  }
-
   type MovieVideoThumbnail {
     "120x90"
     extra_small: String
@@ -52,6 +45,20 @@ export default gql`
     origin_country: String
   }
 
+  type ReviewItem {
+    author: String
+    content: String
+    id: ID
+    url: String
+  }
+
+  type ReviewsQueryResult {
+    total_results: Int!
+    total_pages: Int!
+    items: [ReviewItem!]!
+    hasMore: Boolean!
+  }
+
   type Movie {
     adult: Boolean
     backdrop_path: String
@@ -77,7 +84,7 @@ export default gql`
     revenue: Float
     production_countries: [String!]!
     similar: [BaseMovie!]!
-    reviews: [ReviewItem!]!
+    reviews(id: ID!, reviewsPage: Int!): ReviewsQueryResult!
     cast: [CastItem!]!
     crew: [CrewItem!]!
     videos: [MovieVideo!]!

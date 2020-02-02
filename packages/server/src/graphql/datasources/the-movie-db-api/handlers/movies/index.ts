@@ -5,12 +5,22 @@ import {
   TrendingMoviesInput,
   QueryMovieArgs,
   Movie,
+  MovieReviewsArgs,
+  ReviewsQueryResult,
+  ReviewItem,
 } from '../../../../../lib/types';
 
 const BASE_ENDPOINT = 'movie';
 
 type GetTrendingItemResponse = {
   results: BaseMovie[];
+  total_pages: number;
+  page: number;
+  total_results: number;
+};
+
+type GetReviewsResponse = {
+  results: ReviewItem[];
   total_pages: number;
   page: number;
   total_results: number;
@@ -23,6 +33,7 @@ type GetRequest = <T>(
 ) => Promise<T>;
 
 export interface Props {
+  getReviews({ id, reviewsPage }: MovieReviewsArgs): Promise<ReviewsQueryResult>;
   getTrendingItem: (
     params: TrendingMoviesInput,
     resource: string,
@@ -43,6 +54,21 @@ class MovieHandler implements Props {
       { append_to_response: 'videos,credits,similar' },
       language,
     );
+  }
+
+  async getReviews({ id, reviewsPage }: MovieReviewsArgs): Promise<ReviewsQueryResult> {
+    const { total_pages: totalPages, total_results, results } = await this.get<
+      Promise<GetReviewsResponse>
+    >(`${BASE_ENDPOINT}/${id}/reviews`, {
+      page: reviewsPage,
+    });
+
+    return {
+      hasMore: reviewsPage < totalPages,
+      total_pages: totalPages,
+      total_results,
+      items: results,
+    };
   }
 
   async getTrendingItem(

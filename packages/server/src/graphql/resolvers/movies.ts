@@ -1,4 +1,5 @@
 import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
+
 import {
   QueryResolvers,
   TrendingMoviesQueryResult,
@@ -12,6 +13,8 @@ import {
   CrewItem,
   BaseMovie,
   MovieVideo,
+  MovieReviewsArgs,
+  ReviewsQueryResultResolvers,
 } from '../../lib/types';
 import { Context, MediaGenre } from '../../types';
 
@@ -69,13 +72,23 @@ const resolvers: QueryResolvers = {
         name: castItem.name,
       })),
 
+    reviews: (
+      _: {},
+      params: MovieReviewsArgs,
+      { dataSources }: Context,
+    ): ReviewsQueryResultResolvers => dataSources.tmdb.getMovieReviews(params),
+
     similar: ({ similar }: { similar: MoviesSimilar }): BaseMovie[] => similar.results,
 
     videos: ({ videos }: { videos: MovieVideos }): MovieVideo[] =>
       videos.results
         .filter(({ site }) => site === 'YouTube')
         .map(video => ({
-          ...video,
+          key: video.key,
+          name: video.name,
+          site: video.site,
+          id: `${video.id}`,
+          type: video.type,
           thumbnail: {
             extra_small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/default.jpg`,
             small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/mqdefault.jpg`,

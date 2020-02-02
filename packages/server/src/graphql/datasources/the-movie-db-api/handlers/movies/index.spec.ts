@@ -1,6 +1,10 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawMovie, rawMovieDetail } from '../../../../../__tests__/mocks/movies.stub';
+import {
+  rawMovie,
+  review,
+  rawMovieDetail,
+} from '../../../../../__tests__/mocks/movies.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import MovieHandler from '.';
 
@@ -143,7 +147,7 @@ describe('[MovieHandler]', () => {
     expect(mockRestDataSourceGet).toHaveBeenCalledWith(
       'movie/1',
       {
-        append_to_response: 'videos,credits,similar',
+        append_to_response: 'videos,credits,similar,reviews',
       },
       'PTBR',
     );
@@ -151,5 +155,59 @@ describe('[MovieHandler]', () => {
     expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
     expect(result).toMatchSnapshot();
+  });
+
+  it('should get the reviews of a movie with certain id from TheMovideDB API', async () => {
+    mockRestDataSourceGet.mockReturnValueOnce({
+      id: 1,
+      page: 1,
+      results: [review],
+      total_pages: 1,
+      total_results: 1,
+    });
+
+    const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+    const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+    expect(result).toEqual({
+      hasMore: false,
+      total_pages: 1,
+      total_results: 1,
+      items: [review],
+    });
+
+    expect(result.hasMore).toEqual(false);
+  });
+
+  it('should get the reviews of a movie with certain id from TheMovideDB API and return hasMore as true when has more items to be paginated', async () => {
+    mockRestDataSourceGet.mockReturnValueOnce({
+      id: 1,
+      page: 1,
+      results: [review],
+      total_pages: 2,
+      total_results: 2,
+    });
+
+    const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+    const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+    expect(result).toEqual({
+      hasMore: true,
+      total_pages: 2,
+      total_results: 2,
+      items: [review],
+    });
+
+    expect(result.hasMore).toEqual(true);
   });
 });
