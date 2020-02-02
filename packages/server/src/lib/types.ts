@@ -450,7 +450,7 @@ export type Movie = {
   homepage?: Maybe<Scalars['String']>,
   revenue?: Maybe<Scalars['Float']>,
   production_countries: Array<Scalars['String']>,
-  similar: Array<BaseMovie>,
+  similar: SimilarMoviesQueryResult,
   reviews: ReviewsQueryResult,
   cast: Array<CastItem>,
   crew: Array<CrewItem>,
@@ -460,6 +460,12 @@ export type Movie = {
 
 export type MovieGenresArgs = {
   language?: Maybe<Iso6391Language>
+};
+
+
+export type MovieSimilarArgs = {
+  id: Scalars['ID'],
+  similarsPage: Scalars['Int']
 };
 
 
@@ -599,6 +605,14 @@ export enum SearchType {
   Tv = 'TV'
 }
 
+export type SimilarMoviesQueryResult = {
+   __typename?: 'SimilarMoviesQueryResult',
+  total_results: Scalars['Int'],
+  total_pages: Scalars['Int'],
+  items: Array<BaseMovie>,
+  hasMore: Scalars['Boolean'],
+};
+
 export type TrendingMovies = {
    __typename?: 'TrendingMovies',
   now_playing: TrendingMoviesQueryResult,
@@ -726,6 +740,7 @@ export type ResolversTypes = ResolversObject<{
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Movie: ResolverTypeWrapper<Movie>,
   ProductionCompanyItem: ResolverTypeWrapper<ProductionCompanyItem>,
+  SimilarMoviesQueryResult: ResolverTypeWrapper<SimilarMoviesQueryResult>,
   ReviewsQueryResult: ResolverTypeWrapper<ReviewsQueryResult>,
   ReviewItem: ResolverTypeWrapper<ReviewItem>,
   CastItem: ResolverTypeWrapper<CastItem>,
@@ -766,6 +781,7 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'],
   Movie: Movie,
   ProductionCompanyItem: ProductionCompanyItem,
+  SimilarMoviesQueryResult: SimilarMoviesQueryResult,
   ReviewsQueryResult: ReviewsQueryResult,
   ReviewItem: ReviewItem,
   CastItem: CastItem,
@@ -950,7 +966,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   revenue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   production_countries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
-  similar?: Resolver<Array<ResolversTypes['BaseMovie']>, ParentType, ContextType>,
+  similar?: Resolver<ResolversTypes['SimilarMoviesQueryResult'], ParentType, ContextType, RequireFields<MovieSimilarArgs, 'id' | 'similarsPage'>>,
   reviews?: Resolver<ResolversTypes['ReviewsQueryResult'], ParentType, ContextType, RequireFields<MovieReviewsArgs, 'id' | 'reviewsPage'>>,
   cast?: Resolver<Array<ResolversTypes['CastItem']>, ParentType, ContextType>,
   crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>,
@@ -1045,6 +1061,13 @@ export type SearchResultItemResolvers<ContextType = any, ParentType extends Reso
   __resolveType: TypeResolveFn<'BasePerson' | 'BaseMovie' | 'BaseTVShow', ParentType, ContextType>
 }>;
 
+export type SimilarMoviesQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SimilarMoviesQueryResult'] = ResolversParentTypes['SimilarMoviesQueryResult']> = ResolversObject<{
+  total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  total_pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  items?: Resolver<Array<ResolversTypes['BaseMovie']>, ParentType, ContextType>,
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+}>;
+
 export type TrendingMoviesResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingMovies'] = ResolversParentTypes['TrendingMovies']> = ResolversObject<{
   now_playing?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesNow_PlayingArgs, 'input'>>,
   popular?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesPopularArgs, 'input'>>,
@@ -1086,6 +1109,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   ReviewsQueryResult?: ReviewsQueryResultResolvers<ContextType>,
   SearchResult?: SearchResultResolvers<ContextType>,
   SearchResultItem?: SearchResultItemResolvers,
+  SimilarMoviesQueryResult?: SimilarMoviesQueryResultResolvers<ContextType>,
   TrendingMovies?: TrendingMoviesResolvers<ContextType>,
   TrendingMoviesQueryResult?: TrendingMoviesQueryResultResolvers<ContextType>,
   Upload?: GraphQLScalarType,

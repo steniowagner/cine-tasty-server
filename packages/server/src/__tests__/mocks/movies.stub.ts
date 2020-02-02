@@ -107,9 +107,6 @@ export const rawMovieDetail = {
     cast: [movieCast],
     crew: [movieCrew],
   },
-  similar: {
-    results: [rawMovie],
-  },
   videos: {
     results: [
       {
@@ -184,7 +181,6 @@ export const movieDetail = {
       profile_path: movieCrew.profile_path,
     },
   ],
-  similar: [movie],
   videos: [
     {
       id: 'id',

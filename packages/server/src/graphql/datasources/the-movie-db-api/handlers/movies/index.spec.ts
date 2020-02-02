@@ -147,7 +147,7 @@ describe('[MovieHandler]', () => {
     expect(mockRestDataSourceGet).toHaveBeenCalledWith(
       'movie/1',
       {
-        append_to_response: 'videos,credits,similar,reviews',
+        append_to_response: 'videos,credits',
       },
       'PTBR',
     );

@@ -59,6 +59,13 @@ export default gql`
     hasMore: Boolean!
   }
 
+  type SimilarMoviesQueryResult {
+    total_results: Int!
+    total_pages: Int!
+    items: [BaseMovie!]!
+    hasMore: Boolean!
+  }
+
   type Movie {
     adult: Boolean
     backdrop_path: String
@@ -83,7 +90,7 @@ export default gql`
     homepage: String
     revenue: Float
     production_countries: [String!]!
-    similar: [BaseMovie!]!
+    similar(id: ID!, similarsPage: Int!): SimilarMoviesQueryResult!
     reviews(id: ID!, reviewsPage: Int!): ReviewsQueryResult!
     cast: [CastItem!]!
     crew: [CrewItem!]!

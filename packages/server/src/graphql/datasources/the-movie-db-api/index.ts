@@ -21,11 +21,14 @@ import {
   Movie,
   MovieReviewsArgs,
   ReviewsQueryResult,
+  MovieSimilarArgs,
+  SimilarMoviesQueryResult,
 } from '../../../lib/types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
+  getSimilarMovies(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
   getMovieReviews(params: MovieReviewsArgs): Promise<ReviewsQueryResult>;
   getTrendingMoviesItem: (
     params: TrendingMoviesInput,
@@ -89,6 +92,10 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   async getMovieReviews(params: MovieReviewsArgs): Promise<ReviewsQueryResult> {
     return this.moviesHandler.getReviews(params);
+  }
+
+  async getSimilarMovies(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
+    return this.moviesHandler.getSimilars(params);
   }
 }
 
