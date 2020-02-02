@@ -2467,6 +2467,16 @@
                   }
                 },
                 "defaultValue": null
+              },
+              {
+                "name": "language",
+                "description": "",
+                "type": {
+                  "kind": "ENUM",
+                  "name": "ISO6391Language",
+                  "ofType": null
+                },
+                "defaultValue": null
               }
             ],
             "type": {

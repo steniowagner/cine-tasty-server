@@ -465,7 +465,8 @@ export type MovieGenresArgs = {
 
 export type MovieSimilarArgs = {
   id: Scalars['ID'],
-  similarsPage: Scalars['Int']
+  similarsPage: Scalars['Int'],
+  language?: Maybe<Iso6391Language>
 };
 
 

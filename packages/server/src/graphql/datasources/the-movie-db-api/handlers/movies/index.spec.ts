@@ -157,57 +157,135 @@ describe('[MovieHandler]', () => {
     expect(result).toMatchSnapshot();
   });
 
-  it('should get the reviews of a movie with certain id from TheMovideDB API', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      id: 1,
-      page: 1,
-      results: [review],
-      total_pages: 1,
-      total_results: 1,
+  describe('[getSimilars]', () => {
+    it('should get similar movies of a movie with certain id from TheMovideDB API', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        id: 1,
+        page: 1,
+        results: [rawMovie],
+        total_pages: 1,
+        total_results: 1,
+      });
+
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+      const result = await movieHandler.getSimilars({
+        id: '1',
+        similarsPage: 1,
+        language: Iso6391Language.Ptbr,
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'movie/1/similar',
+        {
+          page: 1,
+        },
+        'PTBR',
+      );
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toEqual({
+        hasMore: false,
+        total_pages: 1,
+        total_results: 1,
+        items: [rawMovie],
+      });
+
+      expect(result.hasMore).toEqual(false);
     });
 
-    const movieHandler = new MovieHandler(mockRestDataSourceGet);
+    it('should get similar movies of a movie with certain id from TheMovideDB API and return hasMore as true when has more items to be paginated', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        id: 1,
+        page: 1,
+        results: [rawMovie],
+        total_pages: 2,
+        total_results: 2,
+      });
 
-    const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+      const result = await movieHandler.getSimilars({
+        id: '1',
+        similarsPage: 1,
+        language: Iso6391Language.Ptbr,
+      });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'movie/1/similar',
+        {
+          page: 1,
+        },
+        'PTBR',
+      );
 
-    expect(result).toEqual({
-      hasMore: false,
-      total_pages: 1,
-      total_results: 1,
-      items: [review],
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toEqual({
+        hasMore: true,
+        total_pages: 2,
+        total_results: 2,
+        items: [rawMovie],
+      });
+
+      expect(result.hasMore).toEqual(true);
     });
-
-    expect(result.hasMore).toEqual(false);
   });
 
-  it('should get the reviews of a movie with certain id from TheMovideDB API and return hasMore as true when has more items to be paginated', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      id: 1,
-      page: 1,
-      results: [review],
-      total_pages: 2,
-      total_results: 2,
+  describe('[getReviews]', () => {
+    it('should get the reviews of a movie with certain id from TheMovideDB API', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        id: 1,
+        page: 1,
+        results: [review],
+        total_pages: 1,
+        total_results: 1,
+      });
+
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+      const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toEqual({
+        hasMore: false,
+        total_pages: 1,
+        total_results: 1,
+        items: [review],
+      });
+
+      expect(result.hasMore).toEqual(false);
     });
 
-    const movieHandler = new MovieHandler(mockRestDataSourceGet);
+    it('should get the reviews of a movie with certain id from TheMovideDB API and return hasMore as true when has more items to be paginated', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        id: 1,
+        page: 1,
+        results: [review],
+        total_pages: 2,
+        total_results: 2,
+      });
 
-    const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+      const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
 
-    expect(result).toEqual({
-      hasMore: true,
-      total_pages: 2,
-      total_results: 2,
-      items: [review],
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toEqual({
+        hasMore: true,
+        total_pages: 2,
+        total_results: 2,
+        items: [review],
+      });
+
+      expect(result.hasMore).toEqual(true);
     });
-
-    expect(result.hasMore).toEqual(true);
   });
 });

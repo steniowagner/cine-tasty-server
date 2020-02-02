@@ -90,7 +90,11 @@ export default gql`
     homepage: String
     revenue: Float
     production_countries: [String!]!
-    similar(id: ID!, similarsPage: Int!): SimilarMoviesQueryResult!
+    similar(
+      id: ID!
+      similarsPage: Int!
+      language: ISO6391Language
+    ): SimilarMoviesQueryResult!
     reviews(id: ID!, reviewsPage: Int!): ReviewsQueryResult!
     cast: [CastItem!]!
     crew: [CrewItem!]!

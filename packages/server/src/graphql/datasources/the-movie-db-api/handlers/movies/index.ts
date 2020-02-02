@@ -77,12 +77,17 @@ class MovieHandler implements Props {
   async getSimilars({
     id,
     similarsPage,
+    language,
   }: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
     const { total_pages: totalPages, total_results, results } = await this.get<
       Promise<GetBaseMovieResponse>
-    >(`${BASE_ENDPOINT}/${id}/similar`, {
-      page: similarsPage,
-    });
+    >(
+      `${BASE_ENDPOINT}/${id}/similar`,
+      {
+        page: similarsPage,
+      },
+      language,
+    );
 
     return {
       hasMore: similarsPage < totalPages,
