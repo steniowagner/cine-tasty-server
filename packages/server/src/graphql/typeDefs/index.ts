@@ -15,10 +15,12 @@ import person from './types/person';
 import searchResults from './types/searchResults';
 import searchTypes from './types/searchTypes';
 import trendingMovies from './types/trendingMovies';
+import movie from './types/movie';
 import queries from './queries';
 
 export default [
   root,
+  movie,
   trendingMovies,
   article,
   peopleQueryResult,

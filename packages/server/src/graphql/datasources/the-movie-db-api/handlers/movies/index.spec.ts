@@ -1,8 +1,7 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawMovie } from '../../../../../__tests__/mocks/movies.stub';
+import { rawMovie, rawMovieDetail } from '../../../../../__tests__/mocks/movies.stub';
 import { Iso6391Language } from '../../../../../lib/types';
-
 import MovieHandler from '.';
 
 const NOW_PLAYING_ENDPOINT = 'movie/now_playing';
@@ -129,5 +128,28 @@ describe('[MovieHandler]', () => {
     expect(result.hasMore).toEqual(false);
     expect(result.total_pages).toEqual(1);
     expect(result.total_results).toEqual(1);
+  });
+
+  it('should get the details of a movie with certain id from TheMovideDB API', async () => {
+    mockRestDataSourceGet.mockReturnValueOnce(rawMovieDetail);
+
+    const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+    const result = await movieHandler.getMovie({
+      id: '1',
+      language: Iso6391Language.Ptbr,
+    });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+      'movie/1',
+      {
+        append_to_response: 'videos,credits,similar',
+      },
+      'PTBR',
+    );
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+    expect(result).toMatchSnapshot();
   });
 });

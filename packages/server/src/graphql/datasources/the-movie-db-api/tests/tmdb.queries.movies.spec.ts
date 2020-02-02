@@ -110,10 +110,22 @@ const GET_MOVIE_DETAIL = gql`
       revenue
       spoken_languages
       production_countries
+      cast {
+        name
+        profile_path
+        id
+        character
+      }
+      crew {
+        department
+        id
+        job
+        name
+        profile_path
+      }
+
       # similar
       # reviews
-      # cast
-      # crew
       # trailers
     }
   }
@@ -163,6 +175,7 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
     expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
     expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+      append_to_response: 'videos,credits,similar',
       api_key: env.THE_MOVIE_DB_API_KEY,
       language: 'pt-br',
     });

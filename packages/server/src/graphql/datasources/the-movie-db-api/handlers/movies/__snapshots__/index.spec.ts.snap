@@ -1,5 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`[MovieHandler] should get the details of a movie with certain id from TheMovideDB API 1`] = `
+Object {
+  "adult": false,
+  "backdrop_path": "/backdrop_path.jpg",
+  "budget": 123,
+  "credits": Object {
+    "cast": Array [
+      Object {
+        "cast_id": 4,
+        "character": "character",
+        "credit_id": "credit_id",
+        "gender": 1,
+        "id": 1,
+        "name": "name",
+        "order": 0,
+        "profile_path": "/profile_path.jpg",
+      },
+    ],
+    "crew": Array [
+      Object {
+        "credit_id": "credit_id",
+        "department": "department",
+        "gender": 2,
+        "id": 2,
+        "job": "job",
+        "name": "Dname",
+        "profile_path": "profile_path",
+      },
+    ],
+  },
+  "genres": Array [
+    Object {
+      "id": 2,
+      "name": "Movie Genre",
+    },
+  ],
+  "homepage": "homepage",
+  "id": 123,
+  "original_language": "original_language",
+  "original_title": "original_title",
+  "overview": "overview",
+  "popularity": 1,
+  "poster_path": "poster_path",
+  "production_companies": Array [
+    Object {
+      "id": 123,
+      "logo_path": "/logo_path.png",
+      "name": "name",
+      "origin_country": "origin_country",
+    },
+  ],
+  "production_countries": Array [
+    Object {
+      "iso_3166_1": "iso_3166_1",
+      "name": "name",
+    },
+  ],
+  "release_date": "release_date",
+  "revenue": 123,
+  "runtime": 123,
+  "spoken_languages": Array [
+    Object {
+      "iso_639_1": "iso_639_1",
+      "name": "name",
+    },
+  ],
+  "status": "status",
+  "tagline": "tagline",
+  "title": "title",
+  "video": false,
+  "vote_average": 1.8,
+  "vote_count": 3439,
+}
+`;
+
 exports[`[MovieHandler] should return an array of the now playing movies from the TheMovieDB API 1`] = `
 Array [
   Object {
