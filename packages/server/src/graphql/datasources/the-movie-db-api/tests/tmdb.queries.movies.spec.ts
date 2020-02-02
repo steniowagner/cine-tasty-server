@@ -123,10 +123,25 @@ const GET_MOVIE_DETAIL = gql`
         name
         profile_path
       }
-
-      # similar
-      # reviews
+      similar {
+        original_title
+        video
+        title
+        adult
+        release_date
+        backdrop_path
+        genre_ids(language: $language)
+        overview
+        vote_average
+        poster_path
+        popularity
+        original_language
+        vote_count
+        id
+      }
       # trailers
+
+      # reviews
     }
   }
 `;
@@ -161,6 +176,7 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
   it('fetches the details of a movie from TheMovieDB API and returns the result correctly', async () => {
     mockRestDataSourceGet
       .mockReturnValueOnce(rawMovieDetail)
+      .mockReturnValueOnce({ genres: movieGenres })
       .mockReturnValueOnce({ genres: movieGenres });
 
     const server = makeTestServer();
@@ -172,7 +188,7 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
       variables: { id: 1, language: 'PTBR' },
     });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
 
     expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
       append_to_response: 'videos,credits,similar',

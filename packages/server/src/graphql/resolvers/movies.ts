@@ -10,14 +10,19 @@ import {
   MediaType,
   CastItem,
   CrewItem,
+  BaseMovie,
 } from '../../lib/types';
 import { Context, MediaGenre } from '../../types';
 
 const mediaGenres = new MediaGenresHandler();
 
-type Credits = {
+type MovieCredits = {
   cast: CastItem[];
   crew: CrewItem[];
+};
+
+type MoviesSimilar = {
+  results: BaseMovie[];
 };
 
 const resolvers: QueryResolvers = {
@@ -40,7 +45,7 @@ const resolvers: QueryResolvers = {
       production_countries: Array<{ name: string }>;
     }): string[] => production_countries.map(({ name }) => name),
 
-    cast: ({ credits }: { credits: Credits }): CastItem[] =>
+    cast: ({ credits }: { credits: MovieCredits }): CastItem[] =>
       credits.cast.map(castItem => ({
         name: castItem.name,
         profile_path: castItem.profile_path,
@@ -48,7 +53,7 @@ const resolvers: QueryResolvers = {
         character: castItem.character,
       })),
 
-    crew: ({ credits }: { credits: Credits }): CrewItem[] =>
+    crew: ({ credits }: { credits: MovieCredits }): CrewItem[] =>
       credits.crew.map(castItem => ({
         profile_path: castItem.profile_path,
         department: castItem.department,
@@ -56,6 +61,8 @@ const resolvers: QueryResolvers = {
         job: castItem.job,
         name: castItem.name,
       })),
+
+    similar: ({ similar }: { similar: MoviesSimilar }): BaseMovie[] => similar.results,
 
     genres: (
       { genres }: { genres: Array<MediaGenre> },

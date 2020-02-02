@@ -60,6 +60,28 @@ Object {
   "release_date": "release_date",
   "revenue": 123,
   "runtime": 123,
+  "similar": Object {
+    "results": Array [
+      Object {
+        "adult": false,
+        "backdrop_path": "/backdrop_path.jpg",
+        "genre_ids": Array [
+          2,
+        ],
+        "id": 530915,
+        "original_language": "original_language",
+        "original_title": "original_title",
+        "overview": "overview",
+        "popularity": 222.017,
+        "poster_path": "/poster_path.jpg",
+        "release_date": "release_date",
+        "title": "title",
+        "video": false,
+        "vote_average": 8.1,
+        "vote_count": 1530,
+      },
+    ],
+  },
   "spoken_languages": Array [
     Object {
       "iso_639_1": "iso_639_1",

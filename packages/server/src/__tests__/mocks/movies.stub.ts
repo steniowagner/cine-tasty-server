@@ -100,6 +100,9 @@ export const rawMovieDetail = {
     cast: [movieCast],
     crew: [movieCrew],
   },
+  similar: {
+    results: [rawMovie],
+  },
 };
 
 export const movieDetail = {
@@ -150,4 +153,5 @@ export const movieDetail = {
       profile_path: movieCrew.profile_path,
     },
   ],
+  similar: [movie],
 };
