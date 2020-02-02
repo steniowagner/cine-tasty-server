@@ -92,6 +92,30 @@ Object {
   "tagline": "tagline",
   "title": "title",
   "video": false,
+  "videos": Object {
+    "results": Array [
+      Object {
+        "id": "id",
+        "iso_3166_1": "iso_3166_1",
+        "iso_639_1": "iso_639_1",
+        "key": "key",
+        "name": "name",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "type",
+      },
+      Object {
+        "id": "id",
+        "iso_3166_1": "iso_3166_1",
+        "iso_639_1": "iso_639_1",
+        "key": "key",
+        "name": "name",
+        "site": "Other",
+        "size": 1080,
+        "type": "type",
+      },
+    ],
+  },
   "vote_average": 1.8,
   "vote_count": 3439,
 }

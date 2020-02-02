@@ -139,7 +139,20 @@ const GET_MOVIE_DETAIL = gql`
         vote_count
         id
       }
-      # trailers
+      videos {
+        thumbnail {
+          extra_small
+          small
+          medium
+          large
+          extra_large
+        }
+        key
+        name
+        site
+        id
+        type
+      }
 
       # reviews
     }

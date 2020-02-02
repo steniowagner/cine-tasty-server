@@ -2533,7 +2533,7 @@
             "deprecationReason": null
           },
           {
-            "name": "trailers",
+            "name": "videos",
             "description": "",
             "args": [],
             "type": {
@@ -2547,7 +2547,7 @@
                   "name": null,
                   "ofType": {
                     "kind": "OBJECT",
-                    "name": "MovieTrailer",
+                    "name": "MovieVideo",
                     "ofType": null
                   }
                 }
@@ -2812,7 +2812,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "MovieTrailer",
+        "name": "MovieVideo",
         "description": "",
         "fields": [
           {
@@ -2821,7 +2821,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "MovieTrailerThumbnail",
+              "name": "MovieVideoThumbnail",
               "ofType": null
             },
             "isDeprecated": false,
@@ -2874,6 +2874,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "type",
+            "description": "",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -2883,7 +2895,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "MovieTrailerThumbnail",
+        "name": "MovieVideoThumbnail",
         "description": "",
         "fields": [
           {

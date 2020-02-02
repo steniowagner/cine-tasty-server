@@ -11,6 +11,7 @@ import {
   CastItem,
   CrewItem,
   BaseMovie,
+  MovieVideo,
 } from '../../lib/types';
 import { Context, MediaGenre } from '../../types';
 
@@ -24,6 +25,12 @@ type MovieCredits = {
 type MoviesSimilar = {
   results: BaseMovie[];
 };
+
+type MovieVideos = {
+  results: MovieVideo[];
+};
+
+const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
 
 const resolvers: QueryResolvers = {
   Query: {
@@ -63,6 +70,20 @@ const resolvers: QueryResolvers = {
       })),
 
     similar: ({ similar }: { similar: MoviesSimilar }): BaseMovie[] => similar.results,
+
+    videos: ({ videos }: { videos: MovieVideos }): MovieVideo[] =>
+      videos.results
+        .filter(({ site }) => site === 'YouTube')
+        .map(video => ({
+          ...video,
+          thumbnail: {
+            extra_small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/default.jpg`,
+            small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/mqdefault.jpg`,
+            medium: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/hqdefault.jpg`,
+            large: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/sddefault.jpg`,
+            extra_large: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/maxresdefault.jpg`,
+          },
+        })),
 
     genres: (
       { genres }: { genres: Array<MediaGenre> },

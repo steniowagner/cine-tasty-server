@@ -103,6 +103,30 @@ export const rawMovieDetail = {
   similar: {
     results: [rawMovie],
   },
+  videos: {
+    results: [
+      {
+        id: 'id',
+        iso_639_1: 'iso_639_1',
+        iso_3166_1: 'iso_3166_1',
+        key: 'key',
+        name: 'name',
+        site: 'YouTube',
+        size: 1080,
+        type: 'type',
+      },
+      {
+        id: 'id',
+        iso_639_1: 'iso_639_1',
+        iso_3166_1: 'iso_3166_1',
+        key: 'key',
+        name: 'name',
+        site: 'Other',
+        size: 1080,
+        type: 'type',
+      },
+    ],
+  },
 };
 
 export const movieDetail = {
@@ -154,4 +178,20 @@ export const movieDetail = {
     },
   ],
   similar: [movie],
+  videos: [
+    {
+      id: 'id',
+      key: 'key',
+      name: 'name',
+      site: 'YouTube',
+      type: 'type',
+      thumbnail: {
+        extra_small: 'https://img.youtube.com/vi/key/default.jpg',
+        small: 'https://img.youtube.com/vi/key/mqdefault.jpg',
+        medium: 'https://img.youtube.com/vi/key/hqdefault.jpg',
+        large: 'https://img.youtube.com/vi/key/sddefault.jpg',
+        extra_large: 'https://img.youtube.com/vi/key/maxresdefault.jpg',
+      },
+    },
+  ],
 };
