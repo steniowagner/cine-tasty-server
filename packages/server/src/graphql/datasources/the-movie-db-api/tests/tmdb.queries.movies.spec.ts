@@ -2,7 +2,12 @@ import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
 import { movieGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
-import { rawMovie, movie } from '../../../../__tests__/mocks/movies.stub';
+import {
+  rawMovie,
+  movie,
+  rawMovieDetail,
+  movieDetail,
+} from '../../../../__tests__/mocks/movies.stub';
 
 const mockRestDataSourceGet = jest.fn();
 
@@ -74,6 +79,46 @@ const GET_TRENDING_MOVIES = gql`
   }
 `;
 
+const GET_MOVIE_DETAIL = gql`
+  query Movie($id: ID!, $language: ISO6391Language) {
+    movie(id: $id, language: $language) {
+      adult
+      backdrop_path
+      genres(language: $language)
+      id
+      original_language
+      original_title
+      overview
+      poster_path
+      popularity
+      video
+      title
+      vote_average
+      release_date
+      production_companies {
+        id
+        logo_path
+        name
+        origin_country
+      }
+      vote_count
+      runtime
+      status
+      tagline
+      budget
+      homepage
+      revenue
+      spoken_languages
+      production_countries
+      # similar
+      # reviews
+      # cast
+      # crew
+      # trailers
+    }
+  }
+`;
+
 const makeTestServer = (): ApolloServer => {
   return new ApolloServer({
     typeDefs,
@@ -101,7 +146,36 @@ describe('[TheMovieDBAPI.Queries.Movies]', () => {
     jest.clearAllMocks();
   });
 
-  it('fetches the now playing/popular movies from TheMovieDB API and returns the result correctly', async () => {
+  it('fetches the details of a movie from TheMovieDB API and returns the result correctly', async () => {
+    mockRestDataSourceGet
+      .mockReturnValueOnce(rawMovieDetail)
+      .mockReturnValueOnce({ genres: movieGenres });
+
+    const server = makeTestServer();
+
+    const { query } = createTestClient(server);
+
+    const { data } = await query({
+      query: GET_MOVIE_DETAIL,
+      variables: { id: 1, language: 'PTBR' },
+    });
+
+    expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'pt-br',
+    });
+
+    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+      api_key: env.THE_MOVIE_DB_API_KEY,
+      language: 'pt-br',
+    });
+
+    expect(data!.movie).toEqual(movieDetail);
+  });
+
+  it('fetches the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
     mockRestDataSourceGet
       .mockReturnValueOnce({
         total_pages: 1,
