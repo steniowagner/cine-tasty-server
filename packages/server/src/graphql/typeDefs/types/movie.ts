@@ -100,4 +100,41 @@ export default gql`
     crew: [CrewItem!]!
     videos: [MovieVideo!]!
   }
+
+  type BaseMovie {
+    original_title: String
+    video: Boolean
+    title: String
+    adult: Boolean
+    release_date: String
+    backdrop_path: String
+    genre_ids(language: ISO6391Language): [String!]!
+    overview: String
+    vote_average: Float
+    media_type: String
+    poster_path: String
+    popularity: Float
+    original_language: String
+    vote_count: Float
+    id: Int
+  }
+
+  input TrendingMoviesInput {
+    language: ISO6391Language
+    page: Int!
+  }
+
+  type TrendingMoviesQueryResult {
+    total_results: Int!
+    total_pages: Int!
+    items: [BaseMovie!]!
+    hasMore: Boolean!
+  }
+
+  type TrendingMovies {
+    now_playing(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
+    popular(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
+    top_rated(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
+    upcoming(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
+  }
 `;

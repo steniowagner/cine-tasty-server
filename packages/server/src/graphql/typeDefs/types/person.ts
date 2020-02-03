@@ -19,4 +19,22 @@ export default gql`
     gender: Int
     cast: [Cast!]!
   }
+
+  union PersonKnowFor = BaseMovie | BaseTVShow
+
+  type BasePerson {
+    profile_path: String
+    adult: Boolean
+    id: Int
+    popularity: Float
+    known_for: [PersonKnowFor!]!
+    name: String
+  }
+
+  type PeopleQueryResult {
+    total_results: Int!
+    total_pages: Int!
+    items: [BasePerson!]!
+    hasMore: Boolean!
+  }
 `;
