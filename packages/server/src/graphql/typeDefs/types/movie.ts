@@ -119,7 +119,7 @@ export default gql`
     id: Int
   }
 
-  input TrendingMoviesInput {
+  input TrendingMoviesArgs {
     language: ISO6391Language
     page: Int!
   }
@@ -132,9 +132,9 @@ export default gql`
   }
 
   type TrendingMovies {
-    now_playing(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
-    popular(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
-    top_rated(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
-    upcoming(input: TrendingMoviesInput!): TrendingMoviesQueryResult!
+    now_playing(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
+    popular(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
+    top_rated(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
+    upcoming(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
   }
 `;

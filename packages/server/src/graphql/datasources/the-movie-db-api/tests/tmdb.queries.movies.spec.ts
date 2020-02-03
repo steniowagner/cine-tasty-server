@@ -44,7 +44,7 @@ const GET_TRENDING_MOVIES = gql`
 
   query TrendingMovies($page: Int!) {
     trending_movies {
-      now_playing(input: { page: $page }) {
+      now_playing(args: { page: $page }) {
         total_results
         total_pages
         hasMore
@@ -52,7 +52,7 @@ const GET_TRENDING_MOVIES = gql`
           ...TrendingMovieItem
         }
       }
-      popular(input: { page: $page }) {
+      popular(args: { page: $page }) {
         total_results
         total_pages
         hasMore
@@ -60,7 +60,7 @@ const GET_TRENDING_MOVIES = gql`
           ...TrendingMovieItem
         }
       }
-      top_rated(input: { page: $page }) {
+      top_rated(args: { page: $page }) {
         total_results
         total_pages
         hasMore
@@ -68,7 +68,7 @@ const GET_TRENDING_MOVIES = gql`
           ...TrendingMovieItem
         }
       }
-      upcoming(input: { page: $page }) {
+      upcoming(args: { page: $page }) {
         total_results
         total_pages
         hasMore
@@ -376,7 +376,7 @@ describe('Integration: DataSources-Movies', () => {
   });
 
   describe('Query - Movie Detail', () => {
-    it('fetches the details of a movie from TheMovieDB API and returns the result correctly', async () => {
+    it('should query the details of a movie from TheMovieDB API and returns the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce(rawMovieDetail)
         .mockReturnValueOnce({ genres: movieGenres });
@@ -406,7 +406,7 @@ describe('Integration: DataSources-Movies', () => {
       expect(data!.movie).toEqual(movieDetail);
     });
 
-    it('fetches the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
+    it('should query the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({
           total_pages: 1,

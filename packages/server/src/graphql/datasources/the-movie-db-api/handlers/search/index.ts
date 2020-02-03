@@ -1,7 +1,7 @@
 import { SearchQueryEmpty } from '../../../../../errors';
 import {
   SearchResultItem,
-  SearchResult,
+  SearchQueryResult,
   QuerySearchArgs,
   Iso6391Language,
 } from '../../../../../lib/types';
@@ -26,7 +26,7 @@ type GetRequest = <SearchParams, GetRequestResult>(
 ) => Promise<GetRequestResult>;
 
 export interface Props {
-  search: (params: QuerySearchArgs) => Promise<SearchResult>;
+  search: (params: QuerySearchArgs) => Promise<SearchQueryResult>;
 }
 
 const BASE_ENDPOINT = '/search';
@@ -38,7 +38,7 @@ class SearchHandler implements Props {
     this.get = execGetRequest;
   }
 
-  async search(params: QuerySearchArgs): Promise<SearchResult> {
+  async search(params: QuerySearchArgs): Promise<SearchQueryResult> {
     const endpoint = `${BASE_ENDPOINT}/${params.type.toLowerCase()}`;
 
     if (!params.query) {

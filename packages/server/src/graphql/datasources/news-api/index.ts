@@ -1,7 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import { validateArticleResultItem, getRequestParams, parseArticle } from './helpers';
-import { ArticleQueryResult, ArticleLanguage } from '../../../lib/types';
+import { ArticleQueryResult, QueryArticlesArgs } from '../../../lib/types';
 import { GetArticlesResultItem } from '../../../types';
 
 const BASE_URL = 'http://newsapi.org/v2';
@@ -10,10 +10,7 @@ const STATUS_OK = 'ok';
 const PAGE_SIZE = 12;
 
 export interface Props {
-  getAllArticles: (
-    page: number,
-    language?: ArticleLanguage | null,
-  ) => Promise<ArticleQueryResult>;
+  getArticles: (args: QueryArticlesArgs) => Promise<ArticleQueryResult>;
 }
 
 class NewsAPI extends RESTDataSource implements Props {
@@ -22,10 +19,7 @@ class NewsAPI extends RESTDataSource implements Props {
     this.baseURL = BASE_URL;
   }
 
-  async getAllArticles(
-    page: number,
-    language?: ArticleLanguage | null,
-  ): Promise<ArticleQueryResult> {
+  async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticleQueryResult> {
     const params = getRequestParams(page, language);
 
     const { status, articles } = await this.get(ENDPOINT, params);

@@ -540,7 +540,7 @@ export type Query = {
   articles: ArticleQueryResult,
   people: PeopleQueryResult,
   person?: Maybe<Person>,
-  search?: Maybe<SearchResult>,
+  search: SearchQueryResult,
 };
 
 
@@ -591,8 +591,8 @@ export type ReviewsQueryResult = {
   hasMore: Scalars['Boolean'],
 };
 
-export type SearchResult = {
-   __typename?: 'SearchResult',
+export type SearchQueryResult = {
+   __typename?: 'SearchQueryResult',
   total_results: Scalars['Int'],
   items: Array<SearchResultItem>,
   hasMore: Scalars['Boolean'],
@@ -624,25 +624,25 @@ export type TrendingMovies = {
 
 
 export type TrendingMoviesNow_PlayingArgs = {
-  input: TrendingMoviesInput
+  args: TrendingMoviesArgs
 };
 
 
 export type TrendingMoviesPopularArgs = {
-  input: TrendingMoviesInput
+  args: TrendingMoviesArgs
 };
 
 
 export type TrendingMoviesTop_RatedArgs = {
-  input: TrendingMoviesInput
+  args: TrendingMoviesArgs
 };
 
 
 export type TrendingMoviesUpcomingArgs = {
-  input: TrendingMoviesInput
+  args: TrendingMoviesArgs
 };
 
-export type TrendingMoviesInput = {
+export type TrendingMoviesArgs = {
   language?: Maybe<Iso6391Language>,
   page: Scalars['Int'],
 };
@@ -731,7 +731,7 @@ export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
   TrendingMovies: ResolverTypeWrapper<TrendingMovies>,
-  TrendingMoviesInput: TrendingMoviesInput,
+  TrendingMoviesArgs: TrendingMoviesArgs,
   ISO6391Language: Iso6391Language,
   Int: ResolverTypeWrapper<Scalars['Int']>,
   TrendingMoviesQueryResult: ResolverTypeWrapper<TrendingMoviesQueryResult>,
@@ -758,7 +758,7 @@ export type ResolversTypes = ResolversObject<{
   Person: ResolverTypeWrapper<Person>,
   Cast: ResolverTypeWrapper<Cast>,
   SearchType: SearchType,
-  SearchResult: ResolverTypeWrapper<Omit<SearchResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
+  SearchQueryResult: ResolverTypeWrapper<Omit<SearchQueryResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
   SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
   CacheControlScope: CacheControlScope,
   CastMovie: ResolverTypeWrapper<CastMovie>,
@@ -772,7 +772,7 @@ export type ResolversParentTypes = ResolversObject<{
   Query: {},
   String: Scalars['String'],
   TrendingMovies: TrendingMovies,
-  TrendingMoviesInput: TrendingMoviesInput,
+  TrendingMoviesArgs: TrendingMoviesArgs,
   ISO6391Language: Iso6391Language,
   Int: Scalars['Int'],
   TrendingMoviesQueryResult: TrendingMoviesQueryResult,
@@ -799,7 +799,7 @@ export type ResolversParentTypes = ResolversObject<{
   Person: Person,
   Cast: Cast,
   SearchType: SearchType,
-  SearchResult: Omit<SearchResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
+  SearchQueryResult: Omit<SearchQueryResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
   SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
   CacheControlScope: CacheControlScope,
   CastMovie: CastMovie,
@@ -1035,7 +1035,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
   person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'id'>>,
-  search?: Resolver<Maybe<ResolversTypes['SearchResult']>, ParentType, ContextType, RequireFields<QuerySearchArgs, 'page' | 'query' | 'type'>>,
+  search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'page' | 'query' | 'type'>>,
 }>;
 
 export type ReviewItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReviewItem'] = ResolversParentTypes['ReviewItem']> = ResolversObject<{
@@ -1052,7 +1052,7 @@ export type ReviewsQueryResultResolvers<ContextType = any, ParentType extends Re
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
 }>;
 
-export type SearchResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchResult'] = ResolversParentTypes['SearchResult']> = ResolversObject<{
+export type SearchQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchQueryResult'] = ResolversParentTypes['SearchQueryResult']> = ResolversObject<{
   total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
   items?: Resolver<Array<ResolversTypes['SearchResultItem']>, ParentType, ContextType>,
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
@@ -1070,10 +1070,10 @@ export type SimilarMoviesQueryResultResolvers<ContextType = any, ParentType exte
 }>;
 
 export type TrendingMoviesResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingMovies'] = ResolversParentTypes['TrendingMovies']> = ResolversObject<{
-  now_playing?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesNow_PlayingArgs, 'input'>>,
-  popular?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesPopularArgs, 'input'>>,
-  top_rated?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesTop_RatedArgs, 'input'>>,
-  upcoming?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesUpcomingArgs, 'input'>>,
+  now_playing?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesNow_PlayingArgs, 'args'>>,
+  popular?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesPopularArgs, 'args'>>,
+  top_rated?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesTop_RatedArgs, 'args'>>,
+  upcoming?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesUpcomingArgs, 'args'>>,
 }>;
 
 export type TrendingMoviesQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingMoviesQueryResult'] = ResolversParentTypes['TrendingMoviesQueryResult']> = ResolversObject<{
@@ -1108,7 +1108,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Query?: QueryResolvers<ContextType>,
   ReviewItem?: ReviewItemResolvers<ContextType>,
   ReviewsQueryResult?: ReviewsQueryResultResolvers<ContextType>,
-  SearchResult?: SearchResultResolvers<ContextType>,
+  SearchQueryResult?: SearchQueryResultResolvers<ContextType>,
   SearchResultItem?: SearchResultItemResolvers,
   SimilarMoviesQueryResult?: SimilarMoviesQueryResultResolvers<ContextType>,
   TrendingMovies?: TrendingMoviesResolvers<ContextType>,

@@ -14,30 +14,30 @@ import {
   QueryPersonArgs,
   QuerySearchArgs,
   TrendingMoviesQueryResult,
-  TrendingMoviesInput,
-  SearchResult,
+  SearchQueryResult,
   QueryPeopleArgs,
   QueryMovieArgs,
   Movie,
   MovieReviewsArgs,
   ReviewsQueryResult,
   MovieSimilarArgs,
+  TrendingMoviesArgs,
   SimilarMoviesQueryResult,
 } from '../../../lib/types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
-  getSimilarMovies(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
-  getMovieReviews(params: MovieReviewsArgs): Promise<ReviewsQueryResult>;
+  getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
+  getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult>;
   getTrendingMoviesItem: (
-    params: TrendingMoviesInput,
+    args: TrendingMoviesArgs,
     endpoint: string,
   ) => Promise<TrendingMoviesQueryResult>;
-  getPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
-  getPerson: (params: QueryPersonArgs) => Promise<Person | null>;
-  search: (params: QuerySearchArgs) => Promise<SearchResult>;
-  getMovie: (params: QueryMovieArgs) => Promise<Movie>;
+  getPeople: (args: QueryPeopleArgs) => Promise<PeopleQueryResult>;
+  getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
+  getMovie: (args: QueryMovieArgs) => Promise<Movie | null>;
+  search: (args: QuerySearchArgs) => Promise<SearchQueryResult>;
 }
 
 class TheMovieDBAPI extends RESTDataSource implements Props {
@@ -67,35 +67,35 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     });
   };
 
-  async getPeople(params: QueryPeopleArgs): Promise<PeopleQueryResult> {
-    return this.peopleHandler.getPopularPeople(params);
+  async getPeople(args: QueryPeopleArgs): Promise<PeopleQueryResult> {
+    return this.peopleHandler.getPopularPeople(args);
   }
 
-  async getPerson(params: QueryPersonArgs): Promise<Person | null> {
-    return this.personHandler.getPerson(params);
+  async getPerson(args: QueryPersonArgs): Promise<Person | null> {
+    return this.personHandler.getPerson(args);
   }
 
-  async search(params: QuerySearchArgs): Promise<SearchResult> {
-    return this.searchHandler.search(params);
+  async search(args: QuerySearchArgs): Promise<SearchQueryResult> {
+    return this.searchHandler.search(args);
   }
 
   async getTrendingMoviesItem(
-    params: TrendingMoviesInput,
+    args: TrendingMoviesArgs,
     resource: string,
   ): Promise<TrendingMoviesQueryResult> {
-    return this.moviesHandler.getTrendingItem(params, resource);
+    return this.moviesHandler.getTrendingItem(args, resource);
   }
 
-  async getMovie(params: QueryMovieArgs): Promise<Movie> {
-    return this.moviesHandler.getMovie(params);
+  async getMovie(args: QueryMovieArgs): Promise<Movie | null> {
+    return this.moviesHandler.getMovie(args);
   }
 
-  async getMovieReviews(params: MovieReviewsArgs): Promise<ReviewsQueryResult> {
-    return this.moviesHandler.getReviews(params);
+  async getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult> {
+    return this.moviesHandler.getReviews(args);
   }
 
-  async getSimilarMovies(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
-    return this.moviesHandler.getSimilars(params);
+  async getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
+    return this.moviesHandler.getSimilars(args);
   }
 }
 

@@ -17,7 +17,7 @@ import {
   SimilarMoviesQueryResultResolvers,
   MovieSimilarArgs,
 } from '../../lib/types';
-import { Context, MediaGenre } from '../../types';
+import { Context, MediaGenre, MediaItem } from '../../types';
 
 const mediaGenres = new MediaGenresHandler();
 
@@ -36,9 +36,21 @@ const resolvers: QueryResolvers = {
   Query: {
     trending_movies: (): {} => ({}),
 
-    movie: (_: {}, params: QueryMovieArgs, { dataSources }: Context): Promise<Movie> =>
-      dataSources.tmdb.getMovie(params),
+    movie: (
+      _: {},
+      args: QueryMovieArgs,
+      { dataSources }: Context,
+    ): Promise<Movie | null> => dataSources.tmdb.getMovie(args),
   },
+
+  BaseMovie: {
+    genre_ids: (
+      { genre_ids }: MediaItem,
+      { language }: BaseMovieGenreIdsArgs,
+    ): Promise<string[]> =>
+      mediaGenres.getMediaGenres(genre_ids, MediaType.Movie.toLowerCase(), language),
+  },
+
   Movie: {
     spoken_languages: ({
       spoken_languages,
@@ -71,15 +83,15 @@ const resolvers: QueryResolvers = {
 
     reviews: (
       _: {},
-      params: MovieReviewsArgs,
+      args: MovieReviewsArgs,
       { dataSources }: Context,
-    ): ReviewsQueryResultResolvers => dataSources.tmdb.getMovieReviews(params),
+    ): ReviewsQueryResultResolvers => dataSources.tmdb.getMovieReviews(args),
 
     similar: (
       _: {},
-      params: MovieSimilarArgs,
+      args: MovieSimilarArgs,
       { dataSources }: Context,
-    ): SimilarMoviesQueryResultResolvers => dataSources.tmdb.getSimilarMovies(params),
+    ): SimilarMoviesQueryResultResolvers => dataSources.tmdb.getSimilarMovies(args),
 
     videos: ({ videos }: { videos: MovieVideos }): MovieVideo[] =>
       videos.results
@@ -112,34 +124,35 @@ const resolvers: QueryResolvers = {
       );
     },
   },
+
   TrendingMovies: {
     now_playing: (
       _: {},
-      { input }: TrendingMoviesNowPlayingArgs,
+      { args }: TrendingMoviesNowPlayingArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(input, 'now_playing'),
+      dataSources.tmdb.getTrendingMoviesItem(args, 'now_playing'),
 
     popular: (
       _: {},
-      { input }: TrendingMoviesPopularArgs,
+      { args }: TrendingMoviesPopularArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(input, 'popular'),
+      dataSources.tmdb.getTrendingMoviesItem(args, 'popular'),
 
     top_rated: (
       _: {},
-      { input }: TrendingMoviesPopularArgs,
+      { args }: TrendingMoviesPopularArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(input, 'top_rated'),
+      dataSources.tmdb.getTrendingMoviesItem(args, 'top_rated'),
 
     upcoming: (
       _: {},
-      { input }: TrendingMoviesPopularArgs,
+      { args }: TrendingMoviesPopularArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(input, 'upcoming'),
+      dataSources.tmdb.getTrendingMoviesItem(args, 'upcoming'),
   },
 };
 

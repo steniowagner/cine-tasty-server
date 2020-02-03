@@ -253,9 +253,13 @@
               }
             ],
             "type": {
-              "kind": "OBJECT",
-              "name": "SearchResult",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SearchQueryResult",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -286,14 +290,14 @@
             "description": "",
             "args": [
               {
-                "name": "input",
+                "name": "args",
                 "description": "",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "TrendingMoviesInput",
+                    "name": "TrendingMoviesArgs",
                     "ofType": null
                   }
                 },
@@ -317,14 +321,14 @@
             "description": "",
             "args": [
               {
-                "name": "input",
+                "name": "args",
                 "description": "",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "TrendingMoviesInput",
+                    "name": "TrendingMoviesArgs",
                     "ofType": null
                   }
                 },
@@ -348,14 +352,14 @@
             "description": "",
             "args": [
               {
-                "name": "input",
+                "name": "args",
                 "description": "",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "TrendingMoviesInput",
+                    "name": "TrendingMoviesArgs",
                     "ofType": null
                   }
                 },
@@ -379,14 +383,14 @@
             "description": "",
             "args": [
               {
-                "name": "input",
+                "name": "args",
                 "description": "",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
                     "kind": "INPUT_OBJECT",
-                    "name": "TrendingMoviesInput",
+                    "name": "TrendingMoviesArgs",
                     "ofType": null
                   }
                 },
@@ -413,7 +417,7 @@
       },
       {
         "kind": "INPUT_OBJECT",
-        "name": "TrendingMoviesInput",
+        "name": "TrendingMoviesArgs",
         "description": "",
         "fields": null,
         "inputFields": [
@@ -4319,7 +4323,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "SearchResult",
+        "name": "SearchQueryResult",
         "description": "",
         "fields": [
           {

@@ -5,9 +5,9 @@ const resolvers: QueryResolvers = {
   Query: {
     articles: (
       _: {},
-      { page, language }: QueryArticlesArgs,
+      args: QueryArticlesArgs,
       { dataSources }: Context,
-    ): Promise<ArticleQueryResult> => dataSources.news.getAllArticles(page, language),
+    ): Promise<ArticleQueryResult> => dataSources.news.getArticles(args),
   },
 };
 

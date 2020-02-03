@@ -159,6 +159,29 @@ describe('Unity: MovieHandler', () => {
 
       expect(result).toMatchSnapshot();
     });
+
+    it("should return null when the movie doesn't exist", async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({ status_message: 'status_message' });
+
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+      const result = await movieHandler.getMovie({
+        id: '1',
+        language: Iso6391Language.Ptbr,
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'movie/1',
+        {
+          append_to_response: 'videos,credits',
+        },
+        'PTBR',
+      );
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toBeNull();
+    });
   });
 
   describe('getSimilars()', () => {

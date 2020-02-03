@@ -1,8 +1,8 @@
 import { RESTDataSource, HTTPCache } from 'apollo-datasource-rest';
 
 import { Iso6391Language, MediaType } from '../../../../../lib/types';
-import { Genres, MediaGenre } from '../../../../../types';
 import { getGenres, getFormatedLanguage } from '../../helpers';
+import { Genres, MediaGenre } from '../../../../../types';
 import env from '../../../../../config/environment';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';

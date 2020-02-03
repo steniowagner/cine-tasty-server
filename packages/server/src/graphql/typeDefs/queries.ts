@@ -12,6 +12,6 @@ export default gql`
       query: String!
       type: SearchType!
       language: ISO6391Language
-    ): SearchResult
+    ): SearchQueryResult!
   }
 `;
