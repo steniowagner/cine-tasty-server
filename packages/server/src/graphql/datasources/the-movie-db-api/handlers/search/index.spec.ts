@@ -23,214 +23,215 @@ const searchMovieWithRawMediaGenres = {
 
 const BASE_ENDPOINT = '/search';
 
-describe('[Search]', () => {
+describe('Unity: Search', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should get an array of tv shows and return it correctly', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchTvShow],
-      hasMore: false,
+  describe('search()', () => {
+    describe('search for a tv show', () => {
+      it('should search for a tv shows based on a query and return the list of results that matches with the query provided', async () => {
+        mockRestDataSourceGet.mockReturnValueOnce({
+          total_results: 1,
+          results: [rawSearchTvShow],
+          hasMore: false,
+        });
+
+        const params = {
+          type: SearchType.Tv,
+          page: 1,
+          query: 'some',
+        };
+
+        const personHandler = new SearchHandler(mockRestDataSourceGet);
+
+        const { hasMore, total_results, items } = await personHandler.search(params);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          {
+            page: params.page,
+            query: params.query,
+          },
+          undefined,
+        );
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+        expect(items).toEqual([searchTvShowWithRawMediaGenres]);
+        expect(total_results).toEqual(1);
+        expect(hasMore).toEqual(false);
+      });
+
+      it('should return hasMore as true when has more items to be paginated when search for tv shows', async () => {
+        mockRestDataSourceGet.mockReturnValueOnce({
+          total_results: 1,
+          results: [rawSearchTvShow],
+          total_pages: 2,
+          hasMore: false,
+        });
+
+        const params = {
+          type: SearchType.Tv,
+          page: 1,
+          query: 'some',
+        };
+
+        const personHandler = new SearchHandler(mockRestDataSourceGet);
+
+        const { hasMore, total_results, items } = await personHandler.search(params);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          {
+            page: params.page,
+            query: params.query,
+          },
+          undefined,
+        );
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+        expect(items).toEqual([rawSearchTvShow]);
+        expect(total_results).toEqual(1);
+        expect(hasMore).toEqual(true);
+      });
     });
 
-    const params = {
-      type: SearchType.Tv,
-      page: 1,
-      query: 'some',
-    };
+    describe('search for a movie', () => {
+      it('should search for a movie based on a query and return the list of results that matches with the query provided', async () => {
+        mockRestDataSourceGet.mockReturnValueOnce({
+          total_results: 1,
+          results: [rawSearchMovie],
+          hasMore: false,
+        });
 
-    const personHandler = new SearchHandler(mockRestDataSourceGet);
+        const params = {
+          type: SearchType.Movie,
+          page: 1,
+          query: 'some',
+        };
 
-    const { hasMore, total_results, items } = await personHandler.search(params);
+        const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
-      {
-        page: params.page,
-        query: params.query,
-      },
-      undefined,
-    );
+        const { hasMore, total_results, items } = await personHandler.search(params);
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-    expect(items).toEqual([searchTvShowWithRawMediaGenres]);
-    expect(total_results).toEqual(1);
-    expect(hasMore).toEqual(false);
-  });
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          {
+            page: params.page,
+            query: params.query,
+          },
+          undefined,
+        );
 
-  it('should return hasMore as true when has more items to be paginated when search for tv shows', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchTvShow],
-      total_pages: 2,
-      hasMore: false,
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+        expect(items).toEqual([searchMovieWithRawMediaGenres]);
+        expect(total_results).toEqual(1);
+        expect(hasMore).toEqual(false);
+      });
+
+      it('should return hasMore as true when has more items to be paginated when search for movies', async () => {
+        mockRestDataSourceGet.mockReturnValueOnce({
+          total_results: 1,
+          results: [rawSearchMovie],
+          total_pages: 2,
+          hasMore: false,
+        });
+
+        const params = {
+          type: SearchType.Movie,
+          page: 1,
+          query: 'some',
+        };
+
+        const personHandler = new SearchHandler(mockRestDataSourceGet);
+
+        const { hasMore, total_results, items } = await personHandler.search(params);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          {
+            page: params.page,
+            query: params.query,
+          },
+          undefined,
+        );
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+        expect(items).toEqual([searchMovieWithRawMediaGenres]);
+        expect(total_results).toEqual(1);
+        expect(hasMore).toEqual(true);
+      });
     });
 
-    const params = {
-      type: SearchType.Tv,
-      page: 1,
-      query: 'some',
-    };
+    describe('search for a person', () => {
+      it('should search for a person based on a query and return the list of results that matches with the query provided', async () => {
+        mockRestDataSourceGet.mockReturnValueOnce({
+          total_results: 1,
+          results: [rawSearchPeople],
+          hasMore: false,
+        });
 
-    const personHandler = new SearchHandler(mockRestDataSourceGet);
+        const params = {
+          type: SearchType.Person,
+          page: 1,
+          query: 'some',
+        };
 
-    const { hasMore, total_results, items } = await personHandler.search(params);
+        const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
-      {
-        page: params.page,
-        query: params.query,
-      },
-      undefined,
-    );
+        const { hasMore, total_results, items } = await personHandler.search(params);
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-    expect(items).toEqual([rawSearchTvShow]);
-    expect(total_results).toEqual(1);
-    expect(hasMore).toEqual(true);
-  });
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          {
+            page: params.page,
+            query: params.query,
+          },
+          undefined,
+        );
 
-  it('should get an array of movies and return it correctly', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchMovie],
-      hasMore: false,
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+        expect(items).toEqual([rawSearchPeople]);
+        expect(total_results).toEqual(1);
+        expect(hasMore).toEqual(false);
+      });
+
+      it('should return hasMore as true when has more items to be paginated when search for person', async () => {
+        const mockRestDataSourceGet = jest.fn().mockReturnValueOnce({
+          total_results: 1,
+          results: [rawSearchPeople],
+          total_pages: 2,
+          hasMore: false,
+        });
+
+        const params = {
+          type: SearchType.Person,
+          page: 1,
+          query: 'some',
+        };
+
+        const personHandler = new SearchHandler(mockRestDataSourceGet);
+
+        const { hasMore, total_results, items } = await personHandler.search(params);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          {
+            page: params.page,
+            query: params.query,
+          },
+          undefined,
+        );
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+        expect(items).toEqual([rawSearchPeople]);
+        expect(total_results).toEqual(1);
+        expect(hasMore).toEqual(true);
+      });
     });
-
-    const params = {
-      type: SearchType.Movie,
-      page: 1,
-      query: 'some',
-    };
-
-    const personHandler = new SearchHandler(mockRestDataSourceGet);
-
-    const { hasMore, total_results, items } = await personHandler.search(params);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
-      {
-        page: params.page,
-        query: params.query,
-      },
-      undefined,
-    );
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-    expect(items).toEqual([searchMovieWithRawMediaGenres]);
-    expect(total_results).toEqual(1);
-    expect(hasMore).toEqual(false);
-  });
-
-  it('should return hasMore as true when has more items to be paginated when search for movies', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchMovie],
-      total_pages: 2,
-      hasMore: false,
-    });
-
-    const params = {
-      type: SearchType.Movie,
-      page: 1,
-      query: 'some',
-    };
-
-    const personHandler = new SearchHandler(mockRestDataSourceGet);
-
-    const { hasMore, total_results, items } = await personHandler.search(params);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
-      {
-        page: params.page,
-        query: params.query,
-      },
-      undefined,
-    );
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-    expect(items).toEqual([searchMovieWithRawMediaGenres]);
-    expect(total_results).toEqual(1);
-    expect(hasMore).toEqual(true);
-  });
-
-  it('should get an array of people and return it correctly', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchPeople],
-      hasMore: false,
-    });
-
-    const params = {
-      type: SearchType.Person,
-      page: 1,
-      query: 'some',
-    };
-
-    const personHandler = new SearchHandler(mockRestDataSourceGet);
-
-    const { hasMore, total_results, items } = await personHandler.search(params);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
-      {
-        page: params.page,
-        query: params.query,
-      },
-      undefined,
-    );
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-    expect(items).toEqual([rawSearchPeople]);
-    expect(total_results).toEqual(1);
-    expect(hasMore).toEqual(false);
-  });
-
-  it('should return hasMore as true when has more items to be paginated when search for people', async () => {
-    const mockRestDataSourceGet = jest.fn().mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchPeople],
-      total_pages: 2,
-      hasMore: false,
-    });
-
-    const params = {
-      type: SearchType.Person,
-      page: 1,
-      query: 'some',
-    };
-
-    const personHandler = new SearchHandler(mockRestDataSourceGet);
-
-    const { hasMore, total_results, items } = await personHandler.search(params);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
-      {
-        page: params.page,
-        query: params.query,
-      },
-      undefined,
-    );
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-    expect(items).toEqual([rawSearchPeople]);
-    expect(total_results).toEqual(1);
-    expect(hasMore).toEqual(true);
   });
 
   it('should throw an error when the query is empty', async () => {
-    const mockRestDataSourceGet = jest.fn().mockReturnValueOnce({
-      total_results: 1,
-      results: [rawSearchPeople],
-      total_pages: 2,
-      hasMore: false,
-    });
-
     const params = {
       type: SearchType.Person,
       page: 1,

@@ -110,42 +110,44 @@ const makeTestServer = (): ApolloServer => {
   return server;
 };
 
-describe('[TheMovieDBAPI.Queries.Person]', () => {
+describe('Integration: DataSources-Person', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('fetches a person from the TheMoviewDB API and returns it correctly', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce(rawPerson)
-      .mockReturnValueOnce(rawCast)
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: tvGenres });
+  describe('Query - Person', () => {
+    it('should get details of a person with certain id from the TheMoviewDB API and returns it correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce(rawPerson)
+        .mockReturnValueOnce(rawCast)
+        .mockReturnValueOnce({ genres: movieGenres })
+        .mockReturnValueOnce({ genres: tvGenres });
 
-    const server = makeTestServer();
+      const server = makeTestServer();
 
-    const { query } = createTestClient(server);
+      const { query } = createTestClient(server);
 
-    const { data } = await query({
-      query: GET_PERSON,
-      variables: { id: 123 },
+      const { data } = await query({
+        query: GET_PERSON,
+        variables: { id: 123 },
+      });
+
+      expect(data!.person).toEqual(person);
     });
 
-    expect(data!.person).toEqual(person);
-  });
+    it("should return null when the person doesn't exists", async () => {
+      mockRestDataSourceGet.mockReturnValue({ success: false });
 
-  it("return null when the person doesn't exists", async () => {
-    mockRestDataSourceGet.mockReturnValue({ success: false });
+      const server = makeTestServer();
 
-    const server = makeTestServer();
+      const { query } = createTestClient(server);
 
-    const { query } = createTestClient(server);
+      const { data } = await query({
+        query: GET_PERSON,
+        variables: { id: 1 },
+      });
 
-    const { data } = await query({
-      query: GET_PERSON,
-      variables: { id: 1 },
+      expect(data!.person).toEqual(null);
     });
-
-    expect(data!.person).toEqual(null);
   });
 });

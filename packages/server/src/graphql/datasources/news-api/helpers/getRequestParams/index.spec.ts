@@ -3,7 +3,7 @@ import env from '../../../../../config/environment';
 import getDateFormated from '../getDateParam';
 import getRequestParams from '.';
 
-describe('[getRequestParams]', () => {
+describe('Helper: getRequestParams()', () => {
   it('should return the request params correctly when no language is specified', () => {
     const params = {
       apiKey: env.NEWS_API_KEY,

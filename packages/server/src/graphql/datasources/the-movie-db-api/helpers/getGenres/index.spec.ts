@@ -1,7 +1,7 @@
 import { movieGenres, tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import { getGenres } from '..';
 
-describe('[getGenres]', () => {
+describe('Helper: getGenres()', () => {
   it('should get the genres of a movie correctly', () => {
     expect(getGenres(movieGenres, [2])).toEqual(movieGenres.map(({ name }) => name));
   });

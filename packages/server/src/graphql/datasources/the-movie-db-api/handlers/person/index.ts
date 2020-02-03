@@ -34,7 +34,7 @@ class PersonHandler implements Props {
   }
 
   async getPerson({ language, id }: QueryPersonArgs): Promise<Person | null> {
-    const [result, { cast }] = await Promise.all<GetPersonResponse, GetCastResponse>([
+    const [result, castData] = await Promise.all<GetPersonResponse, GetCastResponse>([
       this.get(
         `${PERSON_ENDPOINT}/${id}`,
         { append_to_response: APPEND_TO_RESPONSE_IMAGES_KEY },
@@ -50,7 +50,7 @@ class PersonHandler implements Props {
     return {
       ...result,
       images: getPersonProfileImages(result.images),
-      cast,
+      cast: castData.cast,
     };
   }
 }

@@ -92,104 +92,106 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-describe('[TheMovieDBAPI.Queries.People]', () => {
+describe('Integration: DataSources-People', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('fetches the popular people from TheMoviewDB API and returns the data correctly', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({
+  describe('Query - People', () => {
+    it('should query popular people from TheMoviewDB API and returns the data correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawPeopleItem],
+        })
+        .mockReturnValueOnce({ genres: movieGenres })
+        .mockReturnValueOnce({ genres: tvGenres });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_PEOPLE,
+        variables: { page: 1 },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(data!.people).toEqual({
         total_pages: 1,
         total_results: 1,
-        results: [rawPeopleItem],
-      })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: tvGenres });
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_PEOPLE,
-      variables: { page: 1 },
+        hasMore: false,
+        items: [peopleItem],
+      });
     });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+    it('should return the field hasMore as true when has more items to be paginated', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 2,
+          results: [rawPeopleItem],
+        })
+        .mockReturnValueOnce({ genres: movieGenres })
+        .mockReturnValueOnce({ genres: tvGenres });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
-      {
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_PEOPLE,
+        variables: { page: 1 },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
-        page: 1,
-      },
-    );
+      });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(data!.people).toEqual({
-      total_pages: 1,
-      total_results: 1,
-      hasMore: false,
-      items: [peopleItem],
-    });
-  });
-
-  it('returns the field hasMore as true when has more items to be paginated', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({
+      expect(data!.people).toEqual({
         total_pages: 2,
         total_results: 2,
-        results: [rawPeopleItem],
-      })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: tvGenres });
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_PEOPLE,
-      variables: { page: 1 },
-    });
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-      `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
-      {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      },
-    );
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(data!.people).toEqual({
-      total_pages: 2,
-      total_results: 2,
-      hasMore: true,
-      items: [peopleItem],
+        hasMore: true,
+        items: [peopleItem],
+      });
     });
   });
 });

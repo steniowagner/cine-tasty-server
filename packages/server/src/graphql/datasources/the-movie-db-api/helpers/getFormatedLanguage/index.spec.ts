@@ -1,7 +1,7 @@
 import { Iso6391Language } from '../../../../../lib/types';
 import { getFormatedLanguage } from '.';
 
-describe('[getFormatedLanguage]', () => {
+describe('Helper: getFormatedLanguage()', () => {
   it('should return en-us when no language is provided', () => {
     expect(getFormatedLanguage()).toEqual('en-us');
   });

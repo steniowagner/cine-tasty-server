@@ -210,314 +210,285 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-describe('[TheMovieDBAPI.Queries.Movies]', () => {
+describe('Integration: DataSources-Movies', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('fetches the similar movies of a movie from TheMovieDB API and returns the result correctly', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({ similars: {} })
-      .mockReturnValueOnce({
-        id: 1,
+  describe('Query - Similar Movies', () => {
+    it('should query similar movies of a movie from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({ similars: {} })
+        .mockReturnValueOnce({
+          id: 1,
+          page: 1,
+          results: [rawMovie],
+          total_pages: 1,
+          total_results: 1,
+        })
+        .mockReturnValueOnce({ genres: movieGenres });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_MOVIE_SIMILARS,
+        variables: { id: '1', similarsPage: 1 },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/similar', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
         page: 1,
-        results: [rawMovie],
+      });
+
+      expect(data!.movie.similar).toEqual({
+        hasMore: false,
         total_pages: 1,
         total_results: 1,
-      })
-      .mockReturnValueOnce({ genres: movieGenres });
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_MOVIE_SIMILARS,
-      variables: { id: '1', similarsPage: 1 },
+        items: [movie],
+      });
     });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+    it('should query the similar movies of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({ similars: {} })
+        .mockReturnValueOnce({
+          id: 1,
+          page: 1,
+          results: [rawMovie],
+          total_pages: 2,
+          total_results: 2,
+        })
+        .mockReturnValueOnce({ genres: movieGenres });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-      append_to_response: 'videos,credits',
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
+      const server = makeTestServer();
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/similar', {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
+      const { query } = createTestClient(server);
 
-    expect(data!.movie.similar).toEqual({
-      hasMore: false,
-      total_pages: 1,
-      total_results: 1,
-      items: [movie],
-    });
-  });
+      const { data } = await query({
+        query: GET_MOVIE_SIMILARS,
+        variables: { id: '1', similarsPage: 1 },
+      });
 
-  it('fetches the similar movies of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({ similars: {} })
-      .mockReturnValueOnce({
-        id: 1,
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/similar', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
         page: 1,
-        results: [rawMovie],
+      });
+
+      expect(data!.movie.similar).toEqual({
+        hasMore: true,
         total_pages: 2,
         total_results: 2,
-      })
-      .mockReturnValueOnce({ genres: movieGenres });
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_MOVIE_SIMILARS,
-      variables: { id: '1', similarsPage: 1 },
-    });
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-      append_to_response: 'videos,credits',
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/similar', {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
-
-    expect(data!.movie.similar).toEqual({
-      hasMore: true,
-      total_pages: 2,
-      total_results: 2,
-      items: [movie],
+        items: [movie],
+      });
     });
   });
 
-  it('fetches the reviews of a movie from TheMovieDB API and returns the result correctly', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({ reviews: {} }).mockReturnValueOnce({
-      id: 1,
-      page: 1,
-      results: [review],
-      total_pages: 1,
-      total_results: 1,
+  describe('Query - Movie Reviews', () => {
+    it('should query the reviews of a movie from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({ reviews: {} }).mockReturnValueOnce({
+        id: 1,
+        page: 1,
+        results: [review],
+        total_pages: 1,
+        total_results: 1,
+      });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_MOVIE_REVIEWS,
+        variables: { id: '1', reviewsPage: 1 },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      });
+
+      expect(data!.movie.reviews).toMatchSnapshot();
     });
 
-    const server = makeTestServer();
+    it('fetches the reviews of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({ reviews: {} }).mockReturnValueOnce({
+        id: 1,
+        page: 1,
+        results: [review],
+        total_pages: 2,
+        total_results: 2,
+      });
 
-    const { query } = createTestClient(server);
+      const server = makeTestServer();
 
-    const { data } = await query({
-      query: GET_MOVIE_REVIEWS,
-      variables: { id: '1', reviewsPage: 1 },
-    });
+      const { query } = createTestClient(server);
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      const { data } = await query({
+        query: GET_MOVIE_REVIEWS,
+        variables: { id: '1', reviewsPage: 1 },
+      });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-      append_to_response: 'videos,credits',
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-    expect(data!.movie.reviews).toEqual({
-      hasMore: false,
-      total_pages: 1,
-      total_results: 1,
-      items: [review],
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      });
+
+      expect(data!.movie.reviews).toMatchSnapshot();
     });
   });
 
-  it('fetches the reviews of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
-    mockRestDataSourceGet.mockReturnValueOnce({ reviews: {} }).mockReturnValueOnce({
-      id: 1,
-      page: 1,
-      results: [review],
-      total_pages: 2,
-      total_results: 2,
+  describe('Query - Movie Detail', () => {
+    it('fetches the details of a movie from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce(rawMovieDetail)
+        .mockReturnValueOnce({ genres: movieGenres });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_MOVIE_DETAIL,
+        variables: { id: 1, language: 'PTBR' },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'pt-br',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'pt-br',
+      });
+
+      expect(data!.movie).toEqual(movieDetail);
     });
 
-    const server = makeTestServer();
+    it('fetches the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({ genres: movieGenres })
+        .mockReturnValueOnce({ genres: movieGenres })
+        .mockReturnValueOnce({ genres: movieGenres })
+        .mockReturnValueOnce({ genres: movieGenres });
 
-    const { query } = createTestClient(server);
+      const server = makeTestServer();
 
-    const { data } = await query({
-      query: GET_MOVIE_REVIEWS,
-      variables: { id: '1', reviewsPage: 1 },
-    });
+      const { query } = createTestClient(server);
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      const { data } = await query({
+        query: GET_TRENDING_MOVIES,
+        variables: { page: 1 },
+      });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-      append_to_response: 'videos,credits',
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(8);
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(NOW_PLAYING_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      });
 
-    expect(data!.movie.reviews).toEqual({
-      hasMore: true,
-      total_pages: 2,
-      total_results: 2,
-      items: [review],
-    });
-  });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(POPULAR_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      });
 
-  it('fetches the details of a movie from TheMovieDB API and returns the result correctly', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce(rawMovieDetail)
-      .mockReturnValueOnce({ genres: movieGenres });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(TOP_RATED_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      });
 
-    const server = makeTestServer();
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(UPCOMING_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+        page: 1,
+      });
 
-    const { query } = createTestClient(server);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-    const { data } = await query({
-      query: GET_MOVIE_DETAIL,
-      variables: { id: 1, language: 'PTBR' },
-    });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-      append_to_response: 'videos,credits',
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'pt-br',
-    });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'pt-br',
-    });
-
-    expect(data!.movie).toEqual(movieDetail);
-  });
-
-  it('fetches the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({
-        total_pages: 1,
-        total_results: 1,
-        results: [rawMovie],
-      })
-      .mockReturnValueOnce({
-        total_pages: 1,
-        total_results: 1,
-        results: [rawMovie],
-      })
-      .mockReturnValueOnce({
-        total_pages: 1,
-        total_results: 1,
-        results: [rawMovie],
-      })
-      .mockReturnValueOnce({
-        total_pages: 1,
-        total_results: 1,
-        results: [rawMovie],
-      })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: movieGenres })
-      .mockReturnValueOnce({ genres: movieGenres });
-
-    const server = makeTestServer();
-
-    const { query } = createTestClient(server);
-
-    const { data } = await query({
-      query: GET_TRENDING_MOVIES,
-      variables: { page: 1 },
-    });
-
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(8);
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(NOW_PLAYING_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(POPULAR_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(TOP_RATED_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(UPCOMING_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-      page: 1,
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
-      api_key: env.THE_MOVIE_DB_API_KEY,
-      language: 'en-us',
-    });
-
-    expect(data!.trending_movies).toEqual({
-      now_playing: {
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [movie],
-      },
-      popular: {
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [movie],
-      },
-      top_rated: {
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [movie],
-      },
-      upcoming: {
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [movie],
-      },
+      expect(data!.trending_movies).toMatchSnapshot();
     });
   });
 });

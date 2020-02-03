@@ -63,45 +63,47 @@ const makeTestServer = (): ApolloServer => {
   return server;
 };
 
-describe('[TheMovieDBAPI.Queries.Search.TVShow]', () => {
+describe('Integration - DataSources-Search.TVShow]', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it('search for a tv show on TheMoviewDB API and returns the result correctly', async () => {
-    mockRestDataSourceGet
-      .mockReturnValueOnce({
-        total_results: 1,
-        results: [rawKnowForTVShow],
-        total_pages: 1,
-      })
-      .mockReturnValueOnce({ genres: tvGenres })
-      .mockReturnValueOnce({ genres: movieGenres });
+  describe('Query - Search for a TV Show', () => {
+    it('should search for a tv show with the title that matches with the query provided on TheMoviewDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_results: 1,
+          results: [rawKnowForTVShow],
+          total_pages: 1,
+        })
+        .mockReturnValueOnce({ genres: tvGenres })
+        .mockReturnValueOnce({ genres: movieGenres });
 
-    const server = makeTestServer();
+      const server = makeTestServer();
 
-    const { query } = createTestClient(server);
+      const { query } = createTestClient(server);
 
-    const { data } = await query({
-      query: SEARCH_TV_SHOW,
-      variables: { page: 1, query: 'any', type: SearchType.Tv },
+      const { data } = await query({
+        query: SEARCH_TV_SHOW,
+        variables: { page: 1, query: 'any', type: SearchType.Tv },
+      });
+
+      expect(data!.search.hasMore).toEqual(false);
+      expect(data!.search.total_results).toEqual(1);
+      expect(data!.search.items).toEqual([knowForTVShow]);
     });
 
-    expect(data!.search.hasMore).toEqual(false);
-    expect(data!.search.total_results).toEqual(1);
-    expect(data!.search.items).toEqual([knowForTVShow]);
-  });
+    it('should throw an error when the query is empty', async () => {
+      const server = makeTestServer();
 
-  it('should throw an error when the query is empty', async () => {
-    const server = makeTestServer();
+      const { query } = createTestClient(server);
 
-    const { query } = createTestClient(server);
+      const { errors } = await query({
+        query: SEARCH_TV_SHOW,
+        variables: { page: 1, query: '', type: SearchType.Tv },
+      });
 
-    const { errors } = await query({
-      query: SEARCH_TV_SHOW,
-      variables: { page: 1, query: '', type: SearchType.Tv },
+      return expect(errors && errors[0].message).toEqual('Search query cannot be empty.');
     });
-
-    return expect(errors && errors[0].message).toEqual('Search query cannot be empty.');
   });
 });

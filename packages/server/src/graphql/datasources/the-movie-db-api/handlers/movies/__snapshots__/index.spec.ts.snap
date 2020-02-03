@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[MovieHandler] should get the details of a movie with certain id from TheMovideDB API 1`] = `
+exports[`Unity: MovieHandler getMovie() should get the details of a movie with certain id from TheMovideDB API 1`] = `
 Object {
   "adult": false,
   "backdrop_path": "/backdrop_path.jpg",
@@ -99,7 +99,7 @@ Object {
 }
 `;
 
-exports[`[MovieHandler] should return an array of the now playing movies from the TheMovieDB API 1`] = `
+exports[`Unity: MovieHandler getTrendingItem() should return an array of the now playing movies from the TheMovieDB API 1`] = `
 Array [
   Object {
     "adult": false,
@@ -122,7 +122,7 @@ Array [
 ]
 `;
 
-exports[`[MovieHandler] should return an array of the popular movies from the TheMovieDB API 1`] = `
+exports[`Unity: MovieHandler getTrendingItem() should return an array of the popular movies from the TheMovieDB API 1`] = `
 Array [
   Object {
     "adult": false,
@@ -145,7 +145,7 @@ Array [
 ]
 `;
 
-exports[`[MovieHandler] should return an array of the top rated movies from the TheMovieDB API 1`] = `
+exports[`Unity: MovieHandler getTrendingItem() should return an array of the top rated movies from the TheMovieDB API 1`] = `
 Array [
   Object {
     "adult": false,
@@ -168,7 +168,7 @@ Array [
 ]
 `;
 
-exports[`[MovieHandler] should return an array of the upcoming movies from the TheMovieDB API 1`] = `
+exports[`Unity: MovieHandler getTrendingItem() should return an array of the upcoming movies from the TheMovieDB API 1`] = `
 Array [
   Object {
     "adult": false,

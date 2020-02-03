@@ -23,7 +23,7 @@ const images = {
   ],
 };
 
-describe('[getPersonProfileImages]', () => {
+describe('Helper: getPersonProfileImages()', () => {
   it('should get the images path correctly', () => {
     expect(getPersonProfileImages(images)).toEqual(['/img1.jpg', '/img2.jpg']);
   });
