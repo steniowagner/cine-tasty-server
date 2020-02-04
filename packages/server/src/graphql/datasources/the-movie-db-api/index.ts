@@ -1,5 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
+import TVShowsHandler, { Props as TVShowsHandlerProps } from './handlers/tv-show';
 import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/people';
 import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
@@ -23,7 +24,10 @@ import {
   MovieSimilarArgs,
   TrendingMoviesArgs,
   SimilarMoviesQueryResult,
+  TrendingTvShowsArgs,
+  TrendingTvShowsQueryResult,
 } from '../../../lib/types';
+import { TVShowsEndpoints } from '../../../types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -34,6 +38,10 @@ export interface Props {
     args: TrendingMoviesArgs,
     endpoint: string,
   ) => Promise<TrendingMoviesQueryResult>;
+  getTrendingTVShowsItem: (
+    args: TrendingTvShowsArgs,
+    endpoint: TVShowsEndpoints,
+  ) => Promise<TrendingTvShowsQueryResult>;
   getPeople: (args: QueryPeopleArgs) => Promise<PeopleQueryResult>;
   getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
   getMovie: (args: QueryMovieArgs) => Promise<Movie | null>;
@@ -41,6 +49,7 @@ export interface Props {
 }
 
 class TheMovieDBAPI extends RESTDataSource implements Props {
+  tvshowsHandler: TVShowsHandlerProps;
   searchHandler: SearchHandlerProps;
   peopleHandler: PeopleHandlerProps;
   personHandler: PersonHandlerProps;
@@ -48,10 +57,13 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   constructor() {
     super();
+
+    this.tvshowsHandler = new TVShowsHandler(this.execGetRequest);
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
     this.personHandler = new PersonHandler(this.execGetRequest);
     this.moviesHandler = new MoviesHandler(this.execGetRequest);
+
     this.baseURL = BASE_URL;
   }
 
@@ -96,6 +108,13 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   async getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
     return this.moviesHandler.getSimilars(args);
+  }
+
+  async getTrendingTVShowsItem(
+    args: TrendingTvShowsArgs,
+    endpoint: TVShowsEndpoints,
+  ): Promise<TrendingTvShowsQueryResult> {
+    return this.tvshowsHandler.getTrendingItem(args, endpoint);
   }
 }
 

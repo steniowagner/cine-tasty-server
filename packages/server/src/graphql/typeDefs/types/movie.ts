@@ -115,7 +115,7 @@ export default gql`
     poster_path: String
     popularity: Float
     original_language: String
-    vote_count: Float
+    vote_count: Int
     id: Int
   }
 

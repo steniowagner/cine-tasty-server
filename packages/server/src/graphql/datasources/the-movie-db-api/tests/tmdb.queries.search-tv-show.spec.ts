@@ -63,7 +63,7 @@ const makeTestServer = (): ApolloServer => {
   return server;
 };
 
-describe('Integration - DataSources-Search.TVShow]', () => {
+describe('Integration: DataSources-Search.TVShow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });

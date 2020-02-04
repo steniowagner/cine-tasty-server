@@ -5,6 +5,8 @@ import {
   TrendingMoviesQueryResult,
   TrendingMoviesNow_PlayingArgs as TrendingMoviesNowPlayingArgs,
   TrendingMoviesPopularArgs,
+  TrendingMoviesTop_RatedArgs as TrendingMoviesTopRatedArgs,
+  TrendingMoviesUpcomingArgs,
   QueryMovieArgs,
   BaseMovieGenre_IdsArgs as BaseMovieGenreIdsArgs,
   Movie,
@@ -142,14 +144,14 @@ const resolvers: QueryResolvers = {
 
     top_rated: (
       _: {},
-      { args }: TrendingMoviesPopularArgs,
+      { args }: TrendingMoviesTopRatedArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
       dataSources.tmdb.getTrendingMoviesItem(args, 'top_rated'),
 
     upcoming: (
       _: {},
-      { args }: TrendingMoviesPopularArgs,
+      { args }: TrendingMoviesUpcomingArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
       dataSources.tmdb.getTrendingMoviesItem(args, 'upcoming'),

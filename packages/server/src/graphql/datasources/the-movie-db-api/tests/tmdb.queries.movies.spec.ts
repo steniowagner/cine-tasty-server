@@ -1,3 +1,5 @@
+const mockRestDataSourceGet = jest.fn();
+
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
@@ -9,8 +11,6 @@ import {
   movieDetail,
   review,
 } from '../../../../__tests__/mocks/movies.stub';
-
-const mockRestDataSourceGet = jest.fn();
 
 import env from '../../../../config/environment';
 import resolvers from '../../../resolvers';
@@ -405,7 +405,9 @@ describe('Integration: DataSources-Movies', () => {
 
       expect(data!.movie).toEqual(movieDetail);
     });
+  });
 
+  describe('Query - Trending Movies', () => {
     it('should query the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({

@@ -49,3 +49,9 @@ export type Context = {
 export type BaseMediaType = BaseMovie | BaseTvShow;
 
 export type MediaItem = BaseMediaType & { genre_ids: number[] };
+
+export enum TVShowsEndpoints {
+  OnTheAir = 'tv/on_the_air',
+  Popular = 'tv/popular',
+  TopRated = 'tv/top_rated',
+}

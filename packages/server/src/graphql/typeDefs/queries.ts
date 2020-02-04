@@ -3,6 +3,7 @@ import { gql } from 'apollo-server';
 export default gql`
   extend type Query {
     trending_movies: TrendingMovies!
+    trending_tv_shows: TrendingTVShows!
     movie(id: ID!, language: ISO6391Language): Movie
     articles(page: Int!, language: ArticleLanguage): ArticleQueryResult!
     people(page: Int!, language: ISO6391Language): PeopleQueryResult!

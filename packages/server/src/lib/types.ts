@@ -64,7 +64,7 @@ export type BaseMovie = {
   poster_path?: Maybe<Scalars['String']>,
   popularity?: Maybe<Scalars['Float']>,
   original_language?: Maybe<Scalars['String']>,
-  vote_count?: Maybe<Scalars['Float']>,
+  vote_count?: Maybe<Scalars['Int']>,
   id?: Maybe<Scalars['Int']>,
 };
 
@@ -97,7 +97,7 @@ export type BaseTvShow = {
   poster_path?: Maybe<Scalars['String']>,
   popularity?: Maybe<Scalars['Float']>,
   original_language?: Maybe<Scalars['String']>,
-  vote_count?: Maybe<Scalars['Float']>,
+  vote_count?: Maybe<Scalars['Int']>,
   id?: Maybe<Scalars['Int']>,
 };
 
@@ -536,6 +536,7 @@ export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['String']>,
   trending_movies: TrendingMovies,
+  trending_tv_shows: TrendingTvShows,
   movie?: Maybe<Movie>,
   articles: ArticleQueryResult,
   people: PeopleQueryResult,
@@ -655,6 +656,41 @@ export type TrendingMoviesQueryResult = {
   hasMore: Scalars['Boolean'],
 };
 
+export type TrendingTvShows = {
+   __typename?: 'TrendingTVShows',
+  on_the_air: TrendingTvShowsQueryResult,
+  popular: TrendingTvShowsQueryResult,
+  top_rated: TrendingTvShowsQueryResult,
+};
+
+
+export type TrendingTvShowsOn_The_AirArgs = {
+  args: TrendingTvShowsArgs
+};
+
+
+export type TrendingTvShowsPopularArgs = {
+  args: TrendingTvShowsArgs
+};
+
+
+export type TrendingTvShowsTop_RatedArgs = {
+  args: TrendingTvShowsArgs
+};
+
+export type TrendingTvShowsArgs = {
+  language?: Maybe<Iso6391Language>,
+  page: Scalars['Int'],
+};
+
+export type TrendingTvShowsQueryResult = {
+   __typename?: 'TrendingTVShowsQueryResult',
+  total_results: Scalars['Int'],
+  total_pages: Scalars['Int'],
+  items: Array<BaseTvShow>,
+  hasMore: Scalars['Boolean'],
+};
+
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
@@ -738,6 +774,10 @@ export type ResolversTypes = ResolversObject<{
   BaseMovie: ResolverTypeWrapper<BaseMovie>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
+  TrendingTVShows: ResolverTypeWrapper<TrendingTvShows>,
+  TrendingTVShowsArgs: TrendingTvShowsArgs,
+  TrendingTVShowsQueryResult: ResolverTypeWrapper<TrendingTvShowsQueryResult>,
+  BaseTVShow: ResolverTypeWrapper<BaseTvShow>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   Movie: ResolverTypeWrapper<Movie>,
   ProductionCompanyItem: ResolverTypeWrapper<ProductionCompanyItem>,
@@ -754,7 +794,6 @@ export type ResolversTypes = ResolversObject<{
   PeopleQueryResult: ResolverTypeWrapper<PeopleQueryResult>,
   BasePerson: ResolverTypeWrapper<Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>,
   PersonKnowFor: ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
-  BaseTVShow: ResolverTypeWrapper<BaseTvShow>,
   Person: ResolverTypeWrapper<Person>,
   Cast: ResolverTypeWrapper<Cast>,
   SearchType: SearchType,
@@ -779,6 +818,10 @@ export type ResolversParentTypes = ResolversObject<{
   BaseMovie: BaseMovie,
   Boolean: Scalars['Boolean'],
   Float: Scalars['Float'],
+  TrendingTVShows: TrendingTvShows,
+  TrendingTVShowsArgs: TrendingTvShowsArgs,
+  TrendingTVShowsQueryResult: TrendingTvShowsQueryResult,
+  BaseTVShow: BaseTvShow,
   ID: Scalars['ID'],
   Movie: Movie,
   ProductionCompanyItem: ProductionCompanyItem,
@@ -795,7 +838,6 @@ export type ResolversParentTypes = ResolversObject<{
   PeopleQueryResult: PeopleQueryResult,
   BasePerson: Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> },
   PersonKnowFor: ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
-  BaseTVShow: BaseTvShow,
   Person: Person,
   Cast: Cast,
   SearchType: SearchType,
@@ -842,7 +884,7 @@ export type BaseMovieResolvers<ContextType = any, ParentType extends ResolversPa
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   original_language?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  vote_count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  vote_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
 }>;
 
@@ -868,7 +910,7 @@ export type BaseTvShowResolvers<ContextType = any, ParentType extends ResolversP
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   original_language?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  vote_count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
+  vote_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
 }>;
 
@@ -1031,6 +1073,7 @@ export type ProductionCompanyItemResolvers<ContextType = any, ParentType extends
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   trending_movies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType>,
+  trending_tv_shows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType>,
   movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>,
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
@@ -1083,6 +1126,19 @@ export type TrendingMoviesQueryResultResolvers<ContextType = any, ParentType ext
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
 }>;
 
+export type TrendingTvShowsResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingTVShows'] = ResolversParentTypes['TrendingTVShows']> = ResolversObject<{
+  on_the_air?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsOn_The_AirArgs, 'args'>>,
+  popular?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsPopularArgs, 'args'>>,
+  top_rated?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsTop_RatedArgs, 'args'>>,
+}>;
+
+export type TrendingTvShowsQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingTVShowsQueryResult'] = ResolversParentTypes['TrendingTVShowsQueryResult']> = ResolversObject<{
+  total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  total_pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
+  items?: Resolver<Array<ResolversTypes['BaseTVShow']>, ParentType, ContextType>,
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
+}>;
+
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
   name: 'Upload'
 }
@@ -1113,6 +1169,8 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   SimilarMoviesQueryResult?: SimilarMoviesQueryResultResolvers<ContextType>,
   TrendingMovies?: TrendingMoviesResolvers<ContextType>,
   TrendingMoviesQueryResult?: TrendingMoviesQueryResultResolvers<ContextType>,
+  TrendingTVShows?: TrendingTvShowsResolvers<ContextType>,
+  TrendingTVShowsQueryResult?: TrendingTvShowsQueryResultResolvers<ContextType>,
   Upload?: GraphQLScalarType,
 }>;
 

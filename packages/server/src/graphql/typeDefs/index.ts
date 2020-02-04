@@ -1,6 +1,5 @@
 import ISO6391Language from './types/ISO6391Language';
 import root from './root';
-import baseTVShow from './types/tvshow';
 import cast from './types/cast';
 import mediaType from './types/mediaType';
 import article from './types/article';
@@ -16,7 +15,6 @@ export default [
   search,
   tvshow,
   article,
-  baseTVShow,
   cast,
   person,
   mediaType,

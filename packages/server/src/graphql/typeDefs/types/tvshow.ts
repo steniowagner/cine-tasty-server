@@ -14,7 +14,25 @@ export default gql`
     poster_path: String
     popularity: Float
     original_language: String
-    vote_count: Float
+    vote_count: Int
     id: Int
+  }
+
+  type TrendingTVShowsQueryResult {
+    total_results: Int!
+    total_pages: Int!
+    items: [BaseTVShow!]!
+    hasMore: Boolean!
+  }
+
+  input TrendingTVShowsArgs {
+    language: ISO6391Language
+    page: Int!
+  }
+
+  type TrendingTVShows {
+    on_the_air(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
+    popular(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
+    top_rated(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
   }
 `;
