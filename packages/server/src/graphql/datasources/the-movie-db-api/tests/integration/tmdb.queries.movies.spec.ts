@@ -3,19 +3,19 @@ const mockRestDataSourceGet = jest.fn();
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import { movieGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
+import { movieGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import {
   rawMovie,
   movie,
   rawMovieDetail,
   movieDetail,
   review,
-} from '../../../../__tests__/mocks/movies.stub';
+} from '../../../../../__tests__/mocks/movies.stub';
 
-import env from '../../../../config/environment';
-import resolvers from '../../../resolvers';
-import typeDefs from '../../../typeDefs';
-import TheMovieDBAPI from '..';
+import env from '../../../../../config/environment';
+import resolvers from '../../../../resolvers';
+import typeDefs from '../../../../typeDefs';
+import TheMovieDBAPI from '../..';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 const POPULAR_ENDPOINT = 'movie/popular';

@@ -1,15 +1,15 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import { rawPeopleItem, peopleItem } from '../../../../__tests__/mocks/people.stub';
-import { movieGenres, tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
+import { rawPeopleItem, peopleItem } from '../../../../../__tests__/mocks/people.stub';
+import { movieGenres, tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 
 const mockRestDataSourceGet = jest.fn();
 
-import env from '../../../../config/environment';
-import resolvers from '../../../resolvers';
-import typeDefs from '../../../typeDefs';
-import TheMovieDBAPI from '..';
+import env from '../../../../../config/environment';
+import resolvers from '../../../../resolvers';
+import typeDefs from '../../../../typeDefs';
+import TheMovieDBAPI from '../..';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';

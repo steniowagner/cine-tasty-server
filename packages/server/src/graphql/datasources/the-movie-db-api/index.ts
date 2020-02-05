@@ -6,6 +6,7 @@ import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
 import MoviesHandler, { Props as MoviesHandlerProps } from './handlers/movies';
 
+import { InvalidTMDBApiKey, ResourceNotFound } from '../../../errors';
 import { formatLanguage } from './helpers';
 import env from '../../../config/environment';
 import {
@@ -52,6 +53,9 @@ export interface Props {
   getTVShowImages(id: string): Promise<string[]>;
 }
 
+const RESOURCE_NOT_FOUND_CODE = 34;
+const INVALID_API_KEY_CODE = 7;
+
 class TheMovieDBAPI extends RESTDataSource implements Props {
   tvshowsHandler: TVShowsHandlerProps;
   searchHandler: SearchHandlerProps;
@@ -75,7 +79,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     endpoint: string,
     params: P,
     language?: Iso6391Language | null,
-  ): Promise<R> => {
+  ): Promise<R & { status_code?: number }> => {
     let requestParams = {
       ...params,
       api_key: env.THE_MOVIE_DB_API_KEY,
@@ -88,7 +92,17 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
       };
     }
 
-    return this.get(endpoint, requestParams);
+    const result = await this.get(endpoint, requestParams);
+
+    if (result.status_code === INVALID_API_KEY_CODE) {
+      throw new InvalidTMDBApiKey();
+    }
+
+    if (result.status_code === RESOURCE_NOT_FOUND_CODE) {
+      throw new ResourceNotFound();
+    }
+
+    return result;
   };
 
   async getPeople(args: QueryPeopleArgs): Promise<PeopleQueryResult> {

@@ -8,15 +8,15 @@ import {
   tvshow,
   rawTVShowDetail,
   tvShowDetail,
-} from '../../../../__tests__/mocks/tvshows.stub';
-import { getImagesResult, images } from '../../../../__tests__/mocks/images.stub';
-import { tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
-import { Iso6391Language } from '../../../../lib/types';
-import { TVShowsEndpoints } from '../../../../types';
-import env from '../../../../config/environment';
-import resolvers from '../../../resolvers';
-import typeDefs from '../../../typeDefs';
-import TheMovieDBAPI from '..';
+} from '../../../../../__tests__/mocks/tvshows.stub';
+import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
+import { tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
+import { Iso6391Language } from '../../../../../lib/types';
+import { TVShowsEndpoints } from '../../../../../types';
+import env from '../../../../../config/environment';
+import resolvers from '../../../../resolvers';
+import typeDefs from '../../../../typeDefs';
+import TheMovieDBAPI from '../..';
 
 const GENRE_TV_ENDPOINT = '/genre/tv/list';
 
