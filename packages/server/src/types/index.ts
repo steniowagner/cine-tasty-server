@@ -1,6 +1,6 @@
 import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api';
 import { Props as NewsAPIProps } from '../graphql/datasources/news-api';
-import { BaseMovie, BaseTvShow } from '../lib/types';
+import { BaseMovie, BaseTvShow, CastItem, CrewItem } from '../lib/types';
 
 export type MediaGenre = {
   id: number;
@@ -55,3 +55,8 @@ export enum TVShowsEndpoints {
   Popular = 'tv/popular',
   TopRated = 'tv/top_rated',
 }
+
+export type MediaCredits = {
+  cast: CastItem[];
+  crew: CrewItem[];
+};

@@ -23,9 +23,11 @@ import {
   ReviewsQueryResult,
   MovieSimilarArgs,
   TrendingMoviesArgs,
+  QueryTv_ShowArgs as QueryTvShowArgs,
   SimilarMoviesQueryResult,
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
+  TvShow,
 } from '../../../lib/types';
 import { TVShowsEndpoints } from '../../../types';
 
@@ -45,6 +47,7 @@ export interface Props {
   getPeople: (args: QueryPeopleArgs) => Promise<PeopleQueryResult>;
   getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
   getMovie: (args: QueryMovieArgs) => Promise<Movie | null>;
+  getTVShow: (args: QueryTvShowArgs) => Promise<TvShow | null>;
   search: (args: QuerySearchArgs) => Promise<SearchQueryResult>;
 }
 
@@ -115,6 +118,10 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     endpoint: TVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
     return this.tvshowsHandler.getTrendingItem(args, endpoint);
+  }
+
+  async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
+    return this.tvshowsHandler.getTVShow(args);
   }
 }
 

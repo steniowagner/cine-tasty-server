@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Integration: DataSources-Movies Query - Movie Reviews fetches the reviews of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted 1`] = `
+Object {
+  "hasMore": true,
+  "items": Array [
+    Object {
+      "author": "author.",
+      "content": "content",
+      "id": "id",
+      "url": "url",
+    },
+  ],
+  "total_pages": 2,
+  "total_results": 2,
+}
+`;
+
+exports[`Integration: DataSources-Movies Query - Movie Reviews should query the reviews of a movie from TheMovieDB API and returns the result correctly 1`] = `
+Object {
+  "hasMore": false,
+  "items": Array [
+    Object {
+      "author": "author.",
+      "content": "content",
+      "id": "id",
+      "url": "url",
+    },
+  ],
+  "total_pages": 1,
+  "total_results": 1,
+}
+`;
+
+exports[`Integration: DataSources-Movies Query - Trending Movies should query the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly 1`] = `
+Object {
+  "now_playing": Object {
+    "hasMore": false,
+    "items": Array [
+      Object {
+        "adult": false,
+        "backdrop_path": "/backdrop_path.jpg",
+        "genre_ids": Array [
+          "Movie Genre",
+        ],
+        "id": 530915,
+        "original_language": "original_language",
+        "original_title": "original_title",
+        "overview": "overview",
+        "popularity": 222.017,
+        "poster_path": "/poster_path.jpg",
+        "release_date": "release_date",
+        "title": "title",
+        "video": false,
+        "vote_average": 8.1,
+        "vote_count": 1530,
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
+  "popular": Object {
+    "hasMore": false,
+    "items": Array [
+      Object {
+        "adult": false,
+        "backdrop_path": "/backdrop_path.jpg",
+        "genre_ids": Array [
+          "Movie Genre",
+        ],
+        "id": 530915,
+        "original_language": "original_language",
+        "original_title": "original_title",
+        "overview": "overview",
+        "popularity": 222.017,
+        "poster_path": "/poster_path.jpg",
+        "release_date": "release_date",
+        "title": "title",
+        "video": false,
+        "vote_average": 8.1,
+        "vote_count": 1530,
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
+  "top_rated": Object {
+    "hasMore": false,
+    "items": Array [
+      Object {
+        "adult": false,
+        "backdrop_path": "/backdrop_path.jpg",
+        "genre_ids": Array [
+          "Movie Genre",
+        ],
+        "id": 530915,
+        "original_language": "original_language",
+        "original_title": "original_title",
+        "overview": "overview",
+        "popularity": 222.017,
+        "poster_path": "/poster_path.jpg",
+        "release_date": "release_date",
+        "title": "title",
+        "video": false,
+        "vote_average": 8.1,
+        "vote_count": 1530,
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
+  "upcoming": Object {
+    "hasMore": false,
+    "items": Array [
+      Object {
+        "adult": false,
+        "backdrop_path": "/backdrop_path.jpg",
+        "genre_ids": Array [
+          "Movie Genre",
+        ],
+        "id": 530915,
+        "original_language": "original_language",
+        "original_title": "original_title",
+        "overview": "overview",
+        "popularity": 222.017,
+        "poster_path": "/poster_path.jpg",
+        "release_date": "release_date",
+        "title": "title",
+        "video": false,
+        "vote_average": 8.1,
+        "vote_count": 1530,
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
+}
+`;

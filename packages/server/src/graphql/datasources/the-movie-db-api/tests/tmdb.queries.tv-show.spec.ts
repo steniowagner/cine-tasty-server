@@ -3,8 +3,14 @@ const mockRestDataSourceGet = jest.fn();
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
-import { rawTVShow, tvshow } from '../../../../__tests__/mocks/tvshows.stub';
+import {
+  rawTVShow,
+  tvshow,
+  rawTVShowDetail,
+  tvShowDetail,
+} from '../../../../__tests__/mocks/tvshows.stub';
 import { tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
+import { Iso6391Language } from '../../../../lib/types';
 import { TVShowsEndpoints } from '../../../../types';
 import env from '../../../../config/environment';
 import resolvers from '../../../resolvers';
@@ -56,6 +62,121 @@ const GET_TRENDING_TV_SHOWS = gql`
           ...TrendingTVShowItem
         }
       }
+    }
+  }
+`;
+
+const GET_TV_SHOW_DETAIL = gql`
+  query TVShowDetail($id: ID!, $language: ISO6391Language) {
+    tv_show(id: $id, language: $language) {
+      seasons {
+        air_date
+        episode_count
+        id
+        name
+        overview
+        poster_path
+        season_number
+      }
+      last_episode_to_air {
+        air_date
+        episode_number
+        id
+        name
+        overview
+        production_code
+        season_number
+        show_id
+        still_path
+        vote_average
+        vote_count
+      }
+      backdrop_path
+      created_by {
+        id
+        credit_id
+        name
+        gender
+        profile_path
+      }
+      networks {
+        name
+        id
+        logo_path
+        origin_country
+      }
+      episode_run_time
+      first_air_date
+      homepage
+      id
+      in_production
+      languages
+      last_air_date
+      genres
+      name
+      status
+      type
+      vote_average
+      vote_count
+      production_companies {
+        id
+        logo_path
+        name
+        origin_country
+      }
+      original_language
+      original_name
+      overview
+      videos {
+        thumbnail {
+          extra_small
+          small
+          medium
+          large
+          extra_large
+        }
+        key
+        name
+        site
+        id
+        type
+      }
+      cast {
+        name
+        profile_path
+        id
+        character
+        gender
+        order
+      }
+      crew {
+        department
+        id
+        job
+        name
+        gender
+        profile_path
+      }
+      similar {
+        origin_country
+        original_name
+        name
+        first_air_date
+        backdrop_path
+        genre_ids
+        overview
+        vote_average
+        poster_path
+        popularity
+        original_language
+        vote_count
+        id
+      }
+      popularity
+      poster_path
+      number_of_episodes
+      number_of_seasons
+      origin_country
     }
   }
 `;
@@ -113,11 +234,11 @@ describe('Integration: DataSources-TVShow', () => {
 
       const { query } = createTestClient(server);
 
-      const { data, errors } = await query({
+      const { data } = await query({
         query: GET_TRENDING_TV_SHOWS,
         variables: { page: 1 },
       });
-      console.log(errors);
+
       expect(mockRestDataSourceGet.mock.calls.length).toBe(6);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(TVShowsEndpoints.OnTheAir, {
@@ -260,6 +381,39 @@ describe('Integration: DataSources-TVShow', () => {
           items: [tvshow],
         },
       });
+    });
+  });
+
+  describe('Query - TV Show Detail', () => {
+    it('should query the details of a tv show from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce(rawTVShowDetail)
+        .mockReturnValueOnce({ genres: tvGenres })
+        .mockReturnValueOnce({ genres: tvGenres });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_TV_SHOW_DETAIL,
+        variables: { id: '1', language: Iso6391Language.Ptbr },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
+        append_to_response: 'credits,similar,videos',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'pt-br',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(data!.tv_show).toEqual(tvShowDetail);
     });
   });
 });

@@ -240,6 +240,6 @@ describe('Unity: Search', () => {
 
     const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-    return expect(personHandler.search(params)).rejects.toEqual(new SearchQueryEmpty());
+    expect(personHandler.search(params)).rejects.toEqual(new SearchQueryEmpty());
   });
 });

@@ -55,4 +55,22 @@ export default gql`
     credit_id: String
     id: Int
   }
+
+  type CastItem {
+    name: String
+    profile_path: String
+    id: ID
+    character: String
+    gender: Int
+    order: Int
+  }
+
+  type CrewItem {
+    department: String
+    id: ID
+    job: String
+    name: String
+    gender: Int
+    profile_path: String
+  }
 `;

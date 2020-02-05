@@ -10,26 +10,22 @@ import {
   QueryMovieArgs,
   BaseMovieGenre_IdsArgs as BaseMovieGenreIdsArgs,
   Movie,
+  MovieGenresArgs,
   MediaType,
   CastItem,
   CrewItem,
-  MovieVideo,
+  MediaVideo,
   MovieReviewsArgs,
   ReviewsQueryResultResolvers,
   SimilarMoviesQueryResultResolvers,
   MovieSimilarArgs,
 } from '../../lib/types';
-import { Context, MediaGenre, MediaItem } from '../../types';
+import { Context, MediaGenre, MediaItem, MediaCredits } from '../../types';
 
 const mediaGenres = new MediaGenresHandler();
 
-type MovieCredits = {
-  cast: CastItem[];
-  crew: CrewItem[];
-};
-
 type MovieVideos = {
-  results: MovieVideo[];
+  results: MediaVideo[];
 };
 
 const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
@@ -66,7 +62,7 @@ const resolvers: QueryResolvers = {
       production_countries: Array<{ name: string }>;
     }): string[] => production_countries.map(({ name }) => name),
 
-    cast: ({ credits }: { credits: MovieCredits }): CastItem[] =>
+    cast: ({ credits }: { credits: MediaCredits }): CastItem[] =>
       credits.cast.map(castItem => ({
         name: castItem.name,
         profile_path: castItem.profile_path,
@@ -74,7 +70,7 @@ const resolvers: QueryResolvers = {
         character: castItem.character,
       })),
 
-    crew: ({ credits }: { credits: MovieCredits }): CrewItem[] =>
+    crew: ({ credits }: { credits: MediaCredits }): CrewItem[] =>
       credits.crew.map(castItem => ({
         profile_path: castItem.profile_path,
         department: castItem.department,
@@ -95,7 +91,7 @@ const resolvers: QueryResolvers = {
       { dataSources }: Context,
     ): SimilarMoviesQueryResultResolvers => dataSources.tmdb.getSimilarMovies(args),
 
-    videos: ({ videos }: { videos: MovieVideos }): MovieVideo[] =>
+    videos: ({ videos }: { videos: MovieVideos }): MediaVideo[] =>
       videos.results
         .filter(({ site }) => site === 'YouTube')
         .map(video => ({
@@ -115,7 +111,7 @@ const resolvers: QueryResolvers = {
 
     genres: (
       { genres }: { genres: Array<MediaGenre> },
-      { language }: BaseMovieGenreIdsArgs,
+      { language }: MovieGenresArgs,
     ): Promise<string[]> => {
       const genreIds = genres.map(({ id }) => id);
 

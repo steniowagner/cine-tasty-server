@@ -3,12 +3,12 @@ import {
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
   BaseTvShow,
+  QueryTv_ShowArgs as QueryTvShowArgs,
+  TvShow,
 } from '../../../../../lib/types';
-
 import { TVShowsEndpoints } from '../../../../../types';
 
 type GetBaseTVShowResponse = {
-  status_message?: string;
   results: BaseTvShow[];
   total_pages: number;
   page: number;
@@ -26,13 +26,26 @@ export interface Props {
     params: TrendingTvShowsArgs,
     resource: string,
   ): Promise<TrendingTvShowsQueryResult>;
+  getTVShow(params: QueryTvShowArgs): Promise<TvShow | null>;
 }
+
+const BASE_ENDPOINT = 'tv';
 
 class TVShowHandler implements Props {
   get: GetRequest;
 
   constructor(execGetRequest: GetRequest) {
     this.get = execGetRequest;
+  }
+
+  async getTVShow({ id, language }: QueryTvShowArgs): Promise<TvShow | null> {
+    return this.get<Promise<TvShow & { status_code?: number }>>(
+      `${BASE_ENDPOINT}/${id}`,
+      {
+        append_to_response: 'credits,similar,videos',
+      },
+      language,
+    );
   }
 
   async getTrendingItem(

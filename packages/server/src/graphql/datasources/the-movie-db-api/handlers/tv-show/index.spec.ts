@@ -1,9 +1,8 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawTVShow } from '../../../../../__tests__/mocks/tvShows.stub';
+import { rawTVShow, rawTVShowDetail } from '../../../../../__tests__/mocks/tvShows.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import { TVShowsEndpoints } from '../../../../../types';
-
 import TVShowHandler from '.';
 
 describe('Unity: TVShowHandler', () => {
@@ -190,6 +189,31 @@ describe('Unity: TVShowHandler', () => {
         expect(result.total_pages).toEqual(2);
         expect(result.total_results).toEqual(2);
       });
+    });
+  });
+
+  describe('getTVShow()', () => {
+    it('should get the details of a tv show with certain id from TheMovideDB API', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce(rawTVShowDetail);
+
+      const tvshowHandler = new TVShowHandler(mockRestDataSourceGet);
+
+      const result = await tvshowHandler.getTVShow({
+        id: '1',
+        language: Iso6391Language.Ptbr,
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'tv/1',
+        {
+          append_to_response: 'credits,similar,videos',
+        },
+        'PTBR',
+      );
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toMatchSnapshot();
     });
   });
 });

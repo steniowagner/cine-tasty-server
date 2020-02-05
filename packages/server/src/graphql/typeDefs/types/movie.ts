@@ -1,21 +1,6 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-  type CastItem {
-    name: String
-    profile_path: String
-    id: ID
-    character: String
-  }
-
-  type CrewItem {
-    department: String
-    id: ID
-    job: String
-    name: String
-    profile_path: String
-  }
-
   type MovieVideoThumbnail {
     "120x90"
     extra_small: String
