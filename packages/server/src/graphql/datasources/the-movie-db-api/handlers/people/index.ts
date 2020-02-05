@@ -1,9 +1,5 @@
-import {
-  PeopleQueryResult,
-  Iso6391Language,
-  BasePerson,
-  QueryPeopleArgs,
-} from '../../../../../lib/types';
+import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '../../../../../lib/types';
+import { GetTMDBApiRequest } from '../../../../../types';
 
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
@@ -15,20 +11,16 @@ type GetPeopleResponse = {
   total_results: number;
 };
 
-type GetRequest = <T>(
-  endpoint: string,
-  params: { page: number },
-  language?: Iso6391Language | null,
-) => Promise<T>;
+type GetRequestParams = { page: number };
 
 export interface Props {
   getPopularPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
 }
 
 class PeopleHandler implements Props {
-  get: GetRequest;
+  get: GetTMDBApiRequest;
 
-  constructor(execGetRequest: GetRequest) {
+  constructor(execGetRequest: GetTMDBApiRequest) {
     this.get = execGetRequest;
   }
 
@@ -39,6 +31,7 @@ class PeopleHandler implements Props {
     const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
 
     const { total_pages: totalPages, total_results, results } = await this.get<
+      GetRequestParams,
       Promise<GetPeopleResponse>
     >(endpoint, { page }, language);
 

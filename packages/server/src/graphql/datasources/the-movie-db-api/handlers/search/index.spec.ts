@@ -29,7 +29,7 @@ describe('Unity: Search', () => {
   });
 
   describe('search()', () => {
-    describe('search for a tv show', () => {
+    describe('Search for a TV Show', () => {
       it('should search for a tv shows based on a query and return the list of results that matches with the query provided', async () => {
         mockRestDataSourceGet.mockReturnValueOnce({
           total_results: 1,
@@ -96,7 +96,7 @@ describe('Unity: Search', () => {
       });
     });
 
-    describe('search for a movie', () => {
+    describe('Search for a Movie', () => {
       it('should search for a movie based on a query and return the list of results that matches with the query provided', async () => {
         mockRestDataSourceGet.mockReturnValueOnce({
           total_results: 1,
@@ -163,7 +163,7 @@ describe('Unity: Search', () => {
       });
     });
 
-    describe('search for a person', () => {
+    describe('Search for a Person', () => {
       it('should search for a person based on a query and return the list of results that matches with the query provided', async () => {
         mockRestDataSourceGet.mockReturnValueOnce({
           total_results: 1,

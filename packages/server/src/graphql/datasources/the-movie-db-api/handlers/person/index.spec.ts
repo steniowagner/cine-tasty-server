@@ -1,6 +1,6 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawPerson, person, rawCast } from '../../../../../__tests__/mocks/person.stub';
+import { rawPerson, rawCast } from '../../../../../__tests__/mocks/person.stub';
 import PersonHandler from '.';
 
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
@@ -35,7 +35,7 @@ describe('Unity: Person', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
-      expect(result).toEqual({ ...person, cast: rawCast.cast });
+      expect(result).toMatchSnapshot();
     });
 
     it("should return null when the person with the id doesn't exist", async () => {

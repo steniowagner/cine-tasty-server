@@ -1,5 +1,4 @@
 import {
-  Iso6391Language,
   BaseMovie,
   TrendingMoviesQueryResult,
   QueryMovieArgs,
@@ -11,28 +10,25 @@ import {
   MovieSimilarArgs,
   TrendingMoviesArgs,
 } from '../../../../../lib/types';
+import { GetTMDBApiRequest } from '../../../../../types';
 
 const BASE_ENDPOINT = 'movie';
 
-type GetBaseMovieResponse = {
+type BaseResponse = {
+  total_results: number;
+  total_pages: number;
+  page: number;
+};
+
+type GetBaseMovieResponse = BaseResponse & {
   results: BaseMovie[];
-  total_pages: number;
-  page: number;
-  total_results: number;
 };
 
-type GetReviewsResponse = {
+type GetReviewsResponse = BaseResponse & {
   results: ReviewItem[];
-  total_pages: number;
-  page: number;
-  total_results: number;
 };
 
-type GetRequest = <T>(
-  endpoint: string,
-  params: { page: number } | { append_to_response: string },
-  language?: Iso6391Language | null,
-) => Promise<T>;
+type GetRequestParams = { page: number } | { append_to_response: string };
 
 export interface Props {
   getSimilars(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
@@ -45,18 +41,17 @@ export interface Props {
 }
 
 class MovieHandler implements Props {
-  get: GetRequest;
+  get: GetTMDBApiRequest;
 
-  constructor(execGetRequest: GetRequest) {
+  constructor(execGetRequest: GetTMDBApiRequest) {
     this.get = execGetRequest;
   }
 
   async getMovie({ id, language }: QueryMovieArgs): Promise<Movie | null> {
-    const movie = await this.get<Promise<Movie & { status_message?: string }>>(
-      `${BASE_ENDPOINT}/${id}`,
-      { append_to_response: 'videos,credits' },
-      language,
-    );
+    const movie = await this.get<
+      GetRequestParams,
+      Promise<Movie & { status_message?: string }>
+    >(`${BASE_ENDPOINT}/${id}`, { append_to_response: 'videos,credits' }, language);
 
     if (typeof movie.status_message === 'string') {
       return null;
@@ -67,6 +62,7 @@ class MovieHandler implements Props {
 
   async getReviews({ id, reviewsPage }: MovieReviewsArgs): Promise<ReviewsQueryResult> {
     const { total_pages: totalPages, total_results, results } = await this.get<
+      GetRequestParams,
       Promise<GetReviewsResponse>
     >(`${BASE_ENDPOINT}/${id}/reviews`, {
       page: reviewsPage,
@@ -86,6 +82,7 @@ class MovieHandler implements Props {
     language,
   }: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
     const { total_pages: totalPages, total_results, results } = await this.get<
+      GetRequestParams,
       Promise<GetBaseMovieResponse>
     >(
       `${BASE_ENDPOINT}/${id}/similar`,
@@ -108,6 +105,7 @@ class MovieHandler implements Props {
     resource: string,
   ): Promise<TrendingMoviesQueryResult> {
     const { total_pages: totalPages, total_results, results } = await this.get<
+      GetRequestParams,
       Promise<GetBaseMovieResponse>
     >(`${BASE_ENDPOINT}/${resource}`, { page }, language);
 

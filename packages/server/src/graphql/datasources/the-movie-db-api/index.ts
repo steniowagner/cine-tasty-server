@@ -29,7 +29,7 @@ import {
   TrendingTvShowsQueryResult,
   TvShow,
 } from '../../../lib/types';
-import { TVShowsEndpoints } from '../../../types';
+import { TVShowsEndpoints, GetTMDBApiRequest } from '../../../types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -71,7 +71,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     this.baseURL = BASE_URL;
   }
 
-  execGetRequest = async <P, R>(
+  execGetRequest: GetTMDBApiRequest = async <P, R>(
     endpoint: string,
     params: P,
     language?: Iso6391Language | null,

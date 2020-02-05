@@ -1,12 +1,11 @@
+import { TVShowsEndpoints, MediaImage, GetTMDBApiRequest } from '../../../../../types';
 import {
-  Iso6391Language,
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
   BaseTvShow,
   QueryTv_ShowArgs as QueryTvShowArgs,
   TvShow,
 } from '../../../../../lib/types';
-import { TVShowsEndpoints, MediaImage } from '../../../../../types';
 
 type GetBaseTVShowResponse = {
   results: BaseTvShow[];
@@ -17,15 +16,11 @@ type GetBaseTVShowResponse = {
 
 type GetTVShowImagesResponse = {
   backdrops: MediaImage[];
-  id: number;
   posters: MediaImage[];
+  id: number;
 };
 
-type GetRequest = <T>(
-  endpoint: string,
-  params?: { page: number } | { append_to_response: string } | {},
-  language?: Iso6391Language | null,
-) => Promise<T>;
+type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
 export interface Props {
   getTrendingItem(
@@ -39,14 +34,14 @@ export interface Props {
 const BASE_ENDPOINT = 'tv';
 
 class TVShowHandler implements Props {
-  get: GetRequest;
+  get: GetTMDBApiRequest;
 
-  constructor(execGetRequest: GetRequest) {
+  constructor(execGetRequest: GetTMDBApiRequest) {
     this.get = execGetRequest;
   }
 
   async getTVShow({ id, language }: QueryTvShowArgs): Promise<TvShow | null> {
-    return this.get<Promise<TvShow>>(
+    return this.get<GetRequestParams, Promise<TvShow>>(
       `${BASE_ENDPOINT}/${id}`,
       {
         append_to_response: 'credits,similar,videos',
@@ -56,11 +51,10 @@ class TVShowHandler implements Props {
   }
 
   async getImages(id: string): Promise<string[]> {
-    const { backdrops } = await this.get<Promise<GetTVShowImagesResponse>>(
-      `tv/${id}/images`,
-      {},
-      null,
-    );
+    const { backdrops } = await this.get<
+      GetRequestParams,
+      Promise<GetTVShowImagesResponse>
+    >(`tv/${id}/images`, {}, null);
 
     return backdrops
       .filter(backdrop => !!backdrop.file_path)
@@ -71,7 +65,7 @@ class TVShowHandler implements Props {
     { page, language }: TrendingTvShowsArgs,
     endpoint: TVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
-    const tvshow = await this.get<Promise<GetBaseTVShowResponse>>(
+    const tvshow = await this.get<GetRequestParams, Promise<GetBaseTVShowResponse>>(
       endpoint,
       { page },
       language,

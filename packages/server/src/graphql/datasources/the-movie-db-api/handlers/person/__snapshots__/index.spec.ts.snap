@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unity: Person getPerson() should get a person profile with certain id 1`] = `
+Object {
+  "adult": false,
+  "also_known_as": Array [
+    "aka1",
+    "aka2",
+  ],
+  "biography": "biography",
+  "birthday": "birthday",
+  "cast": Array [
+    Object {
+      "adult": false,
+      "backdrop_path": "/backdrop_path.jpg",
+      "character": "character",
+      "credit_id": "credit_id",
+      "genre_ids": Array [
+        2,
+      ],
+      "id": 123,
+      "media_type": "movie",
+      "original_language": "en",
+      "original_title": "original_title",
+      "overview": "overview",
+      "popularity": 17.87,
+      "poster_path": "/poster_path.jpg",
+      "release_date": "release_date",
+      "title": "title",
+      "video": false,
+      "vote_average": 5.8,
+      "vote_count": 123,
+    },
+    Object {
+      "backdrop_path": "/backdrop_path.jpg",
+      "character": "character",
+      "credit_id": "5b8e9e27c3a3credit_id681ae400050c",
+      "episode_count": 8,
+      "first_air_date": "first_air_date",
+      "genre_ids": Array [
+        1,
+      ],
+      "id": 71912,
+      "media_type": "tv",
+      "name": "name",
+      "origin_country": Array [
+        "origin_country",
+      ],
+      "original_language": "original_language",
+      "original_name": "original_name",
+      "overview": "overview",
+      "popularity": 109.559,
+      "poster_path": "/poster_path.jpg",
+      "vote_average": 8.1,
+      "vote_count": 366,
+    },
+  ],
+  "deathday": null,
+  "gender": 1,
+  "homepage": null,
+  "id": 123,
+  "images": Array [
+    "/img1.jpg",
+    "/img2.jpg",
+  ],
+  "imdb_id": "imdb_id",
+  "known_for_department": "known_for_department",
+  "name": "name",
+  "place_of_birth": "place_of_birth",
+  "popularity": 39.996,
+  "profile_path": "/profile_path.jpg",
+}
+`;

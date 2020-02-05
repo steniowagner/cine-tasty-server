@@ -1,6 +1,10 @@
-import { GetPersonImagesResult, MediaItem } from '../../../../../types';
+import { Person, QueryPersonArgs } from '../../../../../lib/types';
+import {
+  GetPersonImagesResult,
+  MediaItem,
+  GetTMDBApiRequest,
+} from '../../../../../types';
 import { getPersonProfileImages } from '../../helpers';
-import { Iso6391Language, Person, QueryPersonArgs } from '../../../../../lib/types';
 
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
 const APPEND_TO_RESPONSE_IMAGES_KEY = 'images';
@@ -15,21 +19,14 @@ type GetCastResponse = {
   cast: MediaItem[];
 };
 
-type GetRequest = <T>(
-  endpoint: string,
-  params: { append_to_response: string } | {},
-  language?: Iso6391Language | null,
-) => Promise<T>;
-
 export interface Props {
   getPerson: (params: QueryPersonArgs) => Promise<Person | null>;
-  get: GetRequest;
 }
 
 class PersonHandler implements Props {
-  get: GetRequest;
+  get: GetTMDBApiRequest;
 
-  constructor(execGetRequest: GetRequest) {
+  constructor(execGetRequest: GetTMDBApiRequest) {
     this.get = execGetRequest;
   }
 

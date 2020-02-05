@@ -1,29 +1,22 @@
+import { GetTMDBApiRequest } from '../../../../../types';
 import { SearchQueryEmpty } from '../../../../../errors';
 import {
   SearchResultItem,
   SearchQueryResult,
   QuerySearchArgs,
-  Iso6391Language,
 } from '../../../../../lib/types';
 
 type SearchParams = {
   page: number;
   query: string;
-  language: string;
 };
 
 type GetRequestResult = {
-  results?: SearchResultItem[];
-  total_results?: number;
-  total_pages?: number;
-  page?: number;
+  results: SearchResultItem[];
+  total_results: number;
+  total_pages: number;
+  page: number;
 };
-
-type GetRequest = <SearchParams, GetRequestResult>(
-  endpoint: string,
-  params: SearchParams,
-  language?: Iso6391Language | null,
-) => Promise<GetRequestResult>;
 
 export interface Props {
   search: (params: QuerySearchArgs) => Promise<SearchQueryResult>;
@@ -32,16 +25,21 @@ export interface Props {
 const BASE_ENDPOINT = '/search';
 
 class SearchHandler implements Props {
-  get: GetRequest;
+  get: GetTMDBApiRequest;
 
-  constructor(execGetRequest: GetRequest) {
+  constructor(execGetRequest: GetTMDBApiRequest) {
     this.get = execGetRequest;
   }
 
-  async search(params: QuerySearchArgs): Promise<SearchQueryResult> {
-    const endpoint = `${BASE_ENDPOINT}/${params.type.toLowerCase()}`;
+  async search({
+    page,
+    query,
+    language,
+    type,
+  }: QuerySearchArgs): Promise<SearchQueryResult> {
+    const endpoint = `${BASE_ENDPOINT}/${type.toLowerCase()}`;
 
-    if (!params.query) {
+    if (!query) {
       throw new SearchQueryEmpty();
     }
 
@@ -49,17 +47,17 @@ class SearchHandler implements Props {
       total_results: totalResults,
       results,
       total_pages: totalPages,
-    } = await this.get(
+    } = await this.get<SearchParams, GetRequestResult>(
       endpoint,
       {
-        page: params.page,
-        query: params.query,
+        page,
+        query,
       },
-      params.language,
+      language,
     );
 
     return {
-      hasMore: params.page < totalPages,
+      hasMore: page < totalPages,
       total_results: totalResults,
       items: results,
     };
