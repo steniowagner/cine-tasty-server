@@ -1,6 +1,6 @@
 import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api';
 import { Props as NewsAPIProps } from '../graphql/datasources/news-api';
-import { BaseMovie, BaseTvShow, CastItem, CrewItem } from '../lib/types';
+import { BaseMovie, BaseTvShow, CastItem, CrewItem, Iso6391Language } from '../lib/types';
 
 export type MediaGenre = {
   id: number;
@@ -60,3 +60,19 @@ export type MediaCredits = {
   cast: CastItem[];
   crew: CrewItem[];
 };
+
+export type MediaImage = {
+  aspect_ratio?: number;
+  file_path: string;
+  height?: number;
+  iso_639_1?: string;
+  vote_average?: number;
+  vote_count?: number;
+  width?: number;
+};
+
+export type GetTMDBApiRequest = <P, R>(
+  endpoint: string,
+  params: P,
+  language?: Iso6391Language | null,
+) => Promise<R>;

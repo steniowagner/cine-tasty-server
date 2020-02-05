@@ -1,7 +1,7 @@
 import { RESTDataSource, HTTPCache } from 'apollo-datasource-rest';
 
 import { Iso6391Language, MediaType } from '../../../../../lib/types';
-import { getGenres, getFormatedLanguage } from '../../helpers';
+import { getGenres, formatLanguage } from '../../helpers';
 import { Genres, MediaGenre } from '../../../../../types';
 import env from '../../../../../config/environment';
 
@@ -56,7 +56,7 @@ class MediaGenres extends RESTDataSource {
     }
 
     const { genres } = await this.get(endpoint, {
-      language: getFormatedLanguage(language),
+      language: formatLanguage(language),
       api_key: env.THE_MOVIE_DB_API_KEY,
     });
 

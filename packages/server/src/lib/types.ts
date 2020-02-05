@@ -804,11 +804,17 @@ export type TvShow = {
   number_of_seasons?: Maybe<Scalars['Int']>,
   origin_country: Array<Scalars['String']>,
   similar: Array<BaseTvShow>,
+  images: Array<Scalars['String']>,
 };
 
 
 export type TvShowGenresArgs = {
   language?: Maybe<Iso6391Language>
+};
+
+
+export type TvShowImagesArgs = {
+  id: Scalars['ID']
 };
 
 
@@ -1374,6 +1380,7 @@ export type TvShowResolvers<ContextType = any, ParentType extends ResolversParen
   number_of_seasons?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
   origin_country?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
   similar?: Resolver<Array<ResolversTypes['BaseTVShow']>, ParentType, ContextType>,
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowImagesArgs, 'id'>>,
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {

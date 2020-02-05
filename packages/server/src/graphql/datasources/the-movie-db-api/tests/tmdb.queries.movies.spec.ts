@@ -218,7 +218,7 @@ describe('Integration: DataSources-Movies', () => {
   describe('Query - Similar Movies', () => {
     it('should query similar movies of a movie from TheMovieDB API and returns the result correctly', async () => {
       mockRestDataSourceGet
-        .mockReturnValueOnce({ similars: {} })
+        .mockReturnValueOnce({})
         .mockReturnValueOnce({
           id: 1,
           page: 1,

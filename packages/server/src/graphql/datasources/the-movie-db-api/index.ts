@@ -6,7 +6,7 @@ import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
 import MoviesHandler, { Props as MoviesHandlerProps } from './handlers/movies';
 
-import { getFormatedLanguage } from './helpers';
+import { formatLanguage } from './helpers';
 import env from '../../../config/environment';
 import {
   PeopleQueryResult,
@@ -49,6 +49,7 @@ export interface Props {
   getMovie: (args: QueryMovieArgs) => Promise<Movie | null>;
   getTVShow: (args: QueryTvShowArgs) => Promise<TvShow | null>;
   search: (args: QuerySearchArgs) => Promise<SearchQueryResult>;
+  getTVShowImages(id: string): Promise<string[]>;
 }
 
 class TheMovieDBAPI extends RESTDataSource implements Props {
@@ -75,11 +76,19 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     params: P,
     language?: Iso6391Language | null,
   ): Promise<R> => {
-    return this.get(endpoint, {
+    let requestParams = {
       ...params,
-      language: getFormatedLanguage(language),
       api_key: env.THE_MOVIE_DB_API_KEY,
-    });
+    };
+
+    if (language !== null) {
+      requestParams = {
+        ...requestParams,
+        language: formatLanguage(language),
+      };
+    }
+
+    return this.get(endpoint, requestParams);
   };
 
   async getPeople(args: QueryPeopleArgs): Promise<PeopleQueryResult> {
@@ -122,6 +131,10 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
     return this.tvshowsHandler.getTVShow(args);
+  }
+
+  async getTVShowImages(id: string): Promise<string[]> {
+    return this.tvshowsHandler.getImages(id);
   }
 }
 

@@ -9,7 +9,7 @@
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "prettier '**/*.ts' --write",
-    "test": "jest -u --testPathIgnorePatterns=\"/*.stub.ts\"",
+    "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
     "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
   },
   "lint-staged": {

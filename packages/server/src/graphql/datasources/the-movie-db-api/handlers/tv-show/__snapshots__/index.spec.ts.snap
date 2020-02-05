@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Unity: TVShowHandler getImages() should return an array of strings containing urls to images of a certain tv show 1`] = `
+Array [
+  "/file_path.jpg",
+]
+`;
+
 exports[`Unity: TVShowHandler getTVShow() should get the details of a tv show with certain id from TheMovideDB API 1`] = `
 Object {
   "backdrop_path": "/backdrop_path.jpg",

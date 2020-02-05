@@ -72,6 +72,7 @@ export default gql`
     number_of_seasons: Int
     origin_country: [String!]!
     similar: [BaseTVShow!]!
+    images(id: ID!): [String!]!
   }
 
   type BaseTVShow {

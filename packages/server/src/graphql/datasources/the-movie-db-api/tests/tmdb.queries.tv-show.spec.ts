@@ -9,6 +9,7 @@ import {
   rawTVShowDetail,
   tvShowDetail,
 } from '../../../../__tests__/mocks/tvshows.stub';
+import { getImagesResult, images } from '../../../../__tests__/mocks/images.stub';
 import { tvGenres } from '../../../../__tests__/mocks/mediaGenres.stub';
 import { Iso6391Language } from '../../../../lib/types';
 import { TVShowsEndpoints } from '../../../../types';
@@ -177,6 +178,14 @@ const GET_TV_SHOW_DETAIL = gql`
       number_of_episodes
       number_of_seasons
       origin_country
+    }
+  }
+`;
+
+const GET_TV_SHOW_IMAGES = gql`
+  query TVShowImages($id: ID!) {
+    tv_show(id: $id) {
+      images(id: $id)
     }
   }
 `;
@@ -414,6 +423,35 @@ describe('Integration: DataSources-TVShow', () => {
       });
 
       expect(data!.tv_show).toEqual(tvShowDetail);
+    });
+  });
+
+  describe('Query - TV Show Images', () => {
+    it('should query the images of a tv show from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce(getImagesResult);
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_TV_SHOW_IMAGES,
+        variables: { id: '1' },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
+        append_to_response: 'credits,similar,videos',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+      });
+
+      expect(data!.tv_show.images).toEqual(images);
     });
   });
 });

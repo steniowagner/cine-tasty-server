@@ -1,6 +1,7 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { rawTVShow, rawTVShowDetail } from '../../../../../__tests__/mocks/tvShows.stub';
+import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import { TVShowsEndpoints } from '../../../../../types';
 import TVShowHandler from '.';
@@ -210,6 +211,22 @@ describe('Unity: TVShowHandler', () => {
         },
         'PTBR',
       );
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toMatchSnapshot();
+    });
+  });
+
+  describe('getImages()', () => {
+    it('should return an array of strings containing urls to images of a certain tv show', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce(getImagesResult);
+
+      const tvshowHandler = new TVShowHandler(mockRestDataSourceGet);
+
+      const result = await tvshowHandler.getImages('1');
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {}, null);
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 

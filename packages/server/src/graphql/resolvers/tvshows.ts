@@ -8,6 +8,7 @@ import {
   TrendingTvShowsQueryResult,
   TrendingTvShowsPopularArgs,
   TvShow,
+  TvShowImagesArgs,
   TvShowGenresArgs,
   QueryTv_ShowArgs as QueryTvShowArgs,
   MediaVideo,
@@ -75,6 +76,12 @@ const resolvers: QueryResolvers = {
     },
 
     similar: ({ similar }: { similar: SimilarTVShows }): BaseTvShow[] => similar.results,
+
+    images: (
+      _: {},
+      { id }: TvShowImagesArgs,
+      { dataSources }: Context,
+    ): Promise<string[]> => dataSources.tmdb.getTVShowImages(id),
 
     cast: ({ credits }: { credits: MediaCredits }): CastItem[] =>
       credits.cast.map(castItem => ({
