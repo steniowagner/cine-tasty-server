@@ -1,35 +1,6 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-  type MovieVideoThumbnail {
-    "120x90"
-    extra_small: String
-    "320x180"
-    small: String
-    "480x360"
-    medium: String
-    "640x480"
-    large: String
-    "1280x720"
-    extra_large: String
-  }
-
-  type MovieVideo {
-    thumbnail: MovieVideoThumbnail
-    key: String
-    name: String
-    site: String
-    id: ID
-    type: String
-  }
-
-  type ProductionCompanyItem {
-    id: ID
-    logo_path: String
-    name: String
-    origin_country: String
-  }
-
   type SimilarMoviesQueryResult {
     total_results: Int!
     total_pages: Int!
@@ -51,7 +22,7 @@ export default gql`
     title: String
     vote_average: Float
     release_date: String
-    production_companies: [ProductionCompanyItem!]!
+    production_companies: [ProductionCompany!]!
     vote_count: Float
     runtime: Float
     spoken_languages: [String!]!
@@ -69,7 +40,7 @@ export default gql`
     reviews(id: ID!, reviewsPage: Int!, language: ISO6391Language): ReviewsQueryResult!
     cast: [CastItem!]!
     crew: [CrewItem!]!
-    videos: [MovieVideo!]!
+    videos: [MediaVideo!]!
   }
 
   type BaseMovie {

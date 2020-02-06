@@ -477,7 +477,7 @@ export type Movie = {
   title?: Maybe<Scalars['String']>,
   vote_average?: Maybe<Scalars['Float']>,
   release_date?: Maybe<Scalars['String']>,
-  production_companies: Array<ProductionCompanyItem>,
+  production_companies: Array<ProductionCompany>,
   vote_count?: Maybe<Scalars['Float']>,
   runtime?: Maybe<Scalars['Float']>,
   spoken_languages: Array<Scalars['String']>,
@@ -491,7 +491,7 @@ export type Movie = {
   reviews: ReviewsQueryResult,
   cast: Array<CastItem>,
   crew: Array<CrewItem>,
-  videos: Array<MovieVideo>,
+  videos: Array<MediaVideo>,
 };
 
 
@@ -511,25 +511,6 @@ export type MovieReviewsArgs = {
   id: Scalars['ID'],
   reviewsPage: Scalars['Int'],
   language?: Maybe<Iso6391Language>
-};
-
-export type MovieVideo = {
-   __typename?: 'MovieVideo',
-  thumbnail?: Maybe<MovieVideoThumbnail>,
-  key?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  site?: Maybe<Scalars['String']>,
-  id?: Maybe<Scalars['ID']>,
-  type?: Maybe<Scalars['String']>,
-};
-
-export type MovieVideoThumbnail = {
-   __typename?: 'MovieVideoThumbnail',
-  extra_small?: Maybe<Scalars['String']>,
-  small?: Maybe<Scalars['String']>,
-  medium?: Maybe<Scalars['String']>,
-  large?: Maybe<Scalars['String']>,
-  extra_large?: Maybe<Scalars['String']>,
 };
 
 export type Network = {
@@ -572,14 +553,6 @@ export type PersonKnowFor = BaseMovie | BaseTvShow;
 
 export type ProductionCompany = {
    __typename?: 'ProductionCompany',
-  id?: Maybe<Scalars['ID']>,
-  logo_path?: Maybe<Scalars['String']>,
-  name?: Maybe<Scalars['String']>,
-  origin_country?: Maybe<Scalars['String']>,
-};
-
-export type ProductionCompanyItem = {
-   __typename?: 'ProductionCompanyItem',
   id?: Maybe<Scalars['ID']>,
   logo_path?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
@@ -927,10 +900,7 @@ export type ResolversTypes = ResolversObject<{
   ReviewsQueryResult: ResolverTypeWrapper<ReviewsQueryResult>,
   ReviewItem: ResolverTypeWrapper<ReviewItem>,
   Movie: ResolverTypeWrapper<Movie>,
-  ProductionCompanyItem: ResolverTypeWrapper<ProductionCompanyItem>,
   SimilarMoviesQueryResult: ResolverTypeWrapper<SimilarMoviesQueryResult>,
-  MovieVideo: ResolverTypeWrapper<MovieVideo>,
-  MovieVideoThumbnail: ResolverTypeWrapper<MovieVideoThumbnail>,
   ArticleLanguage: ArticleLanguage,
   ArticleQueryResult: ResolverTypeWrapper<ArticleQueryResult>,
   Article: ResolverTypeWrapper<Article>,
@@ -979,10 +949,7 @@ export type ResolversParentTypes = ResolversObject<{
   ReviewsQueryResult: ReviewsQueryResult,
   ReviewItem: ReviewItem,
   Movie: Movie,
-  ProductionCompanyItem: ProductionCompanyItem,
   SimilarMoviesQueryResult: SimilarMoviesQueryResult,
-  MovieVideo: MovieVideo,
-  MovieVideoThumbnail: MovieVideoThumbnail,
   ArticleLanguage: ArticleLanguage,
   ArticleQueryResult: ArticleQueryResult,
   Article: Article,
@@ -1184,7 +1151,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   release_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  production_companies?: Resolver<Array<ResolversTypes['ProductionCompanyItem']>, ParentType, ContextType>,
+  production_companies?: Resolver<Array<ResolversTypes['ProductionCompany']>, ParentType, ContextType>,
   vote_count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   runtime?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   spoken_languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
@@ -1198,24 +1165,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   reviews?: Resolver<ResolversTypes['ReviewsQueryResult'], ParentType, ContextType, RequireFields<MovieReviewsArgs, 'id' | 'reviewsPage'>>,
   cast?: Resolver<Array<ResolversTypes['CastItem']>, ParentType, ContextType>,
   crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>,
-  videos?: Resolver<Array<ResolversTypes['MovieVideo']>, ParentType, ContextType>,
-}>;
-
-export type MovieVideoResolvers<ContextType = any, ParentType extends ResolversParentTypes['MovieVideo'] = ResolversParentTypes['MovieVideo']> = ResolversObject<{
-  thumbnail?: Resolver<Maybe<ResolversTypes['MovieVideoThumbnail']>, ParentType, ContextType>,
-  key?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  site?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-}>;
-
-export type MovieVideoThumbnailResolvers<ContextType = any, ParentType extends ResolversParentTypes['MovieVideoThumbnail'] = ResolversParentTypes['MovieVideoThumbnail']> = ResolversObject<{
-  extra_small?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  small?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  medium?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  large?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  extra_large?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType>,
 }>;
 
 export type NetworkResolvers<ContextType = any, ParentType extends ResolversParentTypes['Network'] = ResolversParentTypes['Network']> = ResolversObject<{
@@ -1256,13 +1206,6 @@ export type PersonKnowForResolvers<ContextType = any, ParentType extends Resolve
 }>;
 
 export type ProductionCompanyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductionCompany'] = ResolversParentTypes['ProductionCompany']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
-  logo_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-  origin_country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-}>;
-
-export type ProductionCompanyItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductionCompanyItem'] = ResolversParentTypes['ProductionCompanyItem']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   logo_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
@@ -1412,14 +1355,11 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   LastEpisodeToAir?: LastEpisodeToAirResolvers<ContextType>,
   MediaVideo?: MediaVideoResolvers<ContextType>,
   Movie?: MovieResolvers<ContextType>,
-  MovieVideo?: MovieVideoResolvers<ContextType>,
-  MovieVideoThumbnail?: MovieVideoThumbnailResolvers<ContextType>,
   Network?: NetworkResolvers<ContextType>,
   PeopleQueryResult?: PeopleQueryResultResolvers<ContextType>,
   Person?: PersonResolvers<ContextType>,
   PersonKnowFor?: PersonKnowForResolvers,
   ProductionCompany?: ProductionCompanyResolvers<ContextType>,
-  ProductionCompanyItem?: ProductionCompanyItemResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
   ReviewItem?: ReviewItemResolvers<ContextType>,
   ReviewsQueryResult?: ReviewsQueryResultResolvers<ContextType>,
