@@ -1,4 +1,8 @@
-import { TVShowsEndpoints, MediaImage, GetTMDBApiRequest } from '../../../../../types';
+import {
+  TrendingTVShowsEndpoints,
+  MediaImage,
+  GetTMDBApiRequest,
+} from '../../../../../types';
 import {
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
@@ -25,7 +29,7 @@ type GetRequestParams = { page: number } | { append_to_response: string } | {};
 export interface Props {
   getTrendingItem(
     params: TrendingTvShowsArgs,
-    resource: string,
+    resource: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult>;
   getTVShow(params: QueryTvShowArgs): Promise<TvShow | null>;
   getImages(id: string): Promise<string[]>;
@@ -63,7 +67,7 @@ class TVShowHandler implements Props {
 
   async getTrendingItem(
     { page, language }: TrendingTvShowsArgs,
-    endpoint: TVShowsEndpoints,
+    endpoint: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
     const tvshow = await this.get<GetRequestParams, Promise<GetBaseTVShowResponse>>(
       endpoint,

@@ -30,7 +30,11 @@ import {
   TrendingTvShowsQueryResult,
   TvShow,
 } from '../../../lib/types';
-import { TVShowsEndpoints, GetTMDBApiRequest } from '../../../types';
+import {
+  TrendingTVShowsEndpoints,
+  TrendingMoviesEndpoints,
+  GetTMDBApiRequest,
+} from '../../../types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -39,11 +43,11 @@ export interface Props {
   getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult>;
   getTrendingMoviesItem: (
     args: TrendingMoviesArgs,
-    endpoint: string,
+    endpoint: TrendingMoviesEndpoints,
   ) => Promise<TrendingMoviesQueryResult>;
   getTrendingTVShowsItem: (
     args: TrendingTvShowsArgs,
-    endpoint: TVShowsEndpoints,
+    endpoint: TrendingTVShowsEndpoints,
   ) => Promise<TrendingTvShowsQueryResult>;
   getPeople: (args: QueryPeopleArgs) => Promise<PeopleQueryResult>;
   getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
@@ -119,9 +123,9 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   async getTrendingMoviesItem(
     args: TrendingMoviesArgs,
-    resource: string,
+    endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
-    return this.moviesHandler.getTrendingItem(args, resource);
+    return this.moviesHandler.getTrendingItem(args, endpoint);
   }
 
   async getMovie(args: QueryMovieArgs): Promise<Movie | null> {
@@ -138,7 +142,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   async getTrendingTVShowsItem(
     args: TrendingTvShowsArgs,
-    endpoint: TVShowsEndpoints,
+    endpoint: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
     return this.tvshowsHandler.getTrendingItem(args, endpoint);
   }

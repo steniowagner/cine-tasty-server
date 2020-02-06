@@ -4,6 +4,7 @@ import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
 import { movieGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
+import { TrendingMoviesEndpoints } from '../../../../../types';
 import {
   rawMovie,
   movie,
@@ -11,17 +12,12 @@ import {
   movieDetail,
   review,
 } from '../../../../../__tests__/mocks/movies.stub';
-
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
-const POPULAR_ENDPOINT = 'movie/popular';
-const NOW_PLAYING_ENDPOINT = 'movie/now_playing';
-const TOP_RATED_ENDPOINT = 'movie/top_rated';
-const UPCOMING_ENDPOINT = 'movie/upcoming';
 
 const GET_TRENDING_MOVIES = gql`
   fragment TrendingMovieItem on BaseMovie {
@@ -446,29 +442,41 @@ describe('Integration: DataSources-Movies', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(8);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(NOW_PLAYING_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.NowPlaying,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(POPULAR_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.Popular,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(TOP_RATED_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.TopRated,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(UPCOMING_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.Upcoming,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
         api_key: env.THE_MOVIE_DB_API_KEY,

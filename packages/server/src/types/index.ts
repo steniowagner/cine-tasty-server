@@ -50,10 +50,17 @@ export type BaseMediaType = BaseMovie | BaseTvShow;
 
 export type MediaItem = BaseMediaType & { genre_ids: number[] };
 
-export enum TVShowsEndpoints {
+export enum TrendingTVShowsEndpoints {
   OnTheAir = 'tv/on_the_air',
   Popular = 'tv/popular',
   TopRated = 'tv/top_rated',
+}
+
+export enum TrendingMoviesEndpoints {
+  NowPlaying = 'movie/now_playing',
+  Popular = 'movie/popular',
+  TopRated = 'movie/top_rated',
+  Upcoming = 'movie/upcoming',
 }
 
 export type MediaCredits = {

@@ -3,7 +3,7 @@ const mockRestDataSourceGet = jest.fn();
 import { rawTVShow, rawTVShowDetail } from '../../../../../__tests__/mocks/tvShows.stub';
 import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
 import { Iso6391Language } from '../../../../../lib/types';
-import { TVShowsEndpoints } from '../../../../../types';
+import { TrendingTVShowsEndpoints } from '../../../../../types';
 import TVShowHandler from '.';
 
 describe('Unity: TVShowHandler', () => {
@@ -27,11 +27,11 @@ describe('Unity: TVShowHandler', () => {
             page: 1,
             language: Iso6391Language.Ptbr,
           },
-          TVShowsEndpoints.OnTheAir,
+          TrendingTVShowsEndpoints.OnTheAir,
         );
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          TVShowsEndpoints.OnTheAir,
+          TrendingTVShowsEndpoints.OnTheAir,
           { page: 1 },
           Iso6391Language.Ptbr,
         );
@@ -56,11 +56,11 @@ describe('Unity: TVShowHandler', () => {
             page: 1,
             language: Iso6391Language.Ptbr,
           },
-          TVShowsEndpoints.OnTheAir,
+          TrendingTVShowsEndpoints.OnTheAir,
         );
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          TVShowsEndpoints.OnTheAir,
+          TrendingTVShowsEndpoints.OnTheAir,
           { page: 1 },
           Iso6391Language.Ptbr,
         );
@@ -87,11 +87,11 @@ describe('Unity: TVShowHandler', () => {
             page: 1,
             language: Iso6391Language.Ptbr,
           },
-          TVShowsEndpoints.Popular,
+          TrendingTVShowsEndpoints.Popular,
         );
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          TVShowsEndpoints.Popular,
+          TrendingTVShowsEndpoints.Popular,
           { page: 1 },
           Iso6391Language.Ptbr,
         );
@@ -116,11 +116,11 @@ describe('Unity: TVShowHandler', () => {
             page: 1,
             language: Iso6391Language.Ptbr,
           },
-          TVShowsEndpoints.Popular,
+          TrendingTVShowsEndpoints.Popular,
         );
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          TVShowsEndpoints.Popular,
+          TrendingTVShowsEndpoints.Popular,
           { page: 1 },
           Iso6391Language.Ptbr,
         );
@@ -147,11 +147,11 @@ describe('Unity: TVShowHandler', () => {
             page: 1,
             language: Iso6391Language.Ptbr,
           },
-          TVShowsEndpoints.TopRated,
+          TrendingTVShowsEndpoints.TopRated,
         );
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          TVShowsEndpoints.TopRated,
+          TrendingTVShowsEndpoints.TopRated,
           { page: 1 },
           Iso6391Language.Ptbr,
         );
@@ -176,11 +176,11 @@ describe('Unity: TVShowHandler', () => {
             page: 1,
             language: Iso6391Language.Ptbr,
           },
-          TVShowsEndpoints.TopRated,
+          TrendingTVShowsEndpoints.TopRated,
         );
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          TVShowsEndpoints.TopRated,
+          TrendingTVShowsEndpoints.TopRated,
           { page: 1 },
           Iso6391Language.Ptbr,
         );

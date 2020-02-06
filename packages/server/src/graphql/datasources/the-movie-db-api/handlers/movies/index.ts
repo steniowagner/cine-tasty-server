@@ -10,7 +10,7 @@ import {
   MovieSimilarArgs,
   TrendingMoviesArgs,
 } from '../../../../../lib/types';
-import { GetTMDBApiRequest } from '../../../../../types';
+import { GetTMDBApiRequest, TrendingMoviesEndpoints } from '../../../../../types';
 
 const BASE_ENDPOINT = 'movie';
 
@@ -36,7 +36,7 @@ export interface Props {
   getMovie: (params: QueryMovieArgs) => Promise<Movie | null>;
   getTrendingItem: (
     params: TrendingMoviesArgs,
-    resource: string,
+    resource: TrendingMoviesEndpoints,
   ) => Promise<TrendingMoviesQueryResult>;
 }
 
@@ -102,12 +102,12 @@ class MovieHandler implements Props {
 
   async getTrendingItem(
     { page, language }: TrendingMoviesArgs,
-    resource: string,
+    resource: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
     const { total_pages: totalPages, total_results, results } = await this.get<
       GetRequestParams,
       Promise<GetBaseMovieResponse>
-    >(`${BASE_ENDPOINT}/${resource}`, { page }, language);
+    >(resource, { page }, language);
 
     return {
       hasMore: page < totalPages,

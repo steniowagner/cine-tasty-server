@@ -1,17 +1,13 @@
 const mockRestDataSourceGet = jest.fn();
 
+import { TrendingMoviesEndpoints } from '../../../../../types';
+import { Iso6391Language } from '../../../../../lib/types';
 import {
   rawMovie,
   review,
   rawMovieDetail,
 } from '../../../../../__tests__/mocks/movies.stub';
-import { Iso6391Language } from '../../../../../lib/types';
 import MovieHandler from '.';
-
-const NOW_PLAYING_ENDPOINT = 'movie/now_playing';
-const TOP_RATED_ENDPOINT = 'movie/top_rated';
-const UPCOMING_ENDPOINT = 'movie/upcoming';
-const POPULAR_ENDPOINT = 'movie/popular';
 
 describe('Unity: MovieHandler', () => {
   beforeEach(() => {
@@ -33,11 +29,11 @@ describe('Unity: MovieHandler', () => {
           page: 1,
           language: Iso6391Language.Ptbr,
         },
-        'now_playing',
+        TrendingMoviesEndpoints.NowPlaying,
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        NOW_PLAYING_ENDPOINT,
+        TrendingMoviesEndpoints.NowPlaying,
         { page: 1 },
         Iso6391Language.Ptbr,
       );
@@ -62,11 +58,11 @@ describe('Unity: MovieHandler', () => {
           page: 1,
           language: Iso6391Language.Ptbr,
         },
-        'popular',
+        TrendingMoviesEndpoints.Popular,
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        POPULAR_ENDPOINT,
+        TrendingMoviesEndpoints.Popular,
         { page: 1 },
         Iso6391Language.Ptbr,
       );
@@ -91,11 +87,11 @@ describe('Unity: MovieHandler', () => {
           page: 1,
           language: Iso6391Language.Ptbr,
         },
-        'top_rated',
+        TrendingMoviesEndpoints.TopRated,
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        TOP_RATED_ENDPOINT,
+        TrendingMoviesEndpoints.TopRated,
         { page: 1 },
         Iso6391Language.Ptbr,
       );
@@ -120,11 +116,11 @@ describe('Unity: MovieHandler', () => {
           page: 1,
           language: Iso6391Language.Ptbr,
         },
-        'upcoming',
+        TrendingMoviesEndpoints.Upcoming,
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        UPCOMING_ENDPOINT,
+        TrendingMoviesEndpoints.Upcoming,
         { page: 1 },
         Iso6391Language.Ptbr,
       );
