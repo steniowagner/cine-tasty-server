@@ -1,6 +1,6 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { ResourceNotFound, InvalidTMDBApiKey } from '../../../../../errors';
+import { InvalidTMDBApiKey } from '../../../../../errors';
 import env from '../../../../../config/environment';
 import TheMovieDBAPI from '../..';
 
@@ -29,23 +29,6 @@ describe('Unity: TheMovieDBAPI', () => {
 
       expect(tmdbAPI.execGetRequest('endpoint', {})).rejects.toThrowError(
         InvalidTMDBApiKey,
-      );
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('endpoint', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
-    });
-
-    it('should throw an error when receive a "Resource Requested Not Found - code 34"', async () => {
-      mockRestDataSourceGet.mockReturnValue({ status_code: 34 });
-
-      const tmdbAPI = new TheMovieDBAPI();
-
-      expect(tmdbAPI.execGetRequest('endpoint', {})).rejects.toThrowError(
-        ResourceNotFound,
       );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);

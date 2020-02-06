@@ -15,6 +15,8 @@ import {
   CastItem,
   CrewItem,
   BaseTvShow,
+  TvShowReviewsArgs,
+  ReviewsQueryResultResolvers,
 } from '../../lib/types';
 import {
   TrendingTVShowsEndpoints,
@@ -74,6 +76,12 @@ const resolvers: QueryResolvers = {
 
       return mediaGenres.getMediaGenres(genreIds, MediaType.Tv.toLowerCase(), language);
     },
+
+    reviews: (
+      _: {},
+      args: TvShowReviewsArgs,
+      { dataSources }: Context,
+    ): ReviewsQueryResultResolvers => dataSources.tmdb.getTVShowReviews(args),
 
     similar: ({ similar }: { similar: SimilarTVShows }): BaseTvShow[] => similar.results,
 

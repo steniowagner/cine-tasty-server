@@ -83,3 +83,15 @@ export type GetTMDBApiRequest = <P, R>(
   params: P,
   language?: Iso6391Language | null,
 ) => Promise<R>;
+
+export type GetImagesResponse = {
+  backdrops: MediaImage[];
+  posters: MediaImage[];
+  id: number;
+};
+
+export type BasePaginationResponse = {
+  total_results: number;
+  total_pages: number;
+  page: number;
+};

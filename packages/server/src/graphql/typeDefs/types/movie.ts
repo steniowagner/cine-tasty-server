@@ -30,20 +30,6 @@ export default gql`
     origin_country: String
   }
 
-  type ReviewItem {
-    author: String
-    content: String
-    id: ID
-    url: String
-  }
-
-  type ReviewsQueryResult {
-    total_results: Int!
-    total_pages: Int!
-    items: [ReviewItem!]!
-    hasMore: Boolean!
-  }
-
   type SimilarMoviesQueryResult {
     total_results: Int!
     total_pages: Int!
@@ -80,7 +66,7 @@ export default gql`
       similarsPage: Int!
       language: ISO6391Language
     ): SimilarMoviesQueryResult!
-    reviews(id: ID!, reviewsPage: Int!): ReviewsQueryResult!
+    reviews(id: ID!, reviewsPage: Int!, language: ISO6391Language): ReviewsQueryResult!
     cast: [CastItem!]!
     crew: [CrewItem!]!
     videos: [MovieVideo!]!

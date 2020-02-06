@@ -1,14 +1,11 @@
 import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '../../../../../lib/types';
-import { GetTMDBApiRequest } from '../../../../../types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../types';
 
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
 
-type GetPeopleResponse = {
+type GetPeopleResponse = BasePaginationResponse & {
   results: BasePerson[];
-  total_pages: number;
-  page: number;
-  total_results: number;
 };
 
 type GetRequestParams = { page: number };

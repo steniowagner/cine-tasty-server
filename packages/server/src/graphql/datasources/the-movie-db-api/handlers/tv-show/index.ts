@@ -1,7 +1,8 @@
 import {
   TrendingTVShowsEndpoints,
-  MediaImage,
+  GetImagesResponse,
   GetTMDBApiRequest,
+  BasePaginationResponse,
 } from '../../../../../types';
 import {
   TrendingTvShowsArgs,
@@ -9,19 +10,17 @@ import {
   BaseTvShow,
   QueryTv_ShowArgs as QueryTvShowArgs,
   TvShow,
+  ReviewsQueryResult,
+  TvShowReviewsArgs,
+  ReviewItem,
 } from '../../../../../lib/types';
 
-type GetBaseTVShowResponse = {
+type GetBaseTVShowResponse = BasePaginationResponse & {
   results: BaseTvShow[];
-  total_pages: number;
-  page: number;
-  total_results: number;
 };
 
-type GetTVShowImagesResponse = {
-  backdrops: MediaImage[];
-  posters: MediaImage[];
-  id: number;
+type GetReviewsResponse = BasePaginationResponse & {
+  results: ReviewItem[];
 };
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
@@ -32,6 +31,7 @@ export interface Props {
     resource: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult>;
   getTVShow(params: QueryTvShowArgs): Promise<TvShow | null>;
+  getReviews(args: TvShowReviewsArgs): Promise<ReviewsQueryResult>;
   getImages(id: string): Promise<string[]>;
 }
 
@@ -55,14 +55,39 @@ class TVShowHandler implements Props {
   }
 
   async getImages(id: string): Promise<string[]> {
-    const { backdrops } = await this.get<
-      GetRequestParams,
-      Promise<GetTVShowImagesResponse>
-    >(`tv/${id}/images`, {}, null);
+    const { backdrops } = await this.get<GetRequestParams, Promise<GetImagesResponse>>(
+      `${BASE_ENDPOINT}/${id}/images`,
+      {},
+      null,
+    );
 
     return backdrops
       .filter(backdrop => !!backdrop.file_path)
       .map(backdrop => backdrop.file_path);
+  }
+
+  async getReviews({
+    id,
+    reviewsPage,
+    language,
+  }: TvShowReviewsArgs): Promise<ReviewsQueryResult> {
+    const { total_pages: totalPages, total_results, results } = await this.get<
+      GetRequestParams,
+      Promise<GetReviewsResponse>
+    >(
+      `${BASE_ENDPOINT}/${id}/reviews`,
+      {
+        page: reviewsPage,
+      },
+      language,
+    );
+
+    return {
+      hasMore: reviewsPage < totalPages,
+      total_pages: totalPages,
+      total_results,
+      items: results,
+    };
   }
 
   async getTrendingItem(

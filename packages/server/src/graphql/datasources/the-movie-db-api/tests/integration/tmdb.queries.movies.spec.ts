@@ -10,8 +10,8 @@ import {
   movie,
   rawMovieDetail,
   movieDetail,
-  review,
 } from '../../../../../__tests__/mocks/movies.stub';
+import { review } from '../../../../../__tests__/mocks/review.stub';
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
@@ -301,7 +301,7 @@ describe('Integration: DataSources-Movies', () => {
 
   describe('Query - Movie Reviews', () => {
     it('should query the reviews of a movie from TheMovieDB API and returns the result correctly', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({ reviews: {} }).mockReturnValueOnce({
+      mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce({
         id: 1,
         page: 1,
         results: [review],
@@ -336,7 +336,7 @@ describe('Integration: DataSources-Movies', () => {
     });
 
     it('fetches the reviews of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({ reviews: {} }).mockReturnValueOnce({
+      mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce({
         id: 1,
         page: 1,
         results: [review],

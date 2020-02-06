@@ -509,7 +509,8 @@ export type MovieSimilarArgs = {
 
 export type MovieReviewsArgs = {
   id: Scalars['ID'],
-  reviewsPage: Scalars['Int']
+  reviewsPage: Scalars['Int'],
+  language?: Maybe<Iso6391Language>
 };
 
 export type MovieVideo = {
@@ -805,6 +806,7 @@ export type TvShow = {
   origin_country: Array<Scalars['String']>,
   similar: Array<BaseTvShow>,
   images: Array<Scalars['String']>,
+  reviews: ReviewsQueryResult,
 };
 
 
@@ -815,6 +817,13 @@ export type TvShowGenresArgs = {
 
 export type TvShowImagesArgs = {
   id: Scalars['ID']
+};
+
+
+export type TvShowReviewsArgs = {
+  id: Scalars['ID'],
+  reviewsPage: Scalars['Int'],
+  language?: Maybe<Iso6391Language>
 };
 
 
@@ -915,11 +924,11 @@ export type ResolversTypes = ResolversObject<{
   Thumbnail: ResolverTypeWrapper<Thumbnail>,
   CastItem: ResolverTypeWrapper<CastItem>,
   CrewItem: ResolverTypeWrapper<CrewItem>,
+  ReviewsQueryResult: ResolverTypeWrapper<ReviewsQueryResult>,
+  ReviewItem: ResolverTypeWrapper<ReviewItem>,
   Movie: ResolverTypeWrapper<Movie>,
   ProductionCompanyItem: ResolverTypeWrapper<ProductionCompanyItem>,
   SimilarMoviesQueryResult: ResolverTypeWrapper<SimilarMoviesQueryResult>,
-  ReviewsQueryResult: ResolverTypeWrapper<ReviewsQueryResult>,
-  ReviewItem: ResolverTypeWrapper<ReviewItem>,
   MovieVideo: ResolverTypeWrapper<MovieVideo>,
   MovieVideoThumbnail: ResolverTypeWrapper<MovieVideoThumbnail>,
   ArticleLanguage: ArticleLanguage,
@@ -967,11 +976,11 @@ export type ResolversParentTypes = ResolversObject<{
   Thumbnail: Thumbnail,
   CastItem: CastItem,
   CrewItem: CrewItem,
+  ReviewsQueryResult: ReviewsQueryResult,
+  ReviewItem: ReviewItem,
   Movie: Movie,
   ProductionCompanyItem: ProductionCompanyItem,
   SimilarMoviesQueryResult: SimilarMoviesQueryResult,
-  ReviewsQueryResult: ReviewsQueryResult,
-  ReviewItem: ReviewItem,
   MovieVideo: MovieVideo,
   MovieVideoThumbnail: MovieVideoThumbnail,
   ArticleLanguage: ArticleLanguage,
@@ -1381,6 +1390,7 @@ export type TvShowResolvers<ContextType = any, ParentType extends ResolversParen
   origin_country?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
   similar?: Resolver<Array<ResolversTypes['BaseTVShow']>, ParentType, ContextType>,
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowImagesArgs, 'id'>>,
+  reviews?: Resolver<ResolversTypes['ReviewsQueryResult'], ParentType, ContextType, RequireFields<TvShowReviewsArgs, 'id' | 'reviewsPage'>>,
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {

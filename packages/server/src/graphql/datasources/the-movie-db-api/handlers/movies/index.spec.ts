@@ -1,12 +1,9 @@
 const mockRestDataSourceGet = jest.fn();
 
+import { rawMovie, rawMovieDetail } from '../../../../../__tests__/mocks/movies.stub';
+import { review } from '../../../../../__tests__/mocks/review.stub';
 import { TrendingMoviesEndpoints } from '../../../../../types';
 import { Iso6391Language } from '../../../../../lib/types';
-import {
-  rawMovie,
-  review,
-  rawMovieDetail,
-} from '../../../../../__tests__/mocks/movies.stub';
 import MovieHandler from '.';
 
 describe('Unity: MovieHandler', () => {
@@ -268,9 +265,17 @@ describe('Unity: MovieHandler', () => {
 
       const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
-      const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+      const result = await movieHandler.getReviews({
+        id: '1',
+        reviewsPage: 1,
+        language: Iso6391Language.Ptbr,
+      });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'movie/1/reviews',
+        { page: 1 },
+        Iso6391Language.Ptbr,
+      );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
@@ -295,9 +300,17 @@ describe('Unity: MovieHandler', () => {
 
       const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
-      const result = await movieHandler.getReviews({ id: '1', reviewsPage: 1 });
+      const result = await movieHandler.getReviews({
+        id: '1',
+        reviewsPage: 1,
+        language: Iso6391Language.Ptbr,
+      });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/reviews', { page: 1 });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'movie/1/reviews',
+        { page: 1 },
+        Iso6391Language.Ptbr,
+      );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 

@@ -1,4 +1,4 @@
-import { GetTMDBApiRequest } from '../../../../../types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../types';
 import { SearchQueryEmpty } from '../../../../../errors';
 import {
   SearchResultItem,
@@ -11,11 +11,8 @@ type SearchParams = {
   query: string;
 };
 
-type GetRequestResult = {
+type GetRequestResult = BasePaginationResponse & {
   results: SearchResultItem[];
-  total_results: number;
-  total_pages: number;
-  page: number;
 };
 
 export interface Props {

@@ -6,7 +6,7 @@ import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
 import MoviesHandler, { Props as MoviesHandlerProps } from './handlers/movies';
 
-import { InvalidTMDBApiKey, ResourceNotFound } from '../../../errors';
+import { InvalidTMDBApiKey } from '../../../errors';
 import { formatLanguage } from './helpers';
 import env from '../../../config/environment';
 import {
@@ -21,6 +21,7 @@ import {
   QueryMovieArgs,
   Movie,
   MovieReviewsArgs,
+  TvShowReviewsArgs,
   ReviewsQueryResult,
   MovieSimilarArgs,
   TrendingMoviesArgs,
@@ -41,6 +42,7 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 export interface Props {
   getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
   getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult>;
+  getTVShowReviews(args: TvShowReviewsArgs): Promise<ReviewsQueryResult>;
   getTrendingMoviesItem: (
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
@@ -57,7 +59,6 @@ export interface Props {
   getTVShowImages(id: string): Promise<string[]>;
 }
 
-const RESOURCE_NOT_FOUND_CODE = 34;
 const INVALID_API_KEY_CODE = 7;
 
 class TheMovieDBAPI extends RESTDataSource implements Props {
@@ -102,10 +103,6 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
       throw new InvalidTMDBApiKey();
     }
 
-    if (result.status_code === RESOURCE_NOT_FOUND_CODE) {
-      throw new ResourceNotFound();
-    }
-
     return result;
   };
 
@@ -121,15 +118,15 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.searchHandler.search(args);
   }
 
+  async getMovie(args: QueryMovieArgs): Promise<Movie | null> {
+    return this.moviesHandler.getMovie(args);
+  }
+
   async getTrendingMoviesItem(
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
     return this.moviesHandler.getTrendingItem(args, endpoint);
-  }
-
-  async getMovie(args: QueryMovieArgs): Promise<Movie | null> {
-    return this.moviesHandler.getMovie(args);
   }
 
   async getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult> {
@@ -140,6 +137,10 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.moviesHandler.getSimilars(args);
   }
 
+  async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
+    return this.tvshowsHandler.getTVShow(args);
+  }
+
   async getTrendingTVShowsItem(
     args: TrendingTvShowsArgs,
     endpoint: TrendingTVShowsEndpoints,
@@ -147,8 +148,8 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.tvshowsHandler.getTrendingItem(args, endpoint);
   }
 
-  async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
-    return this.tvshowsHandler.getTVShow(args);
+  async getTVShowReviews(args: TvShowReviewsArgs): Promise<ReviewsQueryResult> {
+    return this.tvshowsHandler.getReviews(args);
   }
 
   async getTVShowImages(id: string): Promise<string[]> {
