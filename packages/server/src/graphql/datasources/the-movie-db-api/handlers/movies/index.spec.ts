@@ -4,6 +4,7 @@ import { rawMovie, rawMovieDetail } from '../../../../../__tests__/mocks/movies.
 import { review } from '../../../../../__tests__/mocks/review.stub';
 import { TrendingMoviesEndpoints } from '../../../../../types';
 import { Iso6391Language } from '../../../../../lib/types';
+import CONSTANTS from '../../utils/constants';
 import MovieHandler from '.';
 
 describe('Unity: MovieHandler', () => {
@@ -154,7 +155,9 @@ describe('Unity: MovieHandler', () => {
     });
 
     it("should return null when the movie doesn't exist", async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({ status_message: 'status_message' });
+      mockRestDataSourceGet.mockReturnValueOnce({
+        status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
+      });
 
       const movieHandler = new MovieHandler(mockRestDataSourceGet);
 

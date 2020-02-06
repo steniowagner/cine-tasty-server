@@ -5,6 +5,7 @@ import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
 import { review } from '../../../../../__tests__/mocks/review.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../../../../types';
+import CONSTANTS from '../../utils/constants';
 import TVShowHandler from '.';
 
 describe('Unity: TVShowHandler', () => {
@@ -216,6 +217,31 @@ describe('Unity: TVShowHandler', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(result).toMatchSnapshot();
+    });
+
+    it("should return null when the tv show doesn't exist", async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
+      });
+
+      const movieHandler = new TVShowHandler(mockRestDataSourceGet);
+
+      const result = await movieHandler.getTVShow({
+        id: '1',
+        language: Iso6391Language.Ptbr,
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        'tv/1',
+        {
+          append_to_response: 'credits,similar,videos',
+        },
+        'PTBR',
+      );
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toBeNull();
     });
   });
 

@@ -1,3 +1,4 @@
+import CONSTANTS from '../../utils/constants';
 import {
   TrendingTVShowsEndpoints,
   GetImagesResponse,
@@ -45,13 +46,22 @@ class TVShowHandler implements Props {
   }
 
   async getTVShow({ id, language }: QueryTvShowArgs): Promise<TvShow | null> {
-    return this.get<GetRequestParams, Promise<TvShow>>(
+    const tvshow = await this.get<
+      GetRequestParams,
+      Promise<TvShow & { status_code?: number }>
+    >(
       `${BASE_ENDPOINT}/${id}`,
       {
         append_to_response: 'credits,similar,videos',
       },
       language,
     );
+
+    if (tvshow.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
+      return null;
+    }
+
+    return tvshow;
   }
 
   async getImages(id: string): Promise<string[]> {

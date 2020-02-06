@@ -1,3 +1,4 @@
+import CONSTANTS from '../../utils/constants';
 import {
   BaseMovie,
   TrendingMoviesQueryResult,
@@ -52,10 +53,10 @@ class MovieHandler implements Props {
   async getMovie({ id, language }: QueryMovieArgs): Promise<Movie | null> {
     const movie = await this.get<
       GetRequestParams,
-      Promise<Movie & { status_message?: string }>
+      Promise<Movie & { status_code?: number }>
     >(`${BASE_ENDPOINT}/${id}`, { append_to_response: 'videos,credits' }, language);
 
-    if (typeof movie.status_message === 'string') {
+    if (movie.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
       return null;
     }
 
