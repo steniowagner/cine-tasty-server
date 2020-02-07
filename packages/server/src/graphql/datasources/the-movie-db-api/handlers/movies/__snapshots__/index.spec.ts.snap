@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Unity: MovieHandler getImages() should return an array of strings containing urls to images of a certain movie 1`] = `
+Array [
+  "/file_path.jpg",
+]
+`;
+
 exports[`Unity: MovieHandler getMovie() should get the details of a movie with certain id from TheMovideDB API 1`] = `
 Object {
   "adult": false,

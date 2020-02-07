@@ -492,6 +492,7 @@ export type Movie = {
   cast: Array<CastItem>,
   crew: Array<CrewItem>,
   videos: Array<MediaVideo>,
+  images: Array<Scalars['String']>,
 };
 
 
@@ -511,6 +512,11 @@ export type MovieReviewsArgs = {
   id: Scalars['ID'],
   reviewsPage: Scalars['Int'],
   language?: Maybe<Iso6391Language>
+};
+
+
+export type MovieImagesArgs = {
+  id: Scalars['ID']
 };
 
 export type Network = {
@@ -1166,6 +1172,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   cast?: Resolver<Array<ResolversTypes['CastItem']>, ParentType, ContextType>,
   crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>,
   videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType>,
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MovieImagesArgs, 'id'>>,
 }>;
 
 export type NetworkResolvers<ContextType = any, ParentType extends ResolversParentTypes['Network'] = ResolversParentTypes['Network']> = ResolversObject<{

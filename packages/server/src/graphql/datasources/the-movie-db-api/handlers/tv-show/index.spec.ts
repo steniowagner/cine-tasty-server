@@ -259,6 +259,22 @@ describe('Unity: TVShowHandler', () => {
 
       expect(result).toMatchSnapshot();
     });
+
+    it("should return an empty array when the tv show doesn't exists", async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
+      });
+
+      const tvshowHandler = new TVShowHandler(mockRestDataSourceGet);
+
+      const result = await tvshowHandler.getImages('1');
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {}, null);
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toEqual([]);
+    });
   });
 
   describe('getReviews()', () => {

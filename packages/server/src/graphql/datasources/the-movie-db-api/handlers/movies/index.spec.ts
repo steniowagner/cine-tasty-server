@@ -1,6 +1,7 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { rawMovie, rawMovieDetail } from '../../../../../__tests__/mocks/movies.stub';
+import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
 import { review } from '../../../../../__tests__/mocks/review.stub';
 import { TrendingMoviesEndpoints } from '../../../../../types';
 import { Iso6391Language } from '../../../../../lib/types';
@@ -10,6 +11,38 @@ import MovieHandler from '.';
 describe('Unity: MovieHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe('getImages()', () => {
+    it('should return an array of strings containing urls to images of a certain movie', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce(getImagesResult);
+
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+      const result = await movieHandler.getImages('1');
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {}, null);
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toMatchSnapshot();
+    });
+
+    it("should return an empty array when the movie requested doesn't exists", async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
+      });
+
+      const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
+      const result = await movieHandler.getImages('1');
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {}, null);
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+      expect(result).toEqual([]);
+    });
   });
 
   describe('getTrendingItem()', () => {

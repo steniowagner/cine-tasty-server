@@ -17,6 +17,7 @@ import { TrendingTVShowsEndpoints } from '../../../../../types';
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
+import CONSTANTS from '../../utils/constants';
 import TheMovieDBAPI from '../..';
 
 const GENRE_TV_ENDPOINT = '/genre/tv/list';
@@ -561,6 +562,35 @@ describe('Integration: DataSources-TVShow', () => {
       });
 
       expect(data!.tv_show.images).toEqual(images);
+    });
+
+    it("should query the images of a movie from TheMovieDB API and returns an empty array when the movie doesn't exist", async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({})
+        .mockReturnValueOnce({ status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_TV_SHOW_IMAGES,
+        variables: { id: '1' },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
+        append_to_response: 'credits,similar,videos',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+      });
+
+      expect(data!.tv_show.images).toEqual([]);
     });
   });
 });

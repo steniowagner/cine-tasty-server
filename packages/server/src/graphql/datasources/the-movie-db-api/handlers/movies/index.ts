@@ -14,6 +14,7 @@ import {
 import {
   GetTMDBApiRequest,
   TrendingMoviesEndpoints,
+  GetImagesResponse,
   BasePaginationResponse,
 } from '../../../../../types';
 
@@ -27,7 +28,7 @@ type GetReviewsResponse = BasePaginationResponse & {
   results: ReviewItem[];
 };
 
-type GetRequestParams = { page: number } | { append_to_response: string };
+type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
 export interface Props {
   getSimilars(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
@@ -41,6 +42,7 @@ export interface Props {
     params: TrendingMoviesArgs,
     resource: TrendingMoviesEndpoints,
   ) => Promise<TrendingMoviesQueryResult>;
+  getImages: (id: string) => Promise<string[]>;
 }
 
 class MovieHandler implements Props {
@@ -51,16 +53,16 @@ class MovieHandler implements Props {
   }
 
   async getMovie({ id, language }: QueryMovieArgs): Promise<Movie | null> {
-    const movie = await this.get<
+    const result = await this.get<
       GetRequestParams,
       Promise<Movie & { status_code?: number }>
     >(`${BASE_ENDPOINT}/${id}`, { append_to_response: 'videos,credits' }, language);
 
-    if (movie.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
+    if (result.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
       return null;
     }
 
-    return movie;
+    return result;
   }
 
   async getReviews({
@@ -126,6 +128,21 @@ class MovieHandler implements Props {
       total_results,
       items: results,
     };
+  }
+
+  async getImages(id: string): Promise<string[]> {
+    const result = await this.get<
+      GetRequestParams,
+      Promise<GetImagesResponse & { status_code?: number }>
+    >(`${BASE_ENDPOINT}/${id}/images`, {}, null);
+
+    if (result.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
+      return [];
+    }
+
+    return result.backdrops
+      .filter(backdrop => !!backdrop.file_path)
+      .map(backdrop => backdrop.file_path);
   }
 }
 

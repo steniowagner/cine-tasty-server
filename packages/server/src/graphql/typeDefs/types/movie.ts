@@ -41,6 +41,7 @@ export default gql`
     cast: [CastItem!]!
     crew: [CrewItem!]!
     videos: [MediaVideo!]!
+    images(id: ID!): [String!]!
   }
 
   type BaseMovie {

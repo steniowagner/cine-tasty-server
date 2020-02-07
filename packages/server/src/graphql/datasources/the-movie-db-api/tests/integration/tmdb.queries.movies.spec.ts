@@ -5,6 +5,7 @@ import { ApolloServer, gql } from 'apollo-server';
 
 import { movieGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import { TrendingMoviesEndpoints } from '../../../../../types';
+import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
 import {
   rawMovie,
   movie,
@@ -16,6 +17,7 @@ import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
+import COSNTANTS from '../../utils/constants';
 
 const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 
@@ -184,6 +186,14 @@ const GET_MOVIE_SIMILARS = gql`
   }
 `;
 
+const GET_MOVIE_IMAGES = gql`
+  query MovieImages($id: ID!) {
+    movie(id: $id) {
+      images(id: $id)
+    }
+  }
+`;
+
 const makeTestServer = (): ApolloServer => {
   return new ApolloServer({
     typeDefs,
@@ -209,6 +219,64 @@ jest.mock('apollo-datasource-rest', () => {
 describe('Integration: DataSources-Movies', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe('Query - Movie Images', () => {
+    it('should query the images of a movie from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce(getImagesResult);
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_MOVIE_IMAGES,
+        variables: { id: '1' },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+      });
+
+      expect(data!.movie.images).toEqual(images);
+    });
+
+    it("should query the images of a movie from TheMovieDB API and returns an empty array when the movie doesn't exist", async () => {
+      mockRestDataSourceGet
+        .mockReturnValueOnce({})
+        .mockReturnValueOnce({ status_code: COSNTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE });
+
+      const server = makeTestServer();
+
+      const { query } = createTestClient(server);
+
+      const { data } = await query({
+        query: GET_MOVIE_IMAGES,
+        variables: { id: '1' },
+      });
+
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
+        append_to_response: 'videos,credits',
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+      });
+
+      expect(data!.movie.images).toEqual([]);
+    });
   });
 
   describe('Query - Similar Movies', () => {

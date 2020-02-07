@@ -65,13 +65,16 @@ class TVShowHandler implements Props {
   }
 
   async getImages(id: string): Promise<string[]> {
-    const { backdrops } = await this.get<GetRequestParams, Promise<GetImagesResponse>>(
-      `${BASE_ENDPOINT}/${id}/images`,
-      {},
-      null,
-    );
+    const result = await this.get<
+      GetRequestParams,
+      Promise<GetImagesResponse & { status_code?: number }>
+    >(`${BASE_ENDPOINT}/${id}/images`, {}, null);
 
-    return backdrops
+    if (result.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
+      return [];
+    }
+
+    return result.backdrops
       .filter(backdrop => !!backdrop.file_path)
       .map(backdrop => backdrop.file_path);
   }

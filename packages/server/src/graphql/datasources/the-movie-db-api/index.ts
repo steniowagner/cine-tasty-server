@@ -57,6 +57,7 @@ export interface Props {
   getTVShow: (args: QueryTvShowArgs) => Promise<TvShow | null>;
   search: (args: QuerySearchArgs) => Promise<SearchQueryResult>;
   getTVShowImages(id: string): Promise<string[]>;
+  getMovieImages(id: string): Promise<string[]>;
 }
 
 const INVALID_API_KEY_CODE = 7;
@@ -139,6 +140,10 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
 
   async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
     return this.tvshowsHandler.getTVShow(args);
+  }
+
+  async getMovieImages(id: string): Promise<string[]> {
+    return this.moviesHandler.getImages(id);
   }
 
   async getTrendingTVShowsItem(

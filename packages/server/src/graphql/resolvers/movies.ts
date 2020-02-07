@@ -19,6 +19,7 @@ import {
   ReviewsQueryResultResolvers,
   SimilarMoviesQueryResultResolvers,
   MovieSimilarArgs,
+  MovieImagesArgs,
 } from '../../lib/types';
 import {
   Context,
@@ -84,6 +85,12 @@ const resolvers: QueryResolvers = {
         job: castItem.job,
         name: castItem.name,
       })),
+
+    images: (
+      _: {},
+      { id }: MovieImagesArgs,
+      { dataSources }: Context,
+    ): Promise<string[]> => dataSources.tmdb.getMovieImages(id),
 
     reviews: (
       _: {},
