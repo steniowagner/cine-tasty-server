@@ -20,9 +20,6 @@ import {
   QueryPeopleArgs,
   QueryMovieArgs,
   Movie,
-  MovieReviewsArgs,
-  TvShowReviewsArgs,
-  ReviewsQueryResult,
   MovieSimilarArgs,
   TrendingMoviesArgs,
   QueryTv_ShowArgs as QueryTvShowArgs,
@@ -41,8 +38,6 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
   getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
-  getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult>;
-  getTVShowReviews(args: TvShowReviewsArgs): Promise<ReviewsQueryResult>;
   getTrendingMoviesItem: (
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
@@ -130,10 +125,6 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.moviesHandler.getTrendingItem(args, endpoint);
   }
 
-  async getMovieReviews(args: MovieReviewsArgs): Promise<ReviewsQueryResult> {
-    return this.moviesHandler.getReviews(args);
-  }
-
   async getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
     return this.moviesHandler.getSimilars(args);
   }
@@ -151,10 +142,6 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     endpoint: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
     return this.tvshowsHandler.getTrendingItem(args, endpoint);
-  }
-
-  async getTVShowReviews(args: TvShowReviewsArgs): Promise<ReviewsQueryResult> {
-    return this.tvshowsHandler.getReviews(args);
   }
 
   async getTVShowImages(id: string): Promise<string[]> {

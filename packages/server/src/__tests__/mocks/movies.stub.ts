@@ -1,4 +1,5 @@
 import { movieGenres } from './mediaGenres.stub';
+import { review } from './review.stub';
 
 export const movieCast = {
   cast_id: 4,
@@ -124,6 +125,12 @@ export const rawMovieDetail = {
       },
     ],
   },
+  reviews: {
+    page: 1,
+    results: [review],
+    total_pages: 1,
+    total_results: 1,
+  },
 };
 
 export const movieDetail = {
@@ -190,4 +197,5 @@ export const movieDetail = {
       },
     },
   ],
+  reviews: [review],
 };

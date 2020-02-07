@@ -4,10 +4,7 @@ import {
   TrendingMoviesQueryResult,
   QueryMovieArgs,
   Movie,
-  MovieReviewsArgs,
   SimilarMoviesQueryResult,
-  ReviewsQueryResult,
-  ReviewItem,
   MovieSimilarArgs,
   TrendingMoviesArgs,
 } from '../../../../../lib/types';
@@ -24,19 +21,10 @@ type GetBaseMovieResponse = BasePaginationResponse & {
   results: BaseMovie[];
 };
 
-type GetReviewsResponse = BasePaginationResponse & {
-  results: ReviewItem[];
-};
-
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
 export interface Props {
   getSimilars(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
-  getReviews({
-    id,
-    reviewsPage,
-    language,
-  }: MovieReviewsArgs): Promise<ReviewsQueryResult>;
   getMovie: (params: QueryMovieArgs) => Promise<Movie | null>;
   getTrendingItem: (
     params: TrendingMoviesArgs,
@@ -56,37 +44,17 @@ class MovieHandler implements Props {
     const result = await this.get<
       GetRequestParams,
       Promise<Movie & { status_code?: number }>
-    >(`${BASE_ENDPOINT}/${id}`, { append_to_response: 'videos,credits' }, language);
+    >(
+      `${BASE_ENDPOINT}/${id}`,
+      { append_to_response: 'videos,credits,reviews' },
+      language,
+    );
 
     if (result.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
       return null;
     }
 
     return result;
-  }
-
-  async getReviews({
-    id,
-    reviewsPage,
-    language,
-  }: MovieReviewsArgs): Promise<ReviewsQueryResult> {
-    const { total_pages: totalPages, total_results, results } = await this.get<
-      GetRequestParams,
-      Promise<GetReviewsResponse>
-    >(
-      `${BASE_ENDPOINT}/${id}/reviews`,
-      {
-        page: reviewsPage,
-      },
-      language,
-    );
-
-    return {
-      hasMore: reviewsPage < totalPages,
-      total_pages: totalPages,
-      total_results,
-      items: results,
-    };
   }
 
   async getSimilars({

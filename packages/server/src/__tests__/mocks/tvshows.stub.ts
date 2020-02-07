@@ -1,4 +1,5 @@
 import { tvGenres } from './mediaGenres.stub';
+import { review } from './review.stub';
 
 export const rawTVShow = {
   poster_path: '/poster_path.jpg',
@@ -152,6 +153,12 @@ export const rawTVShowDetail = {
       },
     ],
   },
+  reviews: {
+    page: 1,
+    results: [review],
+    total_pages: 1,
+    total_results: 1,
+  },
   similar: {
     page: 1,
     total_pages: 1,
@@ -269,4 +276,5 @@ export const tvShowDetail = {
     },
   ],
   similar: [tvshow],
+  reviews: [review],
 };

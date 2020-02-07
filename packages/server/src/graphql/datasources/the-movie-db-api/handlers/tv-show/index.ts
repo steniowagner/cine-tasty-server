@@ -11,17 +11,10 @@ import {
   BaseTvShow,
   QueryTv_ShowArgs as QueryTvShowArgs,
   TvShow,
-  ReviewsQueryResult,
-  TvShowReviewsArgs,
-  ReviewItem,
 } from '../../../../../lib/types';
 
 type GetBaseTVShowResponse = BasePaginationResponse & {
   results: BaseTvShow[];
-};
-
-type GetReviewsResponse = BasePaginationResponse & {
-  results: ReviewItem[];
 };
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
@@ -32,7 +25,6 @@ export interface Props {
     resource: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult>;
   getTVShow(params: QueryTvShowArgs): Promise<TvShow | null>;
-  getReviews(args: TvShowReviewsArgs): Promise<ReviewsQueryResult>;
   getImages(id: string): Promise<string[]>;
 }
 
@@ -52,7 +44,7 @@ class TVShowHandler implements Props {
     >(
       `${BASE_ENDPOINT}/${id}`,
       {
-        append_to_response: 'credits,similar,videos',
+        append_to_response: 'credits,similar,videos,reviews',
       },
       language,
     );
@@ -77,30 +69,6 @@ class TVShowHandler implements Props {
     return result.backdrops
       .filter(backdrop => !!backdrop.file_path)
       .map(backdrop => backdrop.file_path);
-  }
-
-  async getReviews({
-    id,
-    reviewsPage,
-    language,
-  }: TvShowReviewsArgs): Promise<ReviewsQueryResult> {
-    const { total_pages: totalPages, total_results, results } = await this.get<
-      GetRequestParams,
-      Promise<GetReviewsResponse>
-    >(
-      `${BASE_ENDPOINT}/${id}/reviews`,
-      {
-        page: reviewsPage,
-      },
-      language,
-    );
-
-    return {
-      hasMore: reviewsPage < totalPages,
-      total_pages: totalPages,
-      total_results,
-      items: results,
-    };
   }
 
   async getTrendingItem(

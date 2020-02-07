@@ -65,6 +65,19 @@ Object {
   ],
   "release_date": "release_date",
   "revenue": 123,
+  "reviews": Object {
+    "page": 1,
+    "results": Array [
+      Object {
+        "author": "author.",
+        "content": "content",
+        "id": "id",
+        "url": "url",
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
   "runtime": 123,
   "spoken_languages": Array [
     Object {

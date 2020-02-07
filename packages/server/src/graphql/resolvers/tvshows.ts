@@ -14,12 +14,12 @@ import {
   MediaVideo,
   CastItem,
   CrewItem,
+  Review,
   BaseTvShow,
-  TvShowReviewsArgs,
-  ReviewsQueryResultResolvers,
 } from '../../lib/types';
 import {
   TrendingTVShowsEndpoints,
+  BasePaginationResponse,
   MediaItem,
   Context,
   MediaGenre,
@@ -29,6 +29,8 @@ import {
 const mediaGenres = new MediaGenresHandler();
 
 const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
+
+type MovieReview = BasePaginationResponse & { results: Review[] };
 
 type TVShowVideos = {
   results: MediaVideo[];
@@ -69,7 +71,7 @@ const resolvers: QueryResolvers = {
         })),
 
     genres: (
-      { genres }: { genres: Array<MediaGenre> },
+      { genres }: { genres: MediaGenre[] },
       { language }: TvShowGenresArgs,
     ): Promise<string[]> => {
       const genreIds = genres.map(({ id }) => id);
@@ -77,11 +79,7 @@ const resolvers: QueryResolvers = {
       return mediaGenres.getMediaGenres(genreIds, MediaType.Tv.toLowerCase(), language);
     },
 
-    reviews: (
-      _: {},
-      args: TvShowReviewsArgs,
-      { dataSources }: Context,
-    ): ReviewsQueryResultResolvers => dataSources.tmdb.getTVShowReviews(args),
+    reviews: ({ reviews }: { reviews: MovieReview }): Review[] => reviews.results,
 
     similar: ({ similar }: { similar: SimilarTVShows }): BaseTvShow[] => similar.results,
 

@@ -2,7 +2,6 @@ const mockRestDataSourceGet = jest.fn();
 
 import { rawTVShow, rawTVShowDetail } from '../../../../../__tests__/mocks/tvShows.stub';
 import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
-import { review } from '../../../../../__tests__/mocks/review.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../../../../types';
 import CONSTANTS from '../../utils/constants';
@@ -209,7 +208,7 @@ describe('Unity: TVShowHandler', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         'tv/1',
         {
-          append_to_response: 'credits,similar,videos',
+          append_to_response: 'credits,similar,videos,reviews',
         },
         'PTBR',
       );
@@ -234,7 +233,7 @@ describe('Unity: TVShowHandler', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         'tv/1',
         {
-          append_to_response: 'credits,similar,videos',
+          append_to_response: 'credits,similar,videos,reviews',
         },
         'PTBR',
       );
@@ -274,78 +273,6 @@ describe('Unity: TVShowHandler', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(result).toEqual([]);
-    });
-  });
-
-  describe('getReviews()', () => {
-    it('should get the reviews of a tv show with certain id from TheMovideDB API', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({
-        id: 1,
-        page: 1,
-        results: [review],
-        total_pages: 1,
-        total_results: 1,
-      });
-
-      const tvshowHandler = new TVShowHandler(mockRestDataSourceGet);
-
-      const result = await tvshowHandler.getReviews({
-        id: '1',
-        reviewsPage: 1,
-        language: Iso6391Language.Ptbr,
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'tv/1/reviews',
-        { page: 1 },
-        Iso6391Language.Ptbr,
-      );
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-
-      expect(result).toEqual({
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [review],
-      });
-
-      expect(result.hasMore).toEqual(false);
-    });
-
-    it('should get the reviews of a tv show with certain id from TheMovideDB API and return hasMore as true when has more items to be paginated', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({
-        id: 1,
-        page: 1,
-        results: [review],
-        total_pages: 2,
-        total_results: 2,
-      });
-
-      const tvshowHandler = new TVShowHandler(mockRestDataSourceGet);
-
-      const result = await tvshowHandler.getReviews({
-        id: '1',
-        reviewsPage: 1,
-        language: Iso6391Language.Ptbr,
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'tv/1/reviews',
-        { page: 1 },
-        Iso6391Language.Ptbr,
-      );
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-
-      expect(result).toEqual({
-        hasMore: true,
-        total_pages: 2,
-        total_results: 2,
-        items: [review],
-      });
-
-      expect(result.hasMore).toEqual(true);
     });
   });
 });

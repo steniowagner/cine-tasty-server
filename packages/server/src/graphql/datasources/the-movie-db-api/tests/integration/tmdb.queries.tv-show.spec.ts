@@ -10,7 +10,6 @@ import {
   tvShowDetail,
 } from '../../../../../__tests__/mocks/tvshows.stub';
 import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
-import { review } from '../../../../../__tests__/mocks/review.stub';
 import { tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../../../../types';
@@ -180,6 +179,12 @@ const GET_TV_SHOW_DETAIL = gql`
       number_of_episodes
       number_of_seasons
       origin_country
+      reviews {
+        author
+        content
+        id
+        url
+      }
     }
   }
 `;
@@ -188,24 +193,6 @@ const GET_TV_SHOW_IMAGES = gql`
   query TVShowImages($id: ID!) {
     tv_show(id: $id) {
       images(id: $id)
-    }
-  }
-`;
-
-const GET_TV_SHOW_REVIEWS = gql`
-  query TVShowReviews($id: ID!, $reviewsPage: Int!, $language: ISO6391Language) {
-    tv_show(id: $id) {
-      reviews(id: $id, reviewsPage: $reviewsPage, language: $language) {
-        total_results
-        total_pages
-        hasMore
-        items {
-          author
-          content
-          id
-          url
-        }
-      }
     }
   }
 `;
@@ -235,78 +222,6 @@ jest.mock('apollo-datasource-rest', () => {
 describe('Integration: DataSources-TVShow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-
-  describe('Query - TV Show Reviews', () => {
-    it('should query the reviews of a tv show from TheMovieDB API and returns the result correctly', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce({
-        id: 1,
-        page: 1,
-        results: [review],
-        total_pages: 1,
-        total_results: 1,
-      });
-
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
-
-      const { data } = await query({
-        query: GET_TV_SHOW_REVIEWS,
-        variables: { id: '1', reviewsPage: 1, language: Iso6391Language.Ptbr },
-      });
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
-        append_to_response: 'credits,similar,videos',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/reviews', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'pt-br',
-        page: 1,
-      });
-
-      expect(data!.tv_show.reviews).toMatchSnapshot();
-    });
-
-    it('fetches the reviews of a tv show from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce({
-        id: 1,
-        page: 1,
-        results: [review],
-        total_pages: 2,
-        total_results: 2,
-      });
-
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
-
-      const { data } = await query({
-        query: GET_TV_SHOW_REVIEWS,
-        variables: { id: '1', reviewsPage: 1, language: Iso6391Language.Ptbr },
-      });
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
-        append_to_response: 'credits,similar,videos',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/reviews', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'pt-br',
-        page: 1,
-      });
-
-      expect(data!.tv_show.reviews).toMatchSnapshot();
-    });
   });
 
   describe('Query - Trending TV Shows', () => {
@@ -522,7 +437,7 @@ describe('Integration: DataSources-TVShow', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
-        append_to_response: 'credits,similar,videos',
+        append_to_response: 'credits,similar,videos,reviews',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'pt-br',
       });
@@ -552,7 +467,7 @@ describe('Integration: DataSources-TVShow', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
-        append_to_response: 'credits,similar,videos',
+        append_to_response: 'credits,similar,videos,reviews',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
@@ -581,7 +496,7 @@ describe('Integration: DataSources-TVShow', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
-        append_to_response: 'credits,similar,videos',
+        append_to_response: 'credits,similar,videos,reviews',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });

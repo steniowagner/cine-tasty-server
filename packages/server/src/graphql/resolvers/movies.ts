@@ -15,11 +15,10 @@ import {
   CastItem,
   CrewItem,
   MediaVideo,
-  MovieReviewsArgs,
-  ReviewsQueryResultResolvers,
   SimilarMoviesQueryResultResolvers,
   MovieSimilarArgs,
   MovieImagesArgs,
+  Review,
 } from '../../lib/types';
 import {
   Context,
@@ -27,6 +26,7 @@ import {
   MediaItem,
   MediaCredits,
   TrendingMoviesEndpoints,
+  BasePaginationResponse,
 } from '../../types';
 
 const mediaGenres = new MediaGenresHandler();
@@ -34,6 +34,8 @@ const mediaGenres = new MediaGenresHandler();
 type MovieVideos = {
   results: MediaVideo[];
 };
+
+type MovieReview = BasePaginationResponse & { results: Review[] };
 
 const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
 
@@ -92,11 +94,7 @@ const resolvers: QueryResolvers = {
       { dataSources }: Context,
     ): Promise<string[]> => dataSources.tmdb.getMovieImages(id),
 
-    reviews: (
-      _: {},
-      args: MovieReviewsArgs,
-      { dataSources }: Context,
-    ): ReviewsQueryResultResolvers => dataSources.tmdb.getMovieReviews(args),
+    reviews: ({ reviews }: { reviews: MovieReview }): Review[] => reviews.results,
 
     similar: (
       _: {},

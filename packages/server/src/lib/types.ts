@@ -487,12 +487,12 @@ export type Movie = {
   homepage?: Maybe<Scalars['String']>,
   revenue?: Maybe<Scalars['Float']>,
   production_countries: Array<Scalars['String']>,
-  similar: SimilarMoviesQueryResult,
-  reviews: ReviewsQueryResult,
   cast: Array<CastItem>,
   crew: Array<CrewItem>,
   videos: Array<MediaVideo>,
   images: Array<Scalars['String']>,
+  similar: SimilarMoviesQueryResult,
+  reviews: Array<Review>,
 };
 
 
@@ -501,22 +501,15 @@ export type MovieGenresArgs = {
 };
 
 
+export type MovieImagesArgs = {
+  id: Scalars['ID']
+};
+
+
 export type MovieSimilarArgs = {
   id: Scalars['ID'],
   similarsPage: Scalars['Int'],
   language?: Maybe<Iso6391Language>
-};
-
-
-export type MovieReviewsArgs = {
-  id: Scalars['ID'],
-  reviewsPage: Scalars['Int'],
-  language?: Maybe<Iso6391Language>
-};
-
-
-export type MovieImagesArgs = {
-  id: Scalars['ID']
 };
 
 export type Network = {
@@ -616,20 +609,12 @@ export type QuerySearchArgs = {
   language?: Maybe<Iso6391Language>
 };
 
-export type ReviewItem = {
-   __typename?: 'ReviewItem',
+export type Review = {
+   __typename?: 'Review',
   author?: Maybe<Scalars['String']>,
   content?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['ID']>,
   url?: Maybe<Scalars['String']>,
-};
-
-export type ReviewsQueryResult = {
-   __typename?: 'ReviewsQueryResult',
-  total_results: Scalars['Int'],
-  total_pages: Scalars['Int'],
-  items: Array<ReviewItem>,
-  hasMore: Scalars['Boolean'],
 };
 
 export type SearchQueryResult = {
@@ -785,7 +770,7 @@ export type TvShow = {
   origin_country: Array<Scalars['String']>,
   similar: Array<BaseTvShow>,
   images: Array<Scalars['String']>,
-  reviews: ReviewsQueryResult,
+  reviews: Array<Review>,
 };
 
 
@@ -796,13 +781,6 @@ export type TvShowGenresArgs = {
 
 export type TvShowImagesArgs = {
   id: Scalars['ID']
-};
-
-
-export type TvShowReviewsArgs = {
-  id: Scalars['ID'],
-  reviewsPage: Scalars['Int'],
-  language?: Maybe<Iso6391Language>
 };
 
 
@@ -903,8 +881,7 @@ export type ResolversTypes = ResolversObject<{
   Thumbnail: ResolverTypeWrapper<Thumbnail>,
   CastItem: ResolverTypeWrapper<CastItem>,
   CrewItem: ResolverTypeWrapper<CrewItem>,
-  ReviewsQueryResult: ResolverTypeWrapper<ReviewsQueryResult>,
-  ReviewItem: ResolverTypeWrapper<ReviewItem>,
+  Review: ResolverTypeWrapper<Review>,
   Movie: ResolverTypeWrapper<Movie>,
   SimilarMoviesQueryResult: ResolverTypeWrapper<SimilarMoviesQueryResult>,
   ArticleLanguage: ArticleLanguage,
@@ -952,8 +929,7 @@ export type ResolversParentTypes = ResolversObject<{
   Thumbnail: Thumbnail,
   CastItem: CastItem,
   CrewItem: CrewItem,
-  ReviewsQueryResult: ReviewsQueryResult,
-  ReviewItem: ReviewItem,
+  Review: Review,
   Movie: Movie,
   SimilarMoviesQueryResult: SimilarMoviesQueryResult,
   ArticleLanguage: ArticleLanguage,
@@ -1167,12 +1143,12 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   revenue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>,
   production_countries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
-  similar?: Resolver<ResolversTypes['SimilarMoviesQueryResult'], ParentType, ContextType, RequireFields<MovieSimilarArgs, 'id' | 'similarsPage'>>,
-  reviews?: Resolver<ResolversTypes['ReviewsQueryResult'], ParentType, ContextType, RequireFields<MovieReviewsArgs, 'id' | 'reviewsPage'>>,
   cast?: Resolver<Array<ResolversTypes['CastItem']>, ParentType, ContextType>,
   crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>,
   videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType>,
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MovieImagesArgs, 'id'>>,
+  similar?: Resolver<ResolversTypes['SimilarMoviesQueryResult'], ParentType, ContextType, RequireFields<MovieSimilarArgs, 'id' | 'similarsPage'>>,
+  reviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType>,
 }>;
 
 export type NetworkResolvers<ContextType = any, ParentType extends ResolversParentTypes['Network'] = ResolversParentTypes['Network']> = ResolversObject<{
@@ -1231,18 +1207,11 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'page' | 'query' | 'type'>>,
 }>;
 
-export type ReviewItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReviewItem'] = ResolversParentTypes['ReviewItem']> = ResolversObject<{
+export type ReviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = ResolversObject<{
   author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>,
   url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
-}>;
-
-export type ReviewsQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['ReviewsQueryResult'] = ResolversParentTypes['ReviewsQueryResult']> = ResolversObject<{
-  total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  total_pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  items?: Resolver<Array<ResolversTypes['ReviewItem']>, ParentType, ContextType>,
-  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
 }>;
 
 export type SearchQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchQueryResult'] = ResolversParentTypes['SearchQueryResult']> = ResolversObject<{
@@ -1340,7 +1309,7 @@ export type TvShowResolvers<ContextType = any, ParentType extends ResolversParen
   origin_country?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
   similar?: Resolver<Array<ResolversTypes['BaseTVShow']>, ParentType, ContextType>,
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowImagesArgs, 'id'>>,
-  reviews?: Resolver<ResolversTypes['ReviewsQueryResult'], ParentType, ContextType, RequireFields<TvShowReviewsArgs, 'id' | 'reviewsPage'>>,
+  reviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType>,
 }>;
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -1368,8 +1337,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   PersonKnowFor?: PersonKnowForResolvers,
   ProductionCompany?: ProductionCompanyResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
-  ReviewItem?: ReviewItemResolvers<ContextType>,
-  ReviewsQueryResult?: ReviewsQueryResultResolvers<ContextType>,
+  Review?: ReviewResolvers<ContextType>,
   SearchQueryResult?: SearchQueryResultResolvers<ContextType>,
   SearchResultItem?: SearchResultItemResolvers,
   Season?: SeasonResolvers<ContextType>,

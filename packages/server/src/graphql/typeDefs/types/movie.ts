@@ -32,16 +32,18 @@ export default gql`
     homepage: String
     revenue: Float
     production_countries: [String!]!
+    cast: [CastItem!]!
+    crew: [CrewItem!]!
+    videos: [MediaVideo!]!
+    images(id: ID!): [String!]!
+
     similar(
       id: ID!
       similarsPage: Int!
       language: ISO6391Language
     ): SimilarMoviesQueryResult!
-    reviews(id: ID!, reviewsPage: Int!, language: ISO6391Language): ReviewsQueryResult!
-    cast: [CastItem!]!
-    crew: [CrewItem!]!
-    videos: [MediaVideo!]!
-    images(id: ID!): [String!]!
+
+    reviews: [Review!]!
   }
 
   type BaseMovie {

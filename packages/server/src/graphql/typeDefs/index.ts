@@ -7,7 +7,7 @@ import article from './types/article';
 import person from './types/person';
 import movie from './types/movie';
 import search from './types/search';
-import reviews from './types/reviews';
+import review from './types/review';
 import tvshow from './types/tvshow';
 import video from './types/mediaVideo';
 import queries from './queries';
@@ -18,7 +18,7 @@ export default [
   productionCompany,
   search,
   tvshow,
-  reviews,
+  review,
   video,
   article,
   cast,
