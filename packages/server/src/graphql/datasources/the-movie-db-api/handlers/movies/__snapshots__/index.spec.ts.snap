@@ -79,6 +79,31 @@ Object {
     "total_results": 1,
   },
   "runtime": 123,
+  "similar": Object {
+    "page": 1,
+    "results": Array [
+      Object {
+        "adult": false,
+        "backdrop_path": "/backdrop_path.jpg",
+        "genre_ids": Array [
+          2,
+        ],
+        "id": 530915,
+        "original_language": "original_language",
+        "original_title": "original_title",
+        "overview": "overview",
+        "popularity": 222.017,
+        "poster_path": "/poster_path.jpg",
+        "release_date": "release_date",
+        "title": "title",
+        "video": false,
+        "vote_average": 8.1,
+        "vote_count": 1530,
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
   "spoken_languages": Array [
     Object {
       "iso_639_1": "iso_639_1",

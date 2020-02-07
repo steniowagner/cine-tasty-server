@@ -491,7 +491,7 @@ export type Movie = {
   crew: Array<CrewItem>,
   videos: Array<MediaVideo>,
   images: Array<Scalars['String']>,
-  similar: SimilarMoviesQueryResult,
+  similar: Array<BaseMovie>,
   reviews: Array<Review>,
 };
 
@@ -503,13 +503,6 @@ export type MovieGenresArgs = {
 
 export type MovieImagesArgs = {
   id: Scalars['ID']
-};
-
-
-export type MovieSimilarArgs = {
-  id: Scalars['ID'],
-  similarsPage: Scalars['Int'],
-  language?: Maybe<Iso6391Language>
 };
 
 export type Network = {
@@ -641,14 +634,6 @@ export type Season = {
   overview?: Maybe<Scalars['String']>,
   poster_path?: Maybe<Scalars['String']>,
   season_number?: Maybe<Scalars['Int']>,
-};
-
-export type SimilarMoviesQueryResult = {
-   __typename?: 'SimilarMoviesQueryResult',
-  total_results: Scalars['Int'],
-  total_pages: Scalars['Int'],
-  items: Array<BaseMovie>,
-  hasMore: Scalars['Boolean'],
 };
 
 export type Thumbnail = {
@@ -883,7 +868,6 @@ export type ResolversTypes = ResolversObject<{
   CrewItem: ResolverTypeWrapper<CrewItem>,
   Review: ResolverTypeWrapper<Review>,
   Movie: ResolverTypeWrapper<Movie>,
-  SimilarMoviesQueryResult: ResolverTypeWrapper<SimilarMoviesQueryResult>,
   ArticleLanguage: ArticleLanguage,
   ArticleQueryResult: ResolverTypeWrapper<ArticleQueryResult>,
   Article: ResolverTypeWrapper<Article>,
@@ -931,7 +915,6 @@ export type ResolversParentTypes = ResolversObject<{
   CrewItem: CrewItem,
   Review: Review,
   Movie: Movie,
-  SimilarMoviesQueryResult: SimilarMoviesQueryResult,
   ArticleLanguage: ArticleLanguage,
   ArticleQueryResult: ArticleQueryResult,
   Article: Article,
@@ -1147,7 +1130,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>,
   videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType>,
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MovieImagesArgs, 'id'>>,
-  similar?: Resolver<ResolversTypes['SimilarMoviesQueryResult'], ParentType, ContextType, RequireFields<MovieSimilarArgs, 'id' | 'similarsPage'>>,
+  similar?: Resolver<Array<ResolversTypes['BaseMovie']>, ParentType, ContextType>,
   reviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType>,
 }>;
 
@@ -1232,13 +1215,6 @@ export type SeasonResolvers<ContextType = any, ParentType extends ResolversParen
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   season_number?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
-}>;
-
-export type SimilarMoviesQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SimilarMoviesQueryResult'] = ResolversParentTypes['SimilarMoviesQueryResult']> = ResolversObject<{
-  total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  total_pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>,
-  items?: Resolver<Array<ResolversTypes['BaseMovie']>, ParentType, ContextType>,
-  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>,
 }>;
 
 export type ThumbnailResolvers<ContextType = any, ParentType extends ResolversParentTypes['Thumbnail'] = ResolversParentTypes['Thumbnail']> = ResolversObject<{
@@ -1341,7 +1317,6 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   SearchQueryResult?: SearchQueryResultResolvers<ContextType>,
   SearchResultItem?: SearchResultItemResolvers,
   Season?: SeasonResolvers<ContextType>,
-  SimilarMoviesQueryResult?: SimilarMoviesQueryResultResolvers<ContextType>,
   Thumbnail?: ThumbnailResolvers<ContextType>,
   TrendingMovies?: TrendingMoviesResolvers<ContextType>,
   TrendingMoviesQueryResult?: TrendingMoviesQueryResultResolvers<ContextType>,

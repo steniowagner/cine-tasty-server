@@ -73,7 +73,6 @@ export default gql`
     origin_country: [String!]!
     similar: [BaseTVShow!]!
     images(id: ID!): [String!]!
-
     reviews: [Review!]!
   }
 

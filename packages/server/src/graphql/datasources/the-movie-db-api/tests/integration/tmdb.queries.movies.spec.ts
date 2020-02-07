@@ -8,7 +8,6 @@ import { TrendingMoviesEndpoints } from '../../../../../types';
 import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
 import {
   rawMovie,
-  movie,
   rawMovieDetail,
   movieDetail,
 } from '../../../../../__tests__/mocks/movies.stub';
@@ -141,33 +140,21 @@ const GET_MOVIE_DETAIL = gql`
         id
         url
       }
-    }
-  }
-`;
-
-const GET_MOVIE_SIMILARS = gql`
-  query MovieSimilars($id: ID!, $similarsPage: Int!) {
-    movie(id: $id) {
-      similar(id: $id, similarsPage: $similarsPage) {
-        total_results
-        total_pages
-        hasMore
-        items {
-          original_title
-          video
-          title
-          adult
-          release_date
-          backdrop_path
-          genre_ids
-          overview
-          vote_average
-          poster_path
-          popularity
-          original_language
-          vote_count
-          id
-        }
+      similar {
+        original_title
+        video
+        title
+        adult
+        release_date
+        backdrop_path
+        genre_ids
+        overview
+        vote_average
+        poster_path
+        popularity
+        original_language
+        vote_count
+        id
       }
     }
   }
@@ -224,7 +211,7 @@ describe('Integration: DataSources-Movies', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews',
+        append_to_response: 'videos,credits,reviews,similar',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
@@ -253,7 +240,7 @@ describe('Integration: DataSources-Movies', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews',
+        append_to_response: 'videos,credits,reviews,similar',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
@@ -266,98 +253,11 @@ describe('Integration: DataSources-Movies', () => {
     });
   });
 
-  describe('Query - Similar Movies', () => {
-    it('should query similar movies of a movie from TheMovieDB API and returns the result correctly', async () => {
-      mockRestDataSourceGet
-        .mockReturnValueOnce({})
-        .mockReturnValueOnce({
-          id: 1,
-          page: 1,
-          results: [rawMovie],
-          total_pages: 1,
-          total_results: 1,
-        })
-        .mockReturnValueOnce({ genres: movieGenres });
-
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
-
-      const { data } = await query({
-        query: GET_MOVIE_SIMILARS,
-        variables: { id: '1', similarsPage: 1 },
-      });
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/similar', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      });
-
-      expect(data!.movie.similar).toEqual({
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [movie],
-      });
-    });
-
-    it('should query the similar movies of a movie from TheMovieDB API and returns the result correctly and returns hasMore field as true when has more items to be pagianted', async () => {
-      mockRestDataSourceGet
-        .mockReturnValueOnce({ similars: {} })
-        .mockReturnValueOnce({
-          id: 1,
-          page: 1,
-          results: [rawMovie],
-          total_pages: 2,
-          total_results: 2,
-        })
-        .mockReturnValueOnce({ genres: movieGenres });
-
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
-
-      const { data } = await query({
-        query: GET_MOVIE_SIMILARS,
-        variables: { id: '1', similarsPage: 1 },
-      });
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/similar', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-        page: 1,
-      });
-
-      expect(data!.movie.similar).toEqual({
-        hasMore: true,
-        total_pages: 2,
-        total_results: 2,
-        items: [movie],
-      });
-    });
-  });
-
   describe('Query - Movie Detail', () => {
     it('should query the details of a movie from TheMovieDB API and returns the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce(rawMovieDetail)
+        .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: movieGenres });
 
       const server = makeTestServer();
@@ -369,10 +269,10 @@ describe('Integration: DataSources-Movies', () => {
         variables: { id: 1, language: 'PTBR' },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews',
+        append_to_response: 'videos,credits,reviews,similar',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'pt-br',
       });

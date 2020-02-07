@@ -20,10 +20,8 @@ import {
   QueryPeopleArgs,
   QueryMovieArgs,
   Movie,
-  MovieSimilarArgs,
   TrendingMoviesArgs,
   QueryTv_ShowArgs as QueryTvShowArgs,
-  SimilarMoviesQueryResult,
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
   TvShow,
@@ -37,7 +35,6 @@ import {
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
-  getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
   getTrendingMoviesItem: (
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
@@ -123,10 +120,6 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
     return this.moviesHandler.getTrendingItem(args, endpoint);
-  }
-
-  async getSimilarMovies(args: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
-    return this.moviesHandler.getSimilars(args);
   }
 
   async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {

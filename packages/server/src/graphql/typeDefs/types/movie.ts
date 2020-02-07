@@ -1,13 +1,6 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-  type SimilarMoviesQueryResult {
-    total_results: Int!
-    total_pages: Int!
-    items: [BaseMovie!]!
-    hasMore: Boolean!
-  }
-
   type Movie {
     adult: Boolean
     backdrop_path: String
@@ -36,13 +29,7 @@ export default gql`
     crew: [CrewItem!]!
     videos: [MediaVideo!]!
     images(id: ID!): [String!]!
-
-    similar(
-      id: ID!
-      similarsPage: Int!
-      language: ISO6391Language
-    ): SimilarMoviesQueryResult!
-
+    similar: [BaseMovie!]!
     reviews: [Review!]!
   }
 

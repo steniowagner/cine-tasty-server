@@ -4,8 +4,6 @@ import {
   TrendingMoviesQueryResult,
   QueryMovieArgs,
   Movie,
-  SimilarMoviesQueryResult,
-  MovieSimilarArgs,
   TrendingMoviesArgs,
 } from '../../../../../lib/types';
 import {
@@ -24,7 +22,6 @@ type GetBaseMovieResponse = BasePaginationResponse & {
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
 export interface Props {
-  getSimilars(params: MovieSimilarArgs): Promise<SimilarMoviesQueryResult>;
   getMovie: (params: QueryMovieArgs) => Promise<Movie | null>;
   getTrendingItem: (
     params: TrendingMoviesArgs,
@@ -46,7 +43,7 @@ class MovieHandler implements Props {
       Promise<Movie & { status_code?: number }>
     >(
       `${BASE_ENDPOINT}/${id}`,
-      { append_to_response: 'videos,credits,reviews' },
+      { append_to_response: 'videos,credits,reviews,similar' },
       language,
     );
 
@@ -55,30 +52,6 @@ class MovieHandler implements Props {
     }
 
     return result;
-  }
-
-  async getSimilars({
-    id,
-    similarsPage,
-    language,
-  }: MovieSimilarArgs): Promise<SimilarMoviesQueryResult> {
-    const { total_pages: totalPages, total_results, results } = await this.get<
-      GetRequestParams,
-      Promise<GetBaseMovieResponse>
-    >(
-      `${BASE_ENDPOINT}/${id}/similar`,
-      {
-        page: similarsPage,
-      },
-      language,
-    );
-
-    return {
-      hasMore: similarsPage < totalPages,
-      total_pages: totalPages,
-      total_results,
-      items: results,
-    };
   }
 
   async getTrendingItem(

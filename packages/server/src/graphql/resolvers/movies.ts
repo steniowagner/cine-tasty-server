@@ -15,10 +15,9 @@ import {
   CastItem,
   CrewItem,
   MediaVideo,
-  SimilarMoviesQueryResultResolvers,
-  MovieSimilarArgs,
   MovieImagesArgs,
   Review,
+  BaseMovie,
 } from '../../lib/types';
 import {
   Context,
@@ -33,6 +32,10 @@ const mediaGenres = new MediaGenresHandler();
 
 type MovieVideos = {
   results: MediaVideo[];
+};
+
+type SimilarMovies = {
+  results: BaseMovie[];
 };
 
 type MovieReview = BasePaginationResponse & { results: Review[] };
@@ -96,11 +99,7 @@ const resolvers: QueryResolvers = {
 
     reviews: ({ reviews }: { reviews: MovieReview }): Review[] => reviews.results,
 
-    similar: (
-      _: {},
-      args: MovieSimilarArgs,
-      { dataSources }: Context,
-    ): SimilarMoviesQueryResultResolvers => dataSources.tmdb.getSimilarMovies(args),
+    similar: ({ similar }: { similar: SimilarMovies }): BaseMovie[] => similar.results,
 
     videos: ({ videos }: { videos: MovieVideos }): MediaVideo[] =>
       videos.results

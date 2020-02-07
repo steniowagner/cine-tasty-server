@@ -176,7 +176,7 @@ describe('Unity: MovieHandler', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         'movie/1',
         {
-          append_to_response: 'videos,credits,reviews',
+          append_to_response: 'videos,credits,reviews,similar',
         },
         'PTBR',
       );
@@ -201,7 +201,7 @@ describe('Unity: MovieHandler', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         'movie/1',
         {
-          append_to_response: 'videos,credits,reviews',
+          append_to_response: 'videos,credits,reviews,similar',
         },
         'PTBR',
       );
@@ -209,82 +209,6 @@ describe('Unity: MovieHandler', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(result).toBeNull();
-    });
-  });
-
-  describe('getSimilars()', () => {
-    it('should get similar movies of a movie with certain id from TheMovideDB API', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({
-        id: 1,
-        page: 1,
-        results: [rawMovie],
-        total_pages: 1,
-        total_results: 1,
-      });
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
-
-      const result = await movieHandler.getSimilars({
-        id: '1',
-        similarsPage: 1,
-        language: Iso6391Language.Ptbr,
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'movie/1/similar',
-        {
-          page: 1,
-        },
-        'PTBR',
-      );
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-
-      expect(result).toEqual({
-        hasMore: false,
-        total_pages: 1,
-        total_results: 1,
-        items: [rawMovie],
-      });
-
-      expect(result.hasMore).toEqual(false);
-    });
-
-    it('should get similar movies of a movie with certain id from TheMovideDB API and return hasMore as true when has more items to be paginated', async () => {
-      mockRestDataSourceGet.mockReturnValueOnce({
-        id: 1,
-        page: 1,
-        results: [rawMovie],
-        total_pages: 2,
-        total_results: 2,
-      });
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
-
-      const result = await movieHandler.getSimilars({
-        id: '1',
-        similarsPage: 1,
-        language: Iso6391Language.Ptbr,
-      });
-
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'movie/1/similar',
-        {
-          page: 1,
-        },
-        'PTBR',
-      );
-
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
-
-      expect(result).toEqual({
-        hasMore: true,
-        total_pages: 2,
-        total_results: 2,
-        items: [rawMovie],
-      });
-
-      expect(result.hasMore).toEqual(true);
     });
   });
 });

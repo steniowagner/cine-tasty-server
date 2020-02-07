@@ -131,6 +131,12 @@ export const rawMovieDetail = {
     total_pages: 1,
     total_results: 1,
   },
+  similar: {
+    page: 1,
+    total_pages: 1,
+    total_results: 1,
+    results: [rawMovie],
+  },
 };
 
 export const movieDetail = {
@@ -198,4 +204,5 @@ export const movieDetail = {
     },
   ],
   reviews: [review],
+  similar: [movie],
 };
