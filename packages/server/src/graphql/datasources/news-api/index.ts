@@ -13,6 +13,11 @@ export interface Props {
   getArticles: (args: QueryArticlesArgs) => Promise<ArticleQueryResult>;
 }
 
+type GetRequestResponse = {
+  articles: GetArticlesResultItem[];
+  status: string;
+};
+
 class NewsAPI extends RESTDataSource implements Props {
   constructor() {
     super();
@@ -22,7 +27,7 @@ class NewsAPI extends RESTDataSource implements Props {
   async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticleQueryResult> {
     const params = getRequestParams(page, language);
 
-    const { status, articles } = await this.get(ENDPOINT, params);
+    const { status, articles } = await this.get<GetRequestResponse>(ENDPOINT, params);
 
     if (status !== STATUS_OK) {
       return {

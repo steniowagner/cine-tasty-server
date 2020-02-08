@@ -90,7 +90,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
       };
     }
 
-    const result = await this.get(endpoint, requestParams);
+    const result = await this.get<R & { status_code?: number }>(endpoint, requestParams);
 
     if (result.status_code === INVALID_API_KEY_CODE) {
       throw new InvalidTMDBApiKey();
