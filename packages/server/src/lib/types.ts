@@ -561,6 +561,7 @@ export type Query = {
   articles: ArticleQueryResult,
   people: PeopleQueryResult,
   person?: Maybe<Person>,
+  quiz: Array<Question>,
   search: SearchQueryResult,
 };
 
@@ -595,11 +596,50 @@ export type QueryPersonArgs = {
 };
 
 
+export type QueryQuizArgs = {
+  input: QuizInput
+};
+
+
 export type QuerySearchArgs = {
   page: Scalars['Int'],
   query: Scalars['String'],
   type: SearchType,
   language?: Maybe<Iso6391Language>
+};
+
+export type Question = {
+   __typename?: 'Question',
+  incorrect_answers: Array<Scalars['String']>,
+  category: Scalars['String'],
+  type: Scalars['String'],
+  difficulty: Scalars['String'],
+  question: Scalars['String'],
+  correct_answer: Scalars['String'],
+};
+
+export enum QuestionCategory {
+  Movie = 'MOVIE',
+  Tv = 'TV'
+}
+
+export enum QuestionDifficulty {
+  Easy = 'EASY',
+  Hard = 'HARD',
+  Any = 'ANY'
+}
+
+export enum QuestionType {
+  Multiple = 'MULTIPLE',
+  Boolean = 'BOOLEAN',
+  Any = 'ANY'
+}
+
+export type QuizInput = {
+  difficulty: QuestionDifficulty,
+  type: QuestionType,
+  category: QuestionCategory,
+  number_questions: Scalars['Int'],
 };
 
 export type Review = {
@@ -876,6 +916,11 @@ export type ResolversTypes = ResolversObject<{
   PersonKnowFor: ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
   Person: ResolverTypeWrapper<Person>,
   Cast: ResolverTypeWrapper<Cast>,
+  QuizInput: QuizInput,
+  QuestionDifficulty: QuestionDifficulty,
+  QuestionType: QuestionType,
+  QuestionCategory: QuestionCategory,
+  Question: ResolverTypeWrapper<Question>,
   SearchType: SearchType,
   SearchQueryResult: ResolverTypeWrapper<Omit<SearchQueryResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
   SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
@@ -923,6 +968,11 @@ export type ResolversParentTypes = ResolversObject<{
   PersonKnowFor: ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
   Person: Person,
   Cast: Cast,
+  QuizInput: QuizInput,
+  QuestionDifficulty: QuestionDifficulty,
+  QuestionType: QuestionType,
+  QuestionCategory: QuestionCategory,
+  Question: Question,
   SearchType: SearchType,
   SearchQueryResult: Omit<SearchQueryResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
   SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
@@ -1187,7 +1237,17 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
   person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'id'>>,
+  quiz?: Resolver<Array<ResolversTypes['Question']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>,
   search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'page' | 'query' | 'type'>>,
+}>;
+
+export type QuestionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Question'] = ResolversParentTypes['Question']> = ResolversObject<{
+  incorrect_answers?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>,
+  category?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  difficulty?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  question?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  correct_answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
 }>;
 
 export type ReviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = ResolversObject<{
@@ -1313,6 +1373,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   PersonKnowFor?: PersonKnowForResolvers,
   ProductionCompany?: ProductionCompanyResolvers<ContextType>,
   Query?: QueryResolvers<ContextType>,
+  Question?: QuestionResolvers<ContextType>,
   Review?: ReviewResolvers<ContextType>,
   SearchQueryResult?: SearchQueryResultResolvers<ContextType>,
   SearchResultItem?: SearchResultItemResolvers,

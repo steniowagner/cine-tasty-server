@@ -11,10 +11,12 @@ import review from './types/review';
 import tvshow from './types/tvshow';
 import video from './types/mediaVideo';
 import queries from './queries';
+import quiz from './types/quiz';
 
 export default [
   root,
   movie,
+  quiz,
   productionCompany,
   search,
   tvshow,

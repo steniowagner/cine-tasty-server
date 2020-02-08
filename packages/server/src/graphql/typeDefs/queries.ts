@@ -9,6 +9,7 @@ export default gql`
     articles(page: Int!, language: ArticleLanguage): ArticleQueryResult!
     people(page: Int!, language: ISO6391Language): PeopleQueryResult!
     person(id: Int!, language: ISO6391Language): Person
+    quiz(input: QuizInput!): [Question!]!
     search(
       page: Int!
       query: String!

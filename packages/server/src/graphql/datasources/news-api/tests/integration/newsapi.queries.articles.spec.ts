@@ -18,10 +18,10 @@ jest.mock('apollo-datasource-rest', () => {
 import {
   rawArticleWithId,
   articleWithId,
-} from '../../../../__tests__/mocks/articles.stub';
-import resolvers from '../../../resolvers';
-import typeDefs from '../../../typeDefs';
-import NewsAPI from '..';
+} from '../../../../../__tests__/mocks/articles.stub';
+import resolvers from '../../../../resolvers';
+import typeDefs from '../../../../typeDefs';
+import NewsAPI from '../..';
 
 const GET_ARTICLES = gql`
   query GetArticles($page: Int!) {
