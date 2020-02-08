@@ -8,11 +8,10 @@ const mockRestDataSourceGet = jest.fn();
 
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
+import CONSTANTS from '../../utils/constants';
 import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
 
-const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
-const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
 
@@ -128,15 +127,21 @@ describe('Integration: DataSources-People', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.GENRE_MOVIE_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.GENRE_TV_SHOW_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(data!.people).toEqual({
         total_pages: 1,
@@ -176,15 +181,21 @@ describe('Integration: DataSources-People', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_MOVIE_ENDPOINT}`, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.GENRE_MOVIE_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${GENRE_TV_SHOW_ENDPOINT}`, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.GENRE_TV_SHOW_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(data!.people).toEqual({
         total_pages: 2,

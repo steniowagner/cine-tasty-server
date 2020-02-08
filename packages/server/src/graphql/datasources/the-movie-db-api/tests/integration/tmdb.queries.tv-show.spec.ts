@@ -15,11 +15,9 @@ import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../../../../types';
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
-import typeDefs from '../../../../typeDefs';
 import CONSTANTS from '../../utils/constants';
+import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
-
-const GENRE_TV_ENDPOINT = '/genre/tv/list';
 
 const GET_TRENDING_TV_SHOWS = gql`
   fragment TrendingTVShowItem on BaseTVShow {
@@ -284,20 +282,29 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(data!.trending_tv_shows).toEqual({
         on_the_air: {
@@ -380,20 +387,29 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(data!.trending_tv_shows).toEqual({
         on_the_air: {
@@ -436,16 +452,19 @@ describe('Integration: DataSources-TVShow', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${CONSTANTS.TV_ENDPOINT}/1`, {
         append_to_response: 'credits,similar,videos,reviews',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'pt-br',
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_TV_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(data!.tv_show).toEqual(tvShowDetail);
     });
@@ -466,15 +485,18 @@ describe('Integration: DataSources-TVShow', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${CONSTANTS.TV_ENDPOINT}/1`, {
         append_to_response: 'credits,similar,videos,reviews',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.TV_ENDPOINT}/1/${CONSTANTS.TV_IMAGES_RESOURCE_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+        },
+      );
 
       expect(data!.tv_show.images).toEqual(images);
     });
@@ -495,15 +517,18 @@ describe('Integration: DataSources-TVShow', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1', {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${CONSTANTS.TV_ENDPOINT}/1`, {
         append_to_response: 'credits,similar,videos,reviews',
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.TV_ENDPOINT}/1/${CONSTANTS.TV_IMAGES_RESOURCE_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+        },
+      );
 
       expect(data!.tv_show.images).toEqual([]);
     });

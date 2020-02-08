@@ -20,7 +20,11 @@ describe('Unity: MovieHandler', () => {
 
       const result = await movieHandler.getImages('1');
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {}, null);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+        {},
+        null,
+      );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
@@ -34,7 +38,11 @@ describe('Unity: MovieHandler', () => {
 
       const result = await movieHandler.getImages('1');
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {}, null);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+        {},
+        null,
+      );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
@@ -162,7 +170,7 @@ describe('Unity: MovieHandler', () => {
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'movie/1',
+        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
         {
           append_to_response: 'videos,credits,reviews,similar',
         },
@@ -185,7 +193,7 @@ describe('Unity: MovieHandler', () => {
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'movie/1',
+        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
         {
           append_to_response: 'videos,credits,reviews,similar',
         },

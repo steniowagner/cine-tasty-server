@@ -5,10 +5,7 @@ import {
   GetTMDBApiRequest,
 } from '../../../../../types';
 import { getPersonProfileImages } from '../../helpers';
-
-const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
-const APPEND_TO_RESPONSE_IMAGES_KEY = 'images';
-const PERSON_ENDPOINT = '/person';
+import CONSTANTS from '../../utils/constants';
 
 type GetPersonResponse = Omit<Person, 'images'> & {
   images: GetPersonImagesResult;
@@ -33,11 +30,15 @@ class PersonHandler implements Props {
   async getPerson({ language, id }: QueryPersonArgs): Promise<Person | null> {
     const [result, castData] = await Promise.all<GetPersonResponse, GetCastResponse>([
       this.get(
-        `${PERSON_ENDPOINT}/${id}`,
-        { append_to_response: APPEND_TO_RESPONSE_IMAGES_KEY },
+        `${CONSTANTS.PERSON_ENDPOINT}/${id}`,
+        { append_to_response: CONSTANTS.APPEND_TO_RESPONSE_IMAGES_KEY },
         language,
       ),
-      this.get(`${PERSON_ENDPOINT}/${id}${COMBINED_CREDITS_ENDPOINT}`, {}, language),
+      this.get(
+        `${CONSTANTS.PERSON_ENDPOINT}/${id}${CONSTANTS.COMBINED_CREDITS_ENDPOINT}`,
+        {},
+        language,
+      ),
     ]);
 
     if (result.success === false) {

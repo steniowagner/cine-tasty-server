@@ -3,11 +3,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { validateArticleResultItem, getRequestParams, parseArticle } from './helpers';
 import { ArticleQueryResult, QueryArticlesArgs } from '../../../lib/types';
 import { GetArticlesResultItem } from '../../../types';
-
-const BASE_URL = 'http://newsapi.org/v2';
-const ENDPOINT = 'everything';
-const STATUS_OK = 'ok';
-const PAGE_SIZE = 12;
+import CONSTANTS from './utils/constants';
 
 export interface Props {
   getArticles: (args: QueryArticlesArgs) => Promise<ArticleQueryResult>;
@@ -21,15 +17,18 @@ type GetRequestResponse = {
 class NewsAPI extends RESTDataSource implements Props {
   constructor() {
     super();
-    this.baseURL = BASE_URL;
+    this.baseURL = CONSTANTS.BASE_URL;
   }
 
   async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticleQueryResult> {
     const params = getRequestParams(page, language);
 
-    const { status, articles } = await this.get<GetRequestResponse>(ENDPOINT, params);
+    const { status, articles } = await this.get<GetRequestResponse>(
+      CONSTANTS.ENDPOINT,
+      params,
+    );
 
-    if (status !== STATUS_OK) {
+    if (status !== CONSTANTS.STATUS_OK) {
       return {
         hasMore: false,
         items: [],
@@ -41,7 +40,7 @@ class NewsAPI extends RESTDataSource implements Props {
       .map((article: GetArticlesResultItem) => parseArticle(article));
 
     return {
-      hasMore: articles.length === PAGE_SIZE,
+      hasMore: articles.length === CONSTANTS.PAGE_SIZE,
       items: result,
     };
   }

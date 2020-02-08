@@ -12,7 +12,6 @@ import {
   QueryTv_ShowArgs as QueryTvShowArgs,
   TvShow,
 } from '../../../../../lib/types';
-
 type GetBaseTVShowResponse = BasePaginationResponse & {
   results: BaseTvShow[];
 };
@@ -28,8 +27,6 @@ export interface Props {
   getImages(id: string): Promise<string[]>;
 }
 
-const BASE_ENDPOINT = 'tv';
-
 class TVShowHandler implements Props {
   get: GetTMDBApiRequest;
 
@@ -42,7 +39,7 @@ class TVShowHandler implements Props {
       GetRequestParams,
       Promise<TvShow & { status_code?: number }>
     >(
-      `${BASE_ENDPOINT}/${id}`,
+      `${CONSTANTS.TV_ENDPOINT}/${id}`,
       {
         append_to_response: 'credits,similar,videos,reviews',
       },
@@ -60,7 +57,7 @@ class TVShowHandler implements Props {
     const result = await this.get<
       GetRequestParams,
       Promise<GetImagesResponse & { status_code?: number }>
-    >(`${BASE_ENDPOINT}/${id}/images`, {}, null);
+    >(`${CONSTANTS.TV_ENDPOINT}/${id}/images`, {}, null);
 
     if (result.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
       return [];

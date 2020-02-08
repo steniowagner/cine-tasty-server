@@ -39,8 +39,6 @@ const makeTestServer = () => {
   return server;
 };
 
-const ENDPOINT = 'api.php';
-
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
     baseUrl = '';
@@ -84,7 +82,7 @@ describe('Integration: DataSources-OpenTriviaAPI', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        ENDPOINT,
+        CONSTANTS.ENDPOINT,
         `category=${
           CONSTANTS.MOVIE_CATEGORY_CODE
         }&amount=10&difficulty=${QuestionDifficulty.Easy.toLowerCase()}&type=${QuestionType.Multiple.toLowerCase()}`,
@@ -118,7 +116,7 @@ describe('Integration: DataSources-OpenTriviaAPI', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        ENDPOINT,
+        CONSTANTS.ENDPOINT,
         `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=10`,
       );
 
@@ -150,7 +148,7 @@ describe('Integration: DataSources-OpenTriviaAPI', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        ENDPOINT,
+        CONSTANTS.ENDPOINT,
         `category=${
           CONSTANTS.MOVIE_CATEGORY_CODE
         }&amount=10&difficulty=${QuestionDifficulty.Hard.toLowerCase()}`,
@@ -183,7 +181,7 @@ describe('Integration: DataSources-OpenTriviaAPI', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        ENDPOINT,
+        CONSTANTS.ENDPOINT,
         `category=${
           CONSTANTS.MOVIE_CATEGORY_CODE
         }&amount=10&difficulty=${QuestionDifficulty.Easy.toLowerCase()}&type=${QuestionType.Multiple.toLowerCase()}`,

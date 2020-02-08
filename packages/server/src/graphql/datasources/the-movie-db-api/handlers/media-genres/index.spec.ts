@@ -1,10 +1,8 @@
 import { movieGenres, tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import { Iso6391Language, MediaType } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
+import CONSTANTS from '../../utils/constants';
 import MediaGenres from '.';
-
-const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
-const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';
 
 const mockRestDataSourceGet = jest.fn();
 
@@ -41,10 +39,13 @@ describe('Unity: MediaGenres', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(GENRE_MOVIE_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'pt-br',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(
+        CONSTANTS.GENRE_MOVIE_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'pt-br',
+        },
+      );
 
       expect(results).toEqual(movieGenres.map(({ name }) => name));
     });
@@ -58,10 +59,13 @@ describe('Unity: MediaGenres', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(GENRE_MOVIE_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(
+        CONSTANTS.GENRE_MOVIE_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(results).toEqual(movieGenres.map(({ name }) => name));
     });
@@ -79,10 +83,13 @@ describe('Unity: MediaGenres', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(GENRE_TV_SHOW_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'pt-br',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'pt-br',
+        },
+      );
 
       expect(results).toEqual(tvGenres.map(({ name }) => name));
     });
@@ -96,10 +103,13 @@ describe('Unity: MediaGenres', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(GENRE_TV_SHOW_ENDPOINT, {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
       expect(results).toEqual(tvGenres.map(({ name }) => name));
     });

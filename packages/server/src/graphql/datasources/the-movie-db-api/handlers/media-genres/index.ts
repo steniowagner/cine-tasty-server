@@ -4,9 +4,7 @@ import { Iso6391Language, MediaType } from '../../../../../lib/types';
 import { getGenres, formatLanguage } from '../../helpers';
 import { Genres, MediaGenre } from '../../../../../types';
 import env from '../../../../../config/environment';
-
-const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
-const GENRE_TV_SHOW_ENDPOINT = '/genre/tv/list';
+import CONSTANTS from '../../utils/constants';
 
 export interface Props {
   load: (language?: Iso6391Language | null) => Promise<Genres>;
@@ -35,11 +33,11 @@ class MediaGenres extends RESTDataSource {
     let endpoint = '';
 
     if (mediaType.toLowerCase() === MediaType.Movie.toLowerCase()) {
-      endpoint = GENRE_MOVIE_ENDPOINT;
+      endpoint = CONSTANTS.GENRE_MOVIE_ENDPOINT;
     }
 
     if (mediaType.toLowerCase() === MediaType.Tv.toLowerCase()) {
-      endpoint = GENRE_TV_SHOW_ENDPOINT;
+      endpoint = CONSTANTS.GENRE_TV_SHOW_ENDPOINT;
     }
 
     return endpoint;

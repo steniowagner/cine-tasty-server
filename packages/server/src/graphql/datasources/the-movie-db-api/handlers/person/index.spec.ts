@@ -1,14 +1,10 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { rawPerson, rawCast } from '../../../../../__tests__/mocks/person.stub';
+import CONSTANTS from '../../utils/constants';
 import PersonHandler from '.';
 
 const personHandler = new PersonHandler(mockRestDataSourceGet);
-
-const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
-const APPEND_TO_RESPONSE_IMAGES_KEY = 'images';
-const PERSON_ENDPOINT = '/person';
-const PERSON_ID = 1;
 
 describe('Unity: Person', () => {
   beforeEach(() => {
@@ -19,16 +15,16 @@ describe('Unity: Person', () => {
     it('should get a person profile with certain id', async () => {
       mockRestDataSourceGet.mockReturnValueOnce(rawPerson).mockReturnValueOnce(rawCast);
 
-      const result = await personHandler.getPerson({ id: PERSON_ID });
+      const result = await personHandler.getPerson({ id: 1 });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${PERSON_ENDPOINT}/${PERSON_ID}`,
-        { append_to_response: APPEND_TO_RESPONSE_IMAGES_KEY },
+        `${CONSTANTS.PERSON_ENDPOINT}/1`,
+        { append_to_response: CONSTANTS.APPEND_TO_RESPONSE_IMAGES_KEY },
         undefined,
       );
 
       expect(mockRestDataSourceGet).toHaveBeenLastCalledWith(
-        `${PERSON_ENDPOINT}/1${COMBINED_CREDITS_ENDPOINT}`,
+        `${CONSTANTS.PERSON_ENDPOINT}/1${CONSTANTS.COMBINED_CREDITS_ENDPOINT}`,
         {},
         undefined,
       );
@@ -41,11 +37,11 @@ describe('Unity: Person', () => {
     it("should return null when the person with the id doesn't exist", async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ success: false });
 
-      const result = await personHandler.getPerson({ id: PERSON_ID });
+      const result = await personHandler.getPerson({ id: 1 });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${PERSON_ENDPOINT}/${PERSON_ID}`,
-        { append_to_response: APPEND_TO_RESPONSE_IMAGES_KEY },
+        `${CONSTANTS.PERSON_ENDPOINT}/1`,
+        { append_to_response: CONSTANTS.APPEND_TO_RESPONSE_IMAGES_KEY },
         undefined,
       );
 

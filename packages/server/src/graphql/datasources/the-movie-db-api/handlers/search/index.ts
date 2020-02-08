@@ -1,5 +1,6 @@
 import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../types';
 import { SearchQueryEmpty } from '../../../../../errors';
+import CONSTANTS from '../../utils/constants';
 import {
   SearchResultItem,
   SearchQueryResult,
@@ -19,8 +20,6 @@ export interface Props {
   search: (input: SearchInput) => Promise<SearchQueryResult>;
 }
 
-const BASE_ENDPOINT = '/search';
-
 class SearchHandler implements Props {
   get: GetTMDBApiRequest;
 
@@ -29,7 +28,7 @@ class SearchHandler implements Props {
   }
 
   async search({ page, query, language, type }: SearchInput): Promise<SearchQueryResult> {
-    const endpoint = `${BASE_ENDPOINT}/${type.toLowerCase()}`;
+    const endpoint = `${CONSTANTS.SEARCH_ENDPOINT}/${type.toLowerCase()}`;
 
     if (!query) {
       throw new SearchQueryEmpty();

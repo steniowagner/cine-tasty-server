@@ -1,9 +1,7 @@
 import { ArticleLanguage } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
+import CONSTANTS from '../../utils/constants';
 import { getDateParam } from '..';
-
-const QUERY = 'cinema';
-const PAGE_SIZE = 12;
 
 type RequestParams = {
   pageSize: number;
@@ -21,10 +19,10 @@ const getRequestParams = (
 
   const params = {
     apiKey: env.NEWS_API_KEY,
-    pageSize: PAGE_SIZE,
+    pageSize: CONSTANTS.PAGE_SIZE,
     from: dateParam,
     to: dateParam,
-    q: QUERY,
+    q: CONSTANTS.QUERY,
     page,
   };
 

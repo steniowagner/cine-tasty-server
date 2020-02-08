@@ -1,12 +1,10 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { rawPeopleItem } from '../../../../../__tests__/mocks/people.stub';
+import CONSTANTS from '../../utils/constants';
 import PeopleHandler from '.';
 
-const POPULAR_PERSON_ENDPOINT = '/popular';
-const PERSON_ENDPOINT = '/person';
-
-const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
+const endpoint = `${CONSTANTS.PERSON_ENDPOINT}${CONSTANTS.POPULAR_PERSON_ENDPOINT}`;
 
 const peopleHandler = new PeopleHandler(mockRestDataSourceGet);
 

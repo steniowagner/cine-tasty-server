@@ -7,12 +7,8 @@ import {
 } from '../../../../../__tests__/mocks/articles.stub';
 import getDateParam from '../../helpers/getDateParam';
 import env from '../../../../../config/environment';
+import CONSTANTS from '../../utils/constants';
 import NewsAPI from '../..';
-
-const ENDPOINT = 'everything';
-const STATUS_OK = 'ok';
-const PAGE_SIZE = 12;
-const QUERY = 'cinema';
 
 const dateParam = getDateParam();
 
@@ -36,7 +32,7 @@ describe('Unity: NewsAPI', () => {
   describe('getArticles()', () => {
     it('should fetch movie articles from NewsAPI and return it correctly', async () => {
       mockRestDataSourceGet.mockReturnValue({
-        status: STATUS_OK,
+        status: CONSTANTS.STATUS_OK,
         articles: [rawArticleWithId],
       });
 
@@ -46,12 +42,12 @@ describe('Unity: NewsAPI', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -60,7 +56,7 @@ describe('Unity: NewsAPI', () => {
 
     it('should fetch movie articles from NewsAPI and return it correctly when a language is provided', async () => {
       mockRestDataSourceGet.mockReturnValue({
-        status: STATUS_OK,
+        status: CONSTANTS.STATUS_OK,
         articles: [rawArticleWithId],
       });
 
@@ -70,13 +66,13 @@ describe('Unity: NewsAPI', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         language: 'pt',
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -97,12 +93,12 @@ describe('Unity: NewsAPI', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 

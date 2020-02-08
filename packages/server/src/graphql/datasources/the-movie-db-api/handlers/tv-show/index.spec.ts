@@ -206,7 +206,7 @@ describe('Unity: TVShowHandler', () => {
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'tv/1',
+        `${CONSTANTS.TV_ENDPOINT}/1`,
         {
           append_to_response: 'credits,similar,videos,reviews',
         },
@@ -231,7 +231,7 @@ describe('Unity: TVShowHandler', () => {
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        'tv/1',
+        `${CONSTANTS.TV_ENDPOINT}/1`,
         {
           append_to_response: 'credits,similar,videos,reviews',
         },
@@ -252,7 +252,11 @@ describe('Unity: TVShowHandler', () => {
 
       const result = await tvshowHandler.getImages('1');
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {}, null);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.TV_ENDPOINT}/1/images`,
+        {},
+        null,
+      );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
@@ -268,7 +272,11 @@ describe('Unity: TVShowHandler', () => {
 
       const result = await tvshowHandler.getImages('1');
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('tv/1/images', {}, null);
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.TV_ENDPOINT}/1/images`,
+        {},
+        null,
+      );
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 

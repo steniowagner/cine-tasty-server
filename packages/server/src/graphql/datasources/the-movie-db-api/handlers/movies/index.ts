@@ -13,8 +13,6 @@ import {
   BasePaginationResponse,
 } from '../../../../../types';
 
-const BASE_ENDPOINT = 'movie';
-
 type GetBaseMovieResponse = BasePaginationResponse & {
   results: BaseMovie[];
 };
@@ -42,8 +40,8 @@ class MovieHandler implements Props {
       GetRequestParams,
       Promise<Movie & { status_code?: number }>
     >(
-      `${BASE_ENDPOINT}/${id}`,
-      { append_to_response: 'videos,credits,reviews,similar' },
+      `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
+      { append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE },
       language,
     );
 
@@ -75,7 +73,11 @@ class MovieHandler implements Props {
     const result = await this.get<
       GetRequestParams,
       Promise<GetImagesResponse & { status_code?: number }>
-    >(`${BASE_ENDPOINT}/${id}/images`, {}, null);
+    >(
+      `${CONSTANTS.MOVIE_ENDPOINT}/${id}/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+      {},
+      null,
+    );
 
     if (result.status_code === CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE) {
       return [];

@@ -11,14 +11,10 @@ import getDateParam from '../../helpers/getDateParam';
 import resolvers from '../../../../resolvers';
 import env from '../../../../../config/environment';
 import typeDefs from '../../../../typeDefs';
+import CONSTANTS from '../../utils/constants';
 import NewsAPI from '../..';
 
 const dateParam = getDateParam();
-
-const ENDPOINT = 'everything';
-const STATUS_OK = 'ok';
-const PAGE_SIZE = 12;
-const QUERY = 'cinema';
 
 const GET_ARTICLES = gql`
   query GetArticles($page: Int!) {
@@ -71,7 +67,7 @@ describe('Integration: DataSources-NewsAPI', () => {
     it('should query an array of articles from the News API and return it correctly', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
         articles: [rawArticleWithId],
-        status: STATUS_OK,
+        status: CONSTANTS.STATUS_OK,
       });
 
       const server = makeTestServer();
@@ -83,12 +79,12 @@ describe('Integration: DataSources-NewsAPI', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -113,12 +109,12 @@ describe('Integration: DataSources-NewsAPI', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -143,12 +139,12 @@ describe('Integration: DataSources-NewsAPI', () => {
         variables: { page: 2 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 2,
       });
 
@@ -160,7 +156,7 @@ describe('Integration: DataSources-NewsAPI', () => {
     it('should return the field hasMore as true when has more items to be paginated', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
         variables: { page: 1 },
-        status: STATUS_OK,
+        status: CONSTANTS.STATUS_OK,
         articles: Array(12).fill(rawArticleWithId),
       });
 
@@ -173,12 +169,12 @@ describe('Integration: DataSources-NewsAPI', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -190,7 +186,7 @@ describe('Integration: DataSources-NewsAPI', () => {
     it('should return hasMore as false when has no more items to be paginated', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
         variables: { page: 1 },
-        status: STATUS_OK,
+        status: CONSTANTS.STATUS_OK,
         articles: Array(11).fill(rawArticleWithId),
       });
 
@@ -203,12 +199,12 @@ describe('Integration: DataSources-NewsAPI', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
         apiKey: env.NEWS_API_KEY,
-        pageSize: PAGE_SIZE,
+        pageSize: CONSTANTS.PAGE_SIZE,
         from: dateParam,
         to: dateParam,
-        q: QUERY,
+        q: CONSTANTS.QUERY,
         page: 1,
       });
 

@@ -9,8 +9,6 @@ import { question } from '../../../../../__tests__/mocks/quiz.stub';
 import CONSTANTS from '../../utils/constants';
 import OpenTriviaAPI from '../..';
 
-const ENDPOINT = 'api.php';
-
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
     baseUrl = '';
@@ -56,7 +54,7 @@ describe('Unity: OpenTriviaAPI', () => {
         expect(result).toMatchSnapshot();
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          ENDPOINT,
+          CONSTANTS.ENDPOINT,
           `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=${
             movieQuestionsInput.number_questions
           }&difficulty=${movieQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`,
@@ -75,7 +73,7 @@ describe('Unity: OpenTriviaAPI', () => {
         expect(result).toEqual([]);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          ENDPOINT,
+          CONSTANTS.ENDPOINT,
           `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=${
             movieQuestionsInput.number_questions
           }&difficulty=${movieQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`,
@@ -94,7 +92,7 @@ describe('Unity: OpenTriviaAPI', () => {
         expect(result).toMatchSnapshot();
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          ENDPOINT,
+          CONSTANTS.ENDPOINT,
           `category=${CONSTANTS.TV_CATEGORY_CODE}&amount=${
             tvQuestionsInput.number_questions
           }&difficulty=${tvQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,
@@ -113,7 +111,7 @@ describe('Unity: OpenTriviaAPI', () => {
         expect(result).toEqual([]);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          ENDPOINT,
+          CONSTANTS.ENDPOINT,
           `category=${CONSTANTS.TV_CATEGORY_CODE}&amount=${
             tvQuestionsInput.number_questions
           }&difficulty=${tvQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,

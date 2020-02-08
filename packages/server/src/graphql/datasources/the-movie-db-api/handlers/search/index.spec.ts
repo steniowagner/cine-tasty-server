@@ -10,6 +10,7 @@ import {
 } from '../../../../../__tests__/mocks/search.stub';
 import { SearchType } from '../../../../../lib/types';
 import { SearchQueryEmpty } from '../../../../../errors';
+import CONSTANTS from '../../utils/constants';
 
 const searchTvShowWithRawMediaGenres = {
   ...searchTvShow,
@@ -20,8 +21,6 @@ const searchMovieWithRawMediaGenres = {
   ...searchMovie,
   genre_ids: rawSearchMovie.genre_ids,
 };
-
-const BASE_ENDPOINT = '/search';
 
 describe('Unity: Search', () => {
   beforeEach(() => {
@@ -48,7 +47,7 @@ describe('Unity: Search', () => {
         const { hasMore, total_results, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
           {
             page: params.page,
             query: params.query,
@@ -81,7 +80,7 @@ describe('Unity: Search', () => {
         const { hasMore, total_results, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
           {
             page: params.page,
             query: params.query,
@@ -115,7 +114,7 @@ describe('Unity: Search', () => {
         const { hasMore, total_results, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
           {
             page: params.page,
             query: params.query,
@@ -148,7 +147,7 @@ describe('Unity: Search', () => {
         const { hasMore, total_results, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
           {
             page: params.page,
             query: params.query,
@@ -182,7 +181,7 @@ describe('Unity: Search', () => {
         const { hasMore, total_results, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
           {
             page: params.page,
             query: params.query,
@@ -215,7 +214,7 @@ describe('Unity: Search', () => {
         const { hasMore, total_results, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-          `${BASE_ENDPOINT}/${params.type.toLowerCase()}`,
+          `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
           {
             page: params.page,
             query: params.query,

@@ -13,11 +13,9 @@ import {
 } from '../../../../../__tests__/mocks/movies.stub';
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
+import CONSTANTS from '../../utils/constants';
 import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
-import COSNTANTS from '../../utils/constants';
-
-const GENRE_MOVIE_ENDPOINT = '/genre/movie/list';
 
 const GET_TRENDING_MOVIES = gql`
   fragment TrendingMovieItem on BaseMovie {
@@ -210,15 +208,21 @@ describe('Integration: DataSources-Movies', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews,similar',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
+        {
+          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+        },
+      );
 
       expect(data!.movie.images).toEqual(images);
     });
@@ -226,7 +230,7 @@ describe('Integration: DataSources-Movies', () => {
     it("should query the images of a movie from TheMovieDB API and returns an empty array when the movie doesn't exist", async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({})
-        .mockReturnValueOnce({ status_code: COSNTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE });
+        .mockReturnValueOnce({ status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE });
 
       const server = makeTestServer();
 
@@ -239,15 +243,21 @@ describe('Integration: DataSources-Movies', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews,similar',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'en-us',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
+        {
+          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1/images', {
-        api_key: env.THE_MOVIE_DB_API_KEY,
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+        },
+      );
 
       expect(data!.movie.images).toEqual([]);
     });
@@ -271,13 +281,17 @@ describe('Integration: DataSources-Movies', () => {
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith('movie/1', {
-        append_to_response: 'videos,credits,reviews,similar',
-        api_key: env.THE_MOVIE_DB_API_KEY,
-        language: 'pt-br',
-      });
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+        {
+          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'pt-br',
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'pt-br',
       });
@@ -361,22 +375,22 @@ describe('Integration: DataSources-Movies', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(GENRE_MOVIE_ENDPOINT, {
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
         api_key: env.THE_MOVIE_DB_API_KEY,
         language: 'en-us',
       });

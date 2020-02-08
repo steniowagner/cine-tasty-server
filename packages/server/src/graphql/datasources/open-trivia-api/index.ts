@@ -9,9 +9,6 @@ import {
 } from '../../../lib/types';
 import CONSTANTS from './utils/constants';
 
-const BASE_URL = 'https://opentdb.com';
-const ENDPOINT = 'api.php';
-
 type QueryParams = {
   category: number;
   amount: number;
@@ -31,14 +28,14 @@ export interface Props {
 class OpenTriviaAPI extends RESTDataSource implements Props {
   constructor() {
     super();
-    this.baseURL = BASE_URL;
+    this.baseURL = CONSTANTS.BASE_URL;
   }
 
   async getQuestions(input: QuizInput): Promise<Question[]> {
     const urlParams = this.getURLParams(input);
 
     const { results, response_code: responseCode } = await this.get<GetRequestResponse>(
-      ENDPOINT,
+      CONSTANTS.ENDPOINT,
       urlParams,
     );
 
