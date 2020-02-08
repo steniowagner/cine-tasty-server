@@ -11,8 +11,8 @@ import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
 
 const SEARCH_PERSON = gql`
-  query SearchPerson($page: Int!, $query: String!, $type: SearchType!) {
-    search(page: $page, query: $query, type: $type) {
+  query SearchPerson($input: SearchInput!) {
+    search(input: $input) {
       total_results
       hasMore
       items {
@@ -112,7 +112,7 @@ describe('Integration - DataSources-Search.Person]', () => {
 
       const { data } = await query({
         query: SEARCH_PERSON,
-        variables: { page: 1, query: 'any', type: SearchType.Person },
+        variables: { input: { page: 1, query: 'any', type: SearchType.Person } },
       });
 
       expect(data!.search.hasMore).toEqual(false);
@@ -127,7 +127,7 @@ describe('Integration - DataSources-Search.Person]', () => {
 
       const { errors } = await query({
         query: SEARCH_PERSON,
-        variables: { page: 1, query: '', type: SearchType.Person },
+        variables: { input: { page: 1, query: '', type: SearchType.Person } },
       });
 
       return expect(errors && errors[0].message).toEqual('Search query cannot be empty.');

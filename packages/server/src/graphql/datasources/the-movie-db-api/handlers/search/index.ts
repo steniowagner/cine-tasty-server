@@ -3,7 +3,7 @@ import { SearchQueryEmpty } from '../../../../../errors';
 import {
   SearchResultItem,
   SearchQueryResult,
-  QuerySearchArgs,
+  SearchInput,
 } from '../../../../../lib/types';
 
 type SearchParams = {
@@ -16,7 +16,7 @@ type GetRequestResult = BasePaginationResponse & {
 };
 
 export interface Props {
-  search: (params: QuerySearchArgs) => Promise<SearchQueryResult>;
+  search: (input: SearchInput) => Promise<SearchQueryResult>;
 }
 
 const BASE_ENDPOINT = '/search';
@@ -28,12 +28,7 @@ class SearchHandler implements Props {
     this.get = execGetRequest;
   }
 
-  async search({
-    page,
-    query,
-    language,
-    type,
-  }: QuerySearchArgs): Promise<SearchQueryResult> {
+  async search({ page, query, language, type }: SearchInput): Promise<SearchQueryResult> {
     const endpoint = `${BASE_ENDPOINT}/${type.toLowerCase()}`;
 
     if (!query) {

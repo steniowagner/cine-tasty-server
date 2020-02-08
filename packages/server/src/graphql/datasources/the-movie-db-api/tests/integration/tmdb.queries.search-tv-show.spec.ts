@@ -14,8 +14,8 @@ import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';
 
 const SEARCH_TV_SHOW = gql`
-  query SearchTVShow($page: Int!, $query: String!, $type: SearchType!) {
-    search(page: $page, query: $query, type: $type) {
+  query SearchTVShow($input: SearchInput!) {
+    search(input: $input) {
       total_results
       hasMore
       items {
@@ -88,7 +88,7 @@ describe('Integration: DataSources-Search.TVShow', () => {
 
       const { data } = await query({
         query: SEARCH_TV_SHOW,
-        variables: { page: 1, query: 'any', type: SearchType.Tv },
+        variables: { input: { page: 1, query: 'any', type: SearchType.Tv } },
       });
 
       expect(data!.search.hasMore).toEqual(false);
@@ -103,7 +103,7 @@ describe('Integration: DataSources-Search.TVShow', () => {
 
       const { errors } = await query({
         query: SEARCH_TV_SHOW,
-        variables: { page: 1, query: '', type: SearchType.Tv },
+        variables: { input: { page: 1, query: '', type: SearchType.Tv } },
       });
 
       return expect(errors && errors[0].message).toEqual('Search query cannot be empty.');

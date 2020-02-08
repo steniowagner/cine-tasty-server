@@ -14,4 +14,11 @@ export default gql`
     items: [SearchResultItem!]!
     hasMore: Boolean!
   }
+
+  input SearchInput {
+    page: Int!
+    query: String!
+    type: SearchType!
+    language: ISO6391Language
+  }
 `;

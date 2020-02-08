@@ -20,6 +20,8 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
+const mediaGenres = new MediaGenres();
+
 describe('Unity: MediaGenres', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -28,8 +30,6 @@ describe('Unity: MediaGenres', () => {
   describe('getMediaGenres()', () => {
     it('should get movie genres correctly when some language is provided', async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ genres: movieGenres });
-
-      const mediaGenres = new MediaGenres();
 
       const moviesGenresIds = movieGenres.map(({ id }) => id);
 
@@ -52,8 +52,6 @@ describe('Unity: MediaGenres', () => {
     it('should get movie genres correctly when no language is provided', async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ genres: movieGenres });
 
-      const mediaGenres = new MediaGenres();
-
       const moviesGenresIds = movieGenres.map(({ id }) => id);
 
       const results = await mediaGenres.getMediaGenres(moviesGenresIds, MediaType.Movie);
@@ -70,8 +68,6 @@ describe('Unity: MediaGenres', () => {
 
     it('should get tv-show genres correctly when some language is provided', async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ genres: tvGenres });
-
-      const mediaGenres = new MediaGenres();
 
       const tvShowGenresIds = tvGenres.map(({ id }) => id);
 
@@ -94,8 +90,6 @@ describe('Unity: MediaGenres', () => {
     it('should get tv-show genres correctly when no language is provided', async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ genres: tvGenres });
 
-      const mediaGenres = new MediaGenres();
-
       const tvShowGenresIds = tvGenres.map(({ id }) => id);
 
       const results = await mediaGenres.getMediaGenres(tvShowGenresIds, MediaType.Tv);
@@ -112,8 +106,6 @@ describe('Unity: MediaGenres', () => {
 
     it("should return an empty array when the media-type isn't recognized", async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ genres: tvGenres });
-
-      const mediaGenres = new MediaGenres();
 
       const tvShowGenresIds = tvGenres.map(({ id }) => id);
 

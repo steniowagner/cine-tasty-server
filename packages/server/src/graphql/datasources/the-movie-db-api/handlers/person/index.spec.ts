@@ -3,6 +3,8 @@ const mockRestDataSourceGet = jest.fn();
 import { rawPerson, rawCast } from '../../../../../__tests__/mocks/person.stub';
 import PersonHandler from '.';
 
+const personHandler = new PersonHandler(mockRestDataSourceGet);
+
 const COMBINED_CREDITS_ENDPOINT = '/combined_credits';
 const APPEND_TO_RESPONSE_IMAGES_KEY = 'images';
 const PERSON_ENDPOINT = '/person';
@@ -16,8 +18,6 @@ describe('Unity: Person', () => {
   describe('getPerson()', () => {
     it('should get a person profile with certain id', async () => {
       mockRestDataSourceGet.mockReturnValueOnce(rawPerson).mockReturnValueOnce(rawCast);
-
-      const personHandler = new PersonHandler(mockRestDataSourceGet);
 
       const result = await personHandler.getPerson({ id: PERSON_ID });
 
@@ -40,8 +40,6 @@ describe('Unity: Person', () => {
 
     it("should return null when the person with the id doesn't exist", async () => {
       mockRestDataSourceGet.mockReturnValueOnce({ success: false });
-
-      const personHandler = new PersonHandler(mockRestDataSourceGet);
 
       const result = await personHandler.getPerson({ id: PERSON_ID });
 

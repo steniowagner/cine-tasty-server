@@ -602,10 +602,7 @@ export type QueryQuizArgs = {
 
 
 export type QuerySearchArgs = {
-  page: Scalars['Int'],
-  query: Scalars['String'],
-  type: SearchType,
-  language?: Maybe<Iso6391Language>
+  input: SearchInput
 };
 
 export type Question = {
@@ -625,6 +622,7 @@ export enum QuestionCategory {
 
 export enum QuestionDifficulty {
   Easy = 'EASY',
+  Medium = 'MEDIUM',
   Hard = 'HARD',
   Any = 'ANY'
 }
@@ -648,6 +646,13 @@ export type Review = {
   content?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['ID']>,
   url?: Maybe<Scalars['String']>,
+};
+
+export type SearchInput = {
+  page: Scalars['Int'],
+  query: Scalars['String'],
+  type: SearchType,
+  language?: Maybe<Iso6391Language>,
 };
 
 export type SearchQueryResult = {
@@ -921,6 +926,7 @@ export type ResolversTypes = ResolversObject<{
   QuestionType: QuestionType,
   QuestionCategory: QuestionCategory,
   Question: ResolverTypeWrapper<Question>,
+  SearchInput: SearchInput,
   SearchType: SearchType,
   SearchQueryResult: ResolverTypeWrapper<Omit<SearchQueryResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
   SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
@@ -973,6 +979,7 @@ export type ResolversParentTypes = ResolversObject<{
   QuestionType: QuestionType,
   QuestionCategory: QuestionCategory,
   Question: Question,
+  SearchInput: SearchInput,
   SearchType: SearchType,
   SearchQueryResult: Omit<SearchQueryResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
   SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
@@ -1238,7 +1245,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
   person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'id'>>,
   quiz?: Resolver<Array<ResolversTypes['Question']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>,
-  search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'page' | 'query' | 'type'>>,
+  search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'input'>>,
 }>;
 
 export type QuestionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Question'] = ResolversParentTypes['Question']> = ResolversObject<{

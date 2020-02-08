@@ -8,6 +8,8 @@ const PERSON_ENDPOINT = '/person';
 
 const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
 
+const peopleHandler = new PeopleHandler(mockRestDataSourceGet);
+
 describe('Unity: People', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -20,8 +22,6 @@ describe('Unity: People', () => {
         total_results: 1,
         results: [rawPeopleItem],
       });
-
-      const peopleHandler = new PeopleHandler(mockRestDataSourceGet);
 
       const result = await peopleHandler.getPopularPeople({ page: 1 });
 
@@ -43,8 +43,6 @@ describe('Unity: People', () => {
         total_results: 2,
         results: [rawPeopleItem],
       });
-
-      const peopleHandler = new PeopleHandler(mockRestDataSourceGet);
 
       const result = await peopleHandler.getPopularPeople({ page: 1 });
 

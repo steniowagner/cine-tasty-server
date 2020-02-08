@@ -14,7 +14,6 @@ import {
   Iso6391Language,
   Person,
   QueryPersonArgs,
-  QuerySearchArgs,
   TrendingMoviesQueryResult,
   SearchQueryResult,
   QueryPeopleArgs,
@@ -25,6 +24,7 @@ import {
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
   TvShow,
+  SearchInput,
 } from '../../../lib/types';
 import {
   TrendingTVShowsEndpoints,
@@ -47,7 +47,7 @@ export interface Props {
   getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
   getMovie: (args: QueryMovieArgs) => Promise<Movie | null>;
   getTVShow: (args: QueryTvShowArgs) => Promise<TvShow | null>;
-  search: (args: QuerySearchArgs) => Promise<SearchQueryResult>;
+  search: (input: SearchInput) => Promise<SearchQueryResult>;
   getTVShowImages(id: string): Promise<string[]>;
   getMovieImages(id: string): Promise<string[]>;
 }
@@ -107,8 +107,8 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.personHandler.getPerson(args);
   }
 
-  async search(args: QuerySearchArgs): Promise<SearchQueryResult> {
-    return this.searchHandler.search(args);
+  async search(input: SearchInput): Promise<SearchQueryResult> {
+    return this.searchHandler.search(input);
   }
 
   async getMovie(args: QueryMovieArgs): Promise<Movie | null> {

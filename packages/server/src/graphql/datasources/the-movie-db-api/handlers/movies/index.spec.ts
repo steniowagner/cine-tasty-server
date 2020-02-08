@@ -7,6 +7,8 @@ import { Iso6391Language } from '../../../../../lib/types';
 import CONSTANTS from '../../utils/constants';
 import MovieHandler from '.';
 
+const movieHandler = new MovieHandler(mockRestDataSourceGet);
+
 describe('Unity: MovieHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -15,8 +17,6 @@ describe('Unity: MovieHandler', () => {
   describe('getImages()', () => {
     it('should return an array of strings containing urls to images of a certain movie', async () => {
       mockRestDataSourceGet.mockReturnValueOnce(getImagesResult);
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
       const result = await movieHandler.getImages('1');
 
@@ -31,8 +31,6 @@ describe('Unity: MovieHandler', () => {
       mockRestDataSourceGet.mockReturnValueOnce({
         status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
       });
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
       const result = await movieHandler.getImages('1');
 
@@ -51,8 +49,6 @@ describe('Unity: MovieHandler', () => {
         total_results: 1,
         results: [rawMovie],
       });
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
       const result = await movieHandler.getTrendingItem(
         {
@@ -81,8 +77,6 @@ describe('Unity: MovieHandler', () => {
         results: [rawMovie],
       });
 
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
-
       const result = await movieHandler.getTrendingItem(
         {
           page: 1,
@@ -109,8 +103,6 @@ describe('Unity: MovieHandler', () => {
         total_results: 1,
         results: [rawMovie],
       });
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
       const result = await movieHandler.getTrendingItem(
         {
@@ -139,8 +131,6 @@ describe('Unity: MovieHandler', () => {
         results: [rawMovie],
       });
 
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
-
       const result = await movieHandler.getTrendingItem(
         {
           page: 1,
@@ -166,8 +156,6 @@ describe('Unity: MovieHandler', () => {
     it('should get the details of a movie with certain id from TheMovideDB API', async () => {
       mockRestDataSourceGet.mockReturnValueOnce(rawMovieDetail);
 
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
-
       const result = await movieHandler.getMovie({
         id: '1',
         language: Iso6391Language.Ptbr,
@@ -190,8 +178,6 @@ describe('Unity: MovieHandler', () => {
       mockRestDataSourceGet.mockReturnValueOnce({
         status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
       });
-
-      const movieHandler = new MovieHandler(mockRestDataSourceGet);
 
       const result = await movieHandler.getMovie({
         id: '1',

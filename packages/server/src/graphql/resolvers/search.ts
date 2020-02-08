@@ -31,10 +31,10 @@ const resolvers: QueryResolvers = {
   Query: {
     search: (
       _: {},
-      args: QuerySearchArgs,
+      { input }: QuerySearchArgs,
       { dataSources }: Context,
     ): Promise<SearchQueryResult> => {
-      return dataSources.tmdb.search(args);
+      return dataSources.tmdb.search(input);
     },
   },
 
