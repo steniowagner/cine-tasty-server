@@ -1,5 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
+import shuffleQuestions from './helpers/shuffleQuestions';
 import {
   QuestionCategory,
   QuestionDifficulty,
@@ -8,7 +9,6 @@ import {
   QuizInput,
 } from '../../../lib/types';
 import CONSTANTS from './utils/constants';
-
 type QueryParams = {
   category: number;
   amount: number;
@@ -32,6 +32,41 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
   }
 
   async getQuestions(input: QuizInput): Promise<Question[]> {
+    if (input.category.toLowerCase() === QuestionCategory.Mixed.toLowerCase()) {
+      return this.getQuestionsMixedTypes(input);
+    }
+
+    return this.getQuestionsSingleType(input);
+  }
+
+  async getQuestionsMixedTypes(input: QuizInput): Promise<Question[]> {
+    if (input.number_questions === 1) {
+      return this.getQuestionsSingleType({
+        ...input,
+        category: this.drawTypeQuestionMixed(),
+      });
+    }
+
+    const movieQuestionsAmount = Math.ceil(input.number_questions / 2);
+    const tvQuestionsAmount = Math.floor(input.number_questions / 2);
+
+    const [tvQuestions, movieQuestions] = await Promise.all<Question[], Question[]>([
+      this.getQuestionsSingleType({
+        ...input,
+        category: QuestionCategory.Tv,
+        number_questions: tvQuestionsAmount,
+      }),
+      this.getQuestionsSingleType({
+        ...input,
+        category: QuestionCategory.Movie,
+        number_questions: movieQuestionsAmount,
+      }),
+    ]);
+
+    return shuffleQuestions([...tvQuestions, ...movieQuestions]);
+  }
+
+  async getQuestionsSingleType(input: QuizInput): Promise<Question[]> {
     const urlParams = this.getURLParams(input);
 
     const { results, response_code: responseCode } = await this.get<GetRequestResponse>(
@@ -82,14 +117,14 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
       amount: this.getQuestionAmount(number_questions),
     };
 
-    if (difficulty.toLowerCase() !== QuestionDifficulty.Any.toLowerCase()) {
+    if (difficulty.toLowerCase() !== QuestionDifficulty.Mixed.toLowerCase()) {
       queryParams = {
         ...queryParams,
         difficulty: difficulty.toLowerCase(),
       };
     }
 
-    if (type.toLowerCase() !== QuestionType.Any.toLowerCase()) {
+    if (type.toLowerCase() !== QuestionType.Mixed.toLowerCase()) {
       queryParams = {
         ...queryParams,
         type: type.toLowerCase(),
@@ -97,6 +132,16 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
     }
 
     return this.parseQueryParams(queryParams);
+  }
+
+  drawTypeQuestionMixed(): QuestionCategory {
+    const randomNumber = Math.round(Math.random() * 10);
+
+    if (randomNumber % 2 === 0) {
+      return QuestionCategory.Tv;
+    }
+
+    return QuestionCategory.Movie;
   }
 }
 

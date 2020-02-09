@@ -5,7 +5,11 @@ import {
   QuestionType,
   QuestionCategory,
 } from '../../../../../lib/types';
-import { question } from '../../../../../__tests__/mocks/quiz.stub';
+import {
+  question,
+  movieQuestion,
+  tvQuestion,
+} from '../../../../../__tests__/mocks/quiz.stub';
 import CONSTANTS from '../../utils/constants';
 import OpenTriviaAPI from '../..';
 
@@ -33,6 +37,13 @@ const tvQuestionsInput = {
   type: QuestionType.Multiple,
   category: QuestionCategory.Tv,
   number_questions: 10,
+};
+
+const mixedQuestionsInput = {
+  difficulty: QuestionDifficulty.Hard,
+  type: QuestionType.Multiple,
+  category: QuestionCategory.Mixed,
+  number_questions: 2,
 };
 
 const triviaAPI = new OpenTriviaAPI();
@@ -116,6 +127,164 @@ describe('Unity: OpenTriviaAPI', () => {
             tvQuestionsInput.number_questions
           }&difficulty=${tvQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,
         );
+      });
+    });
+
+    describe('Getting questions about Movies and TV', () => {
+      it('should return an array with questions about movies and tv from OpenTriviaAPI', async () => {
+        mockRestDataSourceGet
+          .mockReturnValueOnce({ response_code: 0, results: [tvQuestion] })
+          .mockReturnValueOnce({ response_code: 0, results: [movieQuestion] });
+
+        const result = await triviaAPI.getQuestions(mixedQuestionsInput);
+
+        expect(
+          result.findIndex(item => item.category === tvQuestion.category),
+        ).toBeGreaterThanOrEqual(0);
+
+        expect(
+          result.findIndex(item => item.category === movieQuestion.category),
+        ).toBeGreaterThanOrEqual(0);
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${
+            CONSTANTS.TV_CATEGORY_CODE
+          }&amount=1&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`,
+        );
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=${Math.ceil(
+            [movieQuestion].length / 2,
+          )}&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,
+        );
+      });
+
+      it('should return only tv questions when the movie request response return the response_code = 1', async () => {
+        mockRestDataSourceGet
+          .mockReturnValueOnce({ response_code: 0, results: [tvQuestion] })
+          .mockReturnValueOnce({
+            response_code: CONSTANTS.NO_RESPONSE_CODE,
+          });
+
+        const result = await triviaAPI.getQuestions(mixedQuestionsInput);
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+        expect(result).toEqual([tvQuestion]);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${
+            CONSTANTS.TV_CATEGORY_CODE
+          }&amount=1&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`,
+        );
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=${Math.ceil(
+            [movieQuestion].length / 2,
+          )}&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,
+        );
+      });
+
+      it('should return only movie questions when the tv request response return the response_code = 1', async () => {
+        mockRestDataSourceGet
+          .mockReturnValueOnce({
+            response_code: CONSTANTS.NO_RESPONSE_CODE,
+          })
+          .mockReturnValueOnce({ response_code: 0, results: [movieQuestion] });
+
+        const result = await triviaAPI.getQuestions(mixedQuestionsInput);
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+        expect(result).toEqual([movieQuestion]);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${
+            CONSTANTS.TV_CATEGORY_CODE
+          }&amount=1&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`,
+        );
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=${Math.ceil(
+            [movieQuestion].length / 2,
+          )}&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,
+        );
+      });
+
+      it('should return an empty array when both requests return response_code = 1', async () => {
+        mockRestDataSourceGet
+          .mockReturnValueOnce({
+            response_code: CONSTANTS.NO_RESPONSE_CODE,
+          })
+          .mockReturnValueOnce({
+            response_code: CONSTANTS.NO_RESPONSE_CODE,
+          });
+
+        const result = await triviaAPI.getQuestions(mixedQuestionsInput);
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+
+        expect(result).toEqual([]);
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${
+            CONSTANTS.TV_CATEGORY_CODE
+          }&amount=1&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`,
+        );
+
+        expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+          CONSTANTS.ENDPOINT,
+          `category=${CONSTANTS.MOVIE_CATEGORY_CODE}&amount=${Math.ceil(
+            [movieQuestion].length / 2,
+          )}&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`,
+        );
+      });
+
+      it('should return an array of question correctly when user want a single question fo mixed types', async () => {
+        mockRestDataSourceGet
+          .mockReturnValueOnce({ response_code: 0, results: [tvQuestion] })
+          .mockReturnValueOnce({ response_code: 0, results: [movieQuestion] });
+
+        const tvRequestURL = `category=${
+          CONSTANTS.TV_CATEGORY_CODE
+        }&amount=1&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${movieQuestionsInput.type.toLowerCase()}`;
+
+        const movieRequestURL = `category=${
+          CONSTANTS.MOVIE_CATEGORY_CODE
+        }&amount=${Math.ceil(
+          [movieQuestion].length / 2,
+        )}&difficulty=${mixedQuestionsInput.difficulty.toLowerCase()}&type=${tvQuestionsInput.type.toLowerCase()}`;
+
+        const result = await triviaAPI.getQuestions({
+          ...mixedQuestionsInput,
+          number_questions: 1,
+        });
+
+        expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+
+        expect(result.length).toEqual(1);
+
+        const isTVDrawn = JSON.stringify(tvQuestion) === JSON.stringify(result[0]);
+        const isMovieDrawn = JSON.stringify(movieQuestion) === JSON.stringify(result[0]);
+
+        const isTVURLCalled = mockRestDataSourceGet.mock.calls[0][1] === tvRequestURL;
+        const isMovieURLCalled =
+          mockRestDataSourceGet.mock.calls[0][1] === movieRequestURL;
+
+        expect(mockRestDataSourceGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
+
+        expect(isTVURLCalled || isMovieURLCalled).toBe(true);
+
+        expect(isTVDrawn || isMovieDrawn).toBe(true);
       });
     });
   });
@@ -216,7 +385,7 @@ describe('Unity: OpenTriviaAPI', () => {
         number_questions: 10,
         difficulty: QuestionDifficulty.Easy,
         category: QuestionCategory.Movie,
-        type: QuestionType.Any,
+        type: QuestionType.Mixed,
       };
 
       expect(triviaAPI.getURLParams(input)).toBe(
@@ -227,9 +396,9 @@ describe('Unity: OpenTriviaAPI', () => {
 
       input = {
         number_questions: 10,
-        difficulty: QuestionDifficulty.Any,
+        difficulty: QuestionDifficulty.Mixed,
         category: QuestionCategory.Movie,
-        type: QuestionType.Any,
+        type: QuestionType.Mixed,
       };
 
       expect(triviaAPI.getURLParams(input)).toBe(

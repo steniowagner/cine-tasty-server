@@ -5,18 +5,19 @@ export default gql`
     EASY
     MEDIUM
     HARD
-    ANY
+    MIXED
   }
 
   enum QuestionType {
     MULTIPLE
     BOOLEAN
-    ANY
+    MIXED
   }
 
   enum QuestionCategory {
     MOVIE
     TV
+    MIXED
   }
 
   type Question {

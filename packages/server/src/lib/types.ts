@@ -554,6 +554,7 @@ export type ProductionCompany = {
 export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['String']>,
+  search: SearchQueryResult,
   trending_movies: TrendingMovies,
   trending_tv_shows: TrendingTvShows,
   tv_show?: Maybe<TvShow>,
@@ -562,7 +563,12 @@ export type Query = {
   people: PeopleQueryResult,
   person?: Maybe<Person>,
   quiz: Array<Question>,
-  search: SearchQueryResult,
+};
+
+
+export type QuerySearchArgs = {
+  input: SearchInput,
+  genresLanguage?: Maybe<Iso6391Language>
 };
 
 
@@ -600,11 +606,6 @@ export type QueryQuizArgs = {
   input: QuizInput
 };
 
-
-export type QuerySearchArgs = {
-  input: SearchInput
-};
-
 export type Question = {
    __typename?: 'Question',
   incorrect_answers: Array<Scalars['String']>,
@@ -617,20 +618,21 @@ export type Question = {
 
 export enum QuestionCategory {
   Movie = 'MOVIE',
-  Tv = 'TV'
+  Tv = 'TV',
+  Mixed = 'MIXED'
 }
 
 export enum QuestionDifficulty {
   Easy = 'EASY',
   Medium = 'MEDIUM',
   Hard = 'HARD',
-  Any = 'ANY'
+  Mixed = 'MIXED'
 }
 
 export enum QuestionType {
   Multiple = 'MULTIPLE',
   Boolean = 'BOOLEAN',
-  Any = 'ANY'
+  Mixed = 'MIXED'
 }
 
 export type QuizInput = {
@@ -888,18 +890,24 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
-  TrendingMovies: ResolverTypeWrapper<TrendingMovies>,
-  TrendingMoviesArgs: TrendingMoviesArgs,
-  ISO6391Language: Iso6391Language,
+  SearchInput: SearchInput,
   Int: ResolverTypeWrapper<Scalars['Int']>,
-  TrendingMoviesQueryResult: ResolverTypeWrapper<TrendingMoviesQueryResult>,
-  BaseMovie: ResolverTypeWrapper<BaseMovie>,
+  SearchType: SearchType,
+  ISO6391Language: Iso6391Language,
+  SearchQueryResult: ResolverTypeWrapper<Omit<SearchQueryResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
+  SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
+  BasePerson: ResolverTypeWrapper<Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>,
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Float: ResolverTypeWrapper<Scalars['Float']>,
+  PersonKnowFor: ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
+  BaseMovie: ResolverTypeWrapper<BaseMovie>,
+  BaseTVShow: ResolverTypeWrapper<BaseTvShow>,
+  TrendingMovies: ResolverTypeWrapper<TrendingMovies>,
+  TrendingMoviesArgs: TrendingMoviesArgs,
+  TrendingMoviesQueryResult: ResolverTypeWrapper<TrendingMoviesQueryResult>,
   TrendingTVShows: ResolverTypeWrapper<TrendingTvShows>,
   TrendingTVShowsArgs: TrendingTvShowsArgs,
   TrendingTVShowsQueryResult: ResolverTypeWrapper<TrendingTvShowsQueryResult>,
-  BaseTVShow: ResolverTypeWrapper<BaseTvShow>,
   ID: ResolverTypeWrapper<Scalars['ID']>,
   TVShow: ResolverTypeWrapper<TvShow>,
   Season: ResolverTypeWrapper<Season>,
@@ -917,8 +925,6 @@ export type ResolversTypes = ResolversObject<{
   ArticleQueryResult: ResolverTypeWrapper<ArticleQueryResult>,
   Article: ResolverTypeWrapper<Article>,
   PeopleQueryResult: ResolverTypeWrapper<PeopleQueryResult>,
-  BasePerson: ResolverTypeWrapper<Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>,
-  PersonKnowFor: ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
   Person: ResolverTypeWrapper<Person>,
   Cast: ResolverTypeWrapper<Cast>,
   QuizInput: QuizInput,
@@ -926,10 +932,6 @@ export type ResolversTypes = ResolversObject<{
   QuestionType: QuestionType,
   QuestionCategory: QuestionCategory,
   Question: ResolverTypeWrapper<Question>,
-  SearchInput: SearchInput,
-  SearchType: SearchType,
-  SearchQueryResult: ResolverTypeWrapper<Omit<SearchQueryResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>,
-  SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'],
   CacheControlScope: CacheControlScope,
   CastMovie: ResolverTypeWrapper<CastMovie>,
   CastTVShow: ResolverTypeWrapper<CastTvShow>,
@@ -941,18 +943,24 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Query: {},
   String: Scalars['String'],
-  TrendingMovies: TrendingMovies,
-  TrendingMoviesArgs: TrendingMoviesArgs,
-  ISO6391Language: Iso6391Language,
+  SearchInput: SearchInput,
   Int: Scalars['Int'],
-  TrendingMoviesQueryResult: TrendingMoviesQueryResult,
-  BaseMovie: BaseMovie,
+  SearchType: SearchType,
+  ISO6391Language: Iso6391Language,
+  SearchQueryResult: Omit<SearchQueryResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
+  SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
+  BasePerson: Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> },
   Boolean: Scalars['Boolean'],
   Float: Scalars['Float'],
+  PersonKnowFor: ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
+  BaseMovie: BaseMovie,
+  BaseTVShow: BaseTvShow,
+  TrendingMovies: TrendingMovies,
+  TrendingMoviesArgs: TrendingMoviesArgs,
+  TrendingMoviesQueryResult: TrendingMoviesQueryResult,
   TrendingTVShows: TrendingTvShows,
   TrendingTVShowsArgs: TrendingTvShowsArgs,
   TrendingTVShowsQueryResult: TrendingTvShowsQueryResult,
-  BaseTVShow: BaseTvShow,
   ID: Scalars['ID'],
   TVShow: TvShow,
   Season: Season,
@@ -970,8 +978,6 @@ export type ResolversParentTypes = ResolversObject<{
   ArticleQueryResult: ArticleQueryResult,
   Article: Article,
   PeopleQueryResult: PeopleQueryResult,
-  BasePerson: Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> },
-  PersonKnowFor: ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
   Person: Person,
   Cast: Cast,
   QuizInput: QuizInput,
@@ -979,10 +985,6 @@ export type ResolversParentTypes = ResolversObject<{
   QuestionType: QuestionType,
   QuestionCategory: QuestionCategory,
   Question: Question,
-  SearchInput: SearchInput,
-  SearchType: SearchType,
-  SearchQueryResult: Omit<SearchQueryResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> },
-  SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'],
   CacheControlScope: CacheControlScope,
   CastMovie: CastMovie,
   CastTVShow: CastTvShow,
@@ -1237,6 +1239,7 @@ export type ProductionCompanyResolvers<ContextType = any, ParentType extends Res
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'input'>>,
   trending_movies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType>,
   trending_tv_shows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType>,
   tv_show?: Resolver<Maybe<ResolversTypes['TVShow']>, ParentType, ContextType, RequireFields<QueryTv_ShowArgs, 'id'>>,
@@ -1245,7 +1248,6 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>,
   person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'id'>>,
   quiz?: Resolver<Array<ResolversTypes['Question']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>,
-  search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'input'>>,
 }>;
 
 export type QuestionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Question'] = ResolversParentTypes['Question']> = ResolversObject<{
