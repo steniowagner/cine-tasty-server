@@ -5,7 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "dev": "NODE_ENV=development nodemon src/app.ts",
-    "build": "tsc -p .",
+    "build": "tsc -p tsconfig.json",
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint": "eslint '**/*.ts'",
     "lint:fix": "prettier '**/*.ts' --write",
