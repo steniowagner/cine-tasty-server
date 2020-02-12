@@ -1,13 +1,12 @@
 {
+  "private": true,
   "name": "cine-tasty",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server:dev": "yarn workspace server dev",
     "server:precommit": "yarn workspace server lint-staged"
   },
-  "private": true,
   "husky": {
     "hooks": {
       "pre-commit": "npm run server:precommit"
@@ -16,6 +15,10 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "react-native",
+      "react-native/**"
     ]
   },
   "keywords": [],

@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "react": "16.8.6",
-    "react-native": "0.60.5"
+    "react-native": "0.60.5",
+    "styled-components": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
@@ -28,9 +29,13 @@
     "@typescript-eslint/parser": "^2.19.2",
     "babel-jest": "^24.1.0",
     "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^2.3.0",
     "jest": "^24.1.0",
     "metro-react-native-babel-preset": "0.54.1",
     "prettier": "^1.19.1",
@@ -46,12 +51,6 @@
       "jsx",
       "json",
       "node"
-    ]
-  },
-  "workspaces": {
-    "nohoist": [
-      "react-native",
-      "react-native/**"
     ]
   }
 }
