@@ -12,19 +12,15 @@
       "pre-commit": "npm run server:precommit"
     }
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "react-native",
-      "react-native/**"
-    ]
-  },
   "keywords": [],
   "author": "Stenio Wagner",
   "license": "MIT",
   "devDependencies": {
     "husky": "^4.0.0"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
   }
 }

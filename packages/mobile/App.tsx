@@ -1,6 +1,12 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Text } from 'react-native';
 
-const App = () => <View />;
+const App = () => (
+  <Text
+    testID="welcome"
+  >
+    welcome!
+  </Text>
+);
 
 export default App;

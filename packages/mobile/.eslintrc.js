@@ -1,5 +1,9 @@
 module.exports =  {
   parser:  '@typescript-eslint/parser',
+  env: {
+    jest: true,
+    'detox/detox': true,
+  },
   extends:  [
     'airbnb',
     'plugin:react/recommended',
@@ -47,6 +51,7 @@ module.exports =  {
   },
   plugins: [
     'react',
+    'detox',
     '@typescript-eslint',
     'import'
 ],
