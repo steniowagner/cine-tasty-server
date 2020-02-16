@@ -5,6 +5,6 @@ import Test from '../App';
 describe('Hello', () => {
   it('renders the correct message', () => {
     const { queryByText } = render(<Test />);
-    expect(queryByText('TESTING!')).not.toBeNull();
+    expect(queryByText('welcome!')).not.toBeNull();
   });
 });

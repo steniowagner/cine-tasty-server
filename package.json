@@ -10,7 +10,7 @@
     }
   },
   "lint-staged": {
-    "**/*.+(ts|tsx)": [
+    "*.+(ts|js|tsx)": [
       "yarn workspaces run prettier:fix",
       "yarn workspaces run lint:fix"
     ]

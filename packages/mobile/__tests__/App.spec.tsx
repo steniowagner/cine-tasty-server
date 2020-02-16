@@ -8,5 +8,6 @@ import App from '../App';
 describe('some', () => {
   it('renders correctly', () => {
     renderer.create(<App />);
+    expect(true).toBe(true);
   });
 });

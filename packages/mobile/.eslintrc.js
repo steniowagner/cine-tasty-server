@@ -1,19 +1,15 @@
-module.exports =  {
-  parser:  '@typescript-eslint/parser',
+module.exports = {
+  parser: '@typescript-eslint/parser',
   env: {
     jest: true,
     'detox/detox': true,
   },
-  extends:  [
-    'airbnb',
-    'plugin:react/recommended',
-
-  ],
-  parserOptions:  {
-    ecmaVersion:  2018,
-    sourceType:  'module',
-    ecmaFeatures:  {
-      jsx:  true,
+  extends: ['airbnb', 'plugin:react/recommended'],
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
     },
   },
   rules: {
@@ -28,28 +24,23 @@ module.exports =  {
         js: 'never',
         jsx: 'never',
         ts: 'never',
-        tsx: 'never'
-      }
-   ]
+        tsx: 'never',
+      },
+    ],
   },
-  settings:  {
-    react:  {
-      version:  'detect',
+  settings: {
+    react: {
+      version: 'detect',
     },
     'import/resolver': {
       node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx']
-      }
-    }
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
+    },
   },
   globals: {
     Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly'
+    SharedArrayBuffer: 'readonly',
   },
-  plugins: [
-    'react',
-    'detox',
-    '@typescript-eslint',
-    'import'
-],
+  plugins: ['react', 'detox', '@typescript-eslint', 'import'],
 };
