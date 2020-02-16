@@ -4,19 +4,23 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "server:precommit": "yarn workspace server lint-staged"
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run server:precommit"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "**/*.+(ts|tsx)": [
+      "yarn workspaces run prettier:fix",
+      "yarn workspaces run lint:fix"
+    ]
   },
   "keywords": [],
   "author": "Stenio Wagner",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^4.0.0"
+    "husky": "^4.0.0",
+    "lint-staged": "^10.0.7"
   },
   "workspaces": {
     "packages": [

@@ -1,4 +1,4 @@
-build/*
-src/lib/*.ts
-src/__tests__
-src/**/*.spec.ts
+node_modules
+coverage
+src/lib
+dist

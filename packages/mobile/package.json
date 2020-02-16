@@ -1,5 +1,5 @@
 {
-  "name": "CineTasty",
+  "name": "mobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,6 +8,8 @@
     "ios-se": "npx react-native run-ios --simulator=\"iPhone SE\"",
     "start:clean": "npx react-native start --reset-cache",
     "android": "npx react-native run-android",
+    "lint:fix": "eslint --fix --ext .ts,.tsx .",
+    "prettier:fix": "prettier '**/*.+(ts|tsx|json|md)' --write",
     "start": "npx react-native start",
     "ios": "npx react-native run-ios",
     "test": "jest"

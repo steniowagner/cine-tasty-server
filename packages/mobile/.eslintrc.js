@@ -16,9 +16,6 @@ module.exports =  {
       jsx:  true,
     },
   },
-  parserOptions: {
-    project: 'packages/mobile/tsconfig.json'
-  },
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],
     'react/jsx-filename-extension': [1, { extensions: ['.ts', '.tsx'] }],

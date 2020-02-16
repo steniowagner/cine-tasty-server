@@ -7,17 +7,10 @@
     "dev": "NODE_ENV=development nodemon src/app.ts",
     "build": "tsc -p tsconfig.json",
     "generate:types": "graphql-codegen --config codegen.yml",
-    "lint": "eslint '**/*.ts'",
-    "lint:fix": "prettier '**/*.ts' --write",
+    "lint:fix": "eslint --fix --ext .ts .",
+    "prettier:fix": "prettier '**/*.ts' --write",
     "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
     "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
-  },
-  "lint-staged": {
-    "**/*.+(ts|json|md)": [
-      "npm run lint:fix",
-      "npm run test",
-      "git add"
-    ]
   },
   "keywords": [],
   "author": "Stenio Wagner",
@@ -43,7 +36,6 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^24.9.0",
-    "lint-staged": "^9.5.0",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",
