@@ -1,12 +1,18 @@
 import React from 'react';
-import { Text } from 'react-native';
+import styled from 'styled-components/native';
+
+import { ThemeContextProvider } from './src/styles/theme-context-provider/ThemeContextProvider';
+
+const Welcome = styled.View`
+  width: 100%;
+  height: 100%;
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
 
 const App = () => (
-  <Text
-    testID="welcome"
-  >
-    welcome!
-  </Text>
+  <ThemeContextProvider>
+    <Welcome />
+  </ThemeContextProvider>
 );
 
 export default App;

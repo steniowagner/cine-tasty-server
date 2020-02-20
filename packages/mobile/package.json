@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
-    "react": "16.8.6",
+    "@types/styled-components": "^4.4.3",
+    "react": "16.9.0",
     "react-native": "0.60.5",
     "styled-components": "^5.0.1"
   },
@@ -26,6 +27,7 @@
     "@babel/core": "^7.5.0",
     "@babel/runtime": "^7.5.0",
     "@react-native-community/eslint-config": "^0.0.3",
+    "@testing-library/react-hooks": "^3.2.1",
     "@types/jest": "^24.0.18",
     "@types/react": "^16.9.19",
     "@types/react-native": "^0.60.14",
@@ -53,7 +55,15 @@
   "workspaces": {
     "nohoist": [
       "react-native",
-      "react-native/**"
+      "react-native/**",
+      "styled-components",
+      "styled-components/**",
+      "@react-native-community/async-storage",
+      "@react-native-community/async-storage/**",
+      "react-native-testing-library",
+      "react-native-testing-library/**",
+      "@testing-library/react-hooks",
+      "@testing-library/react-hooks/**"
     ]
   },
   "detox": {

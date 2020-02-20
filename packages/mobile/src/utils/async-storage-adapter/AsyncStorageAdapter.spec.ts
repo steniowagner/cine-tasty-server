@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {
-  getItemFromStorage,
-  persistItemInStorage,
-  removeItemFromStorage,
-} from './AsyncStorageAdapter';
 import CONSTANTS from '../constants';
+import {
+  removeItemFromStorage,
+  persistItemInStorage,
+  getItemFromStorage,
+} from './AsyncStorageAdapter';
 
 const KEY = 'MY_KEY';
 const STORAGE_KEY = `${CONSTANTS.KEYS.APP_STORAGE_KEY}:${KEY}`;
@@ -50,10 +50,7 @@ describe('Testing the Async-Storage Adapater', () => {
     it('should persist an item correctly on the storage', async () => {
       await persistItemInStorage(KEY, data);
 
-      expect(AsyncStorage.setItem).toBeCalledWith(
-        STORAGE_KEY,
-        JSON.stringify(data),
-      );
+      expect(AsyncStorage.setItem).toBeCalledWith(STORAGE_KEY, JSON.stringify(data));
 
       const itemFromStorage = await AsyncStorage.getItem(STORAGE_KEY, null);
 

@@ -11,8 +11,7 @@
   },
   "lint-staged": {
     "*.+(ts|js|tsx)": [
-      "yarn workspaces run prettier:fix",
-      "yarn workspaces run lint:fix"
+      "yarn workspaces run prettier:fix"
     ]
   },
   "keywords": [],

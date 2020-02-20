@@ -18,8 +18,8 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* CineTastyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CineTastyTests.m */; };
-		3C6FCD180F47A8A9E6629364 /* libPods-CineTasty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 665B4E2E3378E2DC3E57FFCB /* libPods-CineTasty.a */; };
 		6659FB7A403A5E7CC39653D9 /* libPods-CineTastyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8EEB01E2F6970B9201228C /* libPods-CineTastyTests.a */; };
+		7AEB0557320790A2AD483FFA /* libPods-CineTasty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 665B4E2E3378E2DC3E57FFCB /* libPods-CineTasty.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C6FCD180F47A8A9E6629364 /* libPods-CineTasty.a in Frameworks */,
+				7AEB0557320790A2AD483FFA /* libPods-CineTasty.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,6 @@
 				526DDF7164A5DF2BFDB528A8 /* Pods-CineTastyTests.debug.xcconfig */,
 				37A06F17088D35FBA12DF36B /* Pods-CineTastyTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -308,6 +307,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
