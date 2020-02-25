@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+// eslint-disable-next-line no-unused-vars
 import { DefaultTheme } from 'styled-components';
 
 import {
@@ -37,12 +38,13 @@ const useThemeContextProvider = (): ThemeContextProviderState => {
   }, []);
 
   const onToggleTheme = () => {
-    console.log('theme: ', theme);
-    const themeSelected = theme === ThemeID.DARK ? ThemeID.LIGHT : ThemeID.DARK;
-    console.log('themeSelected: ', themeSelected);
-    setTheme(themeSelected);
+    setTheme((previousTheme: ThemeID) => {
+      const themeSelected = previousTheme === ThemeID.DARK ? ThemeID.LIGHT : ThemeID.DARK;
 
-    persistItemInStorage(CONSTANTS.KEYS.APP_THEME, themeSelected);
+      persistItemInStorage(CONSTANTS.KEYS.APP_THEME, themeSelected);
+
+      return themeSelected;
+    });
   };
 
   const getAppTheme = (): DefaultTheme => {
