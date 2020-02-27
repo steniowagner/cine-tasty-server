@@ -16,6 +16,11 @@
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
+  },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.0",
     "react": "16.9.0",

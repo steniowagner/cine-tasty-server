@@ -20,6 +20,10 @@
 		741FB99D0394BC791450DA24 /* libPods-CineTastyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C57D7CC2ED348D78944EFF7E /* libPods-CineTastyTests.a */; };
 		7BBBB5DABC83D74F305BC94C /* libPods-CineTasty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC36A5B135FD9721BCD6E144 /* libPods-CineTasty.a */; };
 		AD2148627F1439872BB5D85B /* libPods-CineTasty-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BBBFE0F05B59FAB83B228B /* libPods-CineTasty-tvOS.a */; };
+		B8AA2CCFE8EE4FDFB37B72A7 /* CircularStd-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2BE406E364AE4AADA462E932 /* CircularStd-Black.otf */; };
+		53CE259FB92648C48EA8D34D /* CircularStd-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AACDC11350EB4B7DBCE6B918 /* CircularStd-Bold.otf */; };
+		95BAA8A3A204406E9B9DDC74 /* CircularStd-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = DD2E5D5E8FF24A1BA03CE4A5 /* CircularStd-Book.otf */; };
+		91FC27F2D21E45C8A7452433 /* CircularStd-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6A7C2980393D44D5A89D6C48 /* CircularStd-Medium.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,10 @@
 		EF6E088B8FB46879A2D65989 /* Pods-CineTasty-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOS/Pods-CineTasty-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F07FCCBAA397CDCF0D643356 /* Pods-CineTasty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty/Pods-CineTasty.debug.xcconfig"; sourceTree = "<group>"; };
 		FC36A5B135FD9721BCD6E144 /* libPods-CineTasty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2BE406E364AE4AADA462E932 /* CircularStd-Black.otf */ = {isa = PBXFileReference; name = "CircularStd-Black.otf"; path = "../assets/fonts/CircularStd-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AACDC11350EB4B7DBCE6B918 /* CircularStd-Bold.otf */ = {isa = PBXFileReference; name = "CircularStd-Bold.otf"; path = "../assets/fonts/CircularStd-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DD2E5D5E8FF24A1BA03CE4A5 /* CircularStd-Book.otf */ = {isa = PBXFileReference; name = "CircularStd-Book.otf"; path = "../assets/fonts/CircularStd-Book.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		6A7C2980393D44D5A89D6C48 /* CircularStd-Medium.otf */ = {isa = PBXFileReference; name = "CircularStd-Medium.otf"; path = "../assets/fonts/CircularStd-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +189,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				28681E101C034850075EC931 /* Pods */,
+				19AFF23501DD421EBA691D98 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -197,6 +206,18 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		19AFF23501DD421EBA691D98 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				2BE406E364AE4AADA462E932 /* CircularStd-Black.otf */,
+				AACDC11350EB4B7DBCE6B918 /* CircularStd-Bold.otf */,
+				DD2E5D5E8FF24A1BA03CE4A5 /* CircularStd-Book.otf */,
+				6A7C2980393D44D5A89D6C48 /* CircularStd-Medium.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -285,7 +306,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -338,6 +359,10 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				B8AA2CCFE8EE4FDFB37B72A7 /* CircularStd-Black.otf in Resources */,
+				53CE259FB92648C48EA8D34D /* CircularStd-Bold.otf in Resources */,
+				95BAA8A3A204406E9B9DDC74 /* CircularStd-Book.otf in Resources */,
+				91FC27F2D21E45C8A7452433 /* CircularStd-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

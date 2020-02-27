@@ -16,12 +16,6 @@ export const getItemFromStorage = async <T, D>(
   return defaultValue;
 };
 
-export const persistItemInStorage = async (
-  key: string,
-  value: any,
-): Promise<void> => AsyncStorage.setItem(
-  `${CONSTANTS.KEYS.APP_STORAGE_KEY}:${key}`,
-  JSON.stringify(value),
-);
+export const persistItemInStorage = async (key: string, value: any): Promise<void> => AsyncStorage.setItem(`${CONSTANTS.KEYS.APP_STORAGE_KEY}:${key}`, JSON.stringify(value));
 
 export const removeItemFromStorage = async (key: string): Promise<void> => AsyncStorage.removeItem(`${CONSTANTS.KEYS.APP_STORAGE_KEY}:${key}`);
