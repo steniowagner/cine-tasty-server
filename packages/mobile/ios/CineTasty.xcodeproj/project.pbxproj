@@ -12,14 +12,14 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		19FD21E1F34A9907E97F5C0A /* libPods-CineTasty-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 870EA81EF43413A07BB2E996 /* libPods-CineTasty-tvOS.a */; };
-		1E7C05C070817A6CCE00D3D5 /* libPods-CineTasty-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D914665C15BF298BF5E7B57 /* libPods-CineTasty-tvOSTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* CineTastyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CineTastyTests.m */; };
-		6659FB7A403A5E7CC39653D9 /* libPods-CineTastyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A8EEB01E2F6970B9201228C /* libPods-CineTastyTests.a */; };
-		7AEB0557320790A2AD483FFA /* libPods-CineTasty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 665B4E2E3378E2DC3E57FFCB /* libPods-CineTasty.a */; };
+		6A7B5652E423DEE33765F439 /* libPods-CineTasty-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EAE05C852DB26C3125AD11E /* libPods-CineTasty-tvOSTests.a */; };
+		741FB99D0394BC791450DA24 /* libPods-CineTastyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C57D7CC2ED348D78944EFF7E /* libPods-CineTastyTests.a */; };
+		7BBBB5DABC83D74F305BC94C /* libPods-CineTasty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC36A5B135FD9721BCD6E144 /* libPods-CineTasty.a */; };
+		AD2148627F1439872BB5D85B /* libPods-CineTasty-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BBBFE0F05B59FAB83B228B /* libPods-CineTasty-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,20 +53,20 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CineTasty/main.m; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* CineTasty-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CineTasty-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* CineTasty-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CineTasty-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		332A5E1492DBBFC9B1CE82E6 /* Pods-CineTasty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty.release.xcconfig"; path = "Target Support Files/Pods-CineTasty/Pods-CineTasty.release.xcconfig"; sourceTree = "<group>"; };
-		37A06F17088D35FBA12DF36B /* Pods-CineTastyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTastyTests.release.xcconfig"; path = "Target Support Files/Pods-CineTastyTests/Pods-CineTastyTests.release.xcconfig"; sourceTree = "<group>"; };
-		4E39467A06B6DAAF72CE7F4A /* Pods-CineTasty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty/Pods-CineTasty.debug.xcconfig"; sourceTree = "<group>"; };
-		526DDF7164A5DF2BFDB528A8 /* Pods-CineTastyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTastyTests.debug.xcconfig"; path = "Target Support Files/Pods-CineTastyTests/Pods-CineTastyTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5D914665C15BF298BF5E7B57 /* libPods-CineTasty-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		665B4E2E3378E2DC3E57FFCB /* libPods-CineTasty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A8EEB01E2F6970B9201228C /* libPods-CineTastyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTastyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		870EA81EF43413A07BB2E996 /* libPods-CineTasty-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		882EC322B065256D152DFFAF /* Pods-CineTasty-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOSTests/Pods-CineTasty-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		AED9B2B75C77950F3E7AA51D /* Pods-CineTasty-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOSTests/Pods-CineTasty-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EC101C07714EEABD30D25704 /* Pods-CineTasty-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOS/Pods-CineTasty-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		2EAE05C852DB26C3125AD11E /* libPods-CineTasty-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EC8CC39E8DA83CB3E7F601A /* Pods-CineTastyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTastyTests.debug.xcconfig"; path = "Target Support Files/Pods-CineTastyTests/Pods-CineTastyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3334CD6C89D86710ED460245 /* Pods-CineTasty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty.release.xcconfig"; path = "Target Support Files/Pods-CineTasty/Pods-CineTasty.release.xcconfig"; sourceTree = "<group>"; };
+		51E406564419E9E18D0FD0A0 /* Pods-CineTasty-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOSTests/Pods-CineTasty-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		C57D7CC2ED348D78944EFF7E /* libPods-CineTastyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTastyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4EBC4507D5D57AED18DB19B /* Pods-CineTasty-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOS.release.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOS/Pods-CineTasty-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		D83776BE86D5411B7B332E97 /* Pods-CineTastyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTastyTests.release.xcconfig"; path = "Target Support Files/Pods-CineTastyTests/Pods-CineTastyTests.release.xcconfig"; sourceTree = "<group>"; };
+		E1BBBFE0F05B59FAB83B228B /* libPods-CineTasty-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4B306742C45C54B87B89D28 /* Pods-CineTasty-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOSTests/Pods-CineTasty-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		F09F6EE678E6B622D53B8329 /* Pods-CineTasty-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOS.release.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOS/Pods-CineTasty-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		EF6E088B8FB46879A2D65989 /* Pods-CineTasty-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty-tvOS/Pods-CineTasty-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F07FCCBAA397CDCF0D643356 /* Pods-CineTasty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CineTasty.debug.xcconfig"; path = "Target Support Files/Pods-CineTasty/Pods-CineTasty.debug.xcconfig"; sourceTree = "<group>"; };
+		FC36A5B135FD9721BCD6E144 /* libPods-CineTasty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CineTasty.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6659FB7A403A5E7CC39653D9 /* libPods-CineTastyTests.a in Frameworks */,
+				741FB99D0394BC791450DA24 /* libPods-CineTastyTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AEB0557320790A2AD483FFA /* libPods-CineTasty.a in Frameworks */,
+				7BBBB5DABC83D74F305BC94C /* libPods-CineTasty.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19FD21E1F34A9907E97F5C0A /* libPods-CineTasty-tvOS.a in Frameworks */,
+				AD2148627F1439872BB5D85B /* libPods-CineTasty-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E7C05C070817A6CCE00D3D5 /* libPods-CineTasty-tvOSTests.a in Frameworks */,
+				6A7B5652E423DEE33765F439 /* libPods-CineTasty-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,15 +136,31 @@
 			name = CineTasty;
 			sourceTree = "<group>";
 		};
+		28681E101C034850075EC931 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F07FCCBAA397CDCF0D643356 /* Pods-CineTasty.debug.xcconfig */,
+				3334CD6C89D86710ED460245 /* Pods-CineTasty.release.xcconfig */,
+				EF6E088B8FB46879A2D65989 /* Pods-CineTasty-tvOS.debug.xcconfig */,
+				D4EBC4507D5D57AED18DB19B /* Pods-CineTasty-tvOS.release.xcconfig */,
+				E4B306742C45C54B87B89D28 /* Pods-CineTasty-tvOSTests.debug.xcconfig */,
+				51E406564419E9E18D0FD0A0 /* Pods-CineTasty-tvOSTests.release.xcconfig */,
+				2EC8CC39E8DA83CB3E7F601A /* Pods-CineTastyTests.debug.xcconfig */,
+				D83776BE86D5411B7B332E97 /* Pods-CineTastyTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				665B4E2E3378E2DC3E57FFCB /* libPods-CineTasty.a */,
-				870EA81EF43413A07BB2E996 /* libPods-CineTasty-tvOS.a */,
-				5D914665C15BF298BF5E7B57 /* libPods-CineTasty-tvOSTests.a */,
-				6A8EEB01E2F6970B9201228C /* libPods-CineTastyTests.a */,
+				FC36A5B135FD9721BCD6E144 /* libPods-CineTasty.a */,
+				E1BBBFE0F05B59FAB83B228B /* libPods-CineTasty-tvOS.a */,
+				2EAE05C852DB26C3125AD11E /* libPods-CineTasty-tvOSTests.a */,
+				C57D7CC2ED348D78944EFF7E /* libPods-CineTastyTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -164,7 +180,7 @@
 				00E356EF1AD99517003FC87E /* CineTastyTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				87F5F527FE664D789A1A6C28 /* Pods */,
+				28681E101C034850075EC931 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -182,21 +198,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		87F5F527FE664D789A1A6C28 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4E39467A06B6DAAF72CE7F4A /* Pods-CineTasty.debug.xcconfig */,
-				332A5E1492DBBFC9B1CE82E6 /* Pods-CineTasty.release.xcconfig */,
-				EC101C07714EEABD30D25704 /* Pods-CineTasty-tvOS.debug.xcconfig */,
-				F09F6EE678E6B622D53B8329 /* Pods-CineTasty-tvOS.release.xcconfig */,
-				AED9B2B75C77950F3E7AA51D /* Pods-CineTasty-tvOSTests.debug.xcconfig */,
-				882EC322B065256D152DFFAF /* Pods-CineTasty-tvOSTests.release.xcconfig */,
-				526DDF7164A5DF2BFDB528A8 /* Pods-CineTastyTests.debug.xcconfig */,
-				37A06F17088D35FBA12DF36B /* Pods-CineTastyTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -204,7 +205,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "CineTastyTests" */;
 			buildPhases = (
-				8B4918BF81181ED059489D3B /* [CP] Check Pods Manifest.lock */,
+				85DB86119102CAB6B8F2379D /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -223,7 +224,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "CineTasty" */;
 			buildPhases = (
-				768BDDD0DBEA52547FBC746E /* [CP] Check Pods Manifest.lock */,
+				F2D650410ED3096B47ED7BB8 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -243,7 +244,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "CineTasty-tvOS" */;
 			buildPhases = (
-				F812B0529A469795D7ADFCC5 /* [CP] Check Pods Manifest.lock */,
+				7A8FBBD0C9DFCE41D74608CA /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
@@ -263,7 +264,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "CineTasty-tvOSTests" */;
 			buildPhases = (
-				6261A5962CE36C459E173F31 /* [CP] Check Pods Manifest.lock */,
+				F4AE91ABBDB92E922F7B2DA6 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -307,7 +308,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -387,7 +387,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		6261A5962CE36C459E173F31 /* [CP] Check Pods Manifest.lock */ = {
+		7A8FBBD0C9DFCE41D74608CA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -402,36 +402,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CineTasty-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CineTasty-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		768BDDD0DBEA52547FBC746E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CineTasty-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8B4918BF81181ED059489D3B /* [CP] Check Pods Manifest.lock */ = {
+		85DB86119102CAB6B8F2379D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -453,7 +431,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F812B0529A469795D7ADFCC5 /* [CP] Check Pods Manifest.lock */ = {
+		F2D650410ED3096B47ED7BB8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -468,7 +446,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CineTasty-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CineTasty-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F4AE91ABBDB92E922F7B2DA6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CineTasty-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -580,7 +580,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 526DDF7164A5DF2BFDB528A8 /* Pods-CineTastyTests.debug.xcconfig */;
+			baseConfigurationReference = 2EC8CC39E8DA83CB3E7F601A /* Pods-CineTastyTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -603,7 +603,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37A06F17088D35FBA12DF36B /* Pods-CineTastyTests.release.xcconfig */;
+			baseConfigurationReference = D83776BE86D5411B7B332E97 /* Pods-CineTastyTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -623,7 +623,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E39467A06B6DAAF72CE7F4A /* Pods-CineTasty.debug.xcconfig */;
+			baseConfigurationReference = F07FCCBAA397CDCF0D643356 /* Pods-CineTasty.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -643,7 +643,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 332A5E1492DBBFC9B1CE82E6 /* Pods-CineTasty.release.xcconfig */;
+			baseConfigurationReference = 3334CD6C89D86710ED460245 /* Pods-CineTasty.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
@@ -662,7 +662,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EC101C07714EEABD30D25704 /* Pods-CineTasty-tvOS.debug.xcconfig */;
+			baseConfigurationReference = EF6E088B8FB46879A2D65989 /* Pods-CineTasty-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -690,7 +690,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F09F6EE678E6B622D53B8329 /* Pods-CineTasty-tvOS.release.xcconfig */;
+			baseConfigurationReference = D4EBC4507D5D57AED18DB19B /* Pods-CineTasty-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -718,7 +718,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AED9B2B75C77950F3E7AA51D /* Pods-CineTasty-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = E4B306742C45C54B87B89D28 /* Pods-CineTasty-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -745,7 +745,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 882EC322B065256D152DFFAF /* Pods-CineTasty-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 51E406564419E9E18D0FD0A0 /* Pods-CineTasty-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
