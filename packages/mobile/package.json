@@ -25,6 +25,7 @@
     "@react-native-community/async-storage": "^1.8.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-vector-icons": "^6.6.0",
     "styled-components": "^5.0.1"
   },
   "devDependencies": {
@@ -66,7 +67,9 @@
       "react-native-testing-library",
       "react-native-testing-library/**",
       "@testing-library/react-hooks",
-      "@testing-library/react-hooks/**"
+      "@testing-library/react-hooks/**",
+      "react-native-vector-icons",
+      "react-native-vector-icons/**"
     ]
   },
   "detox": {
