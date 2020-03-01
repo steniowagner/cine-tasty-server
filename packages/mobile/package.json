@@ -14,7 +14,11 @@
     "start": "npx react-native start",
     "ios": "npx react-native run-ios",
     "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "clear:ios": "cd ios && rm -rf build && cd ..",
+    "clear:android": "cd android && ./gradlew clean && cd ..",
+    "clear:cache": "watchman watch-del-all",
+    "clear": "kill $(lsof -t -i:8081); yarn clear:ios; yarn clear:android; yarn clear:cache"
   },
   "rnpm": {
     "assets": [
@@ -23,8 +27,16 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.0",
+    "@react-native-community/masked-view": "^0.1.6",
+    "@react-navigation/bottom-tabs": "^5.1.0",
+    "@react-navigation/native": "^5.0.8",
+    "@react-navigation/stack": "^5.1.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
+    "react-native-gesture-handler": "^1.6.0",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.2.0",
     "react-native-vector-icons": "^6.6.0",
     "styled-components": "^5.0.1"
   },
@@ -36,6 +48,7 @@
     "@types/jest": "^24.0.24",
     "@types/react-native": "^0.60.25",
     "@types/react-test-renderer": "16.9.1",
+    "@types/styled-components": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
     "@typescript-eslint/parser": "^2.12.0",
     "babel-jest": "^24.9.0",
@@ -62,14 +75,24 @@
       "react-native/**",
       "styled-components",
       "styled-components/**",
-      "@react-native-community/async-storage",
-      "@react-native-community/async-storage/**",
+      "@react-native-community/**",
+      "@react-native-community/**/**",
       "react-native-testing-library",
       "react-native-testing-library/**",
       "@testing-library/react-hooks",
       "@testing-library/react-hooks/**",
       "react-native-vector-icons",
-      "react-native-vector-icons/**"
+      "react-native-vector-icons/**",
+      "@react-navigation/**",
+      "@react-navigation/**/**",
+      "react-native-reanimated",
+      "react-native-reanimated/**",
+      "react-native-gesture-handler",
+      "react-native-gesture-handler/**",
+      "react-native-screens",
+      "react-native-screens/**",
+      "react-native-safe-area-context",
+      "react-native-safe-area-context/**"
     ]
   },
   "detox": {
