@@ -50,13 +50,7 @@ const useThemeContextProvider = (): ThemeContextProviderState => {
   const getAppTheme = (): DefaultTheme => {
     const themeSelected = theme === ThemeID.DARK ? darkTheme : lightTheme;
 
-    return {
-      id: themeSelected.id,
-      colors: {
-        // ...appStyles.colors,
-        ...themeSelected.colors,
-      },
-    };
+    return themeSelected;
   };
 
   return {

@@ -15,13 +15,13 @@ const Text = styled.Text`
   font-family: CircularStd-Black;
 `;
 
-const Discover = (props: any) => {
+const Home = (props: any) => {
   console.log(props);
   return (
     <Wrapper>
-      <Text>Discover</Text>
+      <Text>Home</Text>
     </Wrapper>
   );
 };
 
-export default Discover;
+export default Home;

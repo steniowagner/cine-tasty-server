@@ -5,15 +5,6 @@ import { ThemeID } from '../types';
 declare module 'styled-components' {
   export interface DefaultTheme {
     id: ThemeID;
-    colors: {
-      primary: string;
-      secondaryColor: string;
-      backgroundColor: string;
-      textColor: string;
-      subTextColor: string;
-      androidToolbarColor: string;
-      inactiveWhite: string;
-    };
     metrics: {
       getHeightFromDP: (heightPercentage: string) => number;
       getWidthFromDP: (widthPercentage: string) => number;
@@ -25,6 +16,15 @@ declare module 'styled-components' {
       largeSize: number;
       width: number;
       height: number;
+    };
+    colors: {
+      primary: string;
+      secondary: string;
+      background: string;
+      text: string;
+      subText: string;
+      androidToolbar: string;
+      inactiveWhite: string;
     };
   }
 }

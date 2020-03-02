@@ -1,10 +1,15 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  createBottomTabNavigator,
+  BottomTabBarProps,
+} from '@react-navigation/bottom-tabs';
+
+import TabNavigator from '../components/common/tab-navigator/TabNavigator';
 
 import DiscoverStack, {
   TabID as DiscoverTabID,
-} from '../components/screens/discover/routes/stack-routes';
+} from '../components/screens/home/routes/stack-routes';
 
 import PeopleStack, {
   TabID as PeopleTabID,
@@ -26,7 +31,14 @@ const Tab = createBottomTabNavigator();
 
 const Routes = () => (
   <NavigationContainer>
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBar={(props: BottomTabBarProps) => (
+        <TabNavigator
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...props}
+        />
+      )}
+    >
       <Tab.Screen
         name={DiscoverTabID}
         component={DiscoverStack}

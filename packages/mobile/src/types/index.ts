@@ -7,3 +7,10 @@ export type LocalStackRoute = {
   title: string;
   id: string;
 };
+
+export type TabNavigatorItem = {
+  inactiveIcon: string;
+  activeIcon: string;
+  title: string;
+  id: string;
+};
