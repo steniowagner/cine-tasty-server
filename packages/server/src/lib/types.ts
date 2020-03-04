@@ -572,16 +572,6 @@ export type QuerySearchArgs = {
 };
 
 
-export type QueryTrending_MoviesArgs = {
-  language?: Maybe<Iso6391Language>
-};
-
-
-export type QueryTrending_Tv_ShowsArgs = {
-  language?: Maybe<Iso6391Language>
-};
-
-
 export type QueryTv_ShowArgs = {
   id: Scalars['ID'],
   language?: Maybe<Iso6391Language>
@@ -1250,8 +1240,8 @@ export type ProductionCompanyResolvers<ContextType = any, ParentType extends Res
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'input'>>,
-  trending_movies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType, QueryTrending_MoviesArgs>,
-  trending_tv_shows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType, QueryTrending_Tv_ShowsArgs>,
+  trending_movies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType>,
+  trending_tv_shows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType>,
   tv_show?: Resolver<Maybe<ResolversTypes['TVShow']>, ParentType, ContextType, RequireFields<QueryTv_ShowArgs, 'id'>>,
   movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>,
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page'>>,
