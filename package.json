@@ -12,6 +12,13 @@
     "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
     "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
   },
+  "lint-staged": {
+    "*.+(ts|json)": [
+      "yanr test",
+      "yarn prettier:fix",
+      "yarn lint:fix"
+    ]
+  },
   "keywords": [],
   "author": "Stenio Wagner",
   "license": "MIT",
@@ -35,7 +42,9 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
     "jest": "^24.9.0",
+    "lint-staged": "^10.0.8",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",
