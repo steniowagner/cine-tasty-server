@@ -12,9 +12,14 @@
     "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
     "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.+(ts|json)": [
-      "yanr test",
+      "yarn test",
       "yarn prettier:fix",
       "yarn lint:fix"
     ]
