@@ -1,30 +1,52 @@
 {
-  "private": true,
-  "name": "cine-tasty",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.+(ts|js|tsx)": [
-      "yarn workspaces run prettier:fix",
-      "yarn workspaces run lint:fix"
-    ]
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon src/app.ts",
+    "build": "tsc -p tsconfig.json",
+    "generate:types": "graphql-codegen --config codegen.yml",
+    "lint:fix": "eslint --fix --ext .ts .",
+    "prettier:fix": "prettier '**/*.ts' --write",
+    "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
+    "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
   },
   "keywords": [],
   "author": "Stenio Wagner",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^4.0.0",
-    "lint-staged": "^10.0.7"
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@graphql-codegen/cli": "^1.10.0",
+    "@graphql-codegen/introspection": "1.10.0",
+    "@graphql-codegen/typescript": "1.10.0",
+    "@graphql-codegen/typescript-resolvers": "^1.10.0",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.4",
+    "@types/node-fetch": "^2.5.4",
+    "@types/nodemon": "^1.19.0",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "apollo-server-testing": "^2.9.15",
+    "apollo-server-types": "^0.2.10",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.9.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^9.0.1",
+    "prettier-eslint-cli": "^5.0.0",
+    "ts-jest": "^24.3.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
+  "dependencies": {
+    "apollo-datasource-rest": "^0.6.11",
+    "apollo-server": "^2.9.15",
+    "dotenv": "^8.2.0"
   }
 }

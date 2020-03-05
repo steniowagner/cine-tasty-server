@@ -13,10 +13,6 @@ module.exports = {
     '!<rootDir>/src/config/**/*.ts',
     '!<rootDir>/src/**/*.stub.ts',
   ],
-  displayName: {
-    name: 'SERVER',
-    color: 'red',
-  },
   coverageThreshold: {
     global: {
       statements: 100,
