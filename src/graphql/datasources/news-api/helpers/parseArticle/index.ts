@@ -10,20 +10,16 @@ const parseArticle = ({
   source,
   title,
   url,
-}: GetArticlesResultItem): Article => {
-  const { name, id } = source;
-
-  return {
-    image: urlToImage,
-    id: id || url,
-    source: name,
-    description,
-    publishedAt,
-    content,
-    author,
-    title,
-    url,
-  };
-};
+}: GetArticlesResultItem): Article => ({
+  image: urlToImage,
+  source: source.name,
+  description,
+  publishedAt,
+  content,
+  id: url,
+  author,
+  title,
+  url,
+});
 
 export default parseArticle;

@@ -1,3 +1,4 @@
+import { ArticleLanguage } from './../../../../../lib/types';
 const mockRestDataSourceGet = jest.fn();
 
 import { createTestClient } from 'apollo-server-testing';
@@ -17,8 +18,8 @@ import NewsAPI from '../..';
 const dateParam = getDateParam();
 
 const GET_ARTICLES = gql`
-  query GetArticles($page: Int!) {
-    articles(page: $page) {
+  query GetArticles($page: Int!, $language: ArticleLanguage!) {
+    articles(page: $page, language: $language) {
       items {
         publishedAt
         content
@@ -61,6 +62,7 @@ jest.mock('apollo-datasource-rest', () => {
 describe('Integration: DataSources-NewsAPI', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.resetModules();
   });
 
   describe('Query - Articles', () => {
@@ -75,16 +77,17 @@ describe('Integration: DataSources-NewsAPI', () => {
       const { query } = createTestClient(server);
 
       const { data } = await query({
+        variables: { page: 1, language: ArticleLanguage.En },
         query: GET_ARTICLES,
-        variables: { page: 1 },
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -93,28 +96,31 @@ describe('Integration: DataSources-NewsAPI', () => {
       expect(data!.articles.items).toEqual([articleWithId]);
     });
 
-    it("should return an empty array when the status isn't ok", async () => {
-      mockRestDataSourceGet.mockResolvedValueOnce({
-        variables: { page: 1 },
-        status: 'error',
-        articles: [],
-      });
+    it('should return an empty array when some error is thrown', async () => {
+      jest.mock('apollo-datasource-rest', () => ({
+        RESTDataSource: {
+          get: jest.fn().mockImplementationOnce(() => {
+            throw new Error();
+          }),
+        },
+      }));
 
       const server = makeTestServer();
 
       const { query } = createTestClient(server);
 
       const { data } = await query({
+        variables: { page: 1, language: ArticleLanguage.En },
         query: GET_ARTICLES,
-        variables: { page: 1 },
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -125,9 +131,7 @@ describe('Integration: DataSources-NewsAPI', () => {
 
     it('should return an empty array when already paginated all items', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
-        variables: { page: 2 },
-        status: 'error',
-        articles: [rawArticleWithId],
+        articles: [],
       });
 
       const server = makeTestServer();
@@ -135,16 +139,17 @@ describe('Integration: DataSources-NewsAPI', () => {
       const { query } = createTestClient(server);
 
       const { data } = await query({
+        variables: { page: 2, language: ArticleLanguage.En },
         query: GET_ARTICLES,
-        variables: { page: 2 },
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 2,
       });
 
@@ -155,8 +160,6 @@ describe('Integration: DataSources-NewsAPI', () => {
 
     it('should return the field hasMore as true when has more items to be paginated', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
-        variables: { page: 1 },
-        status: CONSTANTS.STATUS_OK,
         articles: Array(12).fill(rawArticleWithId),
       });
 
@@ -165,16 +168,17 @@ describe('Integration: DataSources-NewsAPI', () => {
       const { query } = createTestClient(server);
 
       const { data } = await query({
+        variables: { page: 1, language: ArticleLanguage.En },
         query: GET_ARTICLES,
-        variables: { page: 1 },
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -185,8 +189,6 @@ describe('Integration: DataSources-NewsAPI', () => {
 
     it('should return hasMore as false when has no more items to be paginated', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
-        variables: { page: 1 },
-        status: CONSTANTS.STATUS_OK,
         articles: Array(11).fill(rawArticleWithId),
       });
 
@@ -196,15 +198,16 @@ describe('Integration: DataSources-NewsAPI', () => {
 
       const { data } = await query({
         query: GET_ARTICLES,
-        variables: { page: 1 },
+        variables: { page: 1, language: ArticleLanguage.En },
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 1,
       });
 

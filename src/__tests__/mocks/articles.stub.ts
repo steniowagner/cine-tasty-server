@@ -66,7 +66,7 @@ export const articleWithURLId: Article = {
 
 export const articleWithId: Article = {
   image: 'urlToImage',
-  id: 'id',
+  id: 'url',
   source: 'name',
   content: 'content',
   publishedAt: 'publishedAt',

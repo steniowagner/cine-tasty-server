@@ -23,26 +23,23 @@ class NewsAPI extends RESTDataSource implements Props {
   async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticleQueryResult> {
     const params = getRequestParams(page, language);
 
-    const { status, articles } = await this.get<GetRequestResponse>(
-      CONSTANTS.ENDPOINT,
-      params,
-    );
+    try {
+      const { articles } = await this.get<GetRequestResponse>(CONSTANTS.ENDPOINT, params);
 
-    if (status !== CONSTANTS.STATUS_OK) {
+      const result = articles
+        .filter((article: GetArticlesResultItem) => validateArticleResultItem(article))
+        .map((article: GetArticlesResultItem) => parseArticle(article));
+
+      return {
+        hasMore: articles.length === CONSTANTS.PAGE_SIZE,
+        items: result,
+      };
+    } catch (err) {
       return {
         hasMore: false,
         items: [],
       };
     }
-
-    const result = articles
-      .filter((article: GetArticlesResultItem) => validateArticleResultItem(article))
-      .map((article: GetArticlesResultItem) => parseArticle(article));
-
-    return {
-      hasMore: articles.length === CONSTANTS.PAGE_SIZE,
-      items: result,
-    };
   }
 }
 

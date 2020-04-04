@@ -38,16 +38,17 @@ describe('Unity: NewsAPI', () => {
 
       const newsAPI = new NewsAPI();
 
-      const result = await newsAPI.getArticles({ page: 1 });
+      const result = await newsAPI.getArticles({ page: 1, language: ArticleLanguage.En });
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 1,
       });
 
@@ -89,16 +90,17 @@ describe('Unity: NewsAPI', () => {
 
       const newsAPI = new NewsAPI();
 
-      const result = await newsAPI.getArticles({ page: 1 });
+      const result = await newsAPI.getArticles({ page: 1, language: ArticleLanguage.En });
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.ENDPOINT, {
-        apiKey: env.NEWS_API_KEY,
+        language: ArticleLanguage.En.toLowerCase(),
         pageSize: CONSTANTS.PAGE_SIZE,
+        apiKey: env.NEWS_API_KEY,
+        q: CONSTANTS.QUERY,
         from: dateParam,
         to: dateParam,
-        q: CONSTANTS.QUERY,
         page: 1,
       });
 
