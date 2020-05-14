@@ -1,7 +1,7 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawTVShow, rawTVShowDetail } from '../../../../../__tests__/mocks/tvShows.stub';
 import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
+import { rawTVShow, rawTVShowDetail } from '../../../../../__tests__/mocks/tvShows.stub';
 import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../../../../types';
 import CONSTANTS from '../../utils/constants';
