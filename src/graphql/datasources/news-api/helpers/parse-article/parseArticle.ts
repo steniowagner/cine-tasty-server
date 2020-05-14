@@ -1,5 +1,5 @@
-import { GetArticlesResultItem } from '../../../../../types';
-import { Article } from '../../../../../lib/types';
+import { GetArticlesResultItem } from 'types';
+import { Article } from 'lib/types';
 
 const parseArticle = ({
   publishedAt,

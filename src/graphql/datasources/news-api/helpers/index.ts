@@ -1,5 +1,5 @@
-import getRequestParams from './getRequestParams';
-import getDateParam from './getDateParam';
-import parseArticle from './parseArticle';
+import makeRequestParams from './make-request-params/makeRequestParams';
+import parseArticle from './parse-article/parseArticle';
+import makeDateParam from './makeDateParam';
 
-export { getRequestParams, getDateParam, parseArticle };
+export { makeRequestParams, makeDateParam, parseArticle };

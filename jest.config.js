@@ -18,6 +18,7 @@ module.exports = {
     '!<rootDir>/src/config/**/*.ts',
     '!<rootDir>/src/**/*.stub.ts',
   ],
+  moduleDirectories: ['node_modules', 'src'],
   coverageThreshold: {
     global: {
       statements: 100,
@@ -25,6 +26,9 @@ module.exports = {
       branches: 80,
       lines: 100,
     },
+  },
+  moduleNameMapper: {
+    'config/(.*)': '<rootDir>/src/config/$1',
   },
   coverageReporters: ['html', 'text'],
 };
