@@ -1,7 +1,7 @@
 import { ApolloServer, ApolloError } from 'apollo-server';
 import { GraphQLError } from 'graphql';
 
-import OpenTriviaAPI from './graphql/datasources/open-trivia-api';
+import OpenTriviaAPI from './graphql/datasources/open-trivia-api/OpenTriviaAPI';
 import dataSources from './graphql/datasources';
 import resolvers from './graphql/resolvers';
 import typeDefs from './graphql/typeDefs';
