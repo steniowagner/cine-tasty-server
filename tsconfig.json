@@ -6,8 +6,18 @@
     "outDir": "./dist",
     "baseUrl": "./src",
     "esModuleInterop": true,
-    "strict": true
+    "strict": true,
+    "paths": {
+      "@lib/*": ["lib/*"]
+    }
   },
   "include": ["src", "src/*ts", "src/**/*ts"],
-  "exclude": ["node_modules", "src/**/*.spec.ts", "src/__tests__"]
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "jest.config.js",
+    "coverage",
+    "__tests__",
+    "dist"
+  ]
 }
