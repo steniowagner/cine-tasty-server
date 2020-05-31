@@ -1,4 +1,4 @@
-const getDateParam = (): string => {
+const makeDateParam = (): string => {
   const today = new Date();
 
   const month = (today.getMonth() + 1).toString().padStart(2, '0');
@@ -11,4 +11,4 @@ const getDateParam = (): string => {
   return `${year}-${month}-${day}`;
 };
 
-export default getDateParam;
+export default makeDateParam;
