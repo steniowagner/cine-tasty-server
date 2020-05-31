@@ -1,3 +1,4 @@
+const drawnTypeQuestionMixed = jest.fn();
 const mockRestDataSourceGet = jest.fn();
 
 import { movieQuestion, tvQuestion, question } from '../../../../__tests__/mocks/quiz';
@@ -21,6 +22,11 @@ jest.mock('apollo-datasource-rest', () => {
     HTTPCache: class HTTPCache {},
   };
 });
+
+jest.mock(
+  './helpers/drawn-type-question-mixed/drawnTypeQuestionMixed',
+  () => (): QuestionCategory => QuestionCategory.Tv,
+);
 
 const defaultQueryString =
   'difficulty=difficulty&category=category&type=type&amount=amount';
@@ -111,15 +117,13 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
         number_questions: 1,
       };
 
-      const category = QuestionCategory.Tv;
-
       await triviaAPI.getQuestionsMixedTypes(input);
 
       expect(getQuestionsSingleType).toHaveBeenCalledTimes(1);
 
       expect(getQuestionsSingleType).toHaveBeenCalledWith({
         ...input,
-        category,
+        category: QuestionCategory.Tv,
       });
     });
 

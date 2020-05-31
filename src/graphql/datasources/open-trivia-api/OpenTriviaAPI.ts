@@ -1,7 +1,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
+import { QuestionCategory, QuizInput, Question } from 'lib/types';
+
 import drawTypeQuestionMixed from './helpers/drawn-type-question-mixed/drawnTypeQuestionMixed';
-import { QuestionCategory, QuizInput, Question } from '../../../lib/types';
 import makeQueryString from './helpers/make-query-string/makeQueryString';
 import makeURLParams from './helpers/make-url-params/makeURLParams';
 import shuffleQuestions from './helpers/shuffleQuestions';
