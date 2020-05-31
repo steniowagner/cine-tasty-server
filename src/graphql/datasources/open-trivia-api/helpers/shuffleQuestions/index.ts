@@ -1,4 +1,4 @@
-import { Question } from '../../../../lib/types';
+import { Question } from '../../../../../lib/types';
 
 export default (array: Question[]): Question[] => {
   for (let i = array.length - 1; i > 0; i--) {

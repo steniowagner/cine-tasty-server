@@ -1,16 +1,15 @@
-import { ArticleLanguage } from 'lib/types';
-import env from 'config/environment';
+import { ArticleLanguage } from '../../../../../lib/types';
+import env from '../../../../../config/environment';
+import getDateFormated from '../getDateParam';
+import getRequestParams from '.';
 
-import getRequestParams from './makeRequestParams';
-import makeDateParam from '../makeDateParam';
-
-describe('Testing Helper: NewsAPI/getRequestParams', () => {
+describe('Helper: getRequestParams()', () => {
   it('should return the request params correctly when no language is specified', () => {
     const params = {
       apiKey: env.NEWS_API_KEY,
       pageSize: 12,
-      from: makeDateParam(),
-      to: makeDateParam(),
+      from: getDateFormated(),
+      to: getDateFormated(),
       q: 'cinema',
       page: 1,
     };
@@ -18,11 +17,11 @@ describe('Testing Helper: NewsAPI/getRequestParams', () => {
     expect(getRequestParams(params.page)).toEqual(params);
   });
 
-  it('should return the request params correctly when some language is specified', () => {
+  it('should return the request params correctly when a language is specified', () => {
     const params = {
       apiKey: env.NEWS_API_KEY,
-      from: makeDateParam(),
-      to: makeDateParam(),
+      from: getDateFormated(),
+      to: getDateFormated(),
       pageSize: 12,
       language: 'pt',
       q: 'cinema',

@@ -1,4 +1,4 @@
-import parseEncodedChars from './parseEncodedChars';
+import parseEncodedChars from '.';
 
 describe('parseEncodedChars()', () => {
   it('should receive a string with utf characters and parse it correctly', () => {

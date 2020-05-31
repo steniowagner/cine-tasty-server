@@ -4,20 +4,9 @@
     "module": "commonjs",
     "rootDir": "./src",
     "outDir": "./dist",
-    "baseUrl": "./src",
     "esModuleInterop": true,
-    "strict": true,
-    "paths": {
-      "@lib/*": ["lib/*"]
-    }
+    "strict": true
   },
   "include": ["src", "src/*ts", "src/**/*ts"],
-  "exclude": [
-    "node_modules",
-    "src/**/*.spec.ts",
-    "jest.config.js",
-    "coverage",
-    "__tests__",
-    "dist"
-  ]
+  "exclude": ["node_modules", "src/**/*.spec.ts", "src/__tests__"]
 }

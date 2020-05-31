@@ -1,8 +1,7 @@
-import { ArticleLanguage } from 'lib/types';
-import env from 'config/environment';
-
+import { ArticleLanguage } from '../../../../../lib/types';
+import env from '../../../../../config/environment';
 import CONSTANTS from '../../utils/constants';
-import { makeDateParam } from '..';
+import { getDateParam } from '..';
 
 type RequestParams = {
   pageSize: number;
@@ -16,7 +15,7 @@ const getRequestParams = (
   page: number,
   language?: ArticleLanguage | null,
 ): RequestParams & { language?: string | null } => {
-  const dateParam = makeDateParam();
+  const dateParam = getDateParam();
 
   const params = {
     apiKey: env.NEWS_API_KEY,

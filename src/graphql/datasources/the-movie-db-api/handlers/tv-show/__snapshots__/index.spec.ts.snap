@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unity: TVShowHandler getImages() should return an array of strings containing urls to images of a certain tv show 1`] = `
+Array [
+  "/file_path.jpg",
+]
+`;
+
+exports[`Unity: TVShowHandler getTVShow() should get the details of a tv show with certain id from TheMovideDB API 1`] = `
+Object {
+  "backdrop_path": "/backdrop_path.jpg",
+  "created_by": Array [
+    Object {
+      "credit_id": "credit_id",
+      "gender": 1,
+      "id": 123,
+      "name": "name",
+      "profile_path": "/profile_path.jpg",
+    },
+  ],
+  "credits": Object {
+    "cast": Array [
+      Object {
+        "character": "character",
+        "credit_id": "credit_id",
+        "gender": 1,
+        "id": 1,
+        "name": "name",
+        "order": 0,
+        "profile_path": "/profile_path.jpg",
+      },
+    ],
+    "crew": Array [
+      Object {
+        "credit_id": "credit_id",
+        "department": "department",
+        "gender": 1,
+        "id": 123,
+        "job": "job",
+        "name": "name",
+        "profile_path": "/profile_path.jpg",
+      },
+    ],
+  },
+  "episode_run_time": Array [
+    1,
+  ],
+  "first_air_date": "first_air_date",
+  "genres": Array [
+    Object {
+      "id": 1,
+      "name": "TV Genre",
+    },
+  ],
+  "homepage": "homepage",
+  "id": 123,
+  "in_production": true,
+  "languages": Array [
+    "languages",
+  ],
+  "last_air_date": "last_air_date",
+  "last_episode_to_air": Object {
+    "air_date": "air_date",
+    "episode_number": 1,
+    "id": 1,
+    "name": "name",
+    "overview": "overview",
+    "production_code": "production_code",
+    "season_number": 1,
+    "show_id": 123,
+    "still_path": "/still_path.jpg",
+    "vote_average": 10,
+    "vote_count": 10,
+  },
+  "name": "name",
+  "networks": Array [
+    Object {
+      "id": 123,
+      "logo_path": "/logo_path.png",
+      "name": "name",
+      "origin_country": "origin_country",
+    },
+  ],
+  "number_of_episodes": 1,
+  "number_of_seasons": 1,
+  "origin_country": Array [
+    "origin_country",
+  ],
+  "original_language": "original_language",
+  "original_name": "original_name",
+  "overview": "overview",
+  "popularity": 12.34,
+  "poster_path": "/poster_path.jpg",
+  "production_companies": Array [
+    Object {
+      "id": 1,
+      "logo_path": "logo_path",
+      "name": "name",
+      "origin_country": "origin_country",
+    },
+  ],
+  "reviews": Object {
+    "page": 1,
+    "results": Array [
+      Object {
+        "author": "author.",
+        "content": "content",
+        "id": "id",
+        "url": "url",
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
+  "seasons": Array [
+    Object {
+      "air_date": "air_date",
+      "episode_count": 1,
+      "id": 123,
+      "name": "name",
+      "overview": "overview",
+      "poster_path": "/poster_path.jpg",
+      "season_number": 1,
+    },
+  ],
+  "similar": Object {
+    "page": 1,
+    "results": Array [
+      Object {
+        "backdrop_path": "/backdrop_path.jpg",
+        "first_air_date": "first_air_date",
+        "genre_ids": Array [
+          1,
+        ],
+        "id": 1,
+        "name": "name",
+        "origin_country": Array [
+          "origin_country",
+        ],
+        "original_language": "original_language",
+        "original_name": "original_name",
+        "overview": "overview",
+        "popularity": 1.1,
+        "poster_path": "/poster_path.jpg",
+        "vote_average": 1.1,
+        "vote_count": 1,
+      },
+    ],
+    "total_pages": 1,
+    "total_results": 1,
+  },
+  "status": "status",
+  "type": "type",
+  "videos": Object {
+    "results": Array [
+      Object {
+        "id": "id",
+        "iso_3166_1": "iso_3166_1",
+        "iso_639_1": "iso_639_1",
+        "key": "key",
+        "name": "name",
+        "site": "YouTube",
+        "size": 1080,
+        "type": "type",
+      },
+      Object {
+        "id": "id",
+        "iso_3166_1": "iso_3166_1",
+        "iso_639_1": "iso_639_1",
+        "key": "key",
+        "name": "name",
+        "site": "Other",
+        "size": 1080,
+        "type": "type",
+      },
+    ],
+  },
+  "vote_average": 1.2,
+  "vote_count": 12,
+}
+`;
+
+exports[`Unity: TVShowHandler getTrendingItem() Fetching On the Air TV Shows should return an array of the on the air tv shows from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "backdrop_path": "/backdrop_path.jpg",
+    "first_air_date": "first_air_date",
+    "genre_ids": Array [
+      1,
+    ],
+    "id": 1,
+    "name": "name",
+    "origin_country": Array [
+      "origin_country",
+    ],
+    "original_language": "original_language",
+    "original_name": "original_name",
+    "overview": "overview",
+    "popularity": 1.1,
+    "poster_path": "/poster_path.jpg",
+    "vote_average": 1.1,
+    "vote_count": 1,
+  },
+]
+`;
+
+exports[`Unity: TVShowHandler getTrendingItem() Fetching On the Air TV Shows should return the field hasMore as true when has more items to be paginated when fetching for on the air tv shows 1`] = `
+Array [
+  Object {
+    "backdrop_path": "/backdrop_path.jpg",
+    "first_air_date": "first_air_date",
+    "genre_ids": Array [
+      1,
+    ],
+    "id": 1,
+    "name": "name",
+    "origin_country": Array [
+      "origin_country",
+    ],
+    "original_language": "original_language",
+    "original_name": "original_name",
+    "overview": "overview",
+    "popularity": 1.1,
+    "poster_path": "/poster_path.jpg",
+    "vote_average": 1.1,
+    "vote_count": 1,
+  },
+]
+`;
+
+exports[`Unity: TVShowHandler getTrendingItem() Fetching Popular TV Shows should return an array of the popular tv shows from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "backdrop_path": "/backdrop_path.jpg",
+    "first_air_date": "first_air_date",
+    "genre_ids": Array [
+      1,
+    ],
+    "id": 1,
+    "name": "name",
+    "origin_country": Array [
+      "origin_country",
+    ],
+    "original_language": "original_language",
+    "original_name": "original_name",
+    "overview": "overview",
+    "popularity": 1.1,
+    "poster_path": "/poster_path.jpg",
+    "vote_average": 1.1,
+    "vote_count": 1,
+  },
+]
+`;
+
+exports[`Unity: TVShowHandler getTrendingItem() Fetching Popular TV Shows should return the field hasMore as true when has more items to be paginated when fetching for popular tv shows 1`] = `
+Array [
+  Object {
+    "backdrop_path": "/backdrop_path.jpg",
+    "first_air_date": "first_air_date",
+    "genre_ids": Array [
+      1,
+    ],
+    "id": 1,
+    "name": "name",
+    "origin_country": Array [
+      "origin_country",
+    ],
+    "original_language": "original_language",
+    "original_name": "original_name",
+    "overview": "overview",
+    "popularity": 1.1,
+    "poster_path": "/poster_path.jpg",
+    "vote_average": 1.1,
+    "vote_count": 1,
+  },
+]
+`;
+
+exports[`Unity: TVShowHandler getTrendingItem() Fetching Top Rated TV Shows should return an array of the top rated tv shows from the TheMovieDB API 1`] = `
+Array [
+  Object {
+    "backdrop_path": "/backdrop_path.jpg",
+    "first_air_date": "first_air_date",
+    "genre_ids": Array [
+      1,
+    ],
+    "id": 1,
+    "name": "name",
+    "origin_country": Array [
+      "origin_country",
+    ],
+    "original_language": "original_language",
+    "original_name": "original_name",
+    "overview": "overview",
+    "popularity": 1.1,
+    "poster_path": "/poster_path.jpg",
+    "vote_average": 1.1,
+    "vote_count": 1,
+  },
+]
+`;
+
+exports[`Unity: TVShowHandler getTrendingItem() Fetching Top Rated TV Shows should return the field hasMore as true when has more items to be paginated when fetching for top rated tv shows 1`] = `
+Array [
+  Object {
+    "backdrop_path": "/backdrop_path.jpg",
+    "first_air_date": "first_air_date",
+    "genre_ids": Array [
+      1,
+    ],
+    "id": 1,
+    "name": "name",
+    "origin_country": Array [
+      "origin_country",
+    ],
+    "original_language": "original_language",
+    "original_name": "original_name",
+    "overview": "overview",
+    "popularity": 1.1,
+    "poster_path": "/poster_path.jpg",
+    "vote_average": 1.1,
+    "vote_count": 1,
+  },
+]
+`;

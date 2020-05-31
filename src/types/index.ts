@@ -1,8 +1,7 @@
-import { Props as OpenTriviaAPIProps } from '../graphql/datasources/open-trivia-api/OpenTriviaAPI';
 import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api';
-import { Props as NewsAPIProps } from 'graphql/datasources/news-api/NewsAPI';
-
-import { BaseMovie, BaseTvShow, CastItem, CrewItem, Iso6391Language } from 'lib/types';
+import { Props as OpenTriviaAPIProps } from '../graphql/datasources/open-trivia-api';
+import { Props as NewsAPIProps } from '../graphql/datasources/news-api';
+import { BaseMovie, BaseTvShow, CastItem, CrewItem, Iso6391Language } from '../lib/types';
 
 export type MediaGenre = {
   id: number;
@@ -97,11 +96,4 @@ export type BasePaginationResponse = {
   total_results: number;
   total_pages: number;
   page: number;
-};
-
-export type OpenTriviaQueryParams = {
-  difficulty?: string;
-  category: number;
-  amount: number;
-  type?: string;
 };

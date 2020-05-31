@@ -1,9 +1,8 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import { ArticleQueryResult, QueryArticlesArgs } from 'lib/types';
-import { GetArticlesResultItem } from 'types';
-
-import { makeRequestParams, parseArticle } from './helpers';
+import { ArticleQueryResult, QueryArticlesArgs } from '../../../lib/types';
+import { getRequestParams, parseArticle } from './helpers';
+import { GetArticlesResultItem } from '../../../types';
 import CONSTANTS from './utils/constants';
 
 export interface Props {
@@ -22,7 +21,7 @@ class NewsAPI extends RESTDataSource implements Props {
   }
 
   async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticleQueryResult> {
-    const params = makeRequestParams(page, language);
+    const params = getRequestParams(page, language);
 
     try {
       const { articles } = await this.get<GetRequestResponse>(CONSTANTS.ENDPOINT, params);

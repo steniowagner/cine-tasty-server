@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unity: OpenTriviaAPI getQuestions() Getting questions about Movies should return an array with questions about movie from OpenTriviaAPI 1`] = `
+Array [
+  Object {
+    "category": "category",
+    "correct_answer": "correct_answer",
+    "difficulty": "difficulty",
+    "incorrect_answers": Array [
+      "incorrect_answers",
+    ],
+    "question": "question",
+    "type": "type",
+  },
+]
+`;
+
+exports[`Unity: OpenTriviaAPI getQuestions() Getting questions about Tv should return an array questions about tv from OpenTriviaAPI 1`] = `
+Array [
+  Object {
+    "category": "category",
+    "correct_answer": "correct_answer",
+    "difficulty": "difficulty",
+    "incorrect_answers": Array [
+      "incorrect_answers",
+    ],
+    "question": "question",
+    "type": "type",
+  },
+]
+`;

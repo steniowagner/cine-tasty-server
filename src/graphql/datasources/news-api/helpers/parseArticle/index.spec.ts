@@ -3,10 +3,10 @@ import {
   rawArticleWithId,
   articleWithURLId,
   articleWithId,
-} from '../../../../../../__tests__/mocks/articles';
-import parseArticle from './parseArticle';
+} from '../../../../../__tests__/mocks/articles.stub';
+import parseArticle from '.';
 
-describe('Testing Helper: NewsAPI/parseArticle', () => {
+describe('Helper: parseArticle()', () => {
   it('should parse the raw article with the field url as id', () => {
     expect(parseArticle(rawArticleWithNullId)).toEqual(articleWithURLId);
   });

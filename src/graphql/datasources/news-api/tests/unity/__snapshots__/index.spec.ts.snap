@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unity: NewsAPI getArticles() should fetch movie articles from NewsAPI and return it correctly 1`] = `
+Object {
+  "hasMore": false,
+  "items": Array [
+    Object {
+      "author": "author",
+      "content": "content",
+      "description": undefined,
+      "id": "url",
+      "image": "urlToImage",
+      "publishedAt": "publishedAt",
+      "source": "name",
+      "title": "title",
+      "url": "url",
+    },
+  ],
+}
+`;
