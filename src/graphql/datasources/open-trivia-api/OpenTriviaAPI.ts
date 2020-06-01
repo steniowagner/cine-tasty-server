@@ -26,7 +26,7 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
   async getQuestions(input: QuizInput): Promise<Question[]> {
     if (input.category.toLowerCase() === QuestionCategory.Mixed.toLowerCase()) {
       return this.getQuestionsMixedTypes({
-        number_questions: input.number_questions,
+        numberOfQuestions: input.numberOfQuestions,
         difficulty: input.difficulty,
         type: input.type,
       });
@@ -36,26 +36,26 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
   }
 
   async getQuestionsMixedTypes(input: Omit<QuizInput, 'category'>): Promise<Question[]> {
-    if (input.number_questions === 1) {
+    if (input.numberOfQuestions === 1) {
       return this.getQuestionsSingleType({
         ...input,
         category: drawTypeQuestionMixed(),
       });
     }
 
-    const movieQuestionsAmount = Math.ceil(input.number_questions / 2);
-    const tvQuestionsAmount = Math.floor(input.number_questions / 2);
+    const movieQuestionsAmount = Math.ceil(input.numberOfQuestions / 2);
+    const tvQuestionsAmount = Math.floor(input.numberOfQuestions / 2);
 
     const [tvQuestions, movieQuestions] = await Promise.all<Question[], Question[]>([
       this.getQuestionsSingleType({
         ...input,
         category: QuestionCategory.Tv,
-        number_questions: tvQuestionsAmount,
+        numberOfQuestions: tvQuestionsAmount,
       }),
       this.getQuestionsSingleType({
         ...input,
         category: QuestionCategory.Movie,
-        number_questions: movieQuestionsAmount,
+        numberOfQuestions: movieQuestionsAmount,
       }),
     ]);
 

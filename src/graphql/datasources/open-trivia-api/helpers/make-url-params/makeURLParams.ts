@@ -4,13 +4,13 @@ import getCategoryCode from '../get-category-code/getCategoryCode';
 import { OpenTriviaQueryParams } from '../../../../../types';
 
 const makeURLParams = ({
-  number_questions,
+  numberOfQuestions,
   difficulty,
   category,
   type,
 }: QuizInput): OpenTriviaQueryParams => {
   const queryParams: OpenTriviaQueryParams = {
-    amount: getAmountQuestions(number_questions),
+    amount: getAmountQuestions(numberOfQuestions),
     category: getCategoryCode(category),
   };
 

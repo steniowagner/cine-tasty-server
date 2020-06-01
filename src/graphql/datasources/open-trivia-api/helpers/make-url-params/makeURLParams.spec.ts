@@ -22,7 +22,7 @@ const defaultInput: QuizInput = {
   difficulty: QuestionDifficulty.Easy,
   category: QuestionCategory.Movie,
   type: QuestionType.Boolean,
-  number_questions: 2,
+  numberOfQuestions: 2,
 };
 
 describe('Testing Helper: OpenTriviaAPI/makeURLParams', () => {

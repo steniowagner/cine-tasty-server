@@ -38,21 +38,21 @@ const movieQuestionsInput = {
   difficulty: QuestionDifficulty.Hard,
   category: QuestionCategory.Movie,
   type: QuestionType.Multiple,
-  number_questions: 10,
+  numberOfQuestions: 10,
 };
 
 const tvQuestionsInput = {
   difficulty: QuestionDifficulty.Hard,
   category: QuestionCategory.Tv,
   type: QuestionType.Multiple,
-  number_questions: 10,
+  numberOfQuestions: 10,
 };
 
 const mixedQuestionsInput = {
   difficulty: QuestionDifficulty.Hard,
   category: QuestionCategory.Mixed,
   type: QuestionType.Multiple,
-  number_questions: 2,
+  numberOfQuestions: 2,
 };
 
 const triviaAPI = new OpenTriviaAPI();
@@ -74,7 +74,7 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
       expect(getQuestionsMixedTypes).toHaveBeenCalledTimes(1);
 
       expect(getQuestionsMixedTypes).toHaveBeenCalledWith({
-        number_questions: mixedQuestionsInput.number_questions,
+        numberOfQuestions: mixedQuestionsInput.numberOfQuestions,
         difficulty: mixedQuestionsInput.difficulty,
         type: mixedQuestionsInput.type,
       });
@@ -113,7 +113,7 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
 
       const input: QuizInput = {
         ...mixedQuestionsInput,
-        number_questions: 1,
+        numberOfQuestions: 1,
       };
 
       await triviaAPI.getQuestionsMixedTypes(input);
@@ -141,11 +141,11 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
 
       const input: QuizInput = {
         ...mixedQuestionsInput,
-        number_questions: 2,
+        numberOfQuestions: 2,
       };
 
-      const movieQuestionsAmount = Math.ceil(input.number_questions / 2);
-      const tvQuestionsAmount = Math.floor(input.number_questions / 2);
+      const movieQuestionsAmount = Math.ceil(input.numberOfQuestions / 2);
+      const tvQuestionsAmount = Math.floor(input.numberOfQuestions / 2);
 
       const result = await triviaAPI.getQuestionsMixedTypes(input);
 
@@ -154,13 +154,13 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
       expect(getQuestionsSingleType).toHaveBeenCalledWith({
         ...input,
         category: QuestionCategory.Tv,
-        number_questions: tvQuestionsAmount,
+        numberOfQuestions: tvQuestionsAmount,
       });
 
       expect(getQuestionsSingleType).toHaveBeenCalledWith({
         ...input,
         category: QuestionCategory.Movie,
-        number_questions: movieQuestionsAmount,
+        numberOfQuestions: movieQuestionsAmount,
       });
 
       expect(Array.isArray(result)).toBe(true);
