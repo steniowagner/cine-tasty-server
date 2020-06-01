@@ -1,6 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import { QuestionCategory, QuizInput, Question } from 'lib/types';
+import { QuestionCategory, QuizInput, Question } from '@lib/types';
 
 import drawTypeQuestionMixed from './helpers/drawn-type-question-mixed/drawnTypeQuestionMixed';
 import makeQueryString from './helpers/make-query-string/makeQueryString';

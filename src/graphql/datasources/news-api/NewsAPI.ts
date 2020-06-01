@@ -1,6 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import { ArticleQueryResult, QueryArticlesArgs } from 'lib/types';
+import { ArticleQueryResult, QueryArticlesArgs } from '@lib/types';
 import { GetArticlesResultItem } from 'types';
 
 import { makeRequestParams, parseArticle } from './helpers';

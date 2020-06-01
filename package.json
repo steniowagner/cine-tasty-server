@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon src/app.ts",
+    "dev:server": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --transpileOnly --ignore-watch node_modules src/app.ts",
     "build": "tsc -p tsconfig.json",
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint:fix": "eslint --fix --ext .ts .",
@@ -37,7 +37,6 @@
     "@types/jest": "^24.0.25",
     "@types/node": "^13.1.4",
     "@types/node-fetch": "^2.5.4",
-    "@types/nodemon": "^1.19.0",
     "@typescript-eslint/eslint-plugin": "^2.14.0",
     "@typescript-eslint/parser": "^2.14.0",
     "apollo-server-testing": "^2.9.15",
@@ -49,12 +48,13 @@
     "husky": "^4.2.3",
     "jest": "^24.9.0",
     "lint-staged": "^10.0.8",
-    "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",
     "prettier-eslint-cli": "^5.0.0",
     "ts-jest": "^24.3.0",
     "ts-node": "^8.5.4",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4"
   },
   "dependencies": {
