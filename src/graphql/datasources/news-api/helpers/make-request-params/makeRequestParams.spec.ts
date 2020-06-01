@@ -1,5 +1,5 @@
-import { ArticleLanguage } from 'lib/types';
-import env from 'config/environment';
+import { ArticleLanguage } from '../../../../../lib/types';
+import env from '../../../../../config/environment';
 
 import getRequestParams from './makeRequestParams';
 import makeDateParam from '../makeDateParam';

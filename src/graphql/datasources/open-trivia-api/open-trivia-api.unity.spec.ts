@@ -1,4 +1,3 @@
-const drawnTypeQuestionMixed = jest.fn();
 const mockRestDataSourceGet = jest.fn();
 
 import { movieQuestion, tvQuestion, question } from '../../../../__tests__/mocks/quiz';

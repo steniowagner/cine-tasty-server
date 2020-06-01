@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig.json');
+
 module.exports = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/*.spec.ts'],
@@ -27,8 +31,10 @@ module.exports = {
       lines: 100,
     },
   },
-  moduleNameMapper: {
-    'config/(.*)': '<rootDir>/src/config/$1',
-  },
   coverageReporters: ['html', 'text'],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/src/',
+  }),
+  preset: 'ts-jest',
+  testEnvironment: 'node',
 };
