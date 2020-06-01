@@ -33,6 +33,6 @@ export default gql`
     difficulty: QuestionDifficulty!
     type: QuestionType!
     category: QuestionCategory!
-    number_questions: Int!
+    numberOfQuestions: Int!
   }
 `;

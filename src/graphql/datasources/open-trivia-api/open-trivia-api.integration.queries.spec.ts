@@ -75,7 +75,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Movie,
             type: QuestionType.Multiple,
-            number_questions: 10,
+            numberOfQuestions: 10,
           },
         },
       });
@@ -97,7 +97,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Movie,
             type: QuestionType.Multiple,
-            number_questions: 10,
+            numberOfQuestions: 10,
           },
         },
       });
@@ -122,7 +122,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Tv,
             type: QuestionType.Multiple,
-            number_questions: 10,
+            numberOfQuestions: 10,
           },
         },
       });
@@ -144,7 +144,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Tv,
             type: QuestionType.Multiple,
-            number_questions: 10,
+            numberOfQuestions: 10,
           },
         },
       });
@@ -168,7 +168,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Mixed,
             type: QuestionType.Multiple,
-            number_questions: 2,
+            numberOfQuestions: 2,
           },
         },
       });
@@ -196,7 +196,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Mixed,
             category: QuestionCategory.Mixed,
             type: QuestionType.Mixed,
-            number_questions: 2,
+            numberOfQuestions: 2,
           },
         },
       });
@@ -224,7 +224,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Mixed,
             type: QuestionType.Multiple,
-            number_questions: 2,
+            numberOfQuestions: 2,
           },
         },
       });
@@ -252,7 +252,7 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
             difficulty: QuestionDifficulty.Easy,
             category: QuestionCategory.Mixed,
             type: QuestionType.Multiple,
-            number_questions: 2,
+            numberOfQuestions: 2,
           },
         },
       });
