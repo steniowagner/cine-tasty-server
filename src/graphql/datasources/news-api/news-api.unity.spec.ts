@@ -1,11 +1,11 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawArticleWithId, articleWithId } from '../../../../../__tests__/mocks/articles';
-import { ArticleLanguage } from '../../../../lib/types';
-import env from '../../../../config/environment';
-import { makeDateParam } from '../helpers';
-import CONSTANTS from '../utils/constants';
-import NewsAPI from '../NewsAPI';
+import { rawArticleWithId, articleWithId } from '../../../../__tests__/mocks/articles';
+import { ArticleLanguage } from '../../../lib/types';
+import env from '../../../config/environment';
+import { makeDateParam } from './helpers';
+import CONSTANTS from './utils/constants';
+import NewsAPI from './NewsAPI';
 
 const dateParam = makeDateParam();
 
