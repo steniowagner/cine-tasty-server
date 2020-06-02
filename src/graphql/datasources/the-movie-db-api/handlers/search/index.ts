@@ -1,4 +1,4 @@
-import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../@types';
 import { SearchQueryEmpty } from '../../../../../errors';
 import CONSTANTS from '../../utils/constants';
 import {

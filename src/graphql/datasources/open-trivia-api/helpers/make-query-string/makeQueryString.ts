@@ -1,4 +1,4 @@
-import { OpenTriviaQueryParams } from '../../../../../types';
+import { OpenTriviaQueryParams } from '@types';
 
 const makeQueryString = (queryParams: OpenTriviaQueryParams): string => {
   return Object.entries(queryParams)

@@ -1,5 +1,5 @@
 import { QuerySearchArgs, QueryResolvers, SearchQueryResult } from '../../lib/types';
-import { Context } from '../../types';
+import { Context } from '../../@types';
 
 type SearchResultSample = {
   first_air_date?: string;

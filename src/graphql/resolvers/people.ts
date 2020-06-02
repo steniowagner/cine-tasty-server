@@ -5,7 +5,7 @@ import {
   QueryPersonArgs,
   Person,
 } from '../../lib/types';
-import { Context } from '../../types';
+import { Context } from '../../@types';
 
 type PersonKnownForResultSample = {
   original_title?: string;

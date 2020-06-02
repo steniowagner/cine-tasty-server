@@ -12,7 +12,7 @@ import {
 import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
 import { tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import { Iso6391Language } from '../../../../../lib/types';
-import { TrendingTVShowsEndpoints } from '../../../../../types';
+import { TrendingTVShowsEndpoints } from '../../../../../@types';
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
 import CONSTANTS from '../../utils/constants';

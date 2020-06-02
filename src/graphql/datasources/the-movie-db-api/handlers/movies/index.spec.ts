@@ -2,7 +2,7 @@ const mockRestDataSourceGet = jest.fn();
 
 import { rawMovie, rawMovieDetail } from '../../../../../__tests__/mocks/movies.stub';
 import { getImagesResult } from '../../../../../__tests__/mocks/images.stub';
-import { TrendingMoviesEndpoints } from '../../../../../types';
+import { TrendingMoviesEndpoints } from '../../../../../@types';
 import { Iso6391Language } from '../../../../../lib/types';
 import CONSTANTS from '../../utils/constants';
 import MovieHandler from '.';

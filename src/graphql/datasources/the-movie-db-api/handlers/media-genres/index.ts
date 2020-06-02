@@ -2,7 +2,7 @@ import { RESTDataSource, HTTPCache } from 'apollo-datasource-rest';
 
 import { Iso6391Language, MediaType } from '../../../../../lib/types';
 import { getGenres, formatLanguage } from '../../helpers';
-import { Genres, MediaGenre } from '../../../../../types';
+import { Genres, MediaGenre } from '../../../../../@types';
 import env from '../../../../../config/environment';
 import CONSTANTS from '../../utils/constants';
 

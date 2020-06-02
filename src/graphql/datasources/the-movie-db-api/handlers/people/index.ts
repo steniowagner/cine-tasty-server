@@ -1,5 +1,5 @@
 import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '../../../../../lib/types';
-import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../@types';
 
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';

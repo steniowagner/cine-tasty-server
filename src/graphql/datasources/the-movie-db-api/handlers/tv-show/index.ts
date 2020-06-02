@@ -4,7 +4,7 @@ import {
   GetImagesResponse,
   GetTMDBApiRequest,
   BasePaginationResponse,
-} from '../../../../../types';
+} from '../../../../../@types';
 import {
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,

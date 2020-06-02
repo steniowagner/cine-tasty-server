@@ -3,7 +3,7 @@ import {
   GetPersonImagesResult,
   MediaItem,
   GetTMDBApiRequest,
-} from '../../../../../types';
+} from '../../../../../@types';
 import { getPersonProfileImages } from '../../helpers';
 import CONSTANTS from '../../utils/constants';
 

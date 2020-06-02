@@ -21,12 +21,12 @@ export default gql`
   }
 
   type Question {
-    incorrect_answers: [String!]!
+    options: [String!]!
     category: String!
     type: String!
     difficulty: String!
     question: String!
-    correct_answer: String!
+    correctAnswer: String!
   }
 
   input QuizInput {

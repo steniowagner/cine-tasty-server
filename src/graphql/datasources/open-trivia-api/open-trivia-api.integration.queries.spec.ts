@@ -18,12 +18,12 @@ import {
 const GET_QUIZ_QUESTIONS = gql`
   query GetQuizQuestions($input: QuizInput!) {
     quiz(input: $input) {
-      incorrect_answers
+      options
       category
       type
       difficulty
       question
-      correct_answer
+      correctAnswer
     }
   }
 `;
@@ -61,9 +61,11 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
 
   describe('Query - Quiz (Movie category)', () => {
     it('should return an array of questions correctly', async () => {
+      const results = [movieQuestion];
+
       mockRestDataSourceGet.mockResolvedValueOnce({
         response_code: 0,
-        results: [movieQuestion],
+        results,
       });
 
       const query = makeTestQuery();
@@ -80,7 +82,31 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
         },
       });
 
-      expect(data.quiz).toEqual([movieQuestion]);
+      expect(
+        data.quiz.every(
+          (question, index) =>
+            question.correctAnswer === results[index].correct_answer &&
+            question.difficulty === results[index].difficulty &&
+            question.category === results[index].category &&
+            question.question === results[index].question &&
+            question.type === results[index].type,
+        ),
+      ).toBe(true);
+
+      expect(
+        data.quiz.every((question, index) => {
+          const questionAlternatives = [
+            results[index].correct_answer,
+            ...results[index].incorrect_answers,
+          ];
+
+          const isOptionIncluded = question.options.every(option =>
+            questionAlternatives.includes(option),
+          );
+
+          return isOptionIncluded;
+        }),
+      );
     });
 
     it('should return an empty array when the "response_code" is "1"', async () => {
@@ -108,9 +134,11 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
 
   describe('Query - Quiz (TV category)', () => {
     it('should return an array of questions correctly', async () => {
+      const results = [tvQuestion];
+
       mockRestDataSourceGet.mockResolvedValueOnce({
         response_code: 0,
-        results: [tvQuestion],
+        results,
       });
 
       const query = makeTestQuery();
@@ -127,7 +155,31 @@ describe('Integration: DataSources/OpenTriviaAPI', () => {
         },
       });
 
-      expect(data.quiz).toEqual([tvQuestion]);
+      expect(
+        data.quiz.every(
+          (question, index) =>
+            question.correctAnswer === results[index].correct_answer &&
+            question.difficulty === results[index].difficulty &&
+            question.category === results[index].category &&
+            question.question === results[index].question &&
+            question.type === results[index].type,
+        ),
+      ).toBe(true);
+
+      expect(
+        data.quiz.every((question, index) => {
+          const questionAlternatives = [
+            results[index].correct_answer,
+            ...results[index].incorrect_answers,
+          ];
+
+          const isOptionIncluded = question.options.every(option =>
+            questionAlternatives.includes(option),
+          );
+
+          return isOptionIncluded;
+        }),
+      );
     });
 
     it('should return an empty array when the "response_code" is "1"', async () => {
