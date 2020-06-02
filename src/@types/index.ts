@@ -105,3 +105,12 @@ export type OpenTriviaQueryParams = {
   amount: number;
   type?: string;
 };
+
+export type QuestionResponse = {
+  incorrect_answers: string[];
+  correct_answer: string;
+  difficulty: string;
+  question: string;
+  category: string;
+  type: string;
+};

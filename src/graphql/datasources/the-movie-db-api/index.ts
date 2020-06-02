@@ -30,7 +30,7 @@ import {
   TrendingTVShowsEndpoints,
   TrendingMoviesEndpoints,
   GetTMDBApiRequest,
-} from '../../../types';
+} from '../../../@types';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 

@@ -4,7 +4,7 @@ import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
 import { movieGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
-import { TrendingMoviesEndpoints } from '../../../../../types';
+import { TrendingMoviesEndpoints } from '../../../../../@types';
 import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
 import {
   rawMovie,

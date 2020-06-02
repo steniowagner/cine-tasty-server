@@ -24,7 +24,7 @@ import {
   Context,
   MediaGenre,
   MediaCredits,
-} from '../../types';
+} from '../../@types';
 
 const mediaGenres = new MediaGenresHandler();
 

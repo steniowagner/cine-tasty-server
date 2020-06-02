@@ -5,7 +5,7 @@ import {
   CastMovieGenre_IdsArgs as CastMovieGenreIdsArgs,
   CastTvShowGenre_IdsArgs as CastTvGenreIdsArgs,
 } from '../../lib/types';
-import { MediaItem } from '../../types';
+import { MediaItem } from '../../@types';
 
 type CastType = {
   media_type: 'tv' | 'movie';

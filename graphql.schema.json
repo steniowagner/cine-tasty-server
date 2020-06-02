@@ -5759,7 +5759,7 @@
         "description": null,
         "fields": [
           {
-            "name": "incorrect_answers",
+            "name": "options",
             "description": null,
             "args": [],
             "type": {
@@ -5847,7 +5847,7 @@
             "deprecationReason": null
           },
           {
-            "name": "correct_answer",
+            "name": "correctAnswer",
             "description": null,
             "args": [],
             "type": {

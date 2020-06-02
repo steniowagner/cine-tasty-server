@@ -1,4 +1,4 @@
-import { GetArticlesResultItem } from '../../types';
+import { GetArticlesResultItem } from '../../@types';
 import { Article } from '../../lib/types';
 
 export const articleWithNullField: GetArticlesResultItem = {

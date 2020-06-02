@@ -1,6 +1,6 @@
 import parseEncodedChars from '../datasources/open-trivia-api/helpers/parse-encoded-chars/parseEncodedChars';
-import { QueryResolvers, Question, QueryQuizArgs } from '../../lib/types';
-import { Context } from '../../types';
+import { QueryResolvers, Question, QueryQuizArgs } from '@lib/types';
+import { Context } from '@types/*';
 
 const resolvers: QueryResolvers = {
   Query: {
@@ -14,8 +14,8 @@ const resolvers: QueryResolvers = {
   Question: {
     question: ({ question }: Question): string => parseEncodedChars(question),
 
-    incorrect_answers: ({ incorrect_answers }: Question): string[] =>
-      incorrect_answers.map(incorrectAnswer => parseEncodedChars(incorrectAnswer)),
+    options: ({ options }: Question): string[] =>
+      options.map(option => parseEncodedChars(option)),
   },
 };
 

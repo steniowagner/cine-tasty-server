@@ -26,7 +26,7 @@ import {
   MediaCredits,
   TrendingMoviesEndpoints,
   BasePaginationResponse,
-} from '../../types';
+} from '../../@types';
 
 const mediaGenres = new MediaGenresHandler();
 

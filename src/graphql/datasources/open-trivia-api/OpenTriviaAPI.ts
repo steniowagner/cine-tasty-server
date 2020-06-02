@@ -1,16 +1,18 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import { QuestionCategory, QuizInput, Question } from '@lib/types';
+import shuffleArray from '@utils/shuffle-array/shuffleArray';
+import { QuestionResponse } from '@types';
 
 import drawTypeQuestionMixed from './helpers/drawn-type-question-mixed/drawnTypeQuestionMixed';
 import makeQueryString from './helpers/make-query-string/makeQueryString';
 import makeURLParams from './helpers/make-url-params/makeURLParams';
-import shuffleQuestions from './helpers/shuffleQuestions';
+import parseResult from './helpers/parse-result/parseResult';
 import CONSTANTS from './utils/constants';
 
 type GetRequestResponse = {
+  results: QuestionResponse[];
   response_code: number;
-  results: Question[];
 };
 
 export interface Props {
@@ -59,12 +61,19 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
       }),
     ]);
 
-    return shuffleQuestions([...tvQuestions, ...movieQuestions]);
+    return shuffleArray<Question>([...tvQuestions, ...movieQuestions]);
+  }
+
+  getRequestQueryString(input: QuizInput): string {
+    const urlParams = makeURLParams(input);
+
+    const queryString = makeQueryString(urlParams);
+
+    return queryString;
   }
 
   async getQuestionsSingleType(input: QuizInput): Promise<Question[]> {
-    const urlParams = makeURLParams(input);
-    const queryString = makeQueryString(urlParams);
+    const queryString = this.getRequestQueryString(input);
 
     const { results, response_code: responseCode } = await this.get<GetRequestResponse>(
       CONSTANTS.ENDPOINT,
@@ -75,7 +84,7 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
       return [];
     }
 
-    return results;
+    return parseResult(results);
   }
 }
 

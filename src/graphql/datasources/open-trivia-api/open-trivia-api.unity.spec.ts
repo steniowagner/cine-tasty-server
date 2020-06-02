@@ -211,7 +211,9 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
     });
 
     it('should return the questions correctly when the "response code" is other than "no response"', async () => {
-      mockRestDataSourceGet.mockReturnValue({ response_code: 0, results: [question] });
+      const questions = [question];
+
+      mockRestDataSourceGet.mockReturnValue({ response_code: 0, results: questions });
 
       const result = await triviaAPI.getQuestionsSingleType(tvQuestionsInput);
 
@@ -224,7 +226,28 @@ describe('Unity: DataSources/OpenTriviaAPI', () => {
         defaultQueryString,
       );
 
-      expect(result).toEqual([question]);
+      expect(
+        result.every((resultItem, index) => {
+          return (
+            resultItem.correctAnswer === questions[index].correct_answer &&
+            resultItem.difficulty === questions[index].difficulty &&
+            resultItem.category === questions[index].category &&
+            resultItem.question === questions[index].question &&
+            resultItem.type === questions[index].type
+          );
+        }),
+      ).toBe(true);
+
+      expect(
+        result.every((resultItem, index) => {
+          const questionAlternatives = [
+            questions[index].correct_answer,
+            ...questions[index].incorrect_answers,
+          ];
+
+          return questionAlternatives[index].includes(resultItem.options[index]);
+        }),
+      );
     });
   });
 });

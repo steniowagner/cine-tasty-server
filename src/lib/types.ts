@@ -608,12 +608,12 @@ export type QueryQuizArgs = {
 
 export type Question = {
    __typename?: 'Question',
-  incorrect_answers: Array<Scalars['String']>,
+  options: Array<Scalars['String']>,
   category: Scalars['String'],
   type: Scalars['String'],
   difficulty: Scalars['String'],
   question: Scalars['String'],
-  correct_answer: Scalars['String'],
+  correctAnswer: Scalars['String'],
 };
 
 export enum QuestionCategory {
@@ -1272,12 +1272,12 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 }>;
 
 export type QuestionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Question'] = ResolversParentTypes['Question']> = ResolversObject<{
-  incorrect_answers?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  options?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   category?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   difficulty?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   question?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  correct_answer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  correctAnswer?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 

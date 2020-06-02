@@ -1,5 +1,5 @@
 import { QueryResolvers, QueryArticlesArgs, ArticleQueryResult } from '../../lib/types';
-import { Context } from '../../types';
+import { Context } from '../../@types';
 
 const resolvers: QueryResolvers = {
   Query: {

@@ -11,7 +11,7 @@ import {
   TrendingMoviesEndpoints,
   GetImagesResponse,
   BasePaginationResponse,
-} from '../../../../../types';
+} from '../../../../../@types';
 
 type GetBaseMovieResponse = BasePaginationResponse & {
   results: BaseMovie[];

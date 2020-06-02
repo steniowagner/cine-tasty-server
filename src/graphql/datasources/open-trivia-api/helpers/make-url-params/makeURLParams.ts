@@ -1,7 +1,7 @@
 import { QuestionDifficulty, QuestionType, QuizInput } from '../../../../../lib/types';
 import getAmountQuestions from '../get-amount-questions/getAmountQuestions';
 import getCategoryCode from '../get-category-code/getCategoryCode';
-import { OpenTriviaQueryParams } from '../../../../../types';
+import { OpenTriviaQueryParams } from '@types';
 
 const makeURLParams = ({
   numberOfQuestions,
