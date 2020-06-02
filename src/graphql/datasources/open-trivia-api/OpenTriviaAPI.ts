@@ -4,10 +4,13 @@ import { QuestionCategory, QuizInput, Question } from '@lib/types';
 import shuffleArray from '@utils/shuffle-array/shuffleArray';
 import { QuestionResponse } from '@types';
 
-import drawTypeQuestionMixed from './helpers/drawn-type-question-mixed/drawnTypeQuestionMixed';
-import makeQueryString from './helpers/make-query-string/makeQueryString';
-import makeURLParams from './helpers/make-url-params/makeURLParams';
-import parseResult from './helpers/parse-result/parseResult';
+import {
+  drawTypeQuestionMixed,
+  makeQueryString,
+  makeURLParams,
+  parseResult,
+} from './helpers';
+
 import CONSTANTS from './utils/constants';
 
 type GetRequestResponse = {
