@@ -8,12 +8,13 @@
     "esModuleInterop": true,
     "strict": true,
     "paths": {
+      "@config/*": ["config/*"],
       "@utils/*": ["utils/*"],
       "@types/*": ["@types/*"],
       "@lib/*": ["lib/*"]
     }
   },
-  "include": ["src", "src/*ts", "src/**/*ts"],
+  "include": ["src", "src/*ts", "src/**/*ts", "__tests__/mocks/mediaGenres.ts"],
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",

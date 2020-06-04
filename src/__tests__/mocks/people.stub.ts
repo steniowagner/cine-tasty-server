@@ -1,4 +1,4 @@
-import { movieGenres, tvGenres } from './mediaGenres.stub';
+import { movieGenres, tvGenres } from '../../../__tests__/mocks/mediaGenres';
 
 export const rawKnowForMovie = {
   release_date: 'release_date',

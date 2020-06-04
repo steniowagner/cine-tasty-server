@@ -4,7 +4,7 @@ import { ApolloServer, gql } from 'apollo-server';
 const mockRestDataSourceGet = jest.fn();
 
 import { rawPerson, person, rawCast } from '../../../../../__tests__/mocks/person.stub';
-import { movieGenres, tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
+import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
 import TheMovieDBAPI from '../..';

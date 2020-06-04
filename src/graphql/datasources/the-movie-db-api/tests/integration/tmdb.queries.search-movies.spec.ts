@@ -3,8 +3,8 @@ import { ApolloServer, gql } from 'apollo-server';
 
 const mockRestDataSourceGet = jest.fn();
 
+import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { rawKnowForMovie } from '../../../../../__tests__/mocks/people.stub';
-import { movieGenres, tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
 import { SearchType } from '../../../../../lib/types';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
@@ -90,9 +90,9 @@ describe('Integration: DataSources-Search.Movie', () => {
         variables: { input: { page: 1, query: 'any', type: SearchType.Movie } },
       });
 
-      expect(data!.search.hasMore).toEqual(false);
-      expect(data!.search.total_results).toEqual(1);
-      expect(data!.search.items).toMatchSnapshot();
+      expect(data.search.hasMore).toEqual(false);
+      expect(data.search.total_results).toEqual(1);
+      expect(data.search.items).toMatchSnapshot();
     });
 
     it('should throw an error when the query is empty', async () => {

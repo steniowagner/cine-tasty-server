@@ -1,4 +1,4 @@
-import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
+import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres/MediaGenresHandler';
 
 import {
   QueryResolvers,
@@ -58,7 +58,11 @@ const resolvers: QueryResolvers = {
       { genre_ids }: MediaItem,
       { language }: BaseMovieGenreIdsArgs,
     ): Promise<string[]> =>
-      mediaGenres.getMediaGenres(genre_ids, MediaType.Movie.toLowerCase(), language),
+      mediaGenres.handle({
+        mediaType: MediaType.Movie,
+        genresIds: genre_ids,
+        language,
+      }),
   },
 
   Movie: {
@@ -123,13 +127,13 @@ const resolvers: QueryResolvers = {
       { genres }: { genres: Array<MediaGenre> },
       { language }: MovieGenresArgs,
     ): Promise<string[]> => {
-      const genreIds = genres.map(({ id }) => id);
+      const genresIds = genres.map(({ id }) => id);
 
-      return mediaGenres.getMediaGenres(
-        genreIds,
-        MediaType.Movie.toLowerCase(),
+      return mediaGenres.handle({
+        mediaType: MediaType.Movie,
+        genresIds,
         language,
-      );
+      });
     },
   },
 

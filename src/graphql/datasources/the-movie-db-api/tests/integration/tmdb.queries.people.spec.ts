@@ -1,8 +1,9 @@
 import { createTestClient } from 'apollo-server-testing';
 import { ApolloServer, gql } from 'apollo-server';
 
+import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
 import { rawPeopleItem, peopleItem } from '../../../../../__tests__/mocks/people.stub';
-import { movieGenres, tvGenres } from '../../../../../__tests__/mocks/mediaGenres.stub';
+import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 
 const mockRestDataSourceGet = jest.fn();
 
@@ -128,7 +129,7 @@ describe('Integration: DataSources-People', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.GENRE_MOVIE_ENDPOINT}`,
+        `${MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT}`,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -136,7 +137,7 @@ describe('Integration: DataSources-People', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.GENRE_TV_SHOW_ENDPOINT}`,
+        `${MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT}`,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -182,7 +183,7 @@ describe('Integration: DataSources-People', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.GENRE_MOVIE_ENDPOINT}`,
+        `${MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT}`,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -190,7 +191,7 @@ describe('Integration: DataSources-People', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.GENRE_TV_SHOW_ENDPOINT}`,
+        `${MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT}`,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
