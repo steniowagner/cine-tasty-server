@@ -5,6 +5,7 @@ import { ApolloServer, gql } from 'apollo-server';
 
 import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
+import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';
 import { movieGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { TrendingMoviesEndpoints } from '../../../../../@types';
 import {
@@ -212,7 +213,7 @@ describe('Integration: DataSources-Movies', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${CONSTANTS.MOVIE_ENDPOINT}/1`,
         {
-          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
         },
@@ -247,7 +248,7 @@ describe('Integration: DataSources-Movies', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${CONSTANTS.MOVIE_ENDPOINT}/1`,
         {
-          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
         },
@@ -286,7 +287,7 @@ describe('Integration: DataSources-Movies', () => {
         `${CONSTANTS.MOVIE_ENDPOINT}/1`,
 
         {
-          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'pt-br',
         },

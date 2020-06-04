@@ -4,7 +4,9 @@ import TVShowsHandler, { Props as TVShowsHandlerProps } from './handlers/tv-show
 import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/people';
 import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
 import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
-import MoviesHandler, { Props as MoviesHandlerProps } from './handlers/movies';
+import TrendingMoviesHandler from './handlers/movies/trendings/TrendingMoviesHandler';
+import MovieDetailHandler from './handlers/movies/details/MovieDetailHandler';
+import MovieImagesHandler from './handlers/movies/images/MovieImagesHandler';
 
 import { InvalidTMDBApiKey } from '../../../errors';
 import { formatLanguage } from './helpers';
@@ -59,17 +61,20 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   searchHandler: SearchHandlerProps;
   peopleHandler: PeopleHandlerProps;
   personHandler: PersonHandlerProps;
-  moviesHandler: MoviesHandlerProps;
+  movieDetailsHandler: MovieDetailHandler;
+  trendingMoviesHandler: TrendingMoviesHandler;
+  movieImagesHandler: MovieImagesHandler;
 
   constructor() {
     super();
 
+    this.trendingMoviesHandler = new TrendingMoviesHandler(this.execGetRequest);
+    this.movieDetailsHandler = new MovieDetailHandler(this.execGetRequest);
+    this.movieImagesHandler = new MovieImagesHandler(this.execGetRequest);
     this.tvshowsHandler = new TVShowsHandler(this.execGetRequest);
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
     this.personHandler = new PersonHandler(this.execGetRequest);
-    this.moviesHandler = new MoviesHandler(this.execGetRequest);
-
     this.baseURL = BASE_URL;
   }
 
@@ -112,14 +117,14 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   }
 
   async getMovie(args: QueryMovieArgs): Promise<Movie | null> {
-    return this.moviesHandler.getMovie(args);
+    return this.movieDetailsHandler.handle(args);
   }
 
   async getTrendingMoviesItem(
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
-    return this.moviesHandler.getTrendingItem(args, endpoint);
+    return this.trendingMoviesHandler.handle({ args, resource: endpoint });
   }
 
   async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
@@ -127,7 +132,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
   }
 
   async getMovieImages(id: string): Promise<string[]> {
-    return this.moviesHandler.getImages(id);
+    return this.movieImagesHandler.handle(id);
   }
 
   async getTrendingTVShowsItem(

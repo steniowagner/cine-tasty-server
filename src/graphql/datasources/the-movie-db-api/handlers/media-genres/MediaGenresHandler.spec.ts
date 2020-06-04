@@ -26,11 +26,12 @@ const moviesGenresIds = movieGenres.map(({ id }) => id);
 
 const tvShowGenresIds = tvGenres.map(({ id }) => id);
 
-const mediaGenres = new MediaGenres();
+let mediaGenres = null;
 
 describe('Unity: DataSources/TheMovieDBAPI/handlers/MediaGenresHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mediaGenres = new MediaGenres();
   });
 
   describe('handle()', () => {
