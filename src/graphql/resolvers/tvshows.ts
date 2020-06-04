@@ -1,4 +1,4 @@
-import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres';
+import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres/MediaGenresHandler';
 import {
   TrendingTvShowsOn_The_AirArgs as TrendingTvShowsOnTheAirArgs,
   BaseTvShowGenre_IdsArgs as BaseTvShowGenreIdsArgs,
@@ -74,9 +74,13 @@ const resolvers: QueryResolvers = {
       { genres }: { genres: MediaGenre[] },
       { language }: TvShowGenresArgs,
     ): Promise<string[]> => {
-      const genreIds = genres.map(({ id }) => id);
+      const genresIds = genres.map(({ id }) => id);
 
-      return mediaGenres.getMediaGenres(genreIds, MediaType.Tv.toLowerCase(), language);
+      return mediaGenres.handle({
+        mediaType: MediaType.Tv,
+        genresIds,
+        language,
+      });
     },
 
     reviews: ({ reviews }: { reviews: MovieReview }): Review[] => reviews.results,
@@ -115,7 +119,11 @@ const resolvers: QueryResolvers = {
       { genre_ids }: MediaItem,
       { language }: BaseTvShowGenreIdsArgs,
     ): Promise<string[]> =>
-      mediaGenres.getMediaGenres(genre_ids, MediaType.Tv.toLowerCase(), language),
+      mediaGenres.handle({
+        mediaType: MediaType.Tv,
+        genresIds: genre_ids,
+        language,
+      }),
   },
 
   TrendingTVShows: {

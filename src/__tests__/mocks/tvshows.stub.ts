@@ -1,4 +1,4 @@
-import { tvGenres } from './mediaGenres.stub';
+import { tvGenres } from '../../../__tests__/mocks/mediaGenres';
 import { review } from './review.stub';
 
 export const rawTVShow = {

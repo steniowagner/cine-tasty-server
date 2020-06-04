@@ -114,3 +114,8 @@ export type QuestionResponse = {
   category: string;
   type: string;
 };
+
+export interface TheMovieDBHandler<P> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handle: (params: P) => Promise<any>;
+}

@@ -1,8 +1,6 @@
 export default {
   APPEND_TO_MOVIE_RESPONSE: 'videos,credits,reviews,similar',
   TMDBAPI_ITEM_NOT_FOUND_CODE: 34,
-  GENRE_MOVIE_ENDPOINT: '/genre/movie/list',
-  GENRE_TV_SHOW_ENDPOINT: '/genre/tv/list',
   COMBINED_CREDITS_ENDPOINT: '/combined_credits',
   APPEND_TO_RESPONSE_IMAGES_KEY: 'images',
   POPULAR_PERSON_ENDPOINT: '/popular',

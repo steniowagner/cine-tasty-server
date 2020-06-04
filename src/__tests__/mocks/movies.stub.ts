@@ -1,4 +1,4 @@
-import { movieGenres } from './mediaGenres.stub';
+import { movieGenres } from '../../../__tests__/mocks/mediaGenres';
 import { review } from './review.stub';
 
 export const movieCast = {

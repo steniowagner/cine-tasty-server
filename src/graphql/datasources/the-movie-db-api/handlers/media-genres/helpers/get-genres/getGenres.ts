@@ -1,9 +1,6 @@
-import { MediaGenre } from '../../../../../@types';
+import { MediaGenre } from '@types';
 
-export const getGenres = (
-  genresSelected: MediaGenre[],
-  genresIds: number[],
-): string[] => {
+const getGenres = (genresSelected: MediaGenre[], genresIds: number[]): string[] => {
   const getMediaGenres = (genres: MediaGenre[], genresIds: number[]): string[] => {
     return genresIds
       .map(genreId => {
@@ -20,3 +17,5 @@ export const getGenres = (
 
   return getMediaGenres(genresSelected, genresIds);
 };
+
+export default getGenres;
