@@ -22,7 +22,7 @@ module.exports = {
     '!<rootDir>/src/config/**/*.ts',
     '!<rootDir>/src/**/*.stub.ts',
   ],
-  moduleDirectories: ['node_modules', 'src'],
+  moduleDirectories: ['node_modules', 'src', '__tests__'],
   coverageThreshold: {
     global: {
       statements: 100,
