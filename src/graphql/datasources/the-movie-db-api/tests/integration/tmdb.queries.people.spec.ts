@@ -1,17 +1,12 @@
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
-
-import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
-import { rawPeopleItem, peopleItem } from '../../../../../__tests__/mocks/people.stub';
-import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-
 const mockRestDataSourceGet = jest.fn();
 
+import { gql } from 'apollo-server';
+
+import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
+import { rawPeopleItem, peopleItem } from '../../../../../../__tests__/mocks/people';
+import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
 import env from '../../../../../config/environment';
-import resolvers from '../../../../resolvers';
-import CONSTANTS from '../../utils/constants';
-import typeDefs from '../../../../typeDefs';
-import TheMovieDBAPI from '../..';
+import makeTestQuery from './makeTestQuery';
 
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
@@ -30,20 +25,20 @@ const GET_PEOPLE = gql`
         name
         known_for {
           ... on BaseMovie {
-            original_title
+            originalTitle
             video
             title
             adult
-            release_date
-            backdrop_path
+            releaseDate
+            backdropPath
             overview
-            vote_average
-            media_type
-            genre_ids
-            poster_path
+            voteAverage
+            mediaType
+            genreIds
+            posterPath
             popularity
-            original_language
-            vote_count
+            originalLanguage
+            voteCount
             overview
             id
           }
@@ -70,16 +65,6 @@ const GET_PEOPLE = gql`
   }
 `;
 
-const makeTestServer = (): ApolloServer => {
-  return new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      tmdb: new TheMovieDBAPI(),
-    }),
-  });
-};
-
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
     baseUrl = '';
@@ -92,13 +77,13 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-describe('Integration: DataSources-People', () => {
+describe('Integration: DataSources/TheMovieDBAPI/People - Queries', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Query - People', () => {
-    it('should query popular people from TheMoviewDB API and returns the data correctly', async () => {
+  describe('Testing Query - People', () => {
+    it('should query popular people and return the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({
           total_pages: 1,
@@ -108,16 +93,14 @@ describe('Integration: DataSources-People', () => {
         .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_PEOPLE,
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(3);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
@@ -144,7 +127,7 @@ describe('Integration: DataSources-People', () => {
         },
       );
 
-      expect(data!.people).toEqual({
+      expect(data.people).toEqual({
         total_pages: 1,
         total_results: 1,
         hasMore: false,
@@ -152,7 +135,7 @@ describe('Integration: DataSources-People', () => {
       });
     });
 
-    it('should return the field hasMore as true when has more items to be paginated', async () => {
+    it('should return the field "hasMore" as "true" when has more items to be paginated', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({
           total_pages: 2,
@@ -162,16 +145,14 @@ describe('Integration: DataSources-People', () => {
         .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_PEOPLE,
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(3);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`,
@@ -198,7 +179,7 @@ describe('Integration: DataSources-People', () => {
         },
       );
 
-      expect(data!.people).toEqual({
+      expect(data.people).toEqual({
         total_pages: 2,
         total_results: 2,
         hasMore: true,

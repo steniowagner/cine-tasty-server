@@ -20,7 +20,7 @@ import {
   SearchQueryResult,
   QueryPeopleArgs,
   QueryMovieArgs,
-  Movie,
+  MovieResponse,
   TrendingMoviesArgs,
   QueryTv_ShowArgs as QueryTvShowArgs,
   TrendingTvShowsArgs,
@@ -47,7 +47,7 @@ export interface Props {
   ) => Promise<TrendingTvShowsQueryResult>;
   getPeople: (args: QueryPeopleArgs) => Promise<PeopleQueryResult>;
   getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
-  getMovie: (args: QueryMovieArgs) => Promise<Movie | null>;
+  getMovie: (args: QueryMovieArgs) => Promise<MovieResponse | null>;
   getTVShow: (args: QueryTvShowArgs) => Promise<TvShow | null>;
   search: (input: SearchInput) => Promise<SearchQueryResult>;
   getTVShowImages(id: string): Promise<string[]>;
@@ -116,7 +116,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.searchHandler.search(input);
   }
 
-  async getMovie(args: QueryMovieArgs): Promise<Movie | null> {
+  async getMovie(args: QueryMovieArgs): Promise<MovieResponse | null> {
     return this.movieDetailsHandler.handle(args);
   }
 

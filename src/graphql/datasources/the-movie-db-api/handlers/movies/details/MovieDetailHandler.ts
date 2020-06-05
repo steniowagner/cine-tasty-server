@@ -1,5 +1,5 @@
 import { GetTMDBApiRequest, TheMovieDBHandler } from '@types';
-import { QueryMovieArgs, Movie } from '@lib/types';
+import { QueryMovieArgs, MovieResponse } from '@lib/types';
 
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
 import CONSTANTS from '../utils/constants';
@@ -13,10 +13,10 @@ class MovieDetailHandler implements TheMovieDBHandler<QueryMovieArgs> {
     this.get = execGetRequest;
   }
 
-  async handle({ id, language }: QueryMovieArgs): Promise<Movie | null> {
+  async handle({ id, language }: QueryMovieArgs): Promise<MovieResponse | null> {
     const result = await this.get<
       GetRequestParams,
-      Promise<Movie & { status_code?: number }>
+      Promise<MovieResponse & { status_code?: number }>
     >(
       `${TMDBAPI_CONSTANTS.MOVIE_ENDPOINT}/${id}`,
       { append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE },

@@ -1,14 +1,11 @@
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
 const mockRestDataSourceGet = jest.fn();
 
-import { SearchType } from '../../../../../lib/types';
-import { rawPeopleItem, peopleItem } from '../../../../../__tests__/mocks/people.stub';
+import { rawPeopleItem, peopleItem } from '../../../../../../__tests__/mocks/people';
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import resolvers from '../../../../resolvers';
-import typeDefs from '../../../../typeDefs';
-import TheMovieDBAPI from '../..';
+import { SearchType } from '../../../../../lib/types';
+import makeTestQuery from './makeTestQuery';
 
 const SEARCH_PERSON = gql`
   query SearchPerson($input: SearchInput!) {
@@ -24,20 +21,21 @@ const SEARCH_PERSON = gql`
           name
           known_for {
             ... on BaseMovie {
-              original_title
+              originalTitle
               video
               title
               adult
-              release_date
-              backdrop_path
-              genre_ids
+              releaseDate
+              backdropPath
+              genreIds
               overview
-              vote_average
-              media_type
-              poster_path
+              voteAverage
+              mediaType
+              posterPath
               popularity
-              original_language
-              vote_count
+              originalLanguage
+              voteCount
+              overview
               id
             }
 
@@ -76,27 +74,13 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-const makeTestServer = (): ApolloServer => {
-  const tmdbAPI = new TheMovieDBAPI();
-
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      tmdb: tmdbAPI,
-    }),
-  });
-
-  return server;
-};
-
-describe('Integration - DataSources-Search.Person]', () => {
+describe('Integration: DataSources/TheMovieDBAPI/Search.Person - Queries', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Query - Search for a Person', () => {
-    it('should search for person with the name that matches with the query provided on TheMoviewDB API and returns the result correctly', async () => {
+  describe('Testing Query - Search for a Person', () => {
+    it('should search for person with the name that matches with the query provided and return the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({
           total_results: 1,
@@ -106,24 +90,20 @@ describe('Integration - DataSources-Search.Person]', () => {
         .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: SEARCH_PERSON,
         variables: { input: { page: 1, query: 'any', type: SearchType.Person } },
       });
 
-      expect(data!.search.hasMore).toEqual(false);
-      expect(data!.search.total_results).toEqual(1);
-      expect(data!.search.items).toEqual([peopleItem]);
+      expect(data.search.hasMore).toEqual(false);
+      expect(data.search.total_results).toEqual(1);
+      expect(data.search.items).toEqual([peopleItem]);
     });
 
     it('should throw an error when the query is empty', async () => {
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { errors } = await query({
         query: SEARCH_PERSON,

@@ -1,14 +1,11 @@
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
-
 const mockRestDataSourceGet = jest.fn();
 
+import { gql } from 'apollo-server';
+
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import { rawKnowForMovie } from '../../../../../__tests__/mocks/people.stub';
+import { rawKnowForMovie, knowForMovie } from '../../../../../../__tests__/mocks/people';
 import { SearchType } from '../../../../../lib/types';
-import resolvers from '../../../../resolvers';
-import typeDefs from '../../../../typeDefs';
-import TheMovieDBAPI from '../..';
+import makeTestQuery from './makeTestQuery';
 
 const SEARCH_MOVIE = gql`
   query SearchMovie($input: SearchInput!) {
@@ -17,20 +14,20 @@ const SEARCH_MOVIE = gql`
       hasMore
       items {
         ... on BaseMovie {
-          original_title
+          originalTitle
           video
           title
           adult
-          release_date
-          backdrop_path
-          genre_ids
+          releaseDate
+          backdropPath
+          genreIds
           overview
-          vote_average
-          media_type
-          poster_path
+          voteAverage
+          mediaType
+          posterPath
           popularity
-          original_language
-          vote_count
+          originalLanguage
+          voteCount
           overview
           id
         }
@@ -51,39 +48,23 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-const makeTestServer = (): ApolloServer => {
-  const tmdbAPI = new TheMovieDBAPI();
-
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      tmdb: tmdbAPI,
-    }),
-  });
-
-  return server;
-};
-
-describe('Integration: DataSources-Search.Movie', () => {
+describe('Integration: DataSources/TheMovieDBAPI/Search-Movie - Queries', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Query - Search for a Movie', () => {
-    it('should search for a movie with the title that matches with the query provided on TheMoviewDB API and returns the result correctly', async () => {
+  describe('Testing Query - Search for a Movie', () => {
+    it('should search for a movie with the title that matches with the query provided and return the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({
-          total_results: 1,
           results: [rawKnowForMovie],
+          total_results: 1,
           total_pages: 1,
         })
         .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: SEARCH_MOVIE,
@@ -92,13 +73,11 @@ describe('Integration: DataSources-Search.Movie', () => {
 
       expect(data.search.hasMore).toEqual(false);
       expect(data.search.total_results).toEqual(1);
-      expect(data.search.items).toMatchSnapshot();
+      expect(data.search.items).toEqual([knowForMovie]);
     });
 
     it('should throw an error when the query is empty', async () => {
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { errors } = await query({
         query: SEARCH_MOVIE,

@@ -2,7 +2,15 @@ import { Props as OpenTriviaAPIProps } from '../graphql/datasources/open-trivia-
 import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api';
 import { Props as NewsAPIProps } from 'graphql/datasources/news-api/NewsAPI';
 
-import { BaseMovie, BaseTvShow, CastItem, CrewItem, Iso6391Language } from 'lib/types';
+import {
+  BaseMovie,
+  BaseTvShow,
+  CastItem,
+  CrewItem,
+  Iso6391Language,
+  CastItemResponse,
+  CrewItemResponse,
+} from 'lib/types';
 
 export type MediaGenre = {
   id: number;
@@ -67,8 +75,8 @@ export enum TrendingMoviesEndpoints {
 }
 
 export type MediaCredits = {
-  cast: CastItem[];
-  crew: CrewItem[];
+  cast: CastItemResponse[];
+  crew: CrewItemResponse[];
 };
 
 export type MediaImage = {

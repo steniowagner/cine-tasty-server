@@ -58,6 +58,15 @@ export default gql`
 
   type CastItem {
     name: String
+    profilePath: String
+    id: ID
+    character: String
+    gender: Int
+    order: Int
+  }
+
+  type CastItemResponse {
+    name: String
     profile_path: String
     id: ID
     character: String
@@ -66,6 +75,15 @@ export default gql`
   }
 
   type CrewItem {
+    department: String
+    id: ID
+    job: String
+    name: String
+    gender: Int
+    profilePath: String
+  }
+
+  type CrewItemResponse {
     department: String
     id: ID
     job: String
