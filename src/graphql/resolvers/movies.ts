@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres/MediaGenresHandler';
 
 import {
@@ -9,16 +10,19 @@ import {
   TrendingMoviesUpcomingArgs,
   QueryMovieArgs,
   BaseMovieGenre_IdsArgs as BaseMovieGenreIdsArgs,
-  Movie,
+  MovieResponse,
   MovieGenresArgs,
   MediaType,
   CastItem,
+  CastItemResponse,
   CrewItem,
   MediaVideo,
   MovieImagesArgs,
+  ProductionCompanyResponse,
   Review,
   BaseMovie,
-} from '../../lib/types';
+  BaseMovieResponse,
+} from 'lib/types';
 import {
   Context,
   MediaGenre,
@@ -26,7 +30,7 @@ import {
   MediaCredits,
   TrendingMoviesEndpoints,
   BasePaginationResponse,
-} from '../../@types';
+} from '@types';
 
 const mediaGenres = new MediaGenresHandler();
 
@@ -50,11 +54,11 @@ const resolvers: QueryResolvers = {
       _: {},
       args: QueryMovieArgs,
       { dataSources }: Context,
-    ): Promise<Movie | null> => dataSources.tmdb.getMovie(args),
+    ): Promise<MovieResponse | null> => dataSources.tmdb.getMovie(args),
   },
 
   BaseMovie: {
-    genre_ids: (
+    genreIds: (
       { genre_ids }: MediaItem,
       { language }: BaseMovieGenreIdsArgs,
     ): Promise<string[]> =>
@@ -63,16 +67,74 @@ const resolvers: QueryResolvers = {
         genresIds: genre_ids,
         language,
       }),
+
+    backdropPath: ({ backdrop_path }: BaseMovieResponse): string | undefined | null =>
+      backdrop_path,
+
+    originalTitle: ({ original_title }: BaseMovieResponse): string | undefined | null =>
+      original_title,
+
+    releaseDate: ({ release_date }: BaseMovieResponse): string | undefined | null =>
+      release_date,
+
+    voteAverage: ({ vote_average }: BaseMovieResponse): number | undefined | null =>
+      vote_average,
+
+    voteCount: ({ vote_count }: BaseMovieResponse): number | undefined | null =>
+      vote_count,
+
+    mediaType: ({ media_type }: BaseMovieResponse): string | undefined | null =>
+      media_type,
+
+    posterPath: ({ poster_path }: BaseMovieResponse): string | undefined | null =>
+      poster_path,
+
+    originalLanguage: ({
+      original_language,
+    }: BaseMovieResponse): string | undefined | null => original_language,
+  },
+
+  ProductionCompany: {
+    logoPath: ({ logo_path }: ProductionCompanyResponse): string | undefined | null =>
+      logo_path,
+
+    originCountry: ({
+      origin_country,
+    }: ProductionCompanyResponse): string | undefined | null => origin_country,
   },
 
   Movie: {
-    spoken_languages: ({
+    backdropPath: ({ backdrop_path }: MovieResponse): string | undefined | null =>
+      backdrop_path,
+
+    releaseDate: ({ release_date }: MovieResponse): string | undefined | null =>
+      release_date,
+
+    originalLanguage: ({ original_language }: MovieResponse): string | undefined | null =>
+      original_language,
+
+    originalTitle: ({ original_title }: MovieResponse): string | undefined | null =>
+      original_title,
+
+    posterPath: ({ poster_path }: MovieResponse): string | undefined | null =>
+      poster_path,
+
+    voteAverage: ({ vote_average }: MovieResponse): number | undefined | null =>
+      vote_average,
+
+    voteCount: ({ vote_count }: MovieResponse): number | undefined | null => vote_count,
+
+    productionCompanies: ({
+      production_companies,
+    }: MovieResponse): ProductionCompanyResponse[] => production_companies,
+
+    spokenLanguages: ({
       spoken_languages,
     }: {
       spoken_languages: Array<{ name: string }>;
     }): string[] => spoken_languages.map(({ name }) => name),
 
-    production_countries: ({
+    productionCountries: ({
       production_countries,
     }: {
       production_countries: Array<{ name: string }>;
@@ -81,14 +143,14 @@ const resolvers: QueryResolvers = {
     cast: ({ credits }: { credits: MediaCredits }): CastItem[] =>
       credits.cast.map(castItem => ({
         name: castItem.name,
-        profile_path: castItem.profile_path,
+        profilePath: castItem.profile_path,
         id: castItem.id,
         character: castItem.character,
       })),
 
     crew: ({ credits }: { credits: MediaCredits }): CrewItem[] =>
       credits.crew.map(castItem => ({
-        profile_path: castItem.profile_path,
+        profilePath: castItem.profile_path,
         department: castItem.department,
         id: castItem.id,
         job: castItem.job,

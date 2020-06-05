@@ -1,39 +1,37 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
 import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
-import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';
 import { movieGenres } from '../../../../../../__tests__/mocks/mediaGenres';
+import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';
 import { TrendingMoviesEndpoints } from '../../../../../@types';
+import env from '../../../../../config/environment';
 import {
   rawMovie,
   rawMovieDetail,
   movieDetail,
-} from '../../../../../__tests__/mocks/movies.stub';
-import env from '../../../../../config/environment';
-import resolvers from '../../../../resolvers';
+  movie,
+} from '../../../../../../__tests__/mocks/movies';
 import CONSTANTS from '../../utils/constants';
-import typeDefs from '../../../../typeDefs';
-import TheMovieDBAPI from '../..';
+import makeTestQuery from './makeTestQuery';
 
 const GET_TRENDING_MOVIES = gql`
   fragment TrendingMovieItem on BaseMovie {
-    genre_ids
-    original_title
+    genreIds
+    originalTitle
     video
     title
     adult
-    release_date
-    backdrop_path
+    releaseDate
+    backdropPath
     overview
-    vote_average
-    poster_path
+    voteAverage
+    posterPath
     popularity
-    original_language
-    vote_count
+    originalLanguage
+    voteCount
     overview
     id
   }
@@ -80,36 +78,36 @@ const GET_MOVIE_DETAIL = gql`
   query Movie($id: ID!, $language: ISO6391Language) {
     movie(id: $id, language: $language) {
       adult
-      backdrop_path
+      backdropPath
       genres(language: $language)
       id
-      original_language
-      original_title
+      originalLanguage
+      originalTitle
       overview
-      poster_path
+      posterPath
       popularity
       video
       title
-      vote_average
-      release_date
-      production_companies {
+      voteAverage
+      releaseDate
+      productionCompanies {
         id
-        logo_path
+        logoPath
         name
-        origin_country
+        originCountry
       }
-      vote_count
+      voteCount
       runtime
       status
       tagline
       budget
       homepage
       revenue
-      spoken_languages
-      production_countries
+      spokenLanguages
+      productionCountries
       cast {
         name
-        profile_path
+        profilePath
         id
         character
       }
@@ -118,7 +116,7 @@ const GET_MOVIE_DETAIL = gql`
         id
         job
         name
-        profile_path
+        profilePath
       }
       videos {
         thumbnail {
@@ -141,19 +139,19 @@ const GET_MOVIE_DETAIL = gql`
         url
       }
       similar {
-        original_title
+        originalTitle
         video
         title
         adult
-        release_date
-        backdrop_path
-        genre_ids
+        releaseDate
+        backdropPath
+        genreIds
         overview
-        vote_average
-        poster_path
+        voteAverage
+        posterPath
         popularity
-        original_language
-        vote_count
+        originalLanguage
+        voteCount
         id
       }
     }
@@ -168,16 +166,6 @@ const GET_MOVIE_IMAGES = gql`
   }
 `;
 
-const makeTestServer = (): ApolloServer => {
-  return new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      tmdb: new TheMovieDBAPI(),
-    }),
-  });
-};
-
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
     baseUrl = '';
@@ -190,28 +178,28 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-describe('Integration: DataSources-Movies', () => {
+describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('Query - Movie Images', () => {
-    it('should query the tmdb.queries.movies.spec.tsimages of a movie from TheMovieDB API and returns the result correctly', async () => {
+  describe('Testing Query - Movie Images', () => {
+    it('should query the images of a movie and return the result correctly', async () => {
+      const id = '1';
+
       mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce(getImagesResult);
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_MOVIE_IMAGES,
-        variables: { id: '1' },
+        variables: { id },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
+        `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
         {
           append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
@@ -220,33 +208,33 @@ describe('Integration: DataSources-Movies', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.MOVIE_ENDPOINT}/1/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+        `${CONSTANTS.MOVIE_ENDPOINT}/${id}/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
         },
       );
 
-      expect(data!.movie.images).toEqual(images);
+      expect(data.movie.images).toEqual(images);
     });
 
-    it("should query the images of a movie from TheMovieDB API and returns an empty array when the movie doesn't exist", async () => {
+    it("should query the images of a movie return an empty array when the movie doesn't exist", async () => {
+      const id = '1';
+
       mockRestDataSourceGet
         .mockReturnValueOnce({})
         .mockReturnValueOnce({ status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_MOVIE_IMAGES,
-        variables: { id: '1' },
+        variables: { id },
       });
 
       expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
+        `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
         {
           append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
@@ -255,36 +243,36 @@ describe('Integration: DataSources-Movies', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.MOVIE_ENDPOINT}/1/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
+        `${CONSTANTS.MOVIE_ENDPOINT}/${id}/${CONSTANTS.MOVIE_IMAGES_RESOURCE_ENDPOINT}`,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
         },
       );
 
-      expect(data!.movie.images).toEqual([]);
+      expect(data.movie.images).toEqual([]);
     });
   });
 
-  describe('Query - Movie Detail', () => {
-    it('should query the details of a movie from TheMovieDB API and returns the result correctly', async () => {
+  describe('Testing Query - Movie Detail', () => {
+    it('should query the details of a movie and return the results correctly', async () => {
+      const id = '1';
+
       mockRestDataSourceGet
         .mockReturnValueOnce(rawMovieDetail)
         .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: movieGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_MOVIE_DETAIL,
-        variables: { id: 1, language: 'PTBR' },
+        variables: { id, language: 'PTBR' },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(3);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        `${CONSTANTS.MOVIE_ENDPOINT}/1`,
+        `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
 
         {
           append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
@@ -301,12 +289,12 @@ describe('Integration: DataSources-Movies', () => {
         },
       );
 
-      expect(data!.movie).toEqual(movieDetail);
+      expect(data.movie).toEqual(movieDetail);
     });
   });
 
-  describe('Query - Trending Movies', () => {
-    it('should query the now playing/popular/top_rated/upcoming movies from TheMovieDB API and returns the result correctly', async () => {
+  describe('Testing Query - Trending Movies', () => {
+    it('should query the now playing/popular/top_rated/upcoming movies and return the result correctly', async () => {
       mockRestDataSourceGet
         .mockReturnValueOnce({
           total_pages: 1,
@@ -333,16 +321,14 @@ describe('Integration: DataSources-Movies', () => {
         .mockReturnValueOnce({ genres: movieGenres })
         .mockReturnValueOnce({ genres: movieGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_TRENDING_MOVIES,
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(8);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(8);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingMoviesEndpoints.NowPlaying,
@@ -412,7 +398,337 @@ describe('Integration: DataSources-Movies', () => {
         },
       );
 
-      expect(data!.trending_movies).toMatchSnapshot();
+      expect(data.trending_movies.now_playing).toEqual({
+        total_results: 1,
+        total_pages: 1,
+        hasMore: false,
+        items: [movie],
+      });
+
+      expect(data.trending_movies.popular).toEqual({
+        total_results: 1,
+        total_pages: 1,
+        hasMore: false,
+        items: [movie],
+      });
+
+      expect(data.trending_movies.top_rated).toEqual({
+        total_results: 1,
+        total_pages: 1,
+        hasMore: false,
+        items: [movie],
+      });
+
+      expect(data.trending_movies.upcoming).toEqual({
+        total_results: 1,
+        total_pages: 1,
+        hasMore: false,
+        items: [movie],
+      });
+    });
+
+    it('should query the now-playing movies return the field "hasMore" as "true" when has more pages to be paginated', async () => {
+      const GET_TRENDING_NOW_PLAYING_MOVIES = gql`
+        fragment TrendingMovieItem on BaseMovie {
+          genreIds
+          originalTitle
+          video
+          title
+          adult
+          releaseDate
+          backdropPath
+          overview
+          voteAverage
+          posterPath
+          popularity
+          originalLanguage
+          voteCount
+          overview
+          id
+        }
+
+        query TrendingMovies($page: Int!) {
+          trending_movies {
+            now_playing(args: { page: $page }) {
+              total_results
+              total_pages
+              hasMore
+              items {
+                ...TrendingMovieItem
+              }
+            }
+          }
+        }
+      `;
+
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({ genres: movieGenres });
+
+      const query = makeTestQuery();
+
+      const { data } = await query({
+        query: GET_TRENDING_NOW_PLAYING_MOVIES,
+        variables: { page: 1 },
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.NowPlaying,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
+
+      expect(data.trending_movies.now_playing).toEqual({
+        total_results: 1,
+        total_pages: 2,
+        hasMore: true,
+        items: [movie],
+      });
+    });
+
+    it('should query the popular movies return the field "hasMore" as "true" when has more pages to be paginated', async () => {
+      const GET_TRENDING_POPULAR_MOVIES = gql`
+        fragment TrendingMovieItem on BaseMovie {
+          genreIds
+          originalTitle
+          video
+          title
+          adult
+          releaseDate
+          backdropPath
+          overview
+          voteAverage
+          posterPath
+          popularity
+          originalLanguage
+          voteCount
+          overview
+          id
+        }
+
+        query TrendingMovies($page: Int!) {
+          trending_movies {
+            popular(args: { page: $page }) {
+              total_results
+              total_pages
+              hasMore
+              items {
+                ...TrendingMovieItem
+              }
+            }
+          }
+        }
+      `;
+
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({ genres: movieGenres });
+
+      const query = makeTestQuery();
+
+      const { data } = await query({
+        query: GET_TRENDING_POPULAR_MOVIES,
+        variables: { page: 1 },
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.Popular,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
+
+      expect(data.trending_movies.popular).toEqual({
+        total_results: 1,
+        total_pages: 2,
+        hasMore: true,
+        items: [movie],
+      });
+    });
+
+    it('should query the top-rated movies return the field "hasMore" as "true" when has more pages to be paginated', async () => {
+      const GET_TRENDING_TOP_RATED_MOVIES = gql`
+        fragment TrendingMovieItem on BaseMovie {
+          genreIds
+          originalTitle
+          video
+          title
+          adult
+          releaseDate
+          backdropPath
+          overview
+          voteAverage
+          posterPath
+          popularity
+          originalLanguage
+          voteCount
+          overview
+          id
+        }
+
+        query TrendingMovies($page: Int!) {
+          trending_movies {
+            top_rated(args: { page: $page }) {
+              total_results
+              total_pages
+              hasMore
+              items {
+                ...TrendingMovieItem
+              }
+            }
+          }
+        }
+      `;
+
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({ genres: movieGenres });
+
+      const query = makeTestQuery();
+
+      const { data } = await query({
+        query: GET_TRENDING_TOP_RATED_MOVIES,
+        variables: { page: 1 },
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.TopRated,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
+
+      expect(data.trending_movies.top_rated).toEqual({
+        total_results: 1,
+        total_pages: 2,
+        hasMore: true,
+        items: [movie],
+      });
+    });
+
+    it('should query the upcoming movies return the field "hasMore" as "true" when has more pages to be paginated', async () => {
+      const GET_TRENDING_UPCOMING_MOVIES = gql`
+        fragment TrendingMovieItem on BaseMovie {
+          genreIds
+          originalTitle
+          video
+          title
+          adult
+          releaseDate
+          backdropPath
+          overview
+          voteAverage
+          posterPath
+          popularity
+          originalLanguage
+          voteCount
+          overview
+          id
+        }
+
+        query TrendingMovies($page: Int!) {
+          trending_movies {
+            upcoming(args: { page: $page }) {
+              total_results
+              total_pages
+              hasMore
+              items {
+                ...TrendingMovieItem
+              }
+            }
+          }
+        }
+      `;
+
+      mockRestDataSourceGet
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 1,
+          results: [rawMovie],
+        })
+        .mockReturnValueOnce({ genres: movieGenres });
+
+      const query = makeTestQuery();
+
+      const { data } = await query({
+        query: GET_TRENDING_UPCOMING_MOVIES,
+        variables: { page: 1 },
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        TrendingMoviesEndpoints.Upcoming,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+          page: 1,
+        },
+      );
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
+        {
+          api_key: env.THE_MOVIE_DB_API_KEY,
+          language: 'en-us',
+        },
+      );
+
+      expect(data.trending_movies.upcoming).toEqual({
+        total_results: 1,
+        total_pages: 2,
+        hasMore: true,
+        items: [movie],
+      });
     });
   });
 });

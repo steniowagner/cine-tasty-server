@@ -1,11 +1,11 @@
+import { Context } from '@types';
 import {
-  QueryResolvers,
-  QueryPeopleArgs,
   PeopleQueryResult,
+  QueryPeopleArgs,
   QueryPersonArgs,
+  QueryResolvers,
   Person,
-} from '../../lib/types';
-import { Context } from '../../@types';
+} from 'lib/types';
 
 type PersonKnownForResultSample = {
   original_title?: string;

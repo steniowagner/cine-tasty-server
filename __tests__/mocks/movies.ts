@@ -12,6 +12,17 @@ export const movieCast = {
   profile_path: '/profile_path.jpg',
 };
 
+export const movieCastCamelCased = {
+  castId: 4,
+  character: 'character',
+  creditId: 'credit_id',
+  gender: 1,
+  id: 1,
+  name: 'name',
+  order: 0,
+  profilePath: '/profile_path.jpg',
+};
+
 export const movieCrew = {
   credit_id: 'credit_id',
   department: 'department',
@@ -19,7 +30,17 @@ export const movieCrew = {
   id: 2,
   job: 'job',
   name: 'Dname',
-  profile_path: 'profile_path',
+  profile_path: '/profile_path.jpg',
+};
+
+export const movieCrewCamelCased = {
+  creditId: 'credit_id',
+  department: 'department',
+  gender: 2,
+  id: 2,
+  job: 'job',
+  name: 'Dname',
+  profilePath: 'profile_path',
 };
 
 export const rawMovie = {
@@ -41,19 +62,19 @@ export const rawMovie = {
 
 export const movie = {
   popularity: 222.017,
-  vote_count: 1530,
+  voteCount: 1530,
   video: false,
-  poster_path: '/poster_path.jpg',
+  posterPath: '/poster_path.jpg',
   id: 530915,
   adult: false,
-  backdrop_path: '/backdrop_path.jpg',
-  original_language: 'original_language',
-  original_title: 'original_title',
-  genre_ids: movieGenres.map(({ name }) => name),
+  backdropPath: '/backdrop_path.jpg',
+  originalLanguage: 'original_language',
+  originalTitle: 'original_title',
+  genreIds: movieGenres.map(({ name }) => name),
   title: 'title',
-  vote_average: 8.1,
+  voteAverage: 8.1,
   overview: 'overview',
-  release_date: 'release_date',
+  releaseDate: 'release_date',
 };
 
 export const rawMovieDetail = {
@@ -141,39 +162,39 @@ export const rawMovieDetail = {
 
 export const movieDetail = {
   adult: false,
-  backdrop_path: '/backdrop_path.jpg',
+  backdropPath: '/backdrop_path.jpg',
   budget: 123,
   genres: movieGenres.map(({ name }) => name),
   homepage: 'homepage',
   id: '123',
-  original_language: 'original_language',
-  original_title: 'original_title',
+  originalLanguage: 'original_language',
+  originalTitle: 'original_title',
   overview: 'overview',
   popularity: 1,
-  poster_path: 'poster_path',
-  production_companies: [
+  posterPath: 'poster_path',
+  productionCompanies: [
     {
       id: '123',
-      logo_path: '/logo_path.png',
+      logoPath: '/logo_path.png',
       name: 'name',
-      origin_country: 'origin_country',
+      originCountry: 'origin_country',
     },
   ],
-  production_countries: ['name'],
-  release_date: 'release_date',
+  productionCountries: ['name'],
+  releaseDate: 'release_date',
   revenue: 123,
   runtime: 123,
-  spoken_languages: ['name'],
+  spokenLanguages: ['name'],
   status: 'status',
   tagline: 'tagline',
   title: 'title',
   video: false,
-  vote_average: 1.8,
-  vote_count: 3439,
+  voteAverage: 1.8,
+  voteCount: 3439,
   cast: [
     {
       name: movieCast.name,
-      profile_path: movieCast.profile_path,
+      profilePath: movieCast.profile_path,
       id: `${movieCast.id}`,
       character: movieCast.character,
     },
@@ -184,7 +205,7 @@ export const movieDetail = {
       id: `${movieCrew.id}`,
       job: movieCrew.job,
       name: movieCrew.name,
-      profile_path: movieCrew.profile_path,
+      profilePath: movieCrew.profile_path,
     },
   ],
   videos: [

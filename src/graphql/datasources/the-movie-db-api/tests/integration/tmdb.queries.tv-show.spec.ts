@@ -8,12 +8,12 @@ import {
   tvshow,
   rawTVShowDetail,
   tvShowDetail,
-} from '../../../../../__tests__/mocks/tvshows.stub';
+} from '../../../../../../__tests__/mocks/tvshows';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
-import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
+import { getImagesResult, images } from '../../../../../../__tests__/mocks/images';
 import { tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../../../../@types';
+import { Iso6391Language } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
 import resolvers from '../../../../resolvers';
 import CONSTANTS from '../../utils/constants';
@@ -121,9 +121,9 @@ const GET_TV_SHOW_DETAIL = gql`
       vote_count
       production_companies {
         id
-        logo_path
+        logoPath
         name
-        origin_country
+        originCountry
       }
       original_language
       original_name
@@ -144,7 +144,7 @@ const GET_TV_SHOW_DETAIL = gql`
       }
       cast {
         name
-        profile_path
+        profilePath
         id
         character
         gender
@@ -156,7 +156,7 @@ const GET_TV_SHOW_DETAIL = gql`
         job
         name
         gender
-        profile_path
+        profilePath
       }
       similar {
         origin_country
@@ -467,7 +467,7 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data!.tv_show).toEqual(tvShowDetail);
+      expect(data.tv_show).toEqual(tvShowDetail);
     });
   });
 

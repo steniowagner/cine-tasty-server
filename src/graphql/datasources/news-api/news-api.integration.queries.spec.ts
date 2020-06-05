@@ -63,7 +63,7 @@ describe('Integration: DataSources/NewsAPI [Queries]', () => {
     jest.resetModules();
   });
 
-  describe('Testing Querying Articles', () => {
+  describe('Testing Query - Articles', () => {
     it('should query articles from the News API and return it correctly', async () => {
       mockRestDataSourceGet.mockResolvedValueOnce({
         articles: [rawArticleWithId],

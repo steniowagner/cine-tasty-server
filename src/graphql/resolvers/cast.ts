@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres/MediaGenresHandler';
 import {
   QueryResolvers,
@@ -9,6 +10,11 @@ import { MediaItem } from '../../@types';
 
 type CastType = {
   media_type: 'tv' | 'movie';
+};
+
+type ProfilePath = {
+  profile_path?: string;
+  profilePath?: string;
 };
 
 const mediaGenres = new MediaGenresHandler();
@@ -30,6 +36,20 @@ const resolveTypes: QueryResolvers = {
     __resolveType(cast: CastType): string | null {
       return resolveCastType(cast);
     },
+  },
+
+  CrewItem: {
+    profilePath: ({
+      profilePath,
+      profile_path,
+    }: ProfilePath): string | null | undefined => profile_path || profilePath,
+  },
+
+  CastItem: {
+    profilePath: ({
+      profile_path,
+      profilePath,
+    }: ProfilePath): string | null | undefined => profile_path || profilePath,
   },
 
   CastMovie: {
