@@ -83,8 +83,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
     expect(result.hasMore).toEqual(false);
-    expect(result.total_pages).toEqual(1);
-    expect(result.total_results).toEqual(1);
+    expect(result.totalPages).toEqual(1);
+    expect(result.totalResults).toEqual(1);
   });
 
   it('should return an array of the popular-movies correctly', async () => {
@@ -109,8 +109,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
     expect(result.hasMore).toEqual(false);
-    expect(result.total_pages).toEqual(1);
-    expect(result.total_results).toEqual(1);
+    expect(result.totalPages).toEqual(1);
+    expect(result.totalResults).toEqual(1);
   });
 
   it('should return an array of the top-rated correctly', async () => {
@@ -135,8 +135,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
     expect(result.hasMore).toEqual(false);
-    expect(result.total_pages).toEqual(1);
-    expect(result.total_results).toEqual(1);
+    expect(result.totalPages).toEqual(1);
+    expect(result.totalResults).toEqual(1);
   });
 
   it('should return an array of the upcoming-movies correclty', async () => {
@@ -160,7 +160,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       Iso6391Language.Ptbr,
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
-    expect(result.total_pages).toEqual(1);
-    expect(result.total_results).toEqual(1);
+    expect(result.totalPages).toEqual(1);
+    expect(result.totalResults).toEqual(1);
   });
 });

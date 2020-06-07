@@ -705,7 +705,7 @@ export type Query = {
    __typename?: 'Query',
   _?: Maybe<Scalars['String']>,
   search: SearchQueryResult,
-  trending_movies: TrendingMovies,
+  trendingMovies: TrendingMovies,
   trending_tv_shows: TrendingTvShows,
   tvShow?: Maybe<TvShow>,
   movie?: Maybe<Movie>,
@@ -860,14 +860,14 @@ export type Thumbnail = {
 
 export type TrendingMovies = {
    __typename?: 'TrendingMovies',
-  now_playing: TrendingMoviesQueryResult,
+  nowPlaying: TrendingMoviesQueryResult,
   popular: TrendingMoviesQueryResult,
-  top_rated: TrendingMoviesQueryResult,
+  topRated: TrendingMoviesQueryResult,
   upcoming: TrendingMoviesQueryResult,
 };
 
 
-export type TrendingMoviesNow_PlayingArgs = {
+export type TrendingMoviesNowPlayingArgs = {
   args: TrendingMoviesArgs
 };
 
@@ -877,7 +877,7 @@ export type TrendingMoviesPopularArgs = {
 };
 
 
-export type TrendingMoviesTop_RatedArgs = {
+export type TrendingMoviesTopRatedArgs = {
   args: TrendingMoviesArgs
 };
 
@@ -893,8 +893,8 @@ export type TrendingMoviesArgs = {
 
 export type TrendingMoviesQueryResult = {
    __typename?: 'TrendingMoviesQueryResult',
-  total_results: Scalars['Int'],
-  total_pages: Scalars['Int'],
+  totalResults: Scalars['Int'],
+  totalPages: Scalars['Int'],
   items: Array<BaseMovie>,
   hasMore: Scalars['Boolean'],
 };
@@ -1621,7 +1621,7 @@ export type ProductionCompanyResponseResolvers<ContextType = any, ParentType ext
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'input'>>;
-  trending_movies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType>;
+  trendingMovies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType>;
   trending_tv_shows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType>;
   tvShow?: Resolver<Maybe<ResolversTypes['TVShow']>, ParentType, ContextType, RequireFields<QueryTvShowArgs, 'id'>>;
   movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>;
@@ -1692,16 +1692,16 @@ export type ThumbnailResolvers<ContextType = any, ParentType extends ResolversPa
 }>;
 
 export type TrendingMoviesResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingMovies'] = ResolversParentTypes['TrendingMovies']> = ResolversObject<{
-  now_playing?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesNow_PlayingArgs, 'args'>>;
+  nowPlaying?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesNowPlayingArgs, 'args'>>;
   popular?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesPopularArgs, 'args'>>;
-  top_rated?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesTop_RatedArgs, 'args'>>;
+  topRated?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesTopRatedArgs, 'args'>>;
   upcoming?: Resolver<ResolversTypes['TrendingMoviesQueryResult'], ParentType, ContextType, RequireFields<TrendingMoviesUpcomingArgs, 'args'>>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 
 export type TrendingMoviesQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingMoviesQueryResult'] = ResolversParentTypes['TrendingMoviesQueryResult']> = ResolversObject<{
-  total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  total_pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalResults?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   items?: Resolver<Array<ResolversTypes['BaseMovie']>, ParentType, ContextType>;
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;

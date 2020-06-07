@@ -48,7 +48,7 @@ const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
 
 const resolvers: QueryResolvers = {
   Query: {
-    trending_movies: (): {} => ({}),
+    trendingMovies: (): {} => ({}),
 
     movie: (
       _: {},
@@ -200,33 +200,33 @@ const resolvers: QueryResolvers = {
   },
 
   TrendingMovies: {
-    now_playing: (
+    nowPlaying: (
       _: {},
       { args }: TrendingMoviesNowPlayingArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(args, TrendingMoviesEndpoints.NowPlaying),
+      dataSources.tmdb.getTrendingMovies(args, TrendingMoviesEndpoints.NowPlaying),
 
     popular: (
       _: {},
       { args }: TrendingMoviesPopularArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(args, TrendingMoviesEndpoints.Popular),
+      dataSources.tmdb.getTrendingMovies(args, TrendingMoviesEndpoints.Popular),
 
-    top_rated: (
+    topRated: (
       _: {},
       { args }: TrendingMoviesTopRatedArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(args, TrendingMoviesEndpoints.TopRated),
+      dataSources.tmdb.getTrendingMovies(args, TrendingMoviesEndpoints.TopRated),
 
     upcoming: (
       _: {},
       { args }: TrendingMoviesUpcomingArgs,
       { dataSources }: Context,
     ): Promise<TrendingMoviesQueryResult> =>
-      dataSources.tmdb.getTrendingMoviesItem(args, TrendingMoviesEndpoints.Upcoming),
+      dataSources.tmdb.getTrendingMovies(args, TrendingMoviesEndpoints.Upcoming),
   },
 };
 

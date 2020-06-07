@@ -37,34 +37,34 @@ const GET_TRENDING_MOVIES = gql`
   }
 
   query TrendingMovies($page: Int!) {
-    trending_movies {
-      now_playing(args: { page: $page }) {
-        total_results
-        total_pages
+    trendingMovies {
+      nowPlaying(args: { page: $page }) {
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingMovieItem
         }
       }
       popular(args: { page: $page }) {
-        total_results
-        total_pages
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingMovieItem
         }
       }
-      top_rated(args: { page: $page }) {
-        total_results
-        total_pages
+      topRated(args: { page: $page }) {
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingMovieItem
         }
       }
       upcoming(args: { page: $page }) {
-        total_results
-        total_pages
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingMovieItem
@@ -398,30 +398,30 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(data.trending_movies.now_playing).toEqual({
-        total_results: 1,
-        total_pages: 1,
+      expect(data.trendingMovies.nowPlaying).toEqual({
+        totalResults: 1,
+        totalPages: 1,
         hasMore: false,
         items: [movie],
       });
 
-      expect(data.trending_movies.popular).toEqual({
-        total_results: 1,
-        total_pages: 1,
+      expect(data.trendingMovies.popular).toEqual({
+        totalResults: 1,
+        totalPages: 1,
         hasMore: false,
         items: [movie],
       });
 
-      expect(data.trending_movies.top_rated).toEqual({
-        total_results: 1,
-        total_pages: 1,
+      expect(data.trendingMovies.topRated).toEqual({
+        totalResults: 1,
+        totalPages: 1,
         hasMore: false,
         items: [movie],
       });
 
-      expect(data.trending_movies.upcoming).toEqual({
-        total_results: 1,
-        total_pages: 1,
+      expect(data.trendingMovies.upcoming).toEqual({
+        totalResults: 1,
+        totalPages: 1,
         hasMore: false,
         items: [movie],
       });
@@ -448,10 +448,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         }
 
         query TrendingMovies($page: Int!) {
-          trending_movies {
-            now_playing(args: { page: $page }) {
-              total_results
-              total_pages
+          trendingMovies {
+            nowPlaying(args: { page: $page }) {
+              totalResults
+              totalPages
               hasMore
               items {
                 ...TrendingMovieItem
@@ -495,9 +495,9 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(data.trending_movies.now_playing).toEqual({
-        total_results: 1,
-        total_pages: 2,
+      expect(data.trendingMovies.nowPlaying).toEqual({
+        totalResults: 1,
+        totalPages: 2,
         hasMore: true,
         items: [movie],
       });
@@ -524,10 +524,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         }
 
         query TrendingMovies($page: Int!) {
-          trending_movies {
+          trendingMovies {
             popular(args: { page: $page }) {
-              total_results
-              total_pages
+              totalResults
+              totalPages
               hasMore
               items {
                 ...TrendingMovieItem
@@ -571,9 +571,9 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(data.trending_movies.popular).toEqual({
-        total_results: 1,
-        total_pages: 2,
+      expect(data.trendingMovies.popular).toEqual({
+        totalResults: 1,
+        totalPages: 2,
         hasMore: true,
         items: [movie],
       });
@@ -600,10 +600,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         }
 
         query TrendingMovies($page: Int!) {
-          trending_movies {
-            top_rated(args: { page: $page }) {
-              total_results
-              total_pages
+          trendingMovies {
+            topRated(args: { page: $page }) {
+              totalResults
+              totalPages
               hasMore
               items {
                 ...TrendingMovieItem
@@ -647,9 +647,9 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(data.trending_movies.top_rated).toEqual({
-        total_results: 1,
-        total_pages: 2,
+      expect(data.trendingMovies.topRated).toEqual({
+        totalResults: 1,
+        totalPages: 2,
         hasMore: true,
         items: [movie],
       });
@@ -676,10 +676,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         }
 
         query TrendingMovies($page: Int!) {
-          trending_movies {
+          trendingMovies {
             upcoming(args: { page: $page }) {
-              total_results
-              total_pages
+              totalResults
+              totalPages
               hasMore
               items {
                 ...TrendingMovieItem
@@ -723,9 +723,9 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(data.trending_movies.upcoming).toEqual({
-        total_results: 1,
-        total_pages: 2,
+      expect(data.trendingMovies.upcoming).toEqual({
+        totalResults: 1,
+        totalPages: 2,
         hasMore: true,
         items: [movie],
       });

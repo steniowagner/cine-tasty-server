@@ -65,7 +65,7 @@
             "deprecationReason": null
           },
           {
-            "name": "trending_movies",
+            "name": "trendingMovies",
             "description": null,
             "args": [],
             "type": {
@@ -2426,7 +2426,7 @@
         "description": null,
         "fields": [
           {
-            "name": "now_playing",
+            "name": "nowPlaying",
             "description": null,
             "args": [
               {
@@ -2488,7 +2488,7 @@
             "deprecationReason": null
           },
           {
-            "name": "top_rated",
+            "name": "topRated",
             "description": null,
             "args": [
               {
@@ -2596,7 +2596,7 @@
         "description": null,
         "fields": [
           {
-            "name": "total_results",
+            "name": "totalResults",
             "description": null,
             "args": [],
             "type": {
@@ -2612,7 +2612,7 @@
             "deprecationReason": null
           },
           {
-            "name": "total_pages",
+            "name": "totalPages",
             "description": null,
             "args": [],
             "type": {
