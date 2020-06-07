@@ -15,25 +15,23 @@ import { tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { TrendingTVShowsEndpoints } from '../../../../../@types';
 import { Iso6391Language } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
-import resolvers from '../../../../resolvers';
 import CONSTANTS from '../../utils/constants';
-import typeDefs from '../../../../typeDefs';
-import TheMovieDBAPI from '../..';
+import makeTestQuery from './makeTestQuery';
 
 const GET_TRENDING_TV_SHOWS = gql`
   fragment TrendingTVShowItem on BaseTVShow {
-    origin_country
-    original_name
+    originCountry
+    originalName
     name
-    first_air_date
-    backdrop_path
-    genre_ids
+    firstAirDate
+    backdropPath
+    genreIds
     overview
-    vote_average
-    poster_path
+    voteAverage
+    posterPath
     popularity
-    original_language
-    vote_count
+    originalLanguage
+    voteCount
     id
   }
 
@@ -69,64 +67,64 @@ const GET_TRENDING_TV_SHOWS = gql`
 
 const GET_TV_SHOW_DETAIL = gql`
   query TVShowDetail($id: ID!, $language: ISO6391Language) {
-    tv_show(id: $id, language: $language) {
+    tvShow(id: $id, language: $language) {
       seasons {
-        air_date
-        episode_count
+        airDate
+        episodeCount
         id
         name
         overview
-        poster_path
-        season_number
+        posterPath
+        seasonNumber
       }
-      last_episode_to_air {
-        air_date
-        episode_number
+      lastEpisodeToAir {
+        airDate
+        episodeNumber
         id
         name
         overview
-        production_code
-        season_number
-        show_id
-        still_path
-        vote_average
-        vote_count
+        productionCode
+        seasonNumber
+        showId
+        stillPath
+        voteAverage
+        voteCount
       }
-      backdrop_path
-      created_by {
+      backdropPath
+      createdBy {
         id
-        credit_id
+        creditId
         name
         gender
-        profile_path
+        profilePath
       }
       networks {
         name
         id
-        logo_path
-        origin_country
+        logoPath
+        originCountry
       }
-      episode_run_time
-      first_air_date
+      episodeRunTime
+      firstAirDate
       homepage
       id
-      in_production
+      inProduction
       languages
-      last_air_date
+      lastAirDate
       genres
       name
       status
       type
-      vote_average
-      vote_count
-      production_companies {
+      voteAverage
+      voteCount
+      productionCompanies {
         id
         logoPath
         name
         originCountry
       }
-      original_language
-      original_name
+      originalLanguage
+      originalName
       overview
       videos {
         thumbnail {
@@ -159,25 +157,25 @@ const GET_TV_SHOW_DETAIL = gql`
         profilePath
       }
       similar {
-        origin_country
-        original_name
+        originCountry
+        originalName
         name
-        first_air_date
-        backdrop_path
-        genre_ids
+        firstAirDate
+        backdropPath
+        genreIds
         overview
-        vote_average
-        poster_path
+        voteAverage
+        posterPath
         popularity
-        original_language
-        vote_count
+        originalLanguage
+        voteCount
         id
       }
       popularity
-      poster_path
-      number_of_episodes
-      number_of_seasons
-      origin_country
+      posterPath
+      numberOfEpisodes
+      numberOfSeasons
+      originCountry
       reviews {
         author
         content
@@ -190,21 +188,11 @@ const GET_TV_SHOW_DETAIL = gql`
 
 const GET_TV_SHOW_IMAGES = gql`
   query TVShowImages($id: ID!) {
-    tv_show(id: $id) {
+    tvShow(id: $id) {
       images(id: $id)
     }
   }
 `;
-
-const makeTestServer = (): ApolloServer => {
-  return new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      tmdb: new TheMovieDBAPI(),
-    }),
-  });
-};
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
@@ -245,16 +233,14 @@ describe('Integration: DataSources-TVShow', () => {
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_TRENDING_TV_SHOWS,
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(6);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(6);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -307,7 +293,7 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data!.trending_tv_shows).toEqual({
+      expect(data.trending_tv_shows).toEqual({
         on_the_air: {
           hasMore: false,
           total_pages: 1,
@@ -350,16 +336,14 @@ describe('Integration: DataSources-TVShow', () => {
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_TRENDING_TV_SHOWS,
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(6);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(6);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -442,16 +426,14 @@ describe('Integration: DataSources-TVShow', () => {
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_TV_SHOW_DETAIL,
         variables: { id: '1', language: Iso6391Language.Ptbr },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(3);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(3);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${CONSTANTS.TV_ENDPOINT}/1`, {
         append_to_response: 'credits,similar,videos,reviews',
@@ -467,7 +449,7 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data.tv_show).toEqual(tvShowDetail);
+      expect(data.tvShow).toEqual(tvShowDetail);
     });
   });
 
@@ -475,16 +457,14 @@ describe('Integration: DataSources-TVShow', () => {
     it('should query the images of a tv show from TheMovieDB API and returns the result correctly', async () => {
       mockRestDataSourceGet.mockReturnValueOnce({}).mockReturnValueOnce(getImagesResult);
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_TV_SHOW_IMAGES,
         variables: { id: '1' },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${CONSTANTS.TV_ENDPOINT}/1`, {
         append_to_response: 'credits,similar,videos,reviews',
@@ -499,7 +479,7 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data!.tv_show.images).toEqual(images);
+      expect(data.tvShow.images).toEqual(images);
     });
 
     it("should query the images of a movie from TheMovieDB API and returns an empty array when the movie doesn't exist", async () => {
@@ -507,16 +487,14 @@ describe('Integration: DataSources-TVShow', () => {
         .mockReturnValueOnce({})
         .mockReturnValueOnce({ status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_TV_SHOW_IMAGES,
         variables: { id: '1' },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(`${CONSTANTS.TV_ENDPOINT}/1`, {
         append_to_response: 'credits,similar,videos,reviews',
@@ -531,7 +509,7 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data!.tv_show.images).toEqual([]);
+      expect(data.tvShow.images).toEqual([]);
     });
   });
 });

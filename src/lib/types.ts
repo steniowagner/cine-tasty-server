@@ -109,6 +109,29 @@ export type BasePerson = {
 
 export type BaseTvShow = {
    __typename?: 'BaseTVShow',
+  originCountry: Array<Scalars['String']>,
+  originalName?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  firstAirDate?: Maybe<Scalars['String']>,
+  backdropPath?: Maybe<Scalars['String']>,
+  genreIds: Array<Scalars['String']>,
+  overview?: Maybe<Scalars['String']>,
+  voteAverage?: Maybe<Scalars['Float']>,
+  mediaType?: Maybe<Scalars['String']>,
+  posterPath?: Maybe<Scalars['String']>,
+  popularity?: Maybe<Scalars['Float']>,
+  originalLanguage?: Maybe<Scalars['String']>,
+  voteCount?: Maybe<Scalars['Int']>,
+  id?: Maybe<Scalars['Int']>,
+};
+
+
+export type BaseTvShowGenreIdsArgs = {
+  language?: Maybe<Iso6391Language>
+};
+
+export type BaseTvShowResponse = {
+   __typename?: 'BaseTVShowResponse',
   origin_country: Array<Scalars['String']>,
   original_name?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
@@ -126,7 +149,7 @@ export type BaseTvShow = {
 };
 
 
-export type BaseTvShowGenre_IdsArgs = {
+export type BaseTvShowResponseGenre_IdsArgs = {
   language?: Maybe<Iso6391Language>
 };
 
@@ -229,6 +252,15 @@ export type CastTvShowGenre_IdsArgs = {
 
 export type Creator = {
    __typename?: 'Creator',
+  id?: Maybe<Scalars['ID']>,
+  creditId?: Maybe<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  gender?: Maybe<Scalars['Int']>,
+  profilePath?: Maybe<Scalars['String']>,
+};
+
+export type CreatorResponse = {
+   __typename?: 'CreatorResponse',
   id?: Maybe<Scalars['ID']>,
   credit_id?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>,
@@ -478,6 +510,21 @@ export enum Iso6391Language {
 
 export type LastEpisodeToAir = {
    __typename?: 'LastEpisodeToAir',
+  airDate?: Maybe<Scalars['String']>,
+  episodeNumber?: Maybe<Scalars['Int']>,
+  id?: Maybe<Scalars['ID']>,
+  name?: Maybe<Scalars['String']>,
+  overview?: Maybe<Scalars['String']>,
+  productionCode?: Maybe<Scalars['String']>,
+  seasonNumber?: Maybe<Scalars['Int']>,
+  showId?: Maybe<Scalars['String']>,
+  stillPath?: Maybe<Scalars['String']>,
+  voteAverage?: Maybe<Scalars['Float']>,
+  voteCount?: Maybe<Scalars['Int']>,
+};
+
+export type LastEpisodeToAirResponse = {
+   __typename?: 'LastEpisodeToAirResponse',
   air_date?: Maybe<Scalars['String']>,
   episode_number?: Maybe<Scalars['Int']>,
   id?: Maybe<Scalars['ID']>,
@@ -596,6 +643,14 @@ export type Network = {
    __typename?: 'Network',
   name?: Maybe<Scalars['String']>,
   id?: Maybe<Scalars['ID']>,
+  logoPath?: Maybe<Scalars['String']>,
+  originCountry?: Maybe<Scalars['String']>,
+};
+
+export type NetworkResponse = {
+   __typename?: 'NetworkResponse',
+  name?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['ID']>,
   logo_path?: Maybe<Scalars['String']>,
   origin_country?: Maybe<Scalars['String']>,
 };
@@ -652,7 +707,7 @@ export type Query = {
   search: SearchQueryResult,
   trending_movies: TrendingMovies,
   trending_tv_shows: TrendingTvShows,
-  tv_show?: Maybe<TvShow>,
+  tvShow?: Maybe<TvShow>,
   movie?: Maybe<Movie>,
   articles: ArticleQueryResult,
   people: PeopleQueryResult,
@@ -667,7 +722,7 @@ export type QuerySearchArgs = {
 };
 
 
-export type QueryTv_ShowArgs = {
+export type QueryTvShowArgs = {
   id: Scalars['ID'],
   language?: Maybe<Iso6391Language>
 };
@@ -769,6 +824,17 @@ export enum SearchType {
 
 export type Season = {
    __typename?: 'Season',
+  airDate?: Maybe<Scalars['String']>,
+  episodeCount?: Maybe<Scalars['Int']>,
+  id?: Maybe<Scalars['ID']>,
+  name?: Maybe<Scalars['String']>,
+  overview?: Maybe<Scalars['String']>,
+  posterPath?: Maybe<Scalars['String']>,
+  seasonNumber?: Maybe<Scalars['Int']>,
+};
+
+export type SeasonResponse = {
+   __typename?: 'SeasonResponse',
   air_date?: Maybe<Scalars['String']>,
   episode_count?: Maybe<Scalars['Int']>,
   id?: Maybe<Scalars['ID']>,
@@ -871,10 +937,57 @@ export type TrendingTvShowsQueryResult = {
 export type TvShow = {
    __typename?: 'TVShow',
   seasons: Array<Season>,
-  last_episode_to_air?: Maybe<LastEpisodeToAir>,
-  backdrop_path?: Maybe<Scalars['String']>,
-  created_by: Array<Creator>,
+  lastEpisodeToAir?: Maybe<LastEpisodeToAir>,
+  backdropPath?: Maybe<Scalars['String']>,
+  createdBy: Array<Creator>,
   networks: Array<Network>,
+  episodeRunTime: Array<Scalars['Int']>,
+  firstAirDate?: Maybe<Scalars['String']>,
+  homepage?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['String']>,
+  inProduction?: Maybe<Scalars['Boolean']>,
+  languages: Array<Scalars['String']>,
+  lastAirDate?: Maybe<Scalars['String']>,
+  genres: Array<Scalars['String']>,
+  name?: Maybe<Scalars['String']>,
+  status?: Maybe<Scalars['String']>,
+  type?: Maybe<Scalars['String']>,
+  voteAverage?: Maybe<Scalars['Float']>,
+  voteCount?: Maybe<Scalars['Int']>,
+  productionCompanies: Array<ProductionCompany>,
+  originalLanguage?: Maybe<Scalars['String']>,
+  originalName?: Maybe<Scalars['String']>,
+  overview?: Maybe<Scalars['String']>,
+  videos: Array<MediaVideo>,
+  popularity?: Maybe<Scalars['Float']>,
+  posterPath?: Maybe<Scalars['String']>,
+  cast: Array<CastItem>,
+  crew: Array<CrewItem>,
+  numberOfEpisodes?: Maybe<Scalars['Int']>,
+  numberOfSeasons?: Maybe<Scalars['Int']>,
+  originCountry: Array<Scalars['String']>,
+  similar: Array<BaseTvShow>,
+  images: Array<Scalars['String']>,
+  reviews: Array<Review>,
+};
+
+
+export type TvShowGenresArgs = {
+  language?: Maybe<Iso6391Language>
+};
+
+
+export type TvShowImagesArgs = {
+  id: Scalars['ID']
+};
+
+export type TvShowResponse = {
+   __typename?: 'TVShowResponse',
+  seasons: Array<Season>,
+  last_episode_to_air?: Maybe<LastEpisodeToAirResponse>,
+  backdrop_path?: Maybe<Scalars['String']>,
+  created_by: Array<CreatorResponse>,
+  networks: Array<NetworkResponse>,
   episode_run_time: Array<Scalars['Int']>,
   first_air_date?: Maybe<Scalars['String']>,
   homepage?: Maybe<Scalars['String']>,
@@ -888,30 +1001,30 @@ export type TvShow = {
   type?: Maybe<Scalars['String']>,
   vote_average?: Maybe<Scalars['Float']>,
   vote_count?: Maybe<Scalars['Int']>,
-  production_companies: Array<ProductionCompany>,
+  production_companies: Array<ProductionCompanyResponse>,
   original_language?: Maybe<Scalars['String']>,
   original_name?: Maybe<Scalars['String']>,
   overview?: Maybe<Scalars['String']>,
   videos: Array<MediaVideo>,
   popularity?: Maybe<Scalars['Float']>,
   poster_path?: Maybe<Scalars['String']>,
-  cast: Array<CastItem>,
-  crew: Array<CrewItem>,
+  cast: Array<CastItemResponse>,
+  crew: Array<CrewItemResponse>,
   number_of_episodes?: Maybe<Scalars['Int']>,
   number_of_seasons?: Maybe<Scalars['Int']>,
   origin_country: Array<Scalars['String']>,
-  similar: Array<BaseTvShow>,
+  similar: Array<BaseTvShowResponse>,
   images: Array<Scalars['String']>,
   reviews: Array<Review>,
 };
 
 
-export type TvShowGenresArgs = {
+export type TvShowResponseGenresArgs = {
   language?: Maybe<Iso6391Language>
 };
 
 
-export type TvShowImagesArgs = {
+export type TvShowResponseImagesArgs = {
   id: Scalars['ID']
 };
 
@@ -1039,6 +1152,12 @@ export type ResolversTypes = ResolversObject<{
   CastItemResponse: ResolverTypeWrapper<CastItemResponse>;
   CrewItemResponse: ResolverTypeWrapper<CrewItemResponse>;
   BaseMovieResponse: ResolverTypeWrapper<BaseMovieResponse>;
+  CreatorResponse: ResolverTypeWrapper<CreatorResponse>;
+  LastEpisodeToAirResponse: ResolverTypeWrapper<LastEpisodeToAirResponse>;
+  NetworkResponse: ResolverTypeWrapper<NetworkResponse>;
+  SeasonResponse: ResolverTypeWrapper<SeasonResponse>;
+  TVShowResponse: ResolverTypeWrapper<TvShowResponse>;
+  BaseTVShowResponse: ResolverTypeWrapper<BaseTvShowResponse>;
   CastMovie: ResolverTypeWrapper<CastMovie>;
   CastTVShow: ResolverTypeWrapper<CastTvShow>;
   MediaType: MediaType;
@@ -1097,6 +1216,12 @@ export type ResolversParentTypes = ResolversObject<{
   CastItemResponse: CastItemResponse;
   CrewItemResponse: CrewItemResponse;
   BaseMovieResponse: BaseMovieResponse;
+  CreatorResponse: CreatorResponse;
+  LastEpisodeToAirResponse: LastEpisodeToAirResponse;
+  NetworkResponse: NetworkResponse;
+  SeasonResponse: SeasonResponse;
+  TVShowResponse: TvShowResponse;
+  BaseTVShowResponse: BaseTvShowResponse;
   CastMovie: CastMovie;
   CastTVShow: CastTvShow;
   MediaType: MediaType;
@@ -1172,12 +1297,30 @@ export type BasePersonResolvers<ContextType = any, ParentType extends ResolversP
 }>;
 
 export type BaseTvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['BaseTVShow'] = ResolversParentTypes['BaseTVShow']> = ResolversObject<{
+  originCountry?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  originalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  genreIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<BaseTvShowGenreIdsArgs, never>>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type BaseTvShowResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BaseTVShowResponse'] = ResolversParentTypes['BaseTVShowResponse']> = ResolversObject<{
   origin_country?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   original_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   first_air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<BaseTvShowGenre_IdsArgs, never>>;
+  genre_ids?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<BaseTvShowResponseGenre_IdsArgs, never>>;
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   media_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1269,6 +1412,15 @@ export type CastTvShowResolvers<ContextType = any, ParentType extends ResolversP
 
 export type CreatorResolvers<ContextType = any, ParentType extends ResolversParentTypes['Creator'] = ResolversParentTypes['Creator']> = ResolversObject<{
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  creditId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  profilePath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type CreatorResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreatorResponse'] = ResolversParentTypes['CreatorResponse']> = ResolversObject<{
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   credit_id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -1297,6 +1449,21 @@ export type CrewItemResponseResolvers<ContextType = any, ParentType extends Reso
 }>;
 
 export type LastEpisodeToAirResolvers<ContextType = any, ParentType extends ResolversParentTypes['LastEpisodeToAir'] = ResolversParentTypes['LastEpisodeToAir']> = ResolversObject<{
+  airDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  episodeNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  productionCode?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  seasonNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  showId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  stillPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type LastEpisodeToAirResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LastEpisodeToAirResponse'] = ResolversParentTypes['LastEpisodeToAirResponse']> = ResolversObject<{
   air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   episode_number?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
@@ -1390,6 +1557,14 @@ export type MovieResponseResolvers<ContextType = any, ParentType extends Resolve
 export type NetworkResolvers<ContextType = any, ParentType extends ResolversParentTypes['Network'] = ResolversParentTypes['Network']> = ResolversObject<{
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  logoPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originCountry?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type NetworkResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['NetworkResponse'] = ResolversParentTypes['NetworkResponse']> = ResolversObject<{
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   logo_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   origin_country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
@@ -1448,7 +1623,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   search?: Resolver<ResolversTypes['SearchQueryResult'], ParentType, ContextType, RequireFields<QuerySearchArgs, 'input'>>;
   trending_movies?: Resolver<ResolversTypes['TrendingMovies'], ParentType, ContextType>;
   trending_tv_shows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType>;
-  tv_show?: Resolver<Maybe<ResolversTypes['TVShow']>, ParentType, ContextType, RequireFields<QueryTv_ShowArgs, 'id'>>;
+  tvShow?: Resolver<Maybe<ResolversTypes['TVShow']>, ParentType, ContextType, RequireFields<QueryTvShowArgs, 'id'>>;
   movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>;
   articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page' | 'language'>>;
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>;
@@ -1486,6 +1661,17 @@ export type SearchResultItemResolvers<ContextType = any, ParentType extends Reso
 }>;
 
 export type SeasonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Season'] = ResolversParentTypes['Season']> = ResolversObject<{
+  airDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  episodeCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  seasonNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type SeasonResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['SeasonResponse'] = ResolversParentTypes['SeasonResponse']> = ResolversObject<{
   air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   episode_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
@@ -1538,10 +1724,47 @@ export type TrendingTvShowsQueryResultResolvers<ContextType = any, ParentType ex
 
 export type TvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['TVShow'] = ResolversParentTypes['TVShow']> = ResolversObject<{
   seasons?: Resolver<Array<ResolversTypes['Season']>, ParentType, ContextType>;
-  last_episode_to_air?: Resolver<Maybe<ResolversTypes['LastEpisodeToAir']>, ParentType, ContextType>;
-  backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  created_by?: Resolver<Array<ResolversTypes['Creator']>, ParentType, ContextType>;
+  lastEpisodeToAir?: Resolver<Maybe<ResolversTypes['LastEpisodeToAir']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdBy?: Resolver<Array<ResolversTypes['Creator']>, ParentType, ContextType>;
   networks?: Resolver<Array<ResolversTypes['Network']>, ParentType, ContextType>;
+  episodeRunTime?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
+  firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  inProduction?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  lastAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowGenresArgs, never>>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  productionCompanies?: Resolver<Array<ResolversTypes['ProductionCompany']>, ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cast?: Resolver<Array<ResolversTypes['CastItem']>, ParentType, ContextType>;
+  crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>;
+  numberOfEpisodes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  numberOfSeasons?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  originCountry?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  similar?: Resolver<Array<ResolversTypes['BaseTVShow']>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowImagesArgs, 'id'>>;
+  reviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type TvShowResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['TVShowResponse'] = ResolversParentTypes['TVShowResponse']> = ResolversObject<{
+  seasons?: Resolver<Array<ResolversTypes['Season']>, ParentType, ContextType>;
+  last_episode_to_air?: Resolver<Maybe<ResolversTypes['LastEpisodeToAirResponse']>, ParentType, ContextType>;
+  backdrop_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  created_by?: Resolver<Array<ResolversTypes['CreatorResponse']>, ParentType, ContextType>;
+  networks?: Resolver<Array<ResolversTypes['NetworkResponse']>, ParentType, ContextType>;
   episode_run_time?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
   first_air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1549,26 +1772,26 @@ export type TvShowResolvers<ContextType = any, ParentType extends ResolversParen
   in_production?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   last_air_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowGenresArgs, never>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowResponseGenresArgs, never>>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   vote_average?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   vote_count?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  production_companies?: Resolver<Array<ResolversTypes['ProductionCompany']>, ParentType, ContextType>;
+  production_companies?: Resolver<Array<ResolversTypes['ProductionCompanyResponse']>, ParentType, ContextType>;
   original_language?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   original_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType>;
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  cast?: Resolver<Array<ResolversTypes['CastItem']>, ParentType, ContextType>;
-  crew?: Resolver<Array<ResolversTypes['CrewItem']>, ParentType, ContextType>;
+  cast?: Resolver<Array<ResolversTypes['CastItemResponse']>, ParentType, ContextType>;
+  crew?: Resolver<Array<ResolversTypes['CrewItemResponse']>, ParentType, ContextType>;
   number_of_episodes?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   number_of_seasons?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   origin_country?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  similar?: Resolver<Array<ResolversTypes['BaseTVShow']>, ParentType, ContextType>;
-  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowImagesArgs, 'id'>>;
+  similar?: Resolver<Array<ResolversTypes['BaseTVShowResponse']>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowResponseImagesArgs, 'id'>>;
   reviews?: Resolver<Array<ResolversTypes['Review']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
@@ -1584,19 +1807,23 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   BaseMovieResponse?: BaseMovieResponseResolvers<ContextType>;
   BasePerson?: BasePersonResolvers<ContextType>;
   BaseTVShow?: BaseTvShowResolvers<ContextType>;
+  BaseTVShowResponse?: BaseTvShowResponseResolvers<ContextType>;
   Cast?: CastResolvers;
   CastItem?: CastItemResolvers<ContextType>;
   CastItemResponse?: CastItemResponseResolvers<ContextType>;
   CastMovie?: CastMovieResolvers<ContextType>;
   CastTVShow?: CastTvShowResolvers<ContextType>;
   Creator?: CreatorResolvers<ContextType>;
+  CreatorResponse?: CreatorResponseResolvers<ContextType>;
   CrewItem?: CrewItemResolvers<ContextType>;
   CrewItemResponse?: CrewItemResponseResolvers<ContextType>;
   LastEpisodeToAir?: LastEpisodeToAirResolvers<ContextType>;
+  LastEpisodeToAirResponse?: LastEpisodeToAirResponseResolvers<ContextType>;
   MediaVideo?: MediaVideoResolvers<ContextType>;
   Movie?: MovieResolvers<ContextType>;
   MovieResponse?: MovieResponseResolvers<ContextType>;
   Network?: NetworkResolvers<ContextType>;
+  NetworkResponse?: NetworkResponseResolvers<ContextType>;
   PeopleQueryResult?: PeopleQueryResultResolvers<ContextType>;
   Person?: PersonResolvers<ContextType>;
   PersonKnowFor?: PersonKnowForResolvers;
@@ -1608,12 +1835,14 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   SearchQueryResult?: SearchQueryResultResolvers<ContextType>;
   SearchResultItem?: SearchResultItemResolvers;
   Season?: SeasonResolvers<ContextType>;
+  SeasonResponse?: SeasonResponseResolvers<ContextType>;
   Thumbnail?: ThumbnailResolvers<ContextType>;
   TrendingMovies?: TrendingMoviesResolvers<ContextType>;
   TrendingMoviesQueryResult?: TrendingMoviesQueryResultResolvers<ContextType>;
   TrendingTVShows?: TrendingTvShowsResolvers<ContextType>;
   TrendingTVShowsQueryResult?: TrendingTvShowsQueryResultResolvers<ContextType>;
   TVShow?: TvShowResolvers<ContextType>;
+  TVShowResponse?: TvShowResponseResolvers<ContextType>;
   Upload?: GraphQLScalarType;
 }>;
 

@@ -9,6 +9,8 @@ import {
 
 type PersonKnownForResultSample = {
   original_title?: string;
+  originalTitle?: string;
+  firstAirDate?: string;
   first_air_date?: string;
   title?: string;
 };
@@ -18,7 +20,7 @@ const resolveKnownFor = (result: PersonKnownForResultSample): string | null => {
     return 'BaseMovie';
   }
 
-  if (result.first_air_date) {
+  if (result.first_air_date || result.firstAirDate) {
     return 'BaseTVShow';
   }
 

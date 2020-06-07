@@ -40,19 +40,19 @@ const SEARCH_PERSON = gql`
             }
 
             ... on BaseTVShow {
-              origin_country
-              original_name
+              originCountry
+              originalName
               name
-              first_air_date
-              backdrop_path
-              genre_ids
+              firstAirDate
+              backdropPath
+              genreIds
               overview
-              vote_average
-              media_type
-              poster_path
+              voteAverage
+              mediaType
+              posterPath
               popularity
-              original_language
-              vote_count
+              originalLanguage
+              voteCount
               id
             }
           }
