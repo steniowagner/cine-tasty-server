@@ -63,8 +63,20 @@ export const knowForMovie = {
 };
 
 export const knowForTVShow = {
-  ...rawKnowForTVShow,
-  genre_ids: tvGenres.map(genre => genre.name),
+  originalName: 'original_name',
+  id: 79574,
+  originCountry: [],
+  name: 'name',
+  backdropPath: '/backdrop_path.jpg',
+  originalLanguage: 'original_language',
+  firstAirDate: 'first_air_date',
+  popularity: 1,
+  voteCount: 2,
+  mediaType: 'tv',
+  voteAverage: 8,
+  overview: 'overview',
+  posterPath: '/poster_path.jpg',
+  genreIds: tvGenres.map(genre => genre.name),
 };
 
 export const peopleItem = {
