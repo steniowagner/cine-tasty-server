@@ -37,7 +37,7 @@ import {
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export interface Props {
-  getTrendingMoviesItem: (
+  getTrendingMovies: (
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
   ) => Promise<TrendingMoviesQueryResult>;
@@ -120,7 +120,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.movieDetailsHandler.handle(args);
   }
 
-  async getTrendingMoviesItem(
+  async getTrendingMovies(
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {

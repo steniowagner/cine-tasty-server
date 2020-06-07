@@ -107,16 +107,16 @@ export default gql`
   }
 
   type TrendingMoviesQueryResult {
-    total_results: Int!
-    total_pages: Int!
+    totalResults: Int!
+    totalPages: Int!
     items: [BaseMovie!]!
     hasMore: Boolean!
   }
 
   type TrendingMovies {
-    now_playing(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
+    nowPlaying(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
     popular(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
-    top_rated(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
+    topRated(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
     upcoming(args: TrendingMoviesArgs!): TrendingMoviesQueryResult!
   }
 `;

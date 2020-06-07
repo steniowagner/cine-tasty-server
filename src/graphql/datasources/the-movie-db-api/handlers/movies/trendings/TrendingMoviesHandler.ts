@@ -27,16 +27,21 @@ class TrendingMoviesHandler implements TheMovieDBHandler<Params> {
   async handle({ resource, args }: Params): Promise<TrendingMoviesQueryResult> {
     const { page, language } = args;
 
-    const { total_pages: totalPages, total_results, results } = await this.get<
-      GetRequestParams,
-      Promise<GetBaseMovieResponse>
-    >(resource, { page }, language);
+    const {
+      total_results: totalResults,
+      total_pages: totalPages,
+      results,
+    } = await this.get<GetRequestParams, Promise<GetBaseMovieResponse>>(
+      resource,
+      { page },
+      language,
+    );
 
     return {
       hasMore: page < totalPages,
-      total_pages: totalPages,
       items: results,
-      total_results,
+      totalResults,
+      totalPages,
     };
   }
 }
