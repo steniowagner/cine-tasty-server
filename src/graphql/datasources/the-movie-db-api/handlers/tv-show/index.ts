@@ -72,17 +72,21 @@ class TVShowHandler implements Props {
     { page, language }: TrendingTvShowsArgs,
     endpoint: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
-    const tvshow = await this.get<GetRequestParams, Promise<GetBaseTVShowResponse>>(
+    const {
+      total_pages: totalPages,
+      total_results: totalResults,
+      results,
+    } = await this.get<GetRequestParams, Promise<GetBaseTVShowResponse>>(
       endpoint,
       { page },
       language,
     );
 
     return {
-      hasMore: page < tvshow.total_pages,
-      total_pages: tvshow.total_pages,
-      total_results: tvshow.total_results,
-      items: tvshow.results,
+      hasMore: page < totalPages,
+      items: results,
+      totalResults,
+      totalPages,
     };
   }
 }

@@ -186,8 +186,8 @@ export default gql`
   }
 
   type TrendingTVShowsQueryResult {
-    total_results: Int!
-    total_pages: Int!
+    totalResults: Int!
+    totalPages: Int!
     items: [BaseTVShow!]!
     hasMore: Boolean!
   }
@@ -198,8 +198,8 @@ export default gql`
   }
 
   type TrendingTVShows {
-    on_the_air(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
+    onTheAir(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
     popular(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
-    top_rated(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
+    topRated(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
   }
 `;

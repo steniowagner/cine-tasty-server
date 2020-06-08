@@ -81,7 +81,7 @@
             "deprecationReason": null
           },
           {
-            "name": "trending_tv_shows",
+            "name": "trendingTvShows",
             "description": null,
             "args": [],
             "type": {
@@ -2679,7 +2679,7 @@
         "description": null,
         "fields": [
           {
-            "name": "on_the_air",
+            "name": "onTheAir",
             "description": null,
             "args": [
               {
@@ -2741,7 +2741,7 @@
             "deprecationReason": null
           },
           {
-            "name": "top_rated",
+            "name": "topRated",
             "description": null,
             "args": [
               {
@@ -2818,7 +2818,7 @@
         "description": null,
         "fields": [
           {
-            "name": "total_results",
+            "name": "totalResults",
             "description": null,
             "args": [],
             "type": {
@@ -2834,7 +2834,7 @@
             "deprecationReason": null
           },
           {
-            "name": "total_pages",
+            "name": "totalPages",
             "description": null,
             "args": [],
             "type": {

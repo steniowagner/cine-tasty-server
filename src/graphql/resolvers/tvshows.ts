@@ -54,7 +54,7 @@ type SimilarTVShows = {
 
 const resolvers: QueryResolvers = {
   Query: {
-    trending_tv_shows: (): {} => ({}),
+    trendingTvShows: (): {} => ({}),
 
     tvShow: (
       _: {},
@@ -275,7 +275,7 @@ const resolvers: QueryResolvers = {
   },
 
   TrendingTVShows: {
-    on_the_air: (
+    onTheAir: (
       _: {},
       { args }: TrendingTvShowsOnTheAirArgs,
       { dataSources }: Context,
@@ -289,7 +289,7 @@ const resolvers: QueryResolvers = {
     ): Promise<TrendingTvShowsQueryResult> =>
       dataSources.tmdb.getTrendingTVShowsItem(args, TrendingTVShowsEndpoints.Popular),
 
-    top_rated: (
+    topRated: (
       _: {},
       { args }: TrendingTvShowsTopRatedArgs,
       { dataSources }: Context,
