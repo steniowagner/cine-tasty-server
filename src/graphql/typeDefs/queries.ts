@@ -4,7 +4,7 @@ export default gql`
   extend type Query {
     search(input: SearchInput!, genresLanguage: ISO6391Language): SearchQueryResult!
     trendingMovies: TrendingMovies!
-    trending_tv_shows: TrendingTVShows!
+    trendingTvShows: TrendingTVShows!
     tvShow(id: ID!, language: ISO6391Language): TVShow
     movie(id: ID!, language: ISO6391Language): Movie
     articles(page: Int!, language: ArticleLanguage!): ArticleQueryResult!

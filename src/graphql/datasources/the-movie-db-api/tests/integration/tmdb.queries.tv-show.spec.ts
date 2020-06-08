@@ -1,7 +1,6 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
 import {
   rawTVShow,
@@ -36,26 +35,26 @@ const GET_TRENDING_TV_SHOWS = gql`
   }
 
   query TrendingTVShows($page: Int!) {
-    trending_tv_shows {
-      on_the_air(args: { page: $page }) {
-        total_results
-        total_pages
+    trendingTvShows {
+      onTheAir(args: { page: $page }) {
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingTVShowItem
         }
       }
       popular(args: { page: $page }) {
-        total_results
-        total_pages
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingTVShowItem
         }
       }
-      top_rated(args: { page: $page }) {
-        total_results
-        total_pages
+      topRated(args: { page: $page }) {
+        totalResults
+        totalPages
         hasMore
         items {
           ...TrendingTVShowItem
@@ -293,23 +292,23 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data.trending_tv_shows).toEqual({
-        on_the_air: {
+      expect(data.trendingTvShows).toEqual({
+        onTheAir: {
           hasMore: false,
-          total_pages: 1,
-          total_results: 1,
+          totalPages: 1,
+          totalResults: 1,
           items: [tvshow],
         },
-        top_rated: {
+        topRated: {
           hasMore: false,
-          total_pages: 1,
-          total_results: 1,
+          totalPages: 1,
+          totalResults: 1,
           items: [tvshow],
         },
         popular: {
           hasMore: false,
-          total_pages: 1,
-          total_results: 1,
+          totalPages: 1,
+          totalResults: 1,
           items: [tvshow],
         },
       });
@@ -396,23 +395,23 @@ describe('Integration: DataSources-TVShow', () => {
         },
       );
 
-      expect(data!.trending_tv_shows).toEqual({
-        on_the_air: {
+      expect(data.trendingTvShows).toEqual({
+        onTheAir: {
           hasMore: true,
-          total_pages: 2,
-          total_results: 2,
+          totalPages: 2,
+          totalResults: 2,
           items: [tvshow],
         },
-        top_rated: {
+        topRated: {
           hasMore: true,
-          total_pages: 2,
-          total_results: 2,
+          totalPages: 2,
+          totalResults: 2,
           items: [tvshow],
         },
         popular: {
           hasMore: true,
-          total_pages: 2,
-          total_results: 2,
+          totalPages: 2,
+          totalResults: 2,
           items: [tvshow],
         },
       });
