@@ -1,7 +1,9 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-  type Person {
+  union PersonKnowFor = BaseMovie | BaseTVShow
+
+  type PersonResponse {
     birthday: String
     known_for_department: String
     deathday: String
@@ -20,9 +22,26 @@ export default gql`
     cast: [Cast!]!
   }
 
-  union PersonKnowFor = BaseMovie | BaseTVShow
+  type Person {
+    birthday: String
+    knownForDepartment: String
+    deathday: String
+    id: Int
+    name: String
+    alsoKnownAs: [String!]!
+    placeOfBirth: String
+    profilePath: String
+    adult: Boolean
+    imdbId: String
+    homepage: String
+    biography: String
+    popularity: Float
+    images: [String!]!
+    gender: Int
+    cast: [Cast!]!
+  }
 
-  type BasePerson {
+  type BasePersonResponse {
     profile_path: String
     adult: Boolean
     id: Int
@@ -31,9 +50,25 @@ export default gql`
     name: String
   }
 
-  type PeopleQueryResult {
+  type BasePerson {
+    profilePath: String
+    adult: Boolean
+    id: Int
+    popularity: Float
+    knownFor: [PersonKnowFor!]!
+    name: String
+  }
+
+  type PeopleQueryResultResponse {
     total_results: Int!
     total_pages: Int!
+    items: [BasePerson!]!
+    hasMore: Boolean!
+  }
+
+  type PeopleQueryResult {
+    totalResults: Int!
+    totalPages: Int!
     items: [BasePerson!]!
     hasMore: Boolean!
   }

@@ -14,16 +14,16 @@ const PERSON_ENDPOINT = '/person';
 const GET_PEOPLE = gql`
   query GetPeople($page: Int!) {
     people(page: $page) {
-      total_results
-      total_pages
+      totalResults
+      totalPages
       hasMore
       items {
-        profile_path
+        profilePath
         adult
         id
         popularity
         name
-        known_for {
+        knownFor {
           ... on BaseMovie {
             originalTitle
             video
@@ -128,8 +128,8 @@ describe('Integration: DataSources/TheMovieDBAPI/People - Queries', () => {
       );
 
       expect(data.people).toEqual({
-        total_pages: 1,
-        total_results: 1,
+        totalPages: 1,
+        totalResults: 1,
         hasMore: false,
         items: [peopleItem],
       });
@@ -180,8 +180,8 @@ describe('Integration: DataSources/TheMovieDBAPI/People - Queries', () => {
       );
 
       expect(data.people).toEqual({
-        total_pages: 2,
-        total_results: 2,
+        totalPages: 2,
+        totalResults: 2,
         hasMore: true,
         items: [peopleItem],
       });

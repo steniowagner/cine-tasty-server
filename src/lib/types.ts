@@ -99,6 +99,16 @@ export type BaseMovieResponseGenre_IdsArgs = {
 
 export type BasePerson = {
    __typename?: 'BasePerson',
+  profilePath?: Maybe<Scalars['String']>,
+  adult?: Maybe<Scalars['Boolean']>,
+  id?: Maybe<Scalars['Int']>,
+  popularity?: Maybe<Scalars['Float']>,
+  knownFor: Array<PersonKnowFor>,
+  name?: Maybe<Scalars['String']>,
+};
+
+export type BasePersonResponse = {
+   __typename?: 'BasePersonResponse',
   profile_path?: Maybe<Scalars['String']>,
   adult?: Maybe<Scalars['Boolean']>,
   id?: Maybe<Scalars['Int']>,
@@ -657,6 +667,14 @@ export type NetworkResponse = {
 
 export type PeopleQueryResult = {
    __typename?: 'PeopleQueryResult',
+  totalResults: Scalars['Int'],
+  totalPages: Scalars['Int'],
+  items: Array<BasePerson>,
+  hasMore: Scalars['Boolean'],
+};
+
+export type PeopleQueryResultResponse = {
+   __typename?: 'PeopleQueryResultResponse',
   total_results: Scalars['Int'],
   total_pages: Scalars['Int'],
   items: Array<BasePerson>,
@@ -665,6 +683,28 @@ export type PeopleQueryResult = {
 
 export type Person = {
    __typename?: 'Person',
+  birthday?: Maybe<Scalars['String']>,
+  knownForDepartment?: Maybe<Scalars['String']>,
+  deathday?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['Int']>,
+  name?: Maybe<Scalars['String']>,
+  alsoKnownAs: Array<Scalars['String']>,
+  placeOfBirth?: Maybe<Scalars['String']>,
+  profilePath?: Maybe<Scalars['String']>,
+  adult?: Maybe<Scalars['Boolean']>,
+  imdbId?: Maybe<Scalars['String']>,
+  homepage?: Maybe<Scalars['String']>,
+  biography?: Maybe<Scalars['String']>,
+  popularity?: Maybe<Scalars['Float']>,
+  images: Array<Scalars['String']>,
+  gender?: Maybe<Scalars['Int']>,
+  cast: Array<Cast>,
+};
+
+export type PersonKnowFor = BaseMovie | BaseTvShow;
+
+export type PersonResponse = {
+   __typename?: 'PersonResponse',
   birthday?: Maybe<Scalars['String']>,
   known_for_department?: Maybe<Scalars['String']>,
   deathday?: Maybe<Scalars['String']>,
@@ -682,8 +722,6 @@ export type Person = {
   gender?: Maybe<Scalars['Int']>,
   cast: Array<Cast>,
 };
-
-export type PersonKnowFor = BaseMovie | BaseTvShow;
 
 export type ProductionCompany = {
    __typename?: 'ProductionCompany',
@@ -1111,7 +1149,7 @@ export type ResolversTypes = ResolversObject<{
   ISO6391Language: Iso6391Language;
   SearchQueryResult: ResolverTypeWrapper<Omit<SearchQueryResult, 'items'> & { items: Array<ResolversTypes['SearchResultItem']> }>;
   SearchResultItem: ResolversTypes['BasePerson'] | ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'];
-  BasePerson: ResolverTypeWrapper<Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>;
+  BasePerson: ResolverTypeWrapper<Omit<BasePerson, 'knownFor'> & { knownFor: Array<ResolversTypes['PersonKnowFor']> }>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   PersonKnowFor: ResolversTypes['BaseMovie'] | ResolversTypes['BaseTVShow'];
@@ -1160,6 +1198,9 @@ export type ResolversTypes = ResolversObject<{
   BaseTVShowResponse: ResolverTypeWrapper<BaseTvShowResponse>;
   CastMovie: ResolverTypeWrapper<CastMovie>;
   CastTVShow: ResolverTypeWrapper<CastTvShow>;
+  PersonResponse: ResolverTypeWrapper<PersonResponse>;
+  BasePersonResponse: ResolverTypeWrapper<Omit<BasePersonResponse, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>;
+  PeopleQueryResultResponse: ResolverTypeWrapper<PeopleQueryResultResponse>;
   MediaType: MediaType;
   CacheControlScope: CacheControlScope;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
@@ -1175,7 +1216,7 @@ export type ResolversParentTypes = ResolversObject<{
   ISO6391Language: Iso6391Language;
   SearchQueryResult: Omit<SearchQueryResult, 'items'> & { items: Array<ResolversParentTypes['SearchResultItem']> };
   SearchResultItem: ResolversParentTypes['BasePerson'] | ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'];
-  BasePerson: Omit<BasePerson, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> };
+  BasePerson: Omit<BasePerson, 'knownFor'> & { knownFor: Array<ResolversParentTypes['PersonKnowFor']> };
   Boolean: Scalars['Boolean'];
   Float: Scalars['Float'];
   PersonKnowFor: ResolversParentTypes['BaseMovie'] | ResolversParentTypes['BaseTVShow'];
@@ -1224,6 +1265,9 @@ export type ResolversParentTypes = ResolversObject<{
   BaseTVShowResponse: BaseTvShowResponse;
   CastMovie: CastMovie;
   CastTVShow: CastTvShow;
+  PersonResponse: PersonResponse;
+  BasePersonResponse: Omit<BasePersonResponse, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> };
+  PeopleQueryResultResponse: PeopleQueryResultResponse;
   MediaType: MediaType;
   CacheControlScope: CacheControlScope;
   Upload: Scalars['Upload'];
@@ -1287,6 +1331,16 @@ export type BaseMovieResponseResolvers<ContextType = any, ParentType extends Res
 }>;
 
 export type BasePersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['BasePerson'] = ResolversParentTypes['BasePerson']> = ResolversObject<{
+  profilePath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  knownFor?: Resolver<Array<ResolversTypes['PersonKnowFor']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type BasePersonResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['BasePersonResponse'] = ResolversParentTypes['BasePersonResponse']> = ResolversObject<{
   profile_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
@@ -1571,6 +1625,14 @@ export type NetworkResponseResolvers<ContextType = any, ParentType extends Resol
 }>;
 
 export type PeopleQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['PeopleQueryResult'] = ResolversParentTypes['PeopleQueryResult']> = ResolversObject<{
+  totalResults?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  items?: Resolver<Array<ResolversTypes['BasePerson']>, ParentType, ContextType>;
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type PeopleQueryResultResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PeopleQueryResultResponse'] = ResolversParentTypes['PeopleQueryResultResponse']> = ResolversObject<{
   total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   total_pages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   items?: Resolver<Array<ResolversTypes['BasePerson']>, ParentType, ContextType>;
@@ -1579,6 +1641,30 @@ export type PeopleQueryResultResolvers<ContextType = any, ParentType extends Res
 }>;
 
 export type PersonResolvers<ContextType = any, ParentType extends ResolversParentTypes['Person'] = ResolversParentTypes['Person']> = ResolversObject<{
+  birthday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  knownForDepartment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deathday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  alsoKnownAs?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  placeOfBirth?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  profilePath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  imdbId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  biography?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  cast?: Resolver<Array<ResolversTypes['Cast']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type PersonKnowForResolvers<ContextType = any, ParentType extends ResolversParentTypes['PersonKnowFor'] = ResolversParentTypes['PersonKnowFor']> = ResolversObject<{
+  __resolveType: TypeResolveFn<'BaseMovie' | 'BaseTVShow', ParentType, ContextType>;
+}>;
+
+export type PersonResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PersonResponse'] = ResolversParentTypes['PersonResponse']> = ResolversObject<{
   birthday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   known_for_department?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deathday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1596,10 +1682,6 @@ export type PersonResolvers<ContextType = any, ParentType extends ResolversParen
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   cast?: Resolver<Array<ResolversTypes['Cast']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
-}>;
-
-export type PersonKnowForResolvers<ContextType = any, ParentType extends ResolversParentTypes['PersonKnowFor'] = ResolversParentTypes['PersonKnowFor']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'BaseMovie' | 'BaseTVShow', ParentType, ContextType>;
 }>;
 
 export type ProductionCompanyResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProductionCompany'] = ResolversParentTypes['ProductionCompany']> = ResolversObject<{
@@ -1806,6 +1888,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   BaseMovie?: BaseMovieResolvers<ContextType>;
   BaseMovieResponse?: BaseMovieResponseResolvers<ContextType>;
   BasePerson?: BasePersonResolvers<ContextType>;
+  BasePersonResponse?: BasePersonResponseResolvers<ContextType>;
   BaseTVShow?: BaseTvShowResolvers<ContextType>;
   BaseTVShowResponse?: BaseTvShowResponseResolvers<ContextType>;
   Cast?: CastResolvers;
@@ -1825,8 +1908,10 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Network?: NetworkResolvers<ContextType>;
   NetworkResponse?: NetworkResponseResolvers<ContextType>;
   PeopleQueryResult?: PeopleQueryResultResolvers<ContextType>;
+  PeopleQueryResultResponse?: PeopleQueryResultResponseResolvers<ContextType>;
   Person?: PersonResolvers<ContextType>;
   PersonKnowFor?: PersonKnowForResolvers;
+  PersonResponse?: PersonResponseResolvers<ContextType>;
   ProductionCompany?: ProductionCompanyResolvers<ContextType>;
   ProductionCompanyResponse?: ProductionCompanyResponseResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

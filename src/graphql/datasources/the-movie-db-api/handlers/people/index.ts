@@ -1,5 +1,5 @@
-import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '../../../../../lib/types';
-import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../@types';
+import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '@lib/types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '@types';
 
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';
@@ -10,11 +10,7 @@ type GetPeopleResponse = BasePaginationResponse & {
 
 type GetRequestParams = { page: number };
 
-export interface Props {
-  getPopularPeople: (params: QueryPeopleArgs) => Promise<PeopleQueryResult>;
-}
-
-class PeopleHandler implements Props {
+class PeopleHandler {
   get: GetTMDBApiRequest;
 
   constructor(execGetRequest: GetTMDBApiRequest) {
@@ -27,16 +23,21 @@ class PeopleHandler implements Props {
   }: QueryPeopleArgs): Promise<PeopleQueryResult> {
     const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
 
-    const { total_pages: totalPages, total_results, results } = await this.get<
-      GetRequestParams,
-      Promise<GetPeopleResponse>
-    >(endpoint, { page }, language);
+    const {
+      total_results: totalResults,
+      total_pages: totalPages,
+      results,
+    } = await this.get<GetRequestParams, Promise<GetPeopleResponse>>(
+      endpoint,
+      { page },
+      language,
+    );
 
     return {
       hasMore: page < totalPages,
-      total_pages: totalPages,
-      total_results,
       items: results,
+      totalResults,
+      totalPages,
     };
   }
 }

@@ -80,8 +80,8 @@ export const knowForTVShow = {
 };
 
 export const peopleItem = {
-  profile_path: 'profile_path',
-  known_for: [knowForMovie, knowForTVShow],
+  profilePath: 'profile_path',
+  knownFor: [knowForMovie, knowForTVShow],
   popularity: 123,
   adult: true,
   name: 'name',

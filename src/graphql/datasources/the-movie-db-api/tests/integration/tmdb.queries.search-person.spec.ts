@@ -14,12 +14,12 @@ const SEARCH_PERSON = gql`
       hasMore
       items {
         ... on BasePerson {
-          profile_path
+          profilePath
           adult
           id
           popularity
           name
-          known_for {
+          knownFor {
             ... on BaseMovie {
               originalTitle
               video

@@ -1,33 +1,26 @@
-import { Person, QueryPersonArgs } from '../../../../../lib/types';
-import {
-  GetPersonImagesResult,
-  MediaItem,
-  GetTMDBApiRequest,
-} from '../../../../../@types';
+import { PersonResponse, QueryPersonArgs, Cast } from '@lib/types';
+import { GetPersonImagesResult, GetTMDBApiRequest } from '@types';
+
 import { getPersonProfileImages } from '../../helpers';
 import CONSTANTS from '../../utils/constants';
 
-type GetPersonResponse = Omit<Person, 'images'> & {
+type GetPersonResponse = Omit<PersonResponse, 'images'> & {
   images: GetPersonImagesResult;
   success?: boolean;
 };
 
 type GetCastResponse = {
-  cast: MediaItem[];
+  cast: Cast[];
 };
 
-export interface Props {
-  getPerson: (params: QueryPersonArgs) => Promise<Person | null>;
-}
-
-class PersonHandler implements Props {
+class PersonHandler {
   get: GetTMDBApiRequest;
 
   constructor(execGetRequest: GetTMDBApiRequest) {
     this.get = execGetRequest;
   }
 
-  async getPerson({ language, id }: QueryPersonArgs): Promise<Person | null> {
+  async getPerson({ language, id }: QueryPersonArgs): Promise<PersonResponse | null> {
     const [result, castData] = await Promise.all<GetPersonResponse, GetCastResponse>([
       this.get(
         `${CONSTANTS.PERSON_ENDPOINT}/${id}`,

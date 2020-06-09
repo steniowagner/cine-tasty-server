@@ -3,7 +3,7 @@ import { ApolloServer, gql } from 'apollo-server';
 
 const mockRestDataSourceGet = jest.fn();
 
-import { rawPerson, person, rawCast } from '../../../../../__tests__/mocks/person.stub';
+import { rawPerson, person, rawCast } from '../../../../../../__tests__/mocks/person';
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
@@ -13,15 +13,15 @@ const GET_PERSON = gql`
   query GetPerson($id: Int!) {
     person(id: $id, language: PTBR) {
       birthday
-      known_for_department
+      knownForDepartment
       deathday
       id
       name
-      also_known_as
-      place_of_birth
-      profile_path
+      alsoKnownAs
+      placeOfBirth
+      profilePath
       adult
-      imdb_id
+      imdbId
       homepage
       biography
       popularity
@@ -132,7 +132,7 @@ describe('Integration: DataSources-Person', () => {
         variables: { id: 123 },
       });
 
-      expect(data!.person).toEqual(person);
+      expect(data.person).toEqual(person);
     });
 
     it("should return null when the person doesn't exists", async () => {
@@ -147,7 +147,7 @@ describe('Integration: DataSources-Person', () => {
         variables: { id: 1 },
       });
 
-      expect(data!.person).toEqual(null);
+      expect(data.person).toEqual(null);
     });
   });
 });

@@ -31,8 +31,8 @@ describe('Unity: People', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
       expect(result.items).toMatchSnapshot();
       expect(result.hasMore).toEqual(false);
-      expect(result.total_pages).toEqual(1);
-      expect(result.total_results).toEqual(1);
+      expect(result.totalPages).toEqual(1);
+      expect(result.totalResults).toEqual(1);
     });
 
     it('return the hasMore field as true when has more items to be paginated', async () => {
@@ -52,8 +52,8 @@ describe('Unity: People', () => {
       expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
       expect(result.items).toMatchSnapshot();
       expect(result.hasMore).toEqual(true);
-      expect(result.total_pages).toEqual(2);
-      expect(result.total_results).toEqual(2);
+      expect(result.totalPages).toEqual(2);
+      expect(result.totalResults).toEqual(2);
     });
   });
 });
