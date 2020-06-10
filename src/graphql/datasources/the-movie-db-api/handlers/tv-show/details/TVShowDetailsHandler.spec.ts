@@ -30,7 +30,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/details/TVShowDetail
   it('should get the details of a tv-show with certain id and return the result correctly', async () => {
     mockRestDataSourceGet.mockReturnValueOnce(rawTVShowDetail);
 
-    await tvShowDetailsHandler.handle({
+    const result = await tvShowDetailsHandler.handle({
       language: Iso6391Language.Ptbr,
       id,
     });
@@ -44,6 +44,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/details/TVShowDetail
     );
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result).toEqual(rawTVShowDetail);
   });
 
   it('should return null when the status_code returned is NOT_FOUND_CODE', async () => {

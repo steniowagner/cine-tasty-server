@@ -25,9 +25,9 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/MovieImagesHandler', () => {
       null,
     );
 
-    expect(result).toEqual(filePaths);
-
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result).toEqual(filePaths);
   });
 
   it('should return an array of strings containing urls to images of a certain movie when the file_path of some item is an empty string', async () => {

@@ -33,7 +33,11 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawMovie]);
+
     expect(result.hasMore).toEqual(true);
   });
 
@@ -57,7 +61,11 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawMovie]);
+
     expect(result.hasMore).toEqual(false);
   });
 
@@ -82,8 +90,13 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       Iso6391Language.Ptbr,
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawMovie]);
+
     expect(result.hasMore).toEqual(false);
+
     expect(result.totalPages).toEqual(1);
+
     expect(result.totalResults).toEqual(1);
   });
 
@@ -107,9 +120,15 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawMovie]);
+
     expect(result.hasMore).toEqual(false);
+
     expect(result.totalPages).toEqual(1);
+
     expect(result.totalResults).toEqual(1);
   });
 
@@ -133,9 +152,15 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawMovie]);
+
     expect(result.hasMore).toEqual(false);
+
     expect(result.totalPages).toEqual(1);
+
     expect(result.totalResults).toEqual(1);
   });
 
@@ -159,8 +184,13 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawMovie]);
+
     expect(result.totalPages).toEqual(1);
+
     expect(result.totalResults).toEqual(1);
   });
 });
