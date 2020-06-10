@@ -3,7 +3,7 @@ const mockRestDataSourceGet = jest.fn();
 import { rawMovieDetail } from '../../../../../../../__tests__/mocks/movies';
 import { Iso6391Language } from '../../../../../../lib/types';
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
-import MovieDetailHandler from './MovieDetailHandler';
+import MovieDetailsHandler from './MovieDetailsHandler';
 import CONSTANTS from '../utils/constants';
 
 jest.mock('apollo-datasource-rest', () => {
@@ -20,10 +20,10 @@ jest.mock('apollo-datasource-rest', () => {
 
 let movieDetail = null;
 
-describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailHandler', () => {
+describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailsHandler', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    movieDetail = new MovieDetailHandler(mockRestDataSourceGet);
+    movieDetail = new MovieDetailsHandler(mockRestDataSourceGet);
   });
 
   it('should get the details of a movie with certain id correctly', async () => {

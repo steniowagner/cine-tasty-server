@@ -1,13 +1,12 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import TVShowsHandler from './handlers/tv-show/TVShowHandler';
+import MoviesHandler from './handlers/movies/MovieHandler';
 
 import PeopleHandler from './handlers/people';
 import PersonHandler from './handlers/person';
 import SearchHandler from './handlers/search';
 import TrendingMoviesHandler from './handlers/movies/trendings/TrendingMoviesHandler';
-import MovieDetailHandler from './handlers/movies/details/MovieDetailHandler';
-import MovieImagesHandler from './handlers/movies/images/MovieImagesHandler';
 
 import { InvalidTMDBApiKey } from '../../../errors';
 import { formatLanguage } from './helpers';
@@ -41,19 +40,18 @@ const INVALID_API_KEY_CODE = 7;
 
 class TheMovieDBAPI extends RESTDataSource {
   tvshowsHandler: TVShowsHandler;
+  moviesHandler: MoviesHandler;
   searchHandler: SearchHandler;
   peopleHandler: PeopleHandler;
   personHandler: PersonHandler;
-  movieDetailsHandler: MovieDetailHandler;
   trendingMoviesHandler: TrendingMoviesHandler;
-  movieImagesHandler: MovieImagesHandler;
 
   constructor() {
     super();
 
     this.trendingMoviesHandler = new TrendingMoviesHandler(this.execGetRequest);
-    this.movieDetailsHandler = new MovieDetailHandler(this.execGetRequest);
-    this.movieImagesHandler = new MovieImagesHandler(this.execGetRequest);
+    this.moviesHandler = new MoviesHandler(this.execGetRequest);
+
     this.tvshowsHandler = new TVShowsHandler(this.execGetRequest);
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
@@ -100,29 +98,29 @@ class TheMovieDBAPI extends RESTDataSource {
   }
 
   async getMovie(args: QueryMovieArgs): Promise<MovieResponse | null> {
-    return this.movieDetailsHandler.handle(args);
+    return this.moviesHandler.getDetails(args);
   }
 
   async getTrendingMovies(
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
-    return this.trendingMoviesHandler.handle({ args, endpoint });
+    return this.moviesHandler.getTrendings(args, endpoint);
   }
 
   async getMovieImages(id: string): Promise<string[]> {
-    return this.movieImagesHandler.handle(id);
+    return this.moviesHandler.getImages(id);
   }
 
   async getTVShow(args: QueryTvShowArgs): Promise<TvShowResponse | null> {
     return this.tvshowsHandler.getDetails(args);
   }
 
-  async getTrendingTVShowsItem(
+  async getTrendingTVShows(
     args: TrendingTvShowsArgs,
     endpoint: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
-    return this.tvshowsHandler.getTrendingItem(args, endpoint);
+    return this.tvshowsHandler.getTrendings(args, endpoint);
   }
 
   async getTVShowImages(id: string): Promise<string[]> {

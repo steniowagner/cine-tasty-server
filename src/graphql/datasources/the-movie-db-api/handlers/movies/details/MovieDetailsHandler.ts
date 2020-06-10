@@ -1,16 +1,15 @@
-import { GetTMDBApiRequest, TheMovieDBHandler } from '@types';
+import { GetTMDBApiRequest } from '@types';
 import { QueryMovieArgs, MovieResponse } from '@lib/types';
 
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
+import TheMovieDBHandler from '../../TheMovieDBHandler';
 import CONSTANTS from '../utils/constants';
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
-class MovieDetailHandler implements TheMovieDBHandler<QueryMovieArgs> {
-  get: GetTMDBApiRequest;
-
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
+class MovieDetailsHandler extends TheMovieDBHandler<QueryMovieArgs> {
+  constructor(getRequest: GetTMDBApiRequest) {
+    super(getRequest);
   }
 
   async handle({ id, language }: QueryMovieArgs): Promise<MovieResponse | null> {
@@ -31,4 +30,4 @@ class MovieDetailHandler implements TheMovieDBHandler<QueryMovieArgs> {
   }
 }
 
-export default MovieDetailHandler;
+export default MovieDetailsHandler;

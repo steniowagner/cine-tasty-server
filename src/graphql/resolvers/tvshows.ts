@@ -280,21 +280,21 @@ const resolvers: QueryResolvers = {
       { args }: TrendingTvShowsOnTheAirArgs,
       { dataSources }: Context,
     ): Promise<TrendingTvShowsQueryResult> =>
-      dataSources.tmdb.getTrendingTVShowsItem(args, TrendingTVShowsEndpoints.OnTheAir),
+      dataSources.tmdb.getTrendingTVShows(args, TrendingTVShowsEndpoints.OnTheAir),
 
     popular: (
       _: {},
       { args }: TrendingTvShowsPopularArgs,
       { dataSources }: Context,
     ): Promise<TrendingTvShowsQueryResult> =>
-      dataSources.tmdb.getTrendingTVShowsItem(args, TrendingTVShowsEndpoints.Popular),
+      dataSources.tmdb.getTrendingTVShows(args, TrendingTVShowsEndpoints.Popular),
 
     topRated: (
       _: {},
       { args }: TrendingTvShowsTopRatedArgs,
       { dataSources }: Context,
     ): Promise<TrendingTvShowsQueryResult> =>
-      dataSources.tmdb.getTrendingTVShowsItem(args, TrendingTVShowsEndpoints.TopRated),
+      dataSources.tmdb.getTrendingTVShows(args, TrendingTVShowsEndpoints.TopRated),
   },
 };
 

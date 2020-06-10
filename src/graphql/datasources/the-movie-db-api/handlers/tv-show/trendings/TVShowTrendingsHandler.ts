@@ -13,20 +13,17 @@ type GetBaseTVShowResponse = BasePaginationResponse & {
   results: BaseTvShow[];
 };
 
-export type TVShowTrendingsParams = {
+export type Params = {
   endpoint: TrendingTVShowsEndpoints;
   args: TrendingTvShowsArgs;
 };
 
-class TVShowTrendingsHandler extends TheMovieDBHandler<TVShowTrendingsParams> {
+class TVShowTrendingsHandler extends TheMovieDBHandler<Params> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }
 
-  async handle({
-    endpoint,
-    args,
-  }: TVShowTrendingsParams): Promise<TrendingTvShowsQueryResult> {
+  async handle({ endpoint, args }: Params): Promise<TrendingTvShowsQueryResult> {
     const { page, language } = args;
 
     const {

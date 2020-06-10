@@ -10,21 +10,18 @@ import TVShowDetailsHandler from './details/TVShowDetailsHandler';
 import TVShowImagesHandler from './images/TVShowImagesHandler';
 import TheMovieDBHandler from '../TheMovieDBHandler';
 import TVShowTrendingsHandler, {
-  TVShowTrendingsParams,
+  Params as TVShowTrendingsParams,
 } from './trendings/TVShowTrendingsHandler';
 
 class TVShowHandler {
-  trendingsHandle: TheMovieDBHandler<TVShowTrendingsParams>;
-  detailsHandler: TheMovieDBHandler<QueryTvShowArgs>;
-  imagesHandler: TheMovieDBHandler<string>;
-  get: GetTMDBApiRequest;
+  private trendingsHandler: TheMovieDBHandler<TVShowTrendingsParams>;
+  private detailsHandler: TheMovieDBHandler<QueryTvShowArgs>;
+  private imagesHandler: TheMovieDBHandler<string>;
 
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
-
-    this.trendingsHandle = new TVShowTrendingsHandler(execGetRequest);
-    this.detailsHandler = new TVShowDetailsHandler(execGetRequest);
-    this.imagesHandler = new TVShowImagesHandler(execGetRequest);
+  constructor(getRequest: GetTMDBApiRequest) {
+    this.trendingsHandler = new TVShowTrendingsHandler(getRequest);
+    this.detailsHandler = new TVShowDetailsHandler(getRequest);
+    this.imagesHandler = new TVShowImagesHandler(getRequest);
   }
 
   async getDetails(args: QueryTvShowArgs): Promise<TvShowResponse | null> {
@@ -35,11 +32,11 @@ class TVShowHandler {
     return this.imagesHandler.handle(id);
   }
 
-  async getTrendingItem(
+  async getTrendings(
     args: TrendingTvShowsArgs,
     endpoint: TrendingTVShowsEndpoints,
   ): Promise<TrendingTvShowsQueryResult> {
-    return this.trendingsHandle.handle({ args, endpoint });
+    return this.trendingsHandler.handle({ args, endpoint });
   }
 }
 
