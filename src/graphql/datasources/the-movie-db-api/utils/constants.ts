@@ -9,4 +9,5 @@ export default {
   TV_ENDPOINT: '/tv',
   MOVIE_IMAGES_RESOURCE_ENDPOINT: 'images',
   TV_IMAGES_RESOURCE_ENDPOINT: 'images',
+  APPEND_TO_TV_SHOW_RESPONSE: 'credits,similar,videos,reviews',
 };
