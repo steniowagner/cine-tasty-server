@@ -127,11 +127,11 @@ const GET_TV_SHOW_DETAIL = gql`
       overview
       videos {
         thumbnail {
-          extra_small
+          extraSmall
           small
           medium
           large
-          extra_large
+          extraLarge
         }
         key
         name

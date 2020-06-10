@@ -267,11 +267,11 @@ export const tvShowDetail = {
       site: 'YouTube',
       type: 'type',
       thumbnail: {
-        extra_small: 'https://img.youtube.com/vi/key/default.jpg',
+        extraSmall: 'https://img.youtube.com/vi/key/default.jpg',
         small: 'https://img.youtube.com/vi/key/mqdefault.jpg',
         medium: 'https://img.youtube.com/vi/key/hqdefault.jpg',
         large: 'https://img.youtube.com/vi/key/sddefault.jpg',
-        extra_large: 'https://img.youtube.com/vi/key/maxresdefault.jpg',
+        extraLarge: 'https://img.youtube.com/vi/key/maxresdefault.jpg',
       },
     },
   ],

@@ -957,7 +957,7 @@ export type SeasonResponse = {
 export type Thumbnail = {
    __typename?: 'Thumbnail',
   /** 120x90 */
-  extra_small?: Maybe<Scalars['String']>,
+  extraSmall?: Maybe<Scalars['String']>,
   /** 320x180 */
   small?: Maybe<Scalars['String']>,
   /** 480x360 */
@@ -965,7 +965,7 @@ export type Thumbnail = {
   /** 640x480 */
   large?: Maybe<Scalars['String']>,
   /** 1280x720 */
-  extra_large?: Maybe<Scalars['String']>,
+  extraLarge?: Maybe<Scalars['String']>,
 };
 
 export type TrendingMovies = {
@@ -1901,11 +1901,11 @@ export type SeasonResponseResolvers<ContextType = any, ParentType extends Resolv
 }>;
 
 export type ThumbnailResolvers<ContextType = any, ParentType extends ResolversParentTypes['Thumbnail'] = ResolversParentTypes['Thumbnail']> = ResolversObject<{
-  extra_small?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extraSmall?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   small?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   medium?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   large?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  extra_large?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  extraLarge?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 

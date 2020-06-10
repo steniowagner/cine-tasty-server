@@ -4022,7 +4022,7 @@
         "description": null,
         "fields": [
           {
-            "name": "extra_small",
+            "name": "extraSmall",
             "description": "120x90",
             "args": [],
             "type": {
@@ -4070,7 +4070,7 @@
             "deprecationReason": null
           },
           {
-            "name": "extra_large",
+            "name": "extraLarge",
             "description": "1280x720",
             "args": [],
             "type": {

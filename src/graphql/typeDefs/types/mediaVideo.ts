@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 export default gql`
   type Thumbnail {
     "120x90"
-    extra_small: String
+    extraSmall: String
     "320x180"
     small: String
     "480x360"
@@ -11,7 +11,7 @@ export default gql`
     "640x480"
     large: String
     "1280x720"
-    extra_large: String
+    extraLarge: String
   }
 
   type MediaVideo {
