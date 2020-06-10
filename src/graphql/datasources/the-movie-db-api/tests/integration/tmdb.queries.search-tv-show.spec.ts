@@ -1,5 +1,4 @@
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
 const mockRestDataSourceGet = jest.fn();
 
@@ -14,7 +13,7 @@ import makeTestQuery from './makeTestQuery';
 const SEARCH_TV_SHOW = gql`
   query SearchTVShow($input: SearchInput!) {
     search(input: $input) {
-      total_results
+      totalResults
       hasMore
       items {
         ... on BaseTVShow {
@@ -74,7 +73,7 @@ describe('Integration: DataSources-Search.TVShow', () => {
       });
 
       expect(data.search.hasMore).toEqual(false);
-      expect(data.search.total_results).toEqual(1);
+      expect(data.search.totalResults).toEqual(1);
       expect(data.search.items).toEqual([knowForTVShow]);
     });
 

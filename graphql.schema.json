@@ -1769,7 +1769,7 @@
         "description": null,
         "fields": [
           {
-            "name": "total_results",
+            "name": "totalResults",
             "description": null,
             "args": [],
             "type": {
