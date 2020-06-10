@@ -49,8 +49,8 @@ class SearchHandler implements Props {
 
     return {
       hasMore: page < totalPages,
-      total_results: totalResults,
       items: results,
+      totalResults,
     };
   }
 }

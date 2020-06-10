@@ -10,7 +10,7 @@ export default gql`
   union SearchResultItem = BasePerson | BaseMovie | BaseTVShow
 
   type SearchQueryResult {
-    total_results: Int!
+    totalResults: Int!
     items: [SearchResultItem!]!
     hasMore: Boolean!
   }

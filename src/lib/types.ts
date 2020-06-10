@@ -919,7 +919,7 @@ export type SearchInput = {
 
 export type SearchQueryResult = {
    __typename?: 'SearchQueryResult',
-  total_results: Scalars['Int'],
+  totalResults: Scalars['Int'],
   items: Array<SearchResultItem>,
   hasMore: Scalars['Boolean'],
 };
@@ -1868,7 +1868,7 @@ export type ReviewResolvers<ContextType = any, ParentType extends ResolversParen
 }>;
 
 export type SearchQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchQueryResult'] = ResolversParentTypes['SearchQueryResult']> = ResolversObject<{
-  total_results?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalResults?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   items?: Resolver<Array<ResolversTypes['SearchResultItem']>, ParentType, ContextType>;
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;

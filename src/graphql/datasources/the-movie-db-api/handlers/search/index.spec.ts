@@ -44,7 +44,7 @@ describe('Unity: Search', () => {
 
         const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-        const { hasMore, total_results, items } = await personHandler.search(params);
+        const { hasMore, totalResults, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
           `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
@@ -57,7 +57,7 @@ describe('Unity: Search', () => {
 
         expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
         expect(items).toEqual([searchTvShowWithRawMediaGenres]);
-        expect(total_results).toEqual(1);
+        expect(totalResults).toEqual(1);
         expect(hasMore).toEqual(false);
       });
 
@@ -77,7 +77,7 @@ describe('Unity: Search', () => {
 
         const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-        const { hasMore, total_results, items } = await personHandler.search(params);
+        const { hasMore, totalResults, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
           `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
@@ -90,7 +90,7 @@ describe('Unity: Search', () => {
 
         expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
         expect(items).toEqual([rawSearchTvShow]);
-        expect(total_results).toEqual(1);
+        expect(totalResults).toEqual(1);
         expect(hasMore).toEqual(true);
       });
     });
@@ -111,7 +111,7 @@ describe('Unity: Search', () => {
 
         const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-        const { hasMore, total_results, items } = await personHandler.search(params);
+        const { hasMore, totalResults, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
           `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
@@ -124,7 +124,7 @@ describe('Unity: Search', () => {
 
         expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
         expect(items).toEqual([searchMovieWithRawMediaGenres]);
-        expect(total_results).toEqual(1);
+        expect(totalResults).toEqual(1);
         expect(hasMore).toEqual(false);
       });
 
@@ -144,7 +144,7 @@ describe('Unity: Search', () => {
 
         const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-        const { hasMore, total_results, items } = await personHandler.search(params);
+        const { hasMore, totalResults, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
           `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
@@ -157,7 +157,7 @@ describe('Unity: Search', () => {
 
         expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
         expect(items).toEqual([searchMovieWithRawMediaGenres]);
-        expect(total_results).toEqual(1);
+        expect(totalResults).toEqual(1);
         expect(hasMore).toEqual(true);
       });
     });
@@ -178,7 +178,7 @@ describe('Unity: Search', () => {
 
         const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-        const { hasMore, total_results, items } = await personHandler.search(params);
+        const { hasMore, totalResults, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
           `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
@@ -191,7 +191,7 @@ describe('Unity: Search', () => {
 
         expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
         expect(items).toEqual([rawSearchPeople]);
-        expect(total_results).toEqual(1);
+        expect(totalResults).toEqual(1);
         expect(hasMore).toEqual(false);
       });
 
@@ -211,7 +211,7 @@ describe('Unity: Search', () => {
 
         const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-        const { hasMore, total_results, items } = await personHandler.search(params);
+        const { hasMore, totalResults, items } = await personHandler.search(params);
 
         expect(mockRestDataSourceGet).toHaveBeenCalledWith(
           `${CONSTANTS.SEARCH_ENDPOINT}/${params.type.toLowerCase()}`,
@@ -224,7 +224,7 @@ describe('Unity: Search', () => {
 
         expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
         expect(items).toEqual([rawSearchPeople]);
-        expect(total_results).toEqual(1);
+        expect(totalResults).toEqual(1);
         expect(hasMore).toEqual(true);
       });
     });

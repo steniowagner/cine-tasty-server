@@ -10,7 +10,7 @@ import makeTestQuery from './makeTestQuery';
 const SEARCH_PERSON = gql`
   query SearchPerson($input: SearchInput!) {
     search(input: $input) {
-      total_results
+      totalResults
       hasMore
       items {
         ... on BasePerson {
@@ -98,7 +98,7 @@ describe('Integration: DataSources/TheMovieDBAPI/Search.Person - Queries', () =>
       });
 
       expect(data.search.hasMore).toEqual(false);
-      expect(data.search.total_results).toEqual(1);
+      expect(data.search.totalResults).toEqual(1);
       expect(data.search.items).toEqual([peopleItem]);
     });
 
