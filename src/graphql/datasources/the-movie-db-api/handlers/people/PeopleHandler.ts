@@ -1,8 +1,8 @@
 import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '@lib/types';
 import { GetTMDBApiRequest, BasePaginationResponse } from '@types';
 
-const POPULAR_PERSON_ENDPOINT = '/popular';
-const PERSON_ENDPOINT = '/person';
+import TheMovieDBHandler from '../TheMovieDBHandler';
+import CONSTANTS from '../../utils/constants';
 
 type GetPeopleResponse = BasePaginationResponse & {
   results: BasePerson[];
@@ -10,18 +10,13 @@ type GetPeopleResponse = BasePaginationResponse & {
 
 type GetRequestParams = { page: number };
 
-class PeopleHandler {
-  get: GetTMDBApiRequest;
-
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
+class PeopleHandler extends TheMovieDBHandler<QueryPeopleArgs> {
+  constructor(getRequest: GetTMDBApiRequest) {
+    super(getRequest);
   }
 
-  async getPopularPeople({
-    language,
-    page,
-  }: QueryPeopleArgs): Promise<PeopleQueryResult> {
-    const endpoint = `${PERSON_ENDPOINT}${POPULAR_PERSON_ENDPOINT}`;
+  async handle({ language, page }: QueryPeopleArgs): Promise<PeopleQueryResult> {
+    const endpoint = `${CONSTANTS.PERSON_ENDPOINT}${CONSTANTS.POPULAR_PERSON_ENDPOINT}`;
 
     const {
       total_results: totalResults,
