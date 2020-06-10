@@ -120,11 +120,11 @@ const GET_MOVIE_DETAIL = gql`
       }
       videos {
         thumbnail {
-          extra_small
+          extraSmall
           small
           medium
           large
-          extra_large
+          extraLarge
         }
         key
         name

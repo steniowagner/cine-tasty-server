@@ -177,11 +177,11 @@ const resolvers: QueryResolvers = {
           id: `${video.id}`,
           type: video.type,
           thumbnail: {
-            extra_small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/default.jpg`,
+            extraSmall: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/default.jpg`,
             small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/mqdefault.jpg`,
             medium: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/hqdefault.jpg`,
             large: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/sddefault.jpg`,
-            extra_large: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/maxresdefault.jpg`,
+            extraLarge: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/maxresdefault.jpg`,
           },
         })),
 

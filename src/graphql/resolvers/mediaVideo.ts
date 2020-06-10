@@ -5,11 +5,11 @@ const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
 const resolvers: QueryResolvers = {
   MediaVideo: {
     thumbnail: ({ key }: MediaVideo): Thumbnail => ({
-      extra_small: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/default.jpg`,
+      extraSmall: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/default.jpg`,
       small: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/mqdefault.jpg`,
       medium: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/hqdefault.jpg`,
       large: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/sddefault.jpg`,
-      extra_large: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/maxresdefault.jpg`,
+      extraLarge: `${BASE_VIDEO_THHUMBNAIL_URL}/${key}/maxresdefault.jpg`,
     }),
   },
 };
