@@ -1,16 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import TVShowsHandler from './handlers/tv-show/TVShowHandler';
-import MoviesHandler from './handlers/movies/MovieHandler';
-
-import PeopleHandler from './handlers/people';
-import PersonHandler from './handlers/person';
-import SearchHandler from './handlers/search';
-import TrendingMoviesHandler from './handlers/movies/trendings/TrendingMoviesHandler';
-
-import { InvalidTMDBApiKey } from '../../../errors';
-import { formatLanguage } from './helpers';
-import env from '../../../config/environment';
+import { InvalidTMDBApiKey } from 'errors';
+import env from '@config/environment';
 import {
   PeopleQueryResult,
   Iso6391Language,
@@ -27,12 +18,20 @@ import {
   SearchInput,
   TvShowResponse,
   PersonResponse,
-} from '../../../lib/types';
+} from '@lib/types';
 import {
   TrendingTVShowsEndpoints,
   TrendingMoviesEndpoints,
   GetTMDBApiRequest,
-} from '../../../@types';
+} from '@types';
+
+import MoviesHandler from './handlers/movies/MovieHandler';
+import PeopleHandler from './handlers/people/PeopleHandler';
+import TVShowsHandler from './handlers/tv-show/TVShowHandler';
+import PersonHandler from './handlers/person';
+import SearchHandler from './handlers/search';
+
+import { formatLanguage } from './helpers';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
@@ -44,18 +43,16 @@ class TheMovieDBAPI extends RESTDataSource {
   searchHandler: SearchHandler;
   peopleHandler: PeopleHandler;
   personHandler: PersonHandler;
-  trendingMoviesHandler: TrendingMoviesHandler;
 
   constructor() {
     super();
 
-    this.trendingMoviesHandler = new TrendingMoviesHandler(this.execGetRequest);
-    this.moviesHandler = new MoviesHandler(this.execGetRequest);
-
     this.tvshowsHandler = new TVShowsHandler(this.execGetRequest);
+    this.moviesHandler = new MoviesHandler(this.execGetRequest);
     this.peopleHandler = new PeopleHandler(this.execGetRequest);
     this.searchHandler = new SearchHandler(this.execGetRequest);
     this.personHandler = new PersonHandler(this.execGetRequest);
+
     this.baseURL = BASE_URL;
   }
 
@@ -86,7 +83,7 @@ class TheMovieDBAPI extends RESTDataSource {
   };
 
   async getPeople(args: QueryPeopleArgs): Promise<PeopleQueryResult> {
-    return this.peopleHandler.getPopularPeople(args);
+    return this.peopleHandler.handle(args);
   }
 
   async getPerson(args: QueryPersonArgs): Promise<PersonResponse | null> {
