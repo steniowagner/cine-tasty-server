@@ -20,7 +20,7 @@ type PersonKnownForResultSample = {
 };
 
 const resolveKnownFor = (result: PersonKnownForResultSample): string | null => {
-  if (result.title || result.original_title) {
+  if (result.title || result.original_title || result.originalTitle) {
     return 'BaseMovie';
   }
 

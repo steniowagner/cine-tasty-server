@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server';
 
 export default gql`
-  interface Cast {
+  interface CastResponse {
     character: String
     backdrop_path: String
     overview: String
@@ -16,7 +16,7 @@ export default gql`
     id: Int
   }
 
-  type CastMovie implements Cast {
+  type CastMovieResponse implements CastResponse {
     original_title: String
     video: Boolean
     title: String
@@ -36,7 +36,7 @@ export default gql`
     id: Int
   }
 
-  type CastTVShow implements Cast {
+  type CastTVShowResponse implements CastResponse {
     episode_count: Int
     origin_country: [String!]!
     original_name: String
@@ -53,6 +53,61 @@ export default gql`
     original_language: String
     vote_count: Float
     credit_id: String
+    id: Int
+  }
+
+  interface Cast {
+    character: String
+    backdropPath: String
+    overview: String
+    voteAverage: Float
+    mediaType: String
+    posterPath: String
+    popularity: Float
+    originalLanguage: String
+    genreIds(language: ISO6391Language): [String!]!
+    voteCount: Float
+    creditId: String
+    id: Int
+  }
+
+  type CastMovie implements Cast {
+    originalTitle: String
+    video: Boolean
+    title: String
+    adult: Boolean
+    releaseDate: String
+    character: String
+    backdropPath: String
+    genreIds(language: ISO6391Language): [String!]!
+    overview: String
+    voteAverage: Float
+    mediaType: String
+    posterPath: String
+    popularity: Float
+    originalLanguage: String
+    voteCount: Float
+    creditId: String
+    id: Int
+  }
+
+  type CastTVShow implements Cast {
+    episodeCount: Int
+    originCountry: [String!]!
+    originalName: String
+    name: String
+    firstAirDate: String
+    character: String
+    backdropPath: String
+    genreIds(language: ISO6391Language): [String!]!
+    overview: String
+    voteAverage: Float
+    mediaType: String
+    posterPath: String
+    popularity: Float
+    originalLanguage: String
+    voteCount: Float
+    creditId: String
     id: Int
   }
 
