@@ -3,8 +3,9 @@ import {
   TrendingMoviesEndpoints,
   BasePaginationResponse,
   GetTMDBApiRequest,
-  TheMovieDBHandler,
 } from '@types';
+
+import TheMovieDBHandler from '../../TheMovieDBHandler';
 
 type GetBaseMovieResponse = BasePaginationResponse & {
   results: BaseMovie[];
@@ -12,16 +13,14 @@ type GetBaseMovieResponse = BasePaginationResponse & {
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
-type Params = {
+export type Params = {
   endpoint: TrendingMoviesEndpoints;
   args: TrendingMoviesArgs;
 };
 
-class TrendingMoviesHandler implements TheMovieDBHandler<Params> {
-  get: GetTMDBApiRequest;
-
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
+class TrendingMoviesHandler extends TheMovieDBHandler<Params> {
+  constructor(getRequest: GetTMDBApiRequest) {
+    super(getRequest);
   }
 
   async handle({ endpoint, args }: Params): Promise<TrendingMoviesQueryResult> {
