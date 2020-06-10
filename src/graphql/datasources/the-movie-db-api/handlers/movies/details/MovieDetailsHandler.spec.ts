@@ -31,7 +31,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailHandler', 
 
     mockRestDataSourceGet.mockReturnValueOnce(rawMovieDetail);
 
-    const result = await movieDetail.handle({
+    await movieDetail.handle({
       language: Iso6391Language.Ptbr,
       id,
     });
@@ -41,7 +41,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailHandler', 
       {
         append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
       },
-      'PTBR',
+      Iso6391Language.Ptbr,
     );
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);

@@ -21,7 +21,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     });
 
     const result = await trendingMoviesHandler.handle({
-      resource: TrendingMoviesEndpoints.Upcoming,
+      endpoint: TrendingMoviesEndpoints.Upcoming,
       args: {
         language: Iso6391Language.Ptbr,
         page: 1,
@@ -45,7 +45,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     });
 
     const result = await trendingMoviesHandler.handle({
-      resource: TrendingMoviesEndpoints.Upcoming,
+      endpoint: TrendingMoviesEndpoints.Upcoming,
       args: {
         language: Iso6391Language.Ptbr,
         page: 1,
@@ -69,7 +69,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     });
 
     const result = await trendingMoviesHandler.handle({
-      resource: TrendingMoviesEndpoints.NowPlaying,
+      endpoint: TrendingMoviesEndpoints.NowPlaying,
       args: {
         language: Iso6391Language.Ptbr,
         page: 1,
@@ -95,7 +95,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     });
 
     const result = await trendingMoviesHandler.handle({
-      resource: TrendingMoviesEndpoints.Popular,
+      endpoint: TrendingMoviesEndpoints.Popular,
       args: {
         language: Iso6391Language.Ptbr,
         page: 1,
@@ -121,7 +121,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     });
 
     const result = await trendingMoviesHandler.handle({
-      resource: TrendingMoviesEndpoints.TopRated,
+      endpoint: TrendingMoviesEndpoints.TopRated,
       args: {
         page: 1,
         language: Iso6391Language.Ptbr,
@@ -147,7 +147,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/TrendingMoviesHandler
     });
 
     const result = await trendingMoviesHandler.handle({
-      resource: TrendingMoviesEndpoints.Upcoming,
+      endpoint: TrendingMoviesEndpoints.Upcoming,
       args: {
         language: Iso6391Language.Ptbr,
         page: 1,

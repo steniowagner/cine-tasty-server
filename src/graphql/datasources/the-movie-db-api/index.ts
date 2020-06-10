@@ -1,9 +1,10 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import TVShowsHandler, { Props as TVShowsHandlerProps } from './handlers/tv-show';
-import PeopleHandler, { Props as PeopleHandlerProps } from './handlers/people';
-import PersonHandler, { Props as PersonHandlerProps } from './handlers/person';
-import SearchHandler, { Props as SearchHandlerProps } from './handlers/search';
+import TVShowsHandler from './handlers/tv-show/TVShowHandler';
+
+import PeopleHandler from './handlers/people';
+import PersonHandler from './handlers/person';
+import SearchHandler from './handlers/search';
 import TrendingMoviesHandler from './handlers/movies/trendings/TrendingMoviesHandler';
 import MovieDetailHandler from './handlers/movies/details/MovieDetailHandler';
 import MovieImagesHandler from './handlers/movies/images/MovieImagesHandler';
@@ -14,7 +15,6 @@ import env from '../../../config/environment';
 import {
   PeopleQueryResult,
   Iso6391Language,
-  Person,
   QueryPersonArgs,
   TrendingMoviesQueryResult,
   SearchQueryResult,
@@ -22,11 +22,12 @@ import {
   QueryMovieArgs,
   MovieResponse,
   TrendingMoviesArgs,
-  QueryTv_ShowArgs as QueryTvShowArgs,
+  QueryTvShowArgs,
   TrendingTvShowsArgs,
   TrendingTvShowsQueryResult,
-  TvShow,
   SearchInput,
+  TvShowResponse,
+  PersonResponse,
 } from '../../../lib/types';
 import {
   TrendingTVShowsEndpoints,
@@ -36,31 +37,13 @@ import {
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-export interface Props {
-  getTrendingMovies: (
-    args: TrendingMoviesArgs,
-    endpoint: TrendingMoviesEndpoints,
-  ) => Promise<TrendingMoviesQueryResult>;
-  getTrendingTVShowsItem: (
-    args: TrendingTvShowsArgs,
-    endpoint: TrendingTVShowsEndpoints,
-  ) => Promise<TrendingTvShowsQueryResult>;
-  getPeople: (args: QueryPeopleArgs) => Promise<PeopleQueryResult>;
-  getPerson: (args: QueryPersonArgs) => Promise<Person | null>;
-  getMovie: (args: QueryMovieArgs) => Promise<MovieResponse | null>;
-  getTVShow: (args: QueryTvShowArgs) => Promise<TvShow | null>;
-  search: (input: SearchInput) => Promise<SearchQueryResult>;
-  getTVShowImages(id: string): Promise<string[]>;
-  getMovieImages(id: string): Promise<string[]>;
-}
-
 const INVALID_API_KEY_CODE = 7;
 
-class TheMovieDBAPI extends RESTDataSource implements Props {
-  tvshowsHandler: TVShowsHandlerProps;
-  searchHandler: SearchHandlerProps;
-  peopleHandler: PeopleHandlerProps;
-  personHandler: PersonHandlerProps;
+class TheMovieDBAPI extends RESTDataSource {
+  tvshowsHandler: TVShowsHandler;
+  searchHandler: SearchHandler;
+  peopleHandler: PeopleHandler;
+  personHandler: PersonHandler;
   movieDetailsHandler: MovieDetailHandler;
   trendingMoviesHandler: TrendingMoviesHandler;
   movieImagesHandler: MovieImagesHandler;
@@ -108,7 +91,7 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     return this.peopleHandler.getPopularPeople(args);
   }
 
-  async getPerson(args: QueryPersonArgs): Promise<Person | null> {
+  async getPerson(args: QueryPersonArgs): Promise<PersonResponse | null> {
     return this.personHandler.getPerson(args);
   }
 
@@ -124,15 +107,15 @@ class TheMovieDBAPI extends RESTDataSource implements Props {
     args: TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
   ): Promise<TrendingMoviesQueryResult> {
-    return this.trendingMoviesHandler.handle({ args, resource: endpoint });
-  }
-
-  async getTVShow(args: QueryTvShowArgs): Promise<TvShow | null> {
-    return this.tvshowsHandler.getTVShow(args);
+    return this.trendingMoviesHandler.handle({ args, endpoint });
   }
 
   async getMovieImages(id: string): Promise<string[]> {
     return this.movieImagesHandler.handle(id);
+  }
+
+  async getTVShow(args: QueryTvShowArgs): Promise<TvShowResponse | null> {
+    return this.tvshowsHandler.getDetails(args);
   }
 
   async getTrendingTVShowsItem(

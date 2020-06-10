@@ -2,7 +2,7 @@ const mockRestDataSourceGet = jest.fn();
 
 import { gql } from 'apollo-server';
 
-import { getImagesResult, images } from '../../../../../__tests__/mocks/images.stub';
+import { getImagesResult, images } from '../../../../../../__tests__/mocks/images';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
 import { movieGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';

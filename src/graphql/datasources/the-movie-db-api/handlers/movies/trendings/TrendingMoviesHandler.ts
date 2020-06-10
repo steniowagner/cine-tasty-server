@@ -13,7 +13,7 @@ type GetBaseMovieResponse = BasePaginationResponse & {
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
 type Params = {
-  resource: TrendingMoviesEndpoints;
+  endpoint: TrendingMoviesEndpoints;
   args: TrendingMoviesArgs;
 };
 
@@ -24,7 +24,7 @@ class TrendingMoviesHandler implements TheMovieDBHandler<Params> {
     this.get = execGetRequest;
   }
 
-  async handle({ resource, args }: Params): Promise<TrendingMoviesQueryResult> {
+  async handle({ endpoint, args }: Params): Promise<TrendingMoviesQueryResult> {
     const { page, language } = args;
 
     const {
@@ -32,7 +32,7 @@ class TrendingMoviesHandler implements TheMovieDBHandler<Params> {
       total_pages: totalPages,
       results,
     } = await this.get<GetRequestParams, Promise<GetBaseMovieResponse>>(
-      resource,
+      endpoint,
       { page },
       language,
     );
