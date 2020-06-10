@@ -18,7 +18,7 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-let movieDetail = null;
+let movieDetail: MovieDetailsHandler = null;
 
 describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailsHandler', () => {
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailsHandler',
 
     mockRestDataSourceGet.mockReturnValueOnce(rawMovieDetail);
 
-    await movieDetail.handle({
+    const result = await movieDetail.handle({
       language: Iso6391Language.Ptbr,
       id,
     });
@@ -45,6 +45,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailsHandler',
     );
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result).toEqual(rawMovieDetail);
   });
 
   it('should return null when the status_code returned is a NOT_FOUND_CODE', async () => {

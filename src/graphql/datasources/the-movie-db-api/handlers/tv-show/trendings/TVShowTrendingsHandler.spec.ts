@@ -45,7 +45,10 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawTVShow]);
 
     expect(result.hasMore).toEqual(false);
 
@@ -77,6 +80,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
+    expect(result.items).toEqual([rawTVShow]);
+
     expect(result.hasMore).toEqual(true);
   });
 
@@ -102,6 +107,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
     );
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawTVShow]);
 
     expect(result.hasMore).toEqual(false);
   });
@@ -128,6 +135,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
+    expect(result.items).toEqual([rawTVShow]);
+
     expect(result.hasMore).toEqual(false);
 
     expect(result.totalPages).toEqual(1);
@@ -156,6 +165,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
       Iso6391Language.Ptbr,
     );
 
+    expect(result.items).toEqual([rawTVShow]);
+
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
     expect(result.hasMore).toEqual(true);
@@ -181,6 +192,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
       { page: 1 },
       Iso6391Language.Ptbr,
     );
+
+    expect(result.items).toEqual([rawTVShow]);
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
@@ -208,6 +221,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
       Iso6391Language.Ptbr,
     );
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawTVShow]);
 
     expect(result.hasMore).toEqual(false);
 
@@ -239,6 +254,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
+    expect(result.items).toEqual([rawTVShow]);
+
     expect(result.hasMore).toEqual(true);
   });
 
@@ -264,6 +281,8 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/tv-show/trendings/TVShowTren
     );
 
     expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+    expect(result.items).toEqual([rawTVShow]);
 
     expect(result.hasMore).toEqual(false);
   });

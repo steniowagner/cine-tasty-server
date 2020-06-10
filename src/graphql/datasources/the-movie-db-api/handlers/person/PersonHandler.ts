@@ -2,6 +2,7 @@ import { PersonResponse, QueryPersonArgs, Cast } from '@lib/types';
 import { GetPersonImagesResult, GetTMDBApiRequest } from '@types';
 
 import { getPersonProfileImages } from '../../helpers';
+import TheMovieDBHandler from '../TheMovieDBHandler';
 import CONSTANTS from '../../utils/constants';
 
 type GetPersonResponse = Omit<PersonResponse, 'images'> & {
@@ -13,14 +14,12 @@ type GetCastResponse = {
   cast: Cast[];
 };
 
-class PersonHandler {
-  get: GetTMDBApiRequest;
-
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
+class PersonHandler extends TheMovieDBHandler<QueryPersonArgs> {
+  constructor(getRequest: GetTMDBApiRequest) {
+    super(getRequest);
   }
 
-  async getPerson({ language, id }: QueryPersonArgs): Promise<PersonResponse | null> {
+  async handle({ language, id }: QueryPersonArgs): Promise<PersonResponse | null> {
     const [result, castData] = await Promise.all<GetPersonResponse, GetCastResponse>([
       this.get(
         `${CONSTANTS.PERSON_ENDPOINT}/${id}`,
