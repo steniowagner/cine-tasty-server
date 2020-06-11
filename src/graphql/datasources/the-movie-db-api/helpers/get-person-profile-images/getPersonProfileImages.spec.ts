@@ -1,4 +1,4 @@
-import { getPersonProfileImages } from '.';
+import { getPersonProfileImages } from './getPersonProfileImages';
 
 const images = {
   profiles: [
@@ -23,7 +23,7 @@ const images = {
   ],
 };
 
-describe('Helper: getPersonProfileImages()', () => {
+describe('Testing Helper: TheMovieDBAPI/getPersonProfileImages', () => {
   it('should get the images path correctly', () => {
     expect(getPersonProfileImages(images)).toEqual(['/img1.jpg', '/img2.jpg']);
   });

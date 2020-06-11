@@ -1,6 +1,6 @@
-import { QuestionCategory } from '../../../../../lib/types';
+import { QuestionCategory } from '../../../../../../lib/types';
 import getCategoryCode from './getCategoryCode';
-import CONSTANTS from '../../utils/constants';
+import CONSTANTS from '../../../utils/constants';
 
 describe('Testing Helper: OpenTriviaAPI/getCategoryCode', () => {
   it('should return the movie code when the category is Movie', () => {

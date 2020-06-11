@@ -1,5 +1,5 @@
 import { QuestionDifficulty, QuestionType } from '../../../../../lib/types';
-import makeQueryString from './makeQueryString';
+import { makeQueryString } from './makeQueryString';
 import CONSTANTS from '../../utils/constants';
 
 describe('Testing Helper: OpenTriviaAPI/parseQueryParams', () => {

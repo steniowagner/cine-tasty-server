@@ -1,7 +1,7 @@
 import { Iso6391Language } from '../../../../../lib/types';
-import { formatLanguage } from '.';
+import { formatLanguage } from './formatLanguage';
 
-describe('Helper: formatLanguage()', () => {
+describe('Testing Helper: TheMovieDBAPI/formatLanguage', () => {
   it('should return en-us when no language is provided', () => {
     expect(formatLanguage()).toEqual('en-us');
   });

@@ -1,5 +1,5 @@
 import { Props as OpenTriviaAPIProps } from '../graphql/datasources/open-trivia-api/OpenTriviaAPI';
-import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api';
+import { Props as TheMovieDBAPIProps } from '../graphql/datasources/the-movie-db-api/TheMovieDBAPI';
 import { Props as NewsAPIProps } from 'graphql/datasources/news-api/NewsAPI';
 
 import {

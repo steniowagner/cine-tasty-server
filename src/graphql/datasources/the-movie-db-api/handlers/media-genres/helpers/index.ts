@@ -1,4 +1,2 @@
-import getEndpoint from './get-endpoint/getEndpoint';
-import getGenres from './get-genres/getGenres';
-
-export { getEndpoint, getGenres };
+export { getEndpoint } from './get-endpoint/getEndpoint';
+export { getGenres } from './get-genres/getGenres';

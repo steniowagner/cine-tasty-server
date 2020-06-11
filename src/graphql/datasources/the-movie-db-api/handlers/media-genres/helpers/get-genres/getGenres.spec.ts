@@ -2,7 +2,7 @@ import {
   movieGenres,
   tvGenres,
 } from '../../../../../../../../__tests__/mocks/mediaGenres';
-import getGenres from './getGenres';
+import { getGenres } from './getGenres';
 
 describe('Testing Helper: TheMovieDBAPI/helpers/getGenres', () => {
   it('should get the genres of a movie correctly', () => {

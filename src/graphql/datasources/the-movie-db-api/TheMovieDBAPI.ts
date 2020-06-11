@@ -38,11 +38,11 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 const INVALID_API_KEY_CODE = 7;
 
 class TheMovieDBAPI extends RESTDataSource {
-  tvshowsHandler: TVShowsHandler;
-  moviesHandler: MoviesHandler;
-  searchHandler: SearchHandler;
-  peopleHandler: PeopleHandler;
-  personHandler: PersonHandler;
+  private tvshowsHandler: TVShowsHandler;
+  private moviesHandler: MoviesHandler;
+  private searchHandler: SearchHandler;
+  private peopleHandler: PeopleHandler;
+  private personHandler: PersonHandler;
 
   constructor() {
     super();

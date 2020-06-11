@@ -20,7 +20,6 @@ module.exports = {
     '!src/graphql/datasources/index.ts',
     '!<rootDir>/node_modules/',
     '!<rootDir>/src/config/**/*.ts',
-    '!<rootDir>/src/**/*.stub.ts',
   ],
   moduleDirectories: ['node_modules', 'src', '__tests__'],
   coverageThreshold: {

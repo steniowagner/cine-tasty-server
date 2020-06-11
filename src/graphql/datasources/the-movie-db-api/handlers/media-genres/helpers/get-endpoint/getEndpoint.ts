@@ -2,7 +2,7 @@ import { MediaType } from '@lib/types';
 
 import CONSTANTS from '../../utils/constants';
 
-const getEndpoint = (mediaType: string): string => {
+export const getEndpoint = (mediaType: string): string => {
   let endpoint = '';
 
   if (mediaType.toLowerCase() === MediaType.Movie.toLowerCase()) {
@@ -15,5 +15,3 @@ const getEndpoint = (mediaType: string): string => {
 
   return endpoint;
 };
-
-export default getEndpoint;

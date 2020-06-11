@@ -1,7 +1,7 @@
 import { MediaType } from '../../../../../../../lib/types';
 
 import CONSTANTS from '../../utils/constants';
-import getEndpoint from './getEndpoint';
+import { getEndpoint } from './getEndpoint';
 
 describe('Testing Helper: TheMovieDBAPI/getEndpoint', () => {
   it('should return the Genre-Movie-Endpoint when the media-type is "Movie" in lowercase', () => {

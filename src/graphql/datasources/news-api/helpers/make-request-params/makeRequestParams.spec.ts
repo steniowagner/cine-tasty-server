@@ -1,8 +1,8 @@
 import { ArticleLanguage } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
 
-import getRequestParams from './makeRequestParams';
-import makeDateParam from '../makeDateParam';
+import { makeRequestParams } from './makeRequestParams';
+import { makeDateParam } from '..';
 
 describe('Testing Helper: NewsAPI/getRequestParams', () => {
   it('should return the request params correctly when no language is specified', () => {
@@ -15,7 +15,7 @@ describe('Testing Helper: NewsAPI/getRequestParams', () => {
       page: 1,
     };
 
-    expect(getRequestParams(params.page)).toEqual(params);
+    expect(makeRequestParams(params.page)).toEqual(params);
   });
 
   it('should return the request params correctly when some language is specified', () => {
@@ -29,6 +29,6 @@ describe('Testing Helper: NewsAPI/getRequestParams', () => {
       page: 1,
     };
 
-    expect(getRequestParams(params.page, ArticleLanguage.Pt)).toEqual(params);
+    expect(makeRequestParams(params.page, ArticleLanguage.Pt)).toEqual(params);
   });
 });

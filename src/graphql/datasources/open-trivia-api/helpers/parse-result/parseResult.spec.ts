@@ -1,4 +1,4 @@
-import parseResult from './parseResult';
+import { parseResult } from './parseResult';
 
 const questionResponseItems = [
   {

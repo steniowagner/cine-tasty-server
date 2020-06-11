@@ -22,17 +22,16 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-jest.mock(
-  './helpers/drawn-type-question-mixed/drawnTypeQuestionMixed',
-  () => (): QuestionCategory => QuestionCategory.Tv,
-);
+jest.mock('./helpers/drawn-type-question-mixed/drawnTypeQuestionMixed', () => ({
+  drawnTypeQuestionMixed: (): QuestionCategory => QuestionCategory.Tv,
+}));
 
 const defaultQueryString =
   'difficulty=difficulty&category=category&type=type&amount=amount';
 
-jest.mock('./helpers/make-query-string/makeQueryString', () => (): string =>
-  defaultQueryString,
-);
+jest.mock('./helpers/make-query-string/makeQueryString', () => ({
+  makeQueryString: (): string => defaultQueryString,
+}));
 
 const movieQuestionsInput = {
   difficulty: QuestionDifficulty.Hard,

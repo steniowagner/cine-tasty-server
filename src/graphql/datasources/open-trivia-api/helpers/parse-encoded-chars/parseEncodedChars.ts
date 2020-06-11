@@ -1,4 +1,4 @@
-const parseUTFString = (text: string): string => {
+export const parseEncodedChars = (text: string): string => {
   return text
     .replace(/&#039;/g, "'")
     .replace(/&quot;/g, '"')
@@ -6,5 +6,3 @@ const parseUTFString = (text: string): string => {
     .replace(/&amp;/g, '&')
     .replace(/&eacute;/g, 'é');
 };
-
-export default parseUTFString;

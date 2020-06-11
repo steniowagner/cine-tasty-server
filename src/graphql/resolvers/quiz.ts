@@ -1,6 +1,7 @@
-import parseEncodedChars from '../datasources/open-trivia-api/helpers/parse-encoded-chars/parseEncodedChars';
 import { QueryResolvers, Question, QueryQuizArgs } from '@lib/types';
-import { Context } from '@types/*';
+import { Context } from '@types';
+
+import { parseEncodedChars } from '../datasources/open-trivia-api/helpers';
 
 const resolvers: QueryResolvers = {
   Query: {

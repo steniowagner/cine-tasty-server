@@ -7,10 +7,10 @@ import { ArticleLanguage } from '../../../lib/types';
 import env from '../../../config/environment';
 
 import { rawArticleWithId, articleWithId } from '../../../../__tests__/mocks/articles';
+import CONSTANTS from './utils/constants';
 import { makeDateParam } from './helpers';
 import resolvers from '../../resolvers';
 import typeDefs from '../../typeDefs';
-import CONSTANTS from './utils/constants';
 import NewsAPI from './NewsAPI';
 
 const dateParam = makeDateParam();
