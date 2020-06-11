@@ -1,5 +1,5 @@
-import { QuestionCategory } from '../../../../../lib/types';
-import CONSTANTS from '../../utils/constants';
+import { QuestionCategory } from '../../../../../../lib/types';
+import CONSTANTS from '../../../utils/constants';
 
 const getCategoryCode = (category: QuestionCategory): number => {
   if (category.toLowerCase() === QuestionCategory.Movie.toLowerCase()) {

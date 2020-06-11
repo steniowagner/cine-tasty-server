@@ -1,5 +1,5 @@
-import { ArticleLanguage } from 'lib/types';
-import env from 'config/environment';
+import { ArticleLanguage } from '@lib/types';
+import env from '@config/environment';
 
 import CONSTANTS from '../../utils/constants';
 import { makeDateParam } from '..';
@@ -12,10 +12,10 @@ type RequestParams = {
   q: string;
 };
 
-const getRequestParams = (
+export const makeRequestParams = (
   page: number,
-  language?: ArticleLanguage | null,
-): RequestParams & { language?: string | null } => {
+  language?: ArticleLanguage | undefined | null,
+): RequestParams & { language?: string | undefined | null } => {
   const dateParam = makeDateParam();
 
   const params = {
@@ -36,5 +36,3 @@ const getRequestParams = (
 
   return params;
 };
-
-export default getRequestParams;

@@ -4,8 +4,8 @@ import { TheMovieDBHandler, MediaGenre } from '@types';
 import { Iso6391Language } from '@lib/types';
 import env from '@config/environment';
 
-import { formatLanguage } from '../../helpers/formatLanguage';
-import getEndpoint from './helpers/get-endpoint/getEndpoint';
+import { formatLanguage } from '../../helpers/format-language/formatLanguage';
+import { getEndpoint } from './helpers/get-endpoint/getEndpoint';
 import CONSTANTS from './utils/constants';
 import { getGenres } from './helpers';
 

@@ -1,7 +1,7 @@
 import { GetArticlesResultItem } from '@types';
 import { Article } from 'lib/types';
 
-const parseArticle = ({
+export const parseArticle = ({
   publishedAt,
   description,
   urlToImage,
@@ -21,5 +21,3 @@ const parseArticle = ({
   title,
   url,
 });
-
-export default parseArticle;

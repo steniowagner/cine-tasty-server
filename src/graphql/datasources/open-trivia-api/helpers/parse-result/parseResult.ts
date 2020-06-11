@@ -18,10 +18,8 @@ const parseQuizResponseToQuiz = (questionResponse: QuestionResponse): Question =
   };
 };
 
-const parseResult = (results: QuestionResponse[]): Question[] => {
+export const parseResult = (results: QuestionResponse[]): Question[] => {
   const parsedResults = results.map(result => parseQuizResponseToQuiz(result));
 
   return parsedResults;
 };
-
-export default parseResult;

@@ -8,15 +8,13 @@ import {
 const defaultAmountQuestions = 1;
 const defaultCategoryCode = 1;
 
-jest.mock('../get-amount-questions/getAmountQuestions', () => (): number =>
+jest.mock('./get-amount-questions/getAmountQuestions', () => (): number =>
   defaultAmountQuestions,
 );
 
-jest.mock('../get-category-code/getCategoryCode', () => (): number =>
-  defaultCategoryCode,
-);
+jest.mock('./get-category-code/getCategoryCode', () => (): number => defaultCategoryCode);
 
-import makeURLParams from './makeURLParams';
+import { makeURLParams } from './makeURLParams';
 
 const defaultInput: QuizInput = {
   difficulty: QuestionDifficulty.Easy,

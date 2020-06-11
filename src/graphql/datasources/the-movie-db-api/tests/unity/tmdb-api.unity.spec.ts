@@ -2,7 +2,7 @@ const mockRestDataSourceGet = jest.fn();
 
 import { InvalidTMDBApiKey } from '../../../../../errors';
 import env from '../../../../../config/environment';
-import TheMovieDBAPI from '../..';
+import TheMovieDBAPI from '../../TheMovieDBAPI';
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {

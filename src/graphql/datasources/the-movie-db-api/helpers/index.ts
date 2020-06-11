@@ -1,3 +1,2 @@
-export { getGenres } from '../handlers/media-genres/helpers';
-export { formatLanguage } from './formatLanguage';
-export { getPersonProfileImages } from './getPersonProfileImages';
+export { getPersonProfileImages } from './get-person-profile-images/getPersonProfileImages';
+export { formatLanguage } from './format-language/formatLanguage';

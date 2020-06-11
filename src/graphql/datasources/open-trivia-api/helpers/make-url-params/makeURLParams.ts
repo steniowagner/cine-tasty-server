@@ -1,16 +1,17 @@
-import { QuestionDifficulty, QuestionType, QuizInput } from '../../../../../lib/types';
-import getAmountQuestions from '../get-amount-questions/getAmountQuestions';
-import getCategoryCode from '../get-category-code/getCategoryCode';
+import { QuestionDifficulty, QuestionType, QuizInput } from '@lib/types';
 import { OpenTriviaQueryParams } from '@types';
 
-const makeURLParams = ({
+import getQuestionAmount from './get-amount-questions/getAmountQuestions';
+import getCategoryCode from './get-category-code/getCategoryCode';
+
+export const makeURLParams = ({
   numberOfQuestions,
   difficulty,
   category,
   type,
 }: QuizInput): OpenTriviaQueryParams => {
   const queryParams: OpenTriviaQueryParams = {
-    amount: getAmountQuestions(numberOfQuestions),
+    amount: getQuestionAmount(numberOfQuestions),
     category: getCategoryCode(category),
   };
 
@@ -28,5 +29,3 @@ const makeURLParams = ({
 
   return queryParams;
 };
-
-export default makeURLParams;

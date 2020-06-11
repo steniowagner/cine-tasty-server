@@ -5,7 +5,7 @@ import shuffleArray from '@utils/shuffle-array/shuffleArray';
 import { QuestionResponse } from '@types';
 
 import {
-  drawTypeQuestionMixed,
+  drawnTypeQuestionMixed,
   makeQueryString,
   makeURLParams,
   parseResult,
@@ -44,7 +44,7 @@ class OpenTriviaAPI extends RESTDataSource implements Props {
     if (input.numberOfQuestions === 1) {
       return this.getQuestionsSingleType({
         ...input,
-        category: drawTypeQuestionMixed(),
+        category: drawnTypeQuestionMixed(),
       });
     }
 

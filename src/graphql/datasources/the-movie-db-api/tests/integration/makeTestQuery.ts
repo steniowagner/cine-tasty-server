@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server';
 
 import resolvers from '../../../../resolvers';
 import typeDefs from '../../../../typeDefs';
-import TheMovieDBAPI from '../..';
+import TheMovieDBAPI from '../../TheMovieDBAPI';
 
 const makeTestQuery = () => {
   const server = new ApolloServer({

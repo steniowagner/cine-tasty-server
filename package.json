@@ -9,8 +9,8 @@
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint:fix": "eslint --fix --ext .ts .",
     "prettier:fix": "prettier '**/*.ts' --write",
-    "test": "jest --testPathIgnorePatterns=\"/*.stub.ts\"",
-    "test:coverage": "jest --coverage --testPathIgnorePatterns=\"/*.stub.ts\""
+    "test": "jest",
+    "test:coverage": "jest --coverage"
   },
   "husky": {
     "hooks": {

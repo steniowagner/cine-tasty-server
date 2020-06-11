@@ -1,6 +1,6 @@
 import { QuestionCategory } from '../../../../../lib/types';
 
-const drawnTypeQuestionMixed = (): QuestionCategory => {
+export const drawnTypeQuestionMixed = (): QuestionCategory => {
   const randomNumber = Math.round(Math.random() * 10);
 
   if (randomNumber % 2 === 0) {
@@ -9,5 +9,3 @@ const drawnTypeQuestionMixed = (): QuestionCategory => {
 
   return QuestionCategory.Movie;
 };
-
-export default drawnTypeQuestionMixed;
