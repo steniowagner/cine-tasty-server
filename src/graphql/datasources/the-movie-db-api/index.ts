@@ -29,7 +29,7 @@ import MoviesHandler from './handlers/movies/MovieHandler';
 import PeopleHandler from './handlers/people/PeopleHandler';
 import TVShowsHandler from './handlers/tv-show/TVShowHandler';
 import PersonHandler from './handlers/person/PersonHandler';
-import SearchHandler from './handlers/search';
+import SearchHandler from './handlers/search/SearchHandler';
 
 import { formatLanguage } from './helpers';
 
@@ -91,7 +91,7 @@ class TheMovieDBAPI extends RESTDataSource {
   }
 
   async search(input: SearchInput): Promise<SearchQueryResult> {
-    return this.searchHandler.search(input);
+    return this.searchHandler.handle(input);
   }
 
   async getMovie(args: QueryMovieArgs): Promise<MovieResponse | null> {

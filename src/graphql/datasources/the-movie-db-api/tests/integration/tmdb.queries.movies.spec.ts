@@ -231,7 +231,7 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         variables: { id },
       });
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(2);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(2);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,

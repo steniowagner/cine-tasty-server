@@ -1,6 +1,6 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { rawPerson, rawCast } from '../../../../../__tests__/mocks/person.stub';
+import { rawPerson, rawCast } from '../../../../../../__tests__/mocks/person';
 import CONSTANTS from '../../utils/constants';
 import PersonHandler from './PersonHandler';
 
