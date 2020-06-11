@@ -35,7 +35,7 @@ const resolvers: LibTypes.QueryResolvers = {
       _: {},
       args: LibTypes.QueryPersonArgs,
       { dataSources }: Context,
-    ): Promise<LibTypes.Person | null> => dataSources.tmdb.getPerson(args),
+    ): Promise<LibTypes.PersonResponse | null> => dataSources.tmdb.getPerson(args),
   },
 
   BasePerson: {

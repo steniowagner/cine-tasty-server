@@ -3,7 +3,6 @@ const mockRestDataSourceGet = jest.fn();
 import { gql } from 'apollo-server';
 
 import { getImagesResult, images } from '../../../../../../__tests__/mocks/images';
-import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
 import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { Iso6391Language } from '../../../../../lib/types';
@@ -269,7 +268,7 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -277,7 +276,7 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -285,7 +284,7 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -372,7 +371,7 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -380,7 +379,7 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -388,7 +387,7 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
@@ -441,7 +440,7 @@ describe('Integration: DataSources-TVShow', () => {
       });
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
+        CONSTANTS.GENRE_TV_SHOW_ENDPOINT,
         {
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',

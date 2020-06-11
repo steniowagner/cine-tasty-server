@@ -10,4 +10,10 @@ export default {
   MOVIE_IMAGES_RESOURCE_ENDPOINT: 'images',
   TV_IMAGES_RESOURCE_ENDPOINT: 'images',
   APPEND_TO_TV_SHOW_RESPONSE: 'credits,similar,videos,reviews',
+  BASE_URL: 'https://api.themoviedb.org/3',
+  INVALID_API_KEY_CODE: 7,
+  MEDIA_GENRES_BASE_URL: 'https://api.themoviedb.org/3',
+  GENRE_MOVIE_ENDPOINT: '/genre/movie/list',
+  GENRE_TV_SHOW_ENDPOINT: '/genre/tv/list',
+  APPEND_TO_MOVIE_RESPONSE: 'videos,credits,reviews,similar',
 };

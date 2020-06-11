@@ -1,6 +1,6 @@
 import { MediaType } from '../../../../../../../lib/types';
 
-import CONSTANTS from '../../utils/constants';
+import CONSTANTS from '../../../../utils/constants';
 import { getEndpoint } from './getEndpoint';
 
 describe('Testing Helper: TheMovieDBAPI/getEndpoint', () => {

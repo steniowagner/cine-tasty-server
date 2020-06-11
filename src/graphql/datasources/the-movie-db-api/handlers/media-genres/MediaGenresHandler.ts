@@ -6,7 +6,7 @@ import env from '@config/environment';
 
 import { formatLanguage } from '../../helpers/format-language/formatLanguage';
 import { getEndpoint } from './helpers/get-endpoint/getEndpoint';
-import CONSTANTS from './utils/constants';
+import CONSTANTS from '../../utils/constants';
 import { getGenres } from './helpers';
 
 type Params = {

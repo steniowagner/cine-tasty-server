@@ -18,7 +18,7 @@ type SimilarMovies = {
 
 type MovieReview = TMDBPITypes.BasePaginationResponse & { results: LibTypes.Review[] };
 
-const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
+const BASE_VIDEO_THUMBNAIL_URL = 'https://img.youtube.com/vi';
 
 const resolvers: LibTypes.QueryResolvers = {
   Query: {
@@ -164,11 +164,11 @@ const resolvers: LibTypes.QueryResolvers = {
           id: `${video.id}`,
           type: video.type,
           thumbnail: {
-            extraSmall: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/default.jpg`,
-            small: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/mqdefault.jpg`,
-            medium: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/hqdefault.jpg`,
-            large: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/sddefault.jpg`,
-            extraLarge: `${BASE_VIDEO_THHUMBNAIL_URL}/${video.key}/maxresdefault.jpg`,
+            extraSmall: `${BASE_VIDEO_THUMBNAIL_URL}/${video.key}/default.jpg`,
+            small: `${BASE_VIDEO_THUMBNAIL_URL}/${video.key}/mqdefault.jpg`,
+            medium: `${BASE_VIDEO_THUMBNAIL_URL}/${video.key}/hqdefault.jpg`,
+            large: `${BASE_VIDEO_THUMBNAIL_URL}/${video.key}/sddefault.jpg`,
+            extraLarge: `${BASE_VIDEO_THUMBNAIL_URL}/${video.key}/maxresdefault.jpg`,
           },
         })),
 

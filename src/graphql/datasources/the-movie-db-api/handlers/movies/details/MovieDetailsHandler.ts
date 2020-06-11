@@ -3,7 +3,7 @@ import { GetTMDBApiRequest } from '@tmdb-api-types';
 
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
 import TheMovieDBHandler from '../../TheMovieDBHandler';
-import CONSTANTS from '../utils/constants';
+import CONSTANTS from '../../../utils/constants';
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
