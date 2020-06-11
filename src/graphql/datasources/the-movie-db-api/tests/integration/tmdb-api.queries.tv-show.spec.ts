@@ -4,6 +4,7 @@ import { gql } from 'apollo-server';
 
 import { getImagesResult, images } from '../../../../../../__tests__/mocks/images';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { TrendingTVShowsEndpoints } from '../../../../../@types';
 import { Iso6391Language } from '../../../../../lib/types';
@@ -15,7 +16,6 @@ import {
 } from '../../../../../../__tests__/mocks/tvshows';
 import env from '../../../../../config/environment';
 import CONSTANTS from '../../utils/constants';
-import makeTestQuery from './makeTestQuery';
 
 const GET_TRENDING_TV_SHOWS = gql`
   fragment TrendingTVShowItem on BaseTVShow {

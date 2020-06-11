@@ -4,8 +4,8 @@ const mockRestDataSourceGet = jest.fn();
 
 import { rawPeopleItem, peopleItem } from '../../../../../../__tests__/mocks/people';
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { SearchType } from '../../../../../lib/types';
-import makeTestQuery from './makeTestQuery';
 
 const SEARCH_PERSON = gql`
   query SearchPerson($input: SearchInput!) {

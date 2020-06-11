@@ -1,17 +1,16 @@
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
 const mockRestDataSourceGet = jest.fn();
 
-import { ArticleLanguage } from '../../../lib/types';
-import env from '../../../config/environment';
-
-import { rawArticleWithId, articleWithId } from '../../../../__tests__/mocks/articles';
-import CONSTANTS from './utils/constants';
-import { makeDateParam } from './helpers';
-import resolvers from '../../resolvers';
-import typeDefs from '../../typeDefs';
-import NewsAPI from './NewsAPI';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
+import { ArticleLanguage } from '../../../../../lib/types';
+import env from '../../../../../config/environment';
+import {
+  rawArticleWithId,
+  articleWithId,
+} from '../../../../../../__tests__/mocks/articles';
+import CONSTANTS from '../../utils/constants';
+import { makeDateParam } from '../../helpers';
 
 const dateParam = makeDateParam();
 
@@ -32,18 +31,6 @@ const GET_ARTICLES = gql`
     }
   }
 `;
-
-const makeTestServer = () => {
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      news: new NewsAPI(),
-    }),
-  });
-
-  return server;
-};
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
@@ -70,9 +57,7 @@ describe('Integration: DataSources/NewsAPI [Queries]', () => {
         status: CONSTANTS.STATUS_OK,
       });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         variables: { page: 1, language: ArticleLanguage.En },
@@ -107,9 +92,7 @@ describe('Integration: DataSources/NewsAPI [Queries]', () => {
         },
       }));
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         variables: { page: 1, language: ArticleLanguage.En },
@@ -142,9 +125,7 @@ describe('Integration: DataSources/NewsAPI [Queries]', () => {
         articles: [],
       });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         variables: { page: 2, language: ArticleLanguage.En },
@@ -177,9 +158,7 @@ describe('Integration: DataSources/NewsAPI [Queries]', () => {
         articles: Array(12).fill(rawArticleWithId),
       });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         variables: { page: 1, language: ArticleLanguage.En },
@@ -212,9 +191,7 @@ describe('Integration: DataSources/NewsAPI [Queries]', () => {
         articles: Array(CONSTANTS.PAGE_SIZE - 1).fill(rawArticleWithId),
       });
 
-      const server = makeTestServer();
-
-      const { query } = createTestClient(server);
+      const query = makeTestQuery();
 
       const { data } = await query({
         query: GET_ARTICLES,

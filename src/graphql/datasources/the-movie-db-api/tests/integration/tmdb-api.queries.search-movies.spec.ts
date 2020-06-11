@@ -4,8 +4,8 @@ import { gql } from 'apollo-server';
 
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { rawKnowForMovie, knowForMovie } from '../../../../../../__tests__/mocks/people';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { SearchType } from '../../../../../lib/types';
-import makeTestQuery from './makeTestQuery';
 
 const SEARCH_MOVIE = gql`
   query SearchMovie($input: SearchInput!) {

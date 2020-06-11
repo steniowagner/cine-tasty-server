@@ -5,8 +5,8 @@ import { gql } from 'apollo-server';
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import { rawPeopleItem, peopleItem } from '../../../../../../__tests__/mocks/people';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import env from '../../../../../config/environment';
-import makeTestQuery from './makeTestQuery';
 
 const POPULAR_PERSON_ENDPOINT = '/popular';
 const PERSON_ENDPOINT = '/person';

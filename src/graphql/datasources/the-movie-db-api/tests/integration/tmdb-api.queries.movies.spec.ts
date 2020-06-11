@@ -4,6 +4,7 @@ import { gql } from 'apollo-server';
 
 import { getImagesResult, images } from '../../../../../../__tests__/mocks/images';
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { movieGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';
 import { TrendingMoviesEndpoints } from '../../../../../@types';
@@ -15,7 +16,6 @@ import {
   movie,
 } from '../../../../../../__tests__/mocks/movies';
 import CONSTANTS from '../../utils/constants';
-import makeTestQuery from './makeTestQuery';
 
 const GET_TRENDING_MOVIES = gql`
   fragment TrendingMovieItem on BaseMovie {

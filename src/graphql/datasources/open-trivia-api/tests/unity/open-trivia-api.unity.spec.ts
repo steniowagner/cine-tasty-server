@@ -1,14 +1,18 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { movieQuestion, tvQuestion, question } from '../../../../__tests__/mocks/quiz';
-import OpenTriviaAPI from './OpenTriviaAPI';
-import CONSTANTS from './utils/constants';
+import {
+  movieQuestion,
+  tvQuestion,
+  question,
+} from '../../../../../../__tests__/mocks/quiz';
+import OpenTriviaAPI from '../../OpenTriviaAPI';
+import CONSTANTS from '../../utils/constants';
 import {
   QuestionDifficulty,
   QuestionCategory,
   QuestionType,
   QuizInput,
-} from '../../../lib/types';
+} from '../../../../../lib/types';
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {
@@ -22,14 +26,14 @@ jest.mock('apollo-datasource-rest', () => {
   };
 });
 
-jest.mock('./helpers/drawn-type-question-mixed/drawnTypeQuestionMixed', () => ({
+jest.mock('../../helpers/drawn-type-question-mixed/drawnTypeQuestionMixed', () => ({
   drawnTypeQuestionMixed: (): QuestionCategory => QuestionCategory.Tv,
 }));
 
 const defaultQueryString =
   'difficulty=difficulty&category=category&type=type&amount=amount';
 
-jest.mock('./helpers/make-query-string/makeQueryString', () => ({
+jest.mock('../../helpers/make-query-string/makeQueryString', () => ({
   makeQueryString: (): string => defaultQueryString,
 }));
 
