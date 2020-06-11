@@ -8,7 +8,7 @@ import {
   knowForTVShow,
 } from '../../../../../../__tests__/mocks/people';
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import makeTestQuery from './makeTestQuery';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 
 const SEARCH_TV_SHOW = gql`
   query SearchTVShow($input: SearchInput!) {

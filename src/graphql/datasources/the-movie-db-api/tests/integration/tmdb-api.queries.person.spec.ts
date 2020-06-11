@@ -4,7 +4,7 @@ const mockRestDataSourceGet = jest.fn();
 
 import { rawPerson, person, rawCast } from '../../../../../../__tests__/mocks/person';
 import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import makeTestQuery from './makeTestQuery';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 
 const GET_PERSON = gql`
   query GetPerson($id: Int!) {

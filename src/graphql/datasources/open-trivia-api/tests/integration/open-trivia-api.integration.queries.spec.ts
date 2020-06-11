@@ -1,19 +1,16 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { createTestClient } from 'apollo-server-testing';
-import { ApolloServer, gql } from 'apollo-server';
+import { gql } from 'apollo-server';
 
-import { tvQuestion, movieQuestion } from '../../../../__tests__/mocks/quiz';
-import OpenTriviaAPI from './OpenTriviaAPI';
-import CONSTANTS from './utils/constants';
-import resolvers from '../../resolvers';
-import typeDefs from '../../typeDefs';
+import { tvQuestion, movieQuestion } from '../../../../../../__tests__/mocks/quiz';
+import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
+import CONSTANTS from '../../utils/constants';
 import {
   QuestionDifficulty,
+  QuestionCategory,
   QuestionType,
   Question,
-  QuestionCategory,
-} from '../../../lib/types';
+} from '../../../../../lib/types';
 
 const GET_QUIZ_QUESTIONS = gql`
   query GetQuizQuestions($input: QuizInput!) {
@@ -27,20 +24,6 @@ const GET_QUIZ_QUESTIONS = gql`
     }
   }
 `;
-
-const makeTestQuery = () => {
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources: () => ({
-      openTrivia: new OpenTriviaAPI(),
-    }),
-  });
-
-  const { query } = createTestClient(server);
-
-  return query;
-};
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {

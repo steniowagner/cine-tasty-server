@@ -14,7 +14,7 @@
       "@lib/*": ["lib/*"]
     }
   },
-  "include": ["src", "src/*ts", "src/**/*ts", "__tests__/mocks/mediaGenres.ts"],
+  "include": ["src", "src/*ts", "src/**/*ts"],
   "exclude": [
     "node_modules",
     "src/**/*.spec.ts",
