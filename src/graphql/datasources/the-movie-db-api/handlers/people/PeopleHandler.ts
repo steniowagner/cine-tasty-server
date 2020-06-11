@@ -1,5 +1,5 @@
 import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '@lib/types';
-import { GetTMDBApiRequest, BasePaginationResponse } from '@types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '@tmdb-api-types';
 
 import TheMovieDBHandler from '../TheMovieDBHandler';
 import CONSTANTS from '../../utils/constants';

@@ -3,7 +3,7 @@ import {
   TrendingMoviesEndpoints,
   BasePaginationResponse,
   GetTMDBApiRequest,
-} from '@types';
+} from '@tmdb-api-types';
 
 import TheMovieDBHandler from '../../TheMovieDBHandler';
 

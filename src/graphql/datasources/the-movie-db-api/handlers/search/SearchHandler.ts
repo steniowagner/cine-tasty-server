@@ -1,6 +1,6 @@
 import { SearchResultItem, SearchQueryResult, SearchInput } from '@lib/types';
-import { GetTMDBApiRequest, BasePaginationResponse } from '@types';
-import { SearchQueryEmpty } from 'errors';
+import { GetTMDBApiRequest, BasePaginationResponse } from '@tmdb-api-types';
+import { SearchQueryEmpty } from '@errors';
 
 import TheMovieDBHandler from '../TheMovieDBHandler';
 import CONSTANTS from '../../utils/constants';

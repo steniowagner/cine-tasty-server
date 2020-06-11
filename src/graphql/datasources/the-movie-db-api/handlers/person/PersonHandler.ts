@@ -1,5 +1,5 @@
+import { GetPersonImagesResult, GetTMDBApiRequest } from '@tmdb-api-types';
 import { PersonResponse, QueryPersonArgs, Cast } from '@lib/types';
-import { GetPersonImagesResult, GetTMDBApiRequest } from '@types';
 
 import { getPersonProfileImages } from '../../helpers';
 import TheMovieDBHandler from '../TheMovieDBHandler';

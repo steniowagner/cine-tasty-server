@@ -1,5 +1,5 @@
 import shuffleArray from '@utils/shuffle-array/shuffleArray';
-import { QuestionResponse } from '@types';
+import { QuestionResponse } from '@open-trivia-api-types';
 import { Question } from '@lib/types';
 
 const parseQuizResponseToQuiz = (questionResponse: QuestionResponse): Question => {

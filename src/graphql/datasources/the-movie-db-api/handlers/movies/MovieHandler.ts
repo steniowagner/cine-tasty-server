@@ -1,10 +1,5 @@
-import { TrendingMoviesEndpoints, GetTMDBApiRequest } from '@types';
-import {
-  TrendingMoviesQueryResult,
-  TrendingMoviesArgs,
-  QueryMovieArgs,
-  MovieResponse,
-} from '@lib/types';
+import { TrendingMoviesEndpoints, GetTMDBApiRequest } from '@tmdb-api-types';
+import * as LibTypes from '@lib/types';
 
 import MovieDetailsHandler from './details/MovieDetailsHandler';
 import MovieImagesHandler from './images/MovieImagesHandler';
@@ -15,7 +10,7 @@ import TrendingMoviesHandler, {
 
 class MovieHandler {
   private trendingsHandler: TheMovieDBHandler<TrendingMoviesHandlerParams>;
-  private detailsHandler: TheMovieDBHandler<QueryMovieArgs>;
+  private detailsHandler: TheMovieDBHandler<LibTypes.QueryMovieArgs>;
   private imagesHandler: TheMovieDBHandler<string>;
 
   constructor(getRequest: GetTMDBApiRequest) {
@@ -24,7 +19,9 @@ class MovieHandler {
     this.imagesHandler = new MovieImagesHandler(getRequest);
   }
 
-  async getDetails(args: QueryMovieArgs): Promise<MovieResponse | null> {
+  async getDetails(
+    args: LibTypes.QueryMovieArgs,
+  ): Promise<LibTypes.MovieResponse | null> {
     return this.detailsHandler.handle(args);
   }
 
@@ -33,9 +30,9 @@ class MovieHandler {
   }
 
   async getTrendings(
-    args: TrendingMoviesArgs,
+    args: LibTypes.TrendingMoviesArgs,
     endpoint: TrendingMoviesEndpoints,
-  ): Promise<TrendingMoviesQueryResult> {
+  ): Promise<LibTypes.TrendingMoviesQueryResult> {
     return this.trendingsHandler.handle({ args, endpoint });
   }
 }

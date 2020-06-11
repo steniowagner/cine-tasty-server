@@ -8,9 +8,13 @@
     "esModuleInterop": true,
     "strict": true,
     "paths": {
+      "@open-trivia-api-types": ["graphql/datasources/open-trivia-api/@types"],
+      "@tmdb-api-types": ["graphql/datasources/the-movie-db-api/@types"],
+      "@news-api-types": ["graphql/datasources/news-api/@types"],
       "@config/*": ["config/*"],
-      "@utils/*": ["utils/*"],
       "@types/*": ["@types/*"],
+      "@utils/*": ["utils/*"],
+      "@errors": ["errors"],
       "@lib/*": ["lib/*"]
     }
   },

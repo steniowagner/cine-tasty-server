@@ -1,7 +1,6 @@
-import { GetArticlesResultItem } from '../../src/types';
 import { Article } from '../../src/lib/types';
 
-export const articleWithNullField: GetArticlesResultItem = {
+export const articleWithNullField = {
   publishedAt: null,
   urlToImage: 'urlToImage',
   content: 'content',
@@ -14,7 +13,7 @@ export const articleWithNullField: GetArticlesResultItem = {
   url: 'url',
 };
 
-export const articleWithFalsyField: GetArticlesResultItem = {
+export const articleWithFalsyField = {
   publishedAt: '',
   urlToImage: 'urlToImage',
   content: 'content',
@@ -27,7 +26,7 @@ export const articleWithFalsyField: GetArticlesResultItem = {
   url: 'url',
 };
 
-export const rawArticleWithNullId: GetArticlesResultItem = {
+export const rawArticleWithNullId = {
   publishedAt: 'publishedAt',
   urlToImage: 'urlToImage',
   source: {
@@ -40,7 +39,7 @@ export const rawArticleWithNullId: GetArticlesResultItem = {
   url: 'url',
 };
 
-export const rawArticleWithId: GetArticlesResultItem = {
+export const rawArticleWithId = {
   publishedAt: 'publishedAt',
   urlToImage: 'urlToImage',
   content: 'content',

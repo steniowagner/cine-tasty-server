@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { GetTMDBApiRequest } from '@types';
+import { GetTMDBApiRequest } from '@tmdb-api-types';
 
 abstract class TheMovieDBHandler<P> {
   constructor(public get: GetTMDBApiRequest) {}

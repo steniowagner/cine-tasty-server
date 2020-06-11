@@ -7,11 +7,11 @@ import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants'
 import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { movieGenres } from '../../../../../../__tests__/mocks/mediaGenres';
 import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';
-import { TrendingMoviesEndpoints } from '../../../../../@types';
+import { TrendingMoviesEndpoints } from '../../@types';
 import env from '../../../../../config/environment';
 import {
-  rawMovie,
   rawMovieDetail,
+  rawMovie,
   movieDetail,
   movie,
 } from '../../../../../../__tests__/mocks/movies';

@@ -1,4 +1,4 @@
-import { Iso6391Language } from '../../../../../lib/types';
+import { Iso6391Language } from '@lib/types';
 
 export const formatLanguage = (language?: Iso6391Language | null): string => {
   if (!language) {

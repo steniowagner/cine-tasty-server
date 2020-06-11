@@ -1,4 +1,4 @@
-import { QuestionCategory } from '../../../../../lib/types';
+import { QuestionCategory } from '@lib/types';
 
 export const drawnTypeQuestionMixed = (): QuestionCategory => {
   const randomNumber = Math.round(Math.random() * 10);
