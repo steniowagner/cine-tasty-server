@@ -1,11 +1,9 @@
-import { GetTMDBApiRequest, BasePaginationResponse } from '../../../../../@types';
-import { SearchQueryEmpty } from '../../../../../errors';
+import { SearchResultItem, SearchQueryResult, SearchInput } from '@lib/types';
+import { GetTMDBApiRequest, BasePaginationResponse } from '@types';
+import { SearchQueryEmpty } from 'errors';
+
+import TheMovieDBHandler from '../TheMovieDBHandler';
 import CONSTANTS from '../../utils/constants';
-import {
-  SearchResultItem,
-  SearchQueryResult,
-  SearchInput,
-} from '../../../../../lib/types';
 
 type SearchParams = {
   page: number;
@@ -16,18 +14,12 @@ type GetRequestResult = BasePaginationResponse & {
   results: SearchResultItem[];
 };
 
-export interface Props {
-  search: (input: SearchInput) => Promise<SearchQueryResult>;
-}
-
-class SearchHandler implements Props {
-  get: GetTMDBApiRequest;
-
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
+class SearchHandler extends TheMovieDBHandler<SearchInput> {
+  constructor(getRequest: GetTMDBApiRequest) {
+    super(getRequest);
   }
 
-  async search({ page, query, language, type }: SearchInput): Promise<SearchQueryResult> {
+  async handle({ page, query, language, type }: SearchInput): Promise<SearchQueryResult> {
     const endpoint = `${CONSTANTS.SEARCH_ENDPOINT}/${type.toLowerCase()}`;
 
     if (!query) {
@@ -36,8 +28,8 @@ class SearchHandler implements Props {
 
     const {
       total_results: totalResults,
-      results,
       total_pages: totalPages,
+      results,
     } = await this.get<SearchParams, GetRequestResult>(
       endpoint,
       {

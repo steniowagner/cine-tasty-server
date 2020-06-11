@@ -31,7 +31,7 @@ describe('Unity: TheMovieDBAPI', () => {
         InvalidTMDBApiKey,
       );
 
-      expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith('endpoint', {
         api_key: env.THE_MOVIE_DB_API_KEY,

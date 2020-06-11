@@ -69,7 +69,7 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/movies/MovieDetailsHandler',
       Iso6391Language.Ptbr,
     );
 
-    expect(mockRestDataSourceGet.mock.calls.length).toBe(1);
+    expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
 
     expect(result).toBeNull();
   });
