@@ -1,4 +1,4 @@
-import { MediaGenre } from '@types';
+import { MediaGenre } from '@tmdb-api-types';
 
 export const getGenres = (
   genresSelected: MediaGenre[],

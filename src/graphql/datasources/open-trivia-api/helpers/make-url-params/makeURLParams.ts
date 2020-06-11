@@ -1,5 +1,5 @@
 import { QuestionDifficulty, QuestionType, QuizInput } from '@lib/types';
-import { OpenTriviaQueryParams } from '@types';
+import { OpenTriviaQueryParams } from '@open-trivia-api-types';
 
 import getQuestionAmount from './get-amount-questions/getAmountQuestions';
 import getCategoryCode from './get-category-code/getCategoryCode';

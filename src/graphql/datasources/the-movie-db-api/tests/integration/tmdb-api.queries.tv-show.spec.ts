@@ -6,8 +6,8 @@ import { getImagesResult, images } from '../../../../../../__tests__/mocks/image
 import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
 import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { tvGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import { TrendingTVShowsEndpoints } from '../../../../../@types';
 import { Iso6391Language } from '../../../../../lib/types';
+import { TrendingTVShowsEndpoints } from '../../@types';
 import {
   rawTVShowDetail,
   tvShowDetail,

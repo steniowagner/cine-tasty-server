@@ -2,7 +2,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 
 import { QuestionCategory, QuizInput, Question } from '@lib/types';
 import shuffleArray from '@utils/shuffle-array/shuffleArray';
-import { QuestionResponse } from '@types';
+import { QuestionResponse } from '@open-trivia-api-types';
 
 import {
   drawnTypeQuestionMixed,
@@ -18,11 +18,7 @@ type GetRequestResponse = {
   response_code: number;
 };
 
-export interface Props {
-  getQuestions(input: QuizInput): Promise<Question[]>;
-}
-
-class OpenTriviaAPI extends RESTDataSource implements Props {
+class OpenTriviaAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = CONSTANTS.BASE_URL;

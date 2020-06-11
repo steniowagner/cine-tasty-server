@@ -1,4 +1,4 @@
-import { GetTMDBApiRequest, GetImagesResponse } from '@types';
+import { GetTMDBApiRequest, GetImagesResponse } from '@tmdb-api-types';
 
 import TheMovieDBHandler from '../../TheMovieDBHandler';
 import CONSTANTS from '../../../utils/constants';

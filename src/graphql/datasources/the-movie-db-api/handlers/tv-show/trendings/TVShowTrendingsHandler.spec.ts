@@ -1,9 +1,9 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { rawTVShow } from '../../../../../../../__tests__/mocks/tvshows';
-import { TrendingTVShowsEndpoints } from '../../../../../../@types';
 import { Iso6391Language } from '../../../../../../lib/types';
 import TVShowTrendingsHandler from './TVShowTrendingsHandler';
+import { TrendingTVShowsEndpoints } from '../../../@types';
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {

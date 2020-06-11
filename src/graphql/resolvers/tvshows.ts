@@ -1,126 +1,107 @@
 /* eslint-disable @typescript-eslint/camelcase */
+
+import * as TMDBAPITypes from '@tmdb-api-types';
+import * as LibTypes from '@lib/types';
+import { Context } from '@types';
+
 import MediaGenresHandler from '../datasources/the-movie-db-api/handlers/media-genres/MediaGenresHandler';
-import {
-  TrendingTvShowsOn_The_AirArgs as TrendingTvShowsOnTheAirArgs,
-  BaseTvShowGenre_IdsArgs as BaseTvShowGenreIdsArgs,
-  TrendingTvShowsTop_RatedArgs as TrendingTvShowsTopRatedArgs,
-  QueryResolvers,
-  MediaType,
-  TrendingTvShowsQueryResult,
-  TrendingTvShowsPopularArgs,
-  TvShow,
-  TvShowImagesArgs,
-  TvShowGenresArgs,
-  CreatorResponse,
-  BaseTVShowResponse,
-  QueryTv_ShowArgs as QueryTvShowArgs,
-  TvShowResponse,
-  NetworkResponse,
-  SeasonResponse,
-  MediaVideo,
-  CastItem,
-  CrewItem,
-  Review,
-  LastEpisodeToAirResponse,
-  BaseTvShow,
-  BaseTvShowResponse,
-  Creator,
-  ProductionCompanyResponse,
-} from '../../lib/types';
-import {
-  TrendingTVShowsEndpoints,
-  BasePaginationResponse,
-  MediaItem,
-  Context,
-  MediaGenre,
-  MediaCredits,
-} from '../../@types';
 
 const mediaGenres = new MediaGenresHandler();
 
 const BASE_VIDEO_THHUMBNAIL_URL = 'https://img.youtube.com/vi';
 
 type TVReview = {
-  reviews: BasePaginationResponse & { results: Review[] };
+  reviews: TMDBAPITypes.BasePaginationResponse & { results: LibTypes.Review[] };
 };
 
 type TVShowVideos = {
-  results: MediaVideo[];
+  results: LibTypes.MediaVideo[];
 };
 
 type SimilarTVShows = {
-  results: BaseTvShow[];
+  results: LibTypes.BaseTvShow[];
 };
 
-const resolvers: QueryResolvers = {
+const resolvers: LibTypes.QueryResolvers = {
   Query: {
     trendingTvShows: (): {} => ({}),
 
     tvShow: (
       _: {},
-      args: QueryTvShowArgs,
+      args: LibTypes.QueryTvShowArgs,
       { dataSources }: Context,
-    ): Promise<TvShow | null> => dataSources.tmdb.getTVShow(args),
+    ): Promise<LibTypes.TvShow | null> => dataSources.tmdb.getTVShow(args),
   },
 
   Creator: {
-    creditId: ({ credit_id }: CreatorResponse): string | null | undefined => credit_id,
+    creditId: ({ credit_id }: LibTypes.CreatorResponse): string | null | undefined =>
+      credit_id,
 
-    profilePath: ({ profile_path }: CreatorResponse): string | null | undefined =>
+    profilePath: ({
       profile_path,
+    }: LibTypes.CreatorResponse): string | null | undefined => profile_path,
   },
 
   Network: {
-    logoPath: ({ logo_path }: NetworkResponse): string | null | undefined => logo_path,
+    logoPath: ({ logo_path }: LibTypes.NetworkResponse): string | null | undefined =>
+      logo_path,
 
-    originCountry: ({ origin_country }: NetworkResponse): string | null | undefined =>
+    originCountry: ({
       origin_country,
+    }: LibTypes.NetworkResponse): string | null | undefined => origin_country,
   },
 
   Season: {
-    airDate: ({ air_date }: SeasonResponse): string | null | undefined => air_date,
-
-    episodeCount: ({ episode_count }: SeasonResponse): number | null | undefined =>
-      episode_count,
-
-    posterPath: ({ poster_path }: SeasonResponse): string | null | undefined =>
-      poster_path,
-
-    seasonNumber: ({ season_number }: SeasonResponse): number | null | undefined =>
-      season_number,
-  },
-
-  LastEpisodeToAir: {
-    airDate: ({ air_date }: LastEpisodeToAirResponse): string | null | undefined =>
+    airDate: ({ air_date }: LibTypes.SeasonResponse): string | null | undefined =>
       air_date,
 
-    episodeNumber: ({
-      episode_number,
-    }: LastEpisodeToAirResponse): number | null | undefined => episode_number,
+    episodeCount: ({
+      episode_count,
+    }: LibTypes.SeasonResponse): number | null | undefined => episode_count,
 
-    productionCode: ({
-      production_code,
-    }: LastEpisodeToAirResponse): string | null | undefined => production_code,
+    posterPath: ({ poster_path }: LibTypes.SeasonResponse): string | null | undefined =>
+      poster_path,
 
     seasonNumber: ({
       season_number,
-    }: LastEpisodeToAirResponse): number | null | undefined => season_number,
+    }: LibTypes.SeasonResponse): number | null | undefined => season_number,
+  },
 
-    showId: ({ show_id }: LastEpisodeToAirResponse): string | null | undefined => show_id,
+  LastEpisodeToAir: {
+    airDate: ({
+      air_date,
+    }: LibTypes.LastEpisodeToAirResponse): string | null | undefined => air_date,
 
-    stillPath: ({ still_path }: LastEpisodeToAirResponse): string | null | undefined =>
+    episodeNumber: ({
+      episode_number,
+    }: LibTypes.LastEpisodeToAirResponse): number | null | undefined => episode_number,
+
+    productionCode: ({
+      production_code,
+    }: LibTypes.LastEpisodeToAirResponse): string | null | undefined => production_code,
+
+    seasonNumber: ({
+      season_number,
+    }: LibTypes.LastEpisodeToAirResponse): number | null | undefined => season_number,
+
+    showId: ({ show_id }: LibTypes.LastEpisodeToAirResponse): string | null | undefined =>
+      show_id,
+
+    stillPath: ({
       still_path,
+    }: LibTypes.LastEpisodeToAirResponse): string | null | undefined => still_path,
 
     voteAverage: ({
       vote_average,
-    }: LastEpisodeToAirResponse): number | null | undefined => vote_average,
+    }: LibTypes.LastEpisodeToAirResponse): number | null | undefined => vote_average,
 
-    voteCount: ({ vote_count }: LastEpisodeToAirResponse): number | null | undefined =>
+    voteCount: ({
       vote_count,
+    }: LibTypes.LastEpisodeToAirResponse): number | null | undefined => vote_count,
   },
 
   TVShow: {
-    videos: ({ videos }: { videos: TVShowVideos }): MediaVideo[] =>
+    videos: ({ videos }: { videos: TVShowVideos }): LibTypes.MediaVideo[] =>
       videos.results
         .filter(({ site }) => site === 'YouTube')
         .map(video => ({
@@ -138,7 +119,7 @@ const resolvers: QueryResolvers = {
           },
         })),
 
-    cast: ({ credits }: { credits: MediaCredits }): CastItem[] =>
+    cast: ({ credits }: { credits: TMDBAPITypes.MediaCredits }): LibTypes.CastItem[] =>
       credits.cast.map(castItem => ({
         name: castItem.name,
         profilePath: castItem.profile_path,
@@ -148,7 +129,7 @@ const resolvers: QueryResolvers = {
         order: castItem.order,
       })),
 
-    crew: ({ credits }: { credits: MediaCredits }): CrewItem[] =>
+    crew: ({ credits }: { credits: TMDBAPITypes.MediaCredits }): LibTypes.CrewItem[] =>
       credits.crew.map(castItem => ({
         profilePath: castItem.profile_path,
         department: castItem.department,
@@ -159,13 +140,13 @@ const resolvers: QueryResolvers = {
       })),
 
     genres: (
-      { genres }: { genres: MediaGenre[] },
-      { language }: TvShowGenresArgs,
+      { genres }: { genres: TMDBAPITypes.MediaGenre[] },
+      { language }: LibTypes.TvShowGenresArgs,
     ): Promise<string[]> => {
       const genresIds = genres.map(({ id }) => id);
 
       return mediaGenres.handle({
-        mediaType: MediaType.Tv,
+        mediaType: LibTypes.MediaType.Tv,
         genresIds,
         language,
       });
@@ -173,128 +154,157 @@ const resolvers: QueryResolvers = {
 
     images: (
       _: {},
-      { id }: TvShowImagesArgs,
+      { id }: LibTypes.TvShowImagesArgs,
       { dataSources }: Context,
     ): Promise<string[]> => dataSources.tmdb.getTVShowImages(id),
 
-    posterPath: ({ poster_path }: TvShowResponse): string | null | undefined =>
+    posterPath: ({ poster_path }: LibTypes.TvShowResponse): string | null | undefined =>
       poster_path,
 
-    reviews: ({ reviews }: TVReview): Review[] => reviews.results,
+    reviews: ({ reviews }: TVReview): LibTypes.Review[] => reviews.results,
 
-    similar: ({ similar }: { similar: SimilarTVShows }): BaseTvShow[] => similar.results,
+    similar: ({ similar }: { similar: SimilarTVShows }): LibTypes.BaseTvShow[] =>
+      similar.results,
 
     lastEpisodeToAir: ({
       last_episode_to_air,
-    }: TvShowResponse): LastEpisodeToAirResponse | null | undefined =>
+    }: LibTypes.TvShowResponse): LibTypes.LastEpisodeToAirResponse | null | undefined =>
       last_episode_to_air,
 
-    backdropPath: ({ backdrop_path }: TvShowResponse): string | null | undefined =>
+    backdropPath: ({
       backdrop_path,
+    }: LibTypes.TvShowResponse): string | null | undefined => backdrop_path,
 
-    createdBy: ({ created_by }: TvShowResponse): CreatorResponse[] | null | undefined =>
+    createdBy: ({
+      created_by,
+    }: LibTypes.TvShowResponse): LibTypes.CreatorResponse[] | null | undefined =>
       created_by,
 
-    episodeRunTime: ({ episode_run_time }: TvShowResponse): number[] | null | undefined =>
+    episodeRunTime: ({
       episode_run_time,
+    }: LibTypes.TvShowResponse): number[] | null | undefined => episode_run_time,
 
-    firstAirDate: ({ first_air_date }: TvShowResponse): string | null | undefined =>
+    firstAirDate: ({
       first_air_date,
+    }: LibTypes.TvShowResponse): string | null | undefined => first_air_date,
 
-    inProduction: ({ in_production }: TvShowResponse): boolean | null | undefined =>
+    inProduction: ({
       in_production,
+    }: LibTypes.TvShowResponse): boolean | null | undefined => in_production,
 
-    lastAirDate: ({ last_air_date }: TvShowResponse): string | null | undefined =>
+    lastAirDate: ({
       last_air_date,
+    }: LibTypes.TvShowResponse): string | null | undefined => last_air_date,
 
-    voteAverage: ({ vote_average }: TvShowResponse): number | null | undefined =>
+    voteAverage: ({ vote_average }: LibTypes.TvShowResponse): number | null | undefined =>
       vote_average,
 
-    voteCount: ({ vote_count }: TvShowResponse): number | null | undefined => vote_count,
+    voteCount: ({ vote_count }: LibTypes.TvShowResponse): number | null | undefined =>
+      vote_count,
 
     productionCompanies: ({
       production_companies,
-    }: TvShowResponse): ProductionCompanyResponse[] | null | undefined =>
-      production_companies,
+    }: LibTypes.TvShowResponse):
+      | LibTypes.ProductionCompanyResponse[]
+      | null
+      | undefined => production_companies,
 
     originalLanguage: ({
       original_language,
-    }: TvShowResponse): string | null | undefined => original_language,
+    }: LibTypes.TvShowResponse): string | null | undefined => original_language,
 
-    originalName: ({ original_name }: TvShowResponse): string | null | undefined =>
+    originalName: ({
       original_name,
+    }: LibTypes.TvShowResponse): string | null | undefined => original_name,
 
     numberOfEpisodes: ({
       number_of_episodes,
-    }: TvShowResponse): number | null | undefined => number_of_episodes,
+    }: LibTypes.TvShowResponse): number | null | undefined => number_of_episodes,
 
-    numberOfSeasons: ({ number_of_seasons }: TvShowResponse): number | null | undefined =>
+    numberOfSeasons: ({
       number_of_seasons,
+    }: LibTypes.TvShowResponse): number | null | undefined => number_of_seasons,
 
-    originCountry: ({ origin_country }: TvShowResponse): string[] | null | undefined =>
+    originCountry: ({
       origin_country,
+    }: LibTypes.TvShowResponse): string[] | null | undefined => origin_country,
   },
 
   BaseTVShow: {
     genreIds: (
-      { genre_ids }: MediaItem,
-      { language }: BaseTvShowGenreIdsArgs,
+      { genre_ids }: TMDBAPITypes.MediaItem,
+      { language }: LibTypes.BaseTvShowGenreIdsArgs,
     ): Promise<string[]> =>
       mediaGenres.handle({
-        mediaType: MediaType.Tv,
+        mediaType: LibTypes.MediaType.Tv,
         genresIds: genre_ids,
         language,
       }),
 
-    originCountry: ({ origin_country }: BaseTvShowResponse): string[] => origin_country,
+    originCountry: ({ origin_country }: LibTypes.BaseTvShowResponse): string[] =>
+      origin_country,
 
-    originalName: ({ original_name }: BaseTvShowResponse): string | null | undefined =>
+    originalName: ({
       original_name,
+    }: LibTypes.BaseTvShowResponse): string | null | undefined => original_name,
 
-    firstAirDate: ({ first_air_date }: BaseTvShowResponse): string | null | undefined =>
+    firstAirDate: ({
       first_air_date,
+    }: LibTypes.BaseTvShowResponse): string | null | undefined => first_air_date,
 
-    backdropPath: ({ backdrop_path }: BaseTvShowResponse): string | null | undefined =>
+    backdropPath: ({
       backdrop_path,
+    }: LibTypes.BaseTvShowResponse): string | null | undefined => backdrop_path,
 
-    voteAverage: ({ vote_average }: BaseTvShowResponse): number | null | undefined =>
+    voteAverage: ({
       vote_average,
+    }: LibTypes.BaseTvShowResponse): number | null | undefined => vote_average,
 
-    mediaType: ({ media_type }: BaseTvShowResponse): string | null | undefined =>
+    mediaType: ({ media_type }: LibTypes.BaseTvShowResponse): string | null | undefined =>
       media_type,
 
-    posterPath: ({ poster_path }: BaseTvShowResponse): string | null | undefined =>
+    posterPath: ({
       poster_path,
+    }: LibTypes.BaseTvShowResponse): string | null | undefined => poster_path,
 
     originalLanguage: ({
       original_language,
-    }: BaseTvShowResponse): string | null | undefined => original_language,
+    }: LibTypes.BaseTvShowResponse): string | null | undefined => original_language,
 
-    voteCount: ({ vote_count }: BaseTvShowResponse): number | null | undefined =>
+    voteCount: ({ vote_count }: LibTypes.BaseTvShowResponse): number | null | undefined =>
       vote_count,
   },
 
   TrendingTVShows: {
     onTheAir: (
       _: {},
-      { args }: TrendingTvShowsOnTheAirArgs,
+      { args }: LibTypes.TrendingTvShowsOnTheAirArgs,
       { dataSources }: Context,
-    ): Promise<TrendingTvShowsQueryResult> =>
-      dataSources.tmdb.getTrendingTVShows(args, TrendingTVShowsEndpoints.OnTheAir),
+    ): Promise<LibTypes.TrendingTvShowsQueryResult> =>
+      dataSources.tmdb.getTrendingTVShows(
+        args,
+        TMDBAPITypes.TrendingTVShowsEndpoints.OnTheAir,
+      ),
 
     popular: (
       _: {},
-      { args }: TrendingTvShowsPopularArgs,
+      { args }: LibTypes.TrendingTvShowsPopularArgs,
       { dataSources }: Context,
-    ): Promise<TrendingTvShowsQueryResult> =>
-      dataSources.tmdb.getTrendingTVShows(args, TrendingTVShowsEndpoints.Popular),
+    ): Promise<LibTypes.TrendingTvShowsQueryResult> =>
+      dataSources.tmdb.getTrendingTVShows(
+        args,
+        TMDBAPITypes.TrendingTVShowsEndpoints.Popular,
+      ),
 
     topRated: (
       _: {},
-      { args }: TrendingTvShowsTopRatedArgs,
+      { args }: LibTypes.TrendingTvShowsTopRatedArgs,
       { dataSources }: Context,
-    ): Promise<TrendingTvShowsQueryResult> =>
-      dataSources.tmdb.getTrendingTVShows(args, TrendingTVShowsEndpoints.TopRated),
+    ): Promise<LibTypes.TrendingTvShowsQueryResult> =>
+      dataSources.tmdb.getTrendingTVShows(
+        args,
+        TMDBAPITypes.TrendingTVShowsEndpoints.TopRated,
+      ),
   },
 };
 

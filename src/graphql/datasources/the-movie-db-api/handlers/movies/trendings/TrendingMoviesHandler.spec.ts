@@ -1,9 +1,9 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { rawMovie } from '../../../../../../../__tests__/mocks/movies';
-import { TrendingMoviesEndpoints } from '../../../../../../@types';
 import { Iso6391Language } from '../../../../../../lib/types';
 import TrendingMoviesHandler from './TrendingMoviesHandler';
+import { TrendingMoviesEndpoints } from '../../../@types';
 
 let trendingMoviesHandler: TrendingMoviesHandler = null;
 

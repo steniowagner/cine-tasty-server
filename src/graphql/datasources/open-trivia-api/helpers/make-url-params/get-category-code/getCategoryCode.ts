@@ -1,4 +1,5 @@
-import { QuestionCategory } from '../../../../../../lib/types';
+import { QuestionCategory } from '@lib/types';
+
 import CONSTANTS from '../../../utils/constants';
 
 const getCategoryCode = (category: QuestionCategory): number => {

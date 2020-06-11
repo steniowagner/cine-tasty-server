@@ -1,5 +1,5 @@
-import { GetTMDBApiRequest } from '@types';
 import { QueryMovieArgs, MovieResponse } from '@lib/types';
+import { GetTMDBApiRequest } from '@tmdb-api-types';
 
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
 import TheMovieDBHandler from '../../TheMovieDBHandler';

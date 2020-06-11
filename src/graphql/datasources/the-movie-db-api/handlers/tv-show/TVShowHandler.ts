@@ -1,4 +1,4 @@
-import { TrendingTVShowsEndpoints, GetTMDBApiRequest } from '@types';
+import { TrendingTVShowsEndpoints, GetTMDBApiRequest } from '@tmdb-api-types';
 import {
   TrendingTvShowsQueryResult,
   TrendingTvShowsArgs,

@@ -1,21 +1,17 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import { ArticleQueryResult, QueryArticlesArgs } from '@lib/types';
-import { GetArticlesResultItem } from '@types';
+import { GetArticlesResultItem } from '@news-api-types';
 
 import { makeRequestParams, parseArticle } from './helpers';
 import CONSTANTS from './utils/constants';
-
-export interface Props {
-  getArticles: (args: QueryArticlesArgs) => Promise<ArticleQueryResult>;
-}
 
 type GetRequestResponse = {
   articles: GetArticlesResultItem[];
   status: string;
 };
 
-class NewsAPI extends RESTDataSource implements Props {
+class NewsAPI extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = CONSTANTS.BASE_URL;
