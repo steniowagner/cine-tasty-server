@@ -2,7 +2,7 @@ import { movieGenres, tvGenres } from '../../../../../../__tests__/mocks/mediaGe
 import { Iso6391Language, MediaType } from '../../../../../lib/types';
 import env from '../../../../../config/environment';
 import MediaGenres from './MediaGenresHandler';
-import CONSTANTS from './utils/constants';
+import CONSTANTS from '../../utils/constants';
 
 const mockRestDataSourceGet = jest.fn();
 

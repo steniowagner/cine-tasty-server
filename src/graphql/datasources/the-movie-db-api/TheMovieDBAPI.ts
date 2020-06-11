@@ -12,10 +12,7 @@ import SearchHandler from './handlers/search/SearchHandler';
 import MoviesHandler from './handlers/movies/MovieHandler';
 
 import { formatLanguage } from './helpers';
-
-const BASE_URL = 'https://api.themoviedb.org/3';
-
-const INVALID_API_KEY_CODE = 7;
+import CONSTANTS from './utils/constants';
 
 class TheMovieDBAPI extends RESTDataSource {
   private tvshowsHandler: TVShowsHandler;
@@ -33,7 +30,7 @@ class TheMovieDBAPI extends RESTDataSource {
     this.searchHandler = new SearchHandler(this.execGetRequest);
     this.personHandler = new PersonHandler(this.execGetRequest);
 
-    this.baseURL = BASE_URL;
+    this.baseURL = CONSTANTS.BASE_URL;
   }
 
   execGetRequest: TMDBAPITypes.GetTMDBApiRequest = async <P, R>(
@@ -55,7 +52,7 @@ class TheMovieDBAPI extends RESTDataSource {
 
     const result = await this.get<R & { status_code?: number }>(endpoint, requestParams);
 
-    if (result.status_code === INVALID_API_KEY_CODE) {
+    if (result.status_code === CONSTANTS.INVALID_API_KEY_CODE) {
       throw new InvalidTMDBApiKey();
     }
 

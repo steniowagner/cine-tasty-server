@@ -4,7 +4,7 @@ import { rawMovieDetail } from '../../../../../../../__tests__/mocks/movies';
 import { Iso6391Language } from '../../../../../../lib/types';
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
 import MovieDetailsHandler from './MovieDetailsHandler';
-import CONSTANTS from '../utils/constants';
+import CONSTANTS from '../../../utils/constants';
 
 jest.mock('apollo-datasource-rest', () => {
   class MockRESTDataSource {

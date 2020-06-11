@@ -3,10 +3,8 @@ const mockRestDataSourceGet = jest.fn();
 import { gql } from 'apollo-server';
 
 import { getImagesResult, images } from '../../../../../../__tests__/mocks/images';
-import MEDIA_GENRES_CONSTANTS from '../../handlers/media-genres/utils/constants';
 import makeTestQuery from '../../../../../../__tests__/utils/makeTestQuery';
 import { movieGenres } from '../../../../../../__tests__/mocks/mediaGenres';
-import MOVIES_CONSTANTS from '../../handlers/movies/utils/constants';
 import { TrendingMoviesEndpoints } from '../../@types';
 import env from '../../../../../config/environment';
 import {
@@ -201,7 +199,7 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
         {
-          append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
         },
@@ -236,7 +234,7 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
         {
-          append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'en-us',
         },
@@ -275,19 +273,16 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         `${CONSTANTS.MOVIE_ENDPOINT}/${id}`,
 
         {
-          append_to_response: MOVIES_CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
+          append_to_response: CONSTANTS.APPEND_TO_MOVIE_RESPONSE,
           api_key: env.THE_MOVIE_DB_API_KEY,
           language: 'pt-br',
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'pt-br',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'pt-br',
+      });
 
       expect(data.movie).toEqual(movieDetail);
     });
@@ -366,37 +361,25 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
       expect(data.trendingMovies.nowPlaying).toEqual({
         totalResults: 1,
@@ -487,13 +470,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
       expect(data.trendingMovies.nowPlaying).toEqual({
         totalResults: 1,
@@ -563,13 +543,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
       expect(data.trendingMovies.popular).toEqual({
         totalResults: 1,
@@ -639,13 +616,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
       expect(data.trendingMovies.topRated).toEqual({
         totalResults: 1,
@@ -715,13 +689,10 @@ describe('Integration: DataSources/TheMovieDBAPI/Movies - Queries', () => {
         },
       );
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
-        MEDIA_GENRES_CONSTANTS.GENRE_MOVIE_ENDPOINT,
-        {
-          api_key: env.THE_MOVIE_DB_API_KEY,
-          language: 'en-us',
-        },
-      );
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(CONSTANTS.GENRE_MOVIE_ENDPOINT, {
+        api_key: env.THE_MOVIE_DB_API_KEY,
+        language: 'en-us',
+      });
 
       expect(data.trendingMovies.upcoming).toEqual({
         totalResults: 1,

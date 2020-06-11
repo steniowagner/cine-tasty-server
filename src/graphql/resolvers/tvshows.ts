@@ -30,7 +30,7 @@ const resolvers: LibTypes.QueryResolvers = {
       _: {},
       args: LibTypes.QueryTvShowArgs,
       { dataSources }: Context,
-    ): Promise<LibTypes.TvShow | null> => dataSources.tmdb.getTVShow(args),
+    ): Promise<LibTypes.TvShowResponse | null> => dataSources.tmdb.getTVShow(args),
   },
 
   Creator: {

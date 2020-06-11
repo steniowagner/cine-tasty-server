@@ -1,6 +1,6 @@
 import { MediaType } from '@lib/types';
 
-import CONSTANTS from '../../utils/constants';
+import CONSTANTS from '../../../../utils/constants';
 
 export const getEndpoint = (mediaType: string): string => {
   let endpoint = '';
