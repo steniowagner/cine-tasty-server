@@ -1,6 +1,6 @@
 import { RESTDataSource, HTTPCache } from 'apollo-datasource-rest';
 
-import { TheMovieDBHandler, MediaGenre } from '@tmdb-api-types';
+import { MediaGenre } from '@tmdb-api-types';
 import { Iso6391Language } from '@lib/types';
 import env from '@config/environment';
 
@@ -19,7 +19,7 @@ type MediaGenresResponse = {
   genres: MediaGenre[];
 };
 
-class MediaGenresHandler extends RESTDataSource implements TheMovieDBHandler<Params> {
+class MediaGenresHandler extends RESTDataSource {
   constructor() {
     super();
     this.baseURL = CONSTANTS.MEDIA_GENRES_BASE_URL;

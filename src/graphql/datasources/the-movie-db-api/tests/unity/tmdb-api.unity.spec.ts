@@ -1,6 +1,6 @@
 const mockRestDataSourceGet = jest.fn();
 
-import { InvalidTMDBApiKey } from '../../../../../errors';
+import { InvalidTMDBApiKeyError } from '../../../../../errors';
 import env from '../../../../../config/environment';
 import TheMovieDBAPI from '../../TheMovieDBAPI';
 
@@ -28,7 +28,7 @@ describe('Unity: TheMovieDBAPI', () => {
       const tmdbAPI = new TheMovieDBAPI();
 
       expect(tmdbAPI.execGetRequest('endpoint', {})).rejects.toThrowError(
-        InvalidTMDBApiKey,
+        InvalidTMDBApiKeyError,
       );
 
       expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);

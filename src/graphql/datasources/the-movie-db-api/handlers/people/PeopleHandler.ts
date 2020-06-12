@@ -1,7 +1,7 @@
 import { PeopleQueryResult, BasePerson, QueryPeopleArgs } from '@lib/types';
 import { GetTMDBApiRequest, BasePaginationResponse } from '@tmdb-api-types';
 
-import TheMovieDBHandler from '../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../TheMovieDBAPIHandler';
 import CONSTANTS from '../../utils/constants';
 
 type GetPeopleResponse = BasePaginationResponse & {
@@ -10,7 +10,7 @@ type GetPeopleResponse = BasePaginationResponse & {
 
 type GetRequestParams = { page: number };
 
-class PeopleHandler extends TheMovieDBHandler<QueryPeopleArgs> {
+class PeopleHandler extends TheMovieDBAPIHandler<QueryPeopleArgs> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }

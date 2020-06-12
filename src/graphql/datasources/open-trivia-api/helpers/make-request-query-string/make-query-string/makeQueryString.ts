@@ -1,6 +1,6 @@
 import { OpenTriviaQueryParams } from '@open-trivia-api-types';
 
-export const makeQueryString = (queryParams: OpenTriviaQueryParams): string => {
+const makeQueryString = (queryParams: OpenTriviaQueryParams): string => {
   return Object.entries(queryParams)
     .reduce((accumulator: string[], current) => {
       const [key, value] = current;
@@ -9,3 +9,5 @@ export const makeQueryString = (queryParams: OpenTriviaQueryParams): string => {
     }, [])
     .join('&');
 };
+
+export default makeQueryString;

@@ -1,13 +1,13 @@
 import { QueryMovieArgs, MovieResponse } from '@lib/types';
 import { GetTMDBApiRequest } from '@tmdb-api-types';
 
+import TheMovieDBAPIHandler from '../../TheMovieDBAPIHandler';
 import TMDBAPI_CONSTANTS from '../../../utils/constants';
-import TheMovieDBHandler from '../../TheMovieDBHandler';
 import CONSTANTS from '../../../utils/constants';
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
-class MovieDetailsHandler extends TheMovieDBHandler<QueryMovieArgs> {
+class MovieDetailsHandler extends TheMovieDBAPIHandler<QueryMovieArgs> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }

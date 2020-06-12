@@ -1,5 +1,5 @@
 import { GetArticlesResultItem } from '@news-api-types';
-import { Article } from 'lib/types';
+import { Article } from '@lib/types';
 
 export const parseArticle = ({
   publishedAt,

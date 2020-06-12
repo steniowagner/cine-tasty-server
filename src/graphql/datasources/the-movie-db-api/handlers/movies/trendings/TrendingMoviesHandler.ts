@@ -5,7 +5,7 @@ import {
   GetTMDBApiRequest,
 } from '@tmdb-api-types';
 
-import TheMovieDBHandler from '../../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../../TheMovieDBAPIHandler';
 
 type GetBaseMovieResponse = BasePaginationResponse & {
   results: BaseMovie[];
@@ -18,7 +18,7 @@ export type Params = {
   args: TrendingMoviesArgs;
 };
 
-class TrendingMoviesHandler extends TheMovieDBHandler<Params> {
+class TrendingMoviesHandler extends TheMovieDBAPIHandler<Params> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }

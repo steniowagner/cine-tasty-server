@@ -2,10 +2,10 @@
 
 import { GetTMDBApiRequest } from '@tmdb-api-types';
 
-abstract class TheMovieDBHandler<P> {
+abstract class TheMovieDBAPIHandler<P> {
   constructor(public get: GetTMDBApiRequest) {}
 
   abstract handle(params: P): Promise<any>;
 }
 
-export default TheMovieDBHandler;
+export default TheMovieDBAPIHandler;

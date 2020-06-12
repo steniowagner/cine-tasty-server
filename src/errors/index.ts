@@ -1,2 +1,2 @@
-export { SearchQueryEmpty } from './SearchQueryEmpty';
-export { InvalidTMDBApiKey } from './InvalidTMDBApiKey';
+export { SearchQueryEmptyError } from './SearchQueryEmpty';
+export { InvalidTMDBApiKeyError } from './InvalidTMDBApiKey';

@@ -1,12 +1,11 @@
-import { GetTMDBApiRequest, GetImagesResponse, TheMovieDBHandler } from '@tmdb-api-types';
+import { GetTMDBApiRequest, GetImagesResponse } from '@tmdb-api-types';
 
+import TheMovieDBAPIHandler from '../../TheMovieDBAPIHandler';
 import CONSTANTS from '../../../utils/constants';
 
-class MovieImagesHandler implements TheMovieDBHandler<string> {
-  get: GetTMDBApiRequest;
-
-  constructor(execGetRequest: GetTMDBApiRequest) {
-    this.get = execGetRequest;
+class MovieImagesHandler extends TheMovieDBAPIHandler<string> {
+  constructor(getRequest: GetTMDBApiRequest) {
+    super(getRequest);
   }
 
   async handle(id: string): Promise<string[]> {

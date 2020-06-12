@@ -14,8 +14,6 @@ const server = new ApolloServer({
     ...dataSources,
     openTrivia: new OpenTriviaAPI(),
   }),
-  resolvers,
-  typeDefs,
   formatError: (error: GraphQLError): Error => {
     if (error.originalError instanceof ApolloError) {
       return error;
@@ -25,6 +23,8 @@ const server = new ApolloServer({
 
     return new GraphQLError(error.message);
   },
+  resolvers,
+  typeDefs,
 });
 
 server
