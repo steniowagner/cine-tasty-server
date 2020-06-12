@@ -1,9 +1,9 @@
 import { GetTMDBApiRequest, GetImagesResponse } from '@tmdb-api-types';
 
-import TheMovieDBHandler from '../../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../../TheMovieDBAPIHandler';
 import CONSTANTS from '../../../utils/constants';
 
-class TVShowImagesHandler extends TheMovieDBHandler<string> {
+class TVShowImagesHandler extends TheMovieDBAPIHandler<string> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }

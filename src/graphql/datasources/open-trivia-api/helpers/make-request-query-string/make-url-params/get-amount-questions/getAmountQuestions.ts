@@ -1,4 +1,4 @@
-import CONSTANTS from '../../../utils/constants';
+import CONSTANTS from '../../../../utils/constants';
 
 const getQuestionAmount = (amount: number): number => {
   if (amount < CONSTANTS.MIN_QUESTIONS_REQUEST) {

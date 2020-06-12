@@ -4,7 +4,7 @@ import { OpenTriviaQueryParams } from '@open-trivia-api-types';
 import getQuestionAmount from './get-amount-questions/getAmountQuestions';
 import getCategoryCode from './get-category-code/getCategoryCode';
 
-export const makeURLParams = ({
+const makeURLParams = ({
   numberOfQuestions,
   difficulty,
   category,
@@ -29,3 +29,5 @@ export const makeURLParams = ({
 
   return queryParams;
 };
+
+export default makeURLParams;

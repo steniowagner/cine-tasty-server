@@ -1,7 +1,7 @@
 const mockRestDataSourceGet = jest.fn();
 
 import { Iso6391Language, SearchType } from '../../../../../lib/types';
-import { SearchQueryEmpty } from '../../../../../errors';
+import { SearchQueryEmptyError } from '../../../../../errors';
 import {
   rawSearchTvShow,
   searchTvShow,
@@ -260,6 +260,6 @@ describe('Unity: DataSources/TheMovieDBAPI/handlers/PersonHandler', () => {
 
     const personHandler = new SearchHandler(mockRestDataSourceGet);
 
-    expect(personHandler.handle(params)).rejects.toEqual(new SearchQueryEmpty());
+    expect(personHandler.handle(params)).rejects.toEqual(new SearchQueryEmptyError());
   });
 });

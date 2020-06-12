@@ -1,8 +1,8 @@
 import { SearchResultItem, SearchQueryResult, SearchInput } from '@lib/types';
 import { GetTMDBApiRequest, BasePaginationResponse } from '@tmdb-api-types';
-import { SearchQueryEmpty } from '@errors';
+import { SearchQueryEmptyError } from '@errors';
 
-import TheMovieDBHandler from '../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../TheMovieDBAPIHandler';
 import CONSTANTS from '../../utils/constants';
 
 type SearchParams = {
@@ -14,7 +14,7 @@ type GetRequestResult = BasePaginationResponse & {
   results: SearchResultItem[];
 };
 
-class SearchHandler extends TheMovieDBHandler<SearchInput> {
+class SearchHandler extends TheMovieDBAPIHandler<SearchInput> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }
@@ -23,7 +23,7 @@ class SearchHandler extends TheMovieDBHandler<SearchInput> {
     const endpoint = `${CONSTANTS.SEARCH_ENDPOINT}/${type.toLowerCase()}`;
 
     if (!query) {
-      throw new SearchQueryEmpty();
+      throw new SearchQueryEmptyError();
     }
 
     const {

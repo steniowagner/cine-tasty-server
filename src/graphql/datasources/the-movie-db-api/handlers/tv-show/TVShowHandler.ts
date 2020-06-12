@@ -8,15 +8,15 @@ import {
 
 import TVShowDetailsHandler from './details/TVShowDetailsHandler';
 import TVShowImagesHandler from './images/TVShowImagesHandler';
-import TheMovieDBHandler from '../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../TheMovieDBAPIHandler';
 import TVShowTrendingsHandler, {
   Params as TVShowTrendingsParams,
 } from './trendings/TVShowTrendingsHandler';
 
 class TVShowHandler {
-  private trendingsHandler: TheMovieDBHandler<TVShowTrendingsParams>;
-  private detailsHandler: TheMovieDBHandler<QueryTvShowArgs>;
-  private imagesHandler: TheMovieDBHandler<string>;
+  private trendingsHandler: TheMovieDBAPIHandler<TVShowTrendingsParams>;
+  private detailsHandler: TheMovieDBAPIHandler<QueryTvShowArgs>;
+  private imagesHandler: TheMovieDBAPIHandler<string>;
 
   constructor(getRequest: GetTMDBApiRequest) {
     this.trendingsHandler = new TVShowTrendingsHandler(getRequest);

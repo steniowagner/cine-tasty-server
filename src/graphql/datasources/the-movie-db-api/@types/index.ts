@@ -78,8 +78,3 @@ export type BasePaginationResponse = {
   total_pages: number;
   page: number;
 };
-
-export interface TheMovieDBHandler<P> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handle: (params: P) => Promise<any>;
-}

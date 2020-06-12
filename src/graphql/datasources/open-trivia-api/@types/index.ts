@@ -1,3 +1,5 @@
+import { Question } from '@lib/types';
+
 export type QuestionResponse = {
   incorrect_answers: string[];
   correct_answer: string;
@@ -13,3 +15,17 @@ export type OpenTriviaQueryParams = {
   amount: number;
   type?: string;
 };
+
+export interface OpenTriviaAPIHandler<P> {
+  handle(params: P): Promise<Question[]>;
+}
+
+export type GetRequestResponse = {
+  results: QuestionResponse[];
+  response_code: number;
+};
+
+export type GetOpenTriviaAPIRequest = (
+  endpoint: string,
+  queryString: string,
+) => Promise<GetRequestResponse>;

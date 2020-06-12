@@ -3,15 +3,15 @@ import * as LibTypes from '@lib/types';
 
 import MovieDetailsHandler from './details/MovieDetailsHandler';
 import MovieImagesHandler from './images/MovieImagesHandler';
-import TheMovieDBHandler from '../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../TheMovieDBAPIHandler';
 import TrendingMoviesHandler, {
   Params as TrendingMoviesHandlerParams,
 } from './trendings/TrendingMoviesHandler';
 
 class MovieHandler {
-  private trendingsHandler: TheMovieDBHandler<TrendingMoviesHandlerParams>;
-  private detailsHandler: TheMovieDBHandler<LibTypes.QueryMovieArgs>;
-  private imagesHandler: TheMovieDBHandler<string>;
+  private trendingsHandler: TheMovieDBAPIHandler<TrendingMoviesHandlerParams>;
+  private detailsHandler: TheMovieDBAPIHandler<LibTypes.QueryMovieArgs>;
+  private imagesHandler: TheMovieDBAPIHandler<string>;
 
   constructor(getRequest: GetTMDBApiRequest) {
     this.trendingsHandler = new TrendingMoviesHandler(getRequest);

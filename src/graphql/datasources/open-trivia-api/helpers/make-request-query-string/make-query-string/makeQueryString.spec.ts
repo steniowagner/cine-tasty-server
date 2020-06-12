@@ -1,6 +1,6 @@
-import { QuestionDifficulty, QuestionType } from '../../../../../lib/types';
-import { makeQueryString } from './makeQueryString';
-import CONSTANTS from '../../utils/constants';
+import { QuestionDifficulty, QuestionType } from '../../../../../../lib/types';
+import makeQueryString from './makeQueryString';
+import CONSTANTS from '../../../utils/constants';
 
 describe('Testing Helper: OpenTriviaAPI/parseQueryParams', () => {
   it('should return the query-string correctly when all the query-params fields are provided', () => {

@@ -1,89 +1,48 @@
+import { QuestionCategory, QuizInput, Question } from '@lib/types';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import { QuestionCategory, QuizInput, Question } from '@lib/types';
-import shuffleArray from '@utils/shuffle-array/shuffleArray';
-import { QuestionResponse } from '@open-trivia-api-types';
+import { GetRequestResponse, GetOpenTriviaAPIRequest } from '@open-trivia-api-types';
 
-import {
-  drawnTypeQuestionMixed,
-  makeQueryString,
-  makeURLParams,
-  parseResult,
-} from './helpers';
+import QuestionsMixedTypesHandler from './handlers/questions-mixed-types/QuestionsMixedTypesHandler';
+import QuestionSingleTypeHandler from './handlers/question-single-type/QuestionSingleTypeHandler';
 
 import CONSTANTS from './utils/constants';
 
-type GetRequestResponse = {
-  results: QuestionResponse[];
-  response_code: number;
-};
-
 class OpenTriviaAPI extends RESTDataSource {
+  questionsMixedTypesHandler: QuestionsMixedTypesHandler;
+  questionSingleTypeHandler: QuestionSingleTypeHandler;
+
   constructor() {
     super();
+
+    this.questionSingleTypeHandler = new QuestionSingleTypeHandler(this.execGetRequest);
+
+    this.questionsMixedTypesHandler = new QuestionsMixedTypesHandler(
+      this.questionSingleTypeHandler,
+    );
+
     this.baseURL = CONSTANTS.BASE_URL;
   }
 
+  private execGetRequest: GetOpenTriviaAPIRequest = async (
+    endpoint: string,
+    queryString: string,
+  ): Promise<GetRequestResponse> => this.get<GetRequestResponse>(endpoint, queryString);
+
   async getQuestions(input: QuizInput): Promise<Question[]> {
     if (input.category.toLowerCase() === QuestionCategory.Mixed.toLowerCase()) {
-      return this.getQuestionsMixedTypes({
+      const questionsMixedTypes = await this.questionsMixedTypesHandler.handle({
         numberOfQuestions: input.numberOfQuestions,
         difficulty: input.difficulty,
         type: input.type,
       });
+
+      return questionsMixedTypes;
     }
 
-    return this.getQuestionsSingleType(input);
-  }
+    const questionsSingleType = this.questionSingleTypeHandler.handle(input);
 
-  async getQuestionsMixedTypes(input: Omit<QuizInput, 'category'>): Promise<Question[]> {
-    if (input.numberOfQuestions === 1) {
-      return this.getQuestionsSingleType({
-        ...input,
-        category: drawnTypeQuestionMixed(),
-      });
-    }
-
-    const movieQuestionsAmount = Math.ceil(input.numberOfQuestions / 2);
-    const tvQuestionsAmount = Math.floor(input.numberOfQuestions / 2);
-
-    const [tvQuestions, movieQuestions] = await Promise.all<Question[], Question[]>([
-      this.getQuestionsSingleType({
-        ...input,
-        category: QuestionCategory.Tv,
-        numberOfQuestions: tvQuestionsAmount,
-      }),
-      this.getQuestionsSingleType({
-        ...input,
-        category: QuestionCategory.Movie,
-        numberOfQuestions: movieQuestionsAmount,
-      }),
-    ]);
-
-    return shuffleArray<Question>([...tvQuestions, ...movieQuestions]);
-  }
-
-  getRequestQueryString(input: QuizInput): string {
-    const urlParams = makeURLParams(input);
-
-    const queryString = makeQueryString(urlParams);
-
-    return queryString;
-  }
-
-  async getQuestionsSingleType(input: QuizInput): Promise<Question[]> {
-    const queryString = this.getRequestQueryString(input);
-
-    const { results, response_code: responseCode } = await this.get<GetRequestResponse>(
-      CONSTANTS.ENDPOINT,
-      queryString,
-    );
-
-    if (responseCode === CONSTANTS.NO_RESPONSE_CODE) {
-      return [];
-    }
-
-    return parseResult(results);
+    return questionsSingleType;
   }
 }
 

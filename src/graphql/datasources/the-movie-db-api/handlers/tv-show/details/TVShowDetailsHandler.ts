@@ -1,12 +1,12 @@
 import { QueryTvShowArgs, TvShowResponse } from '@lib/types';
 import { GetTMDBApiRequest } from '@tmdb-api-types';
 
-import TheMovieDBHandler from '../../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../../TheMovieDBAPIHandler';
 import CONSTANTS from '../../../utils/constants';
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
-class TVShowDetailsHandler extends TheMovieDBHandler<QueryTvShowArgs> {
+class TVShowDetailsHandler extends TheMovieDBAPIHandler<QueryTvShowArgs> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }

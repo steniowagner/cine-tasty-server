@@ -1,5 +1,5 @@
 import getQuestionAmount from './getAmountQuestions';
-import CONSTANTS from '../../../utils/constants';
+import CONSTANTS from '../../../../utils/constants';
 
 describe('Testing Helper: OpenTriviaAPI/getQuestionAmount', () => {
   it('it should return the minimum number of questions when the amount received is less than the minimum number of questions', () => {

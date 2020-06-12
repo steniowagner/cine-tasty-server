@@ -2,7 +2,7 @@ import { GetPersonImagesResult, GetTMDBApiRequest } from '@tmdb-api-types';
 import { PersonResponse, QueryPersonArgs, Cast } from '@lib/types';
 
 import { getPersonProfileImages } from '../../helpers';
-import TheMovieDBHandler from '../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../TheMovieDBAPIHandler';
 import CONSTANTS from '../../utils/constants';
 
 type GetPersonResponse = Omit<PersonResponse, 'images'> & {
@@ -14,7 +14,7 @@ type GetCastResponse = {
   cast: Cast[];
 };
 
-class PersonHandler extends TheMovieDBHandler<QueryPersonArgs> {
+class PersonHandler extends TheMovieDBAPIHandler<QueryPersonArgs> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }

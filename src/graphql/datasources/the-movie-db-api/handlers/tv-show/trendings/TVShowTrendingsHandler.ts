@@ -5,7 +5,7 @@ import {
   GetTMDBApiRequest,
 } from '@tmdb-api-types';
 
-import TheMovieDBHandler from '../../TheMovieDBHandler';
+import TheMovieDBAPIHandler from '../../TheMovieDBAPIHandler';
 
 type GetRequestParams = { page: number } | { append_to_response: string } | {};
 
@@ -18,7 +18,7 @@ export type Params = {
   args: TrendingTvShowsArgs;
 };
 
-class TVShowTrendingsHandler extends TheMovieDBHandler<Params> {
+class TVShowTrendingsHandler extends TheMovieDBAPIHandler<Params> {
   constructor(getRequest: GetTMDBApiRequest) {
     super(getRequest);
   }
