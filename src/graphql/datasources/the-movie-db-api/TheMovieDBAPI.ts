@@ -3,7 +3,6 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import * as TMDBAPITypes from '@tmdb-api-types';
 import { InvalidTMDBApiKeyError } from '@errors';
 import * as LibTypes from '@lib/types';
-import env from '@config/environment';
 
 import TVShowsHandler from './handlers/tv-show/TVShowHandler';
 import PeopleHandler from './handlers/people/PeopleHandler';
@@ -11,7 +10,7 @@ import PersonHandler from './handlers/person/PersonHandler';
 import SearchHandler from './handlers/search/SearchHandler';
 import MoviesHandler from './handlers/movies/MovieHandler';
 
-import { formatLanguage } from './helpers';
+import { makeRequestParams } from './helpers';
 import CONSTANTS from './utils/constants';
 
 class TheMovieDBAPI extends RESTDataSource {
@@ -38,17 +37,7 @@ class TheMovieDBAPI extends RESTDataSource {
     params: P,
     language?: LibTypes.Iso6391Language | null,
   ): Promise<R & { status_code?: number }> => {
-    let requestParams = {
-      ...params,
-      api_key: env.THE_MOVIE_DB_API_KEY,
-    };
-
-    if (language !== null) {
-      requestParams = {
-        ...requestParams,
-        language: formatLanguage(language),
-      };
-    }
+    const requestParams = makeRequestParams<P>(params, language);
 
     const result = await this.get<R & { status_code?: number }>(endpoint, requestParams);
 
