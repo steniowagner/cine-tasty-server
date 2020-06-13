@@ -64,8 +64,5 @@
     "apollo-datasource-rest": "^0.6.11",
     "apollo-server": "^2.9.15",
     "dotenv": "^8.2.0"
-  },
-  "_moduleAliases": {
-    "@open-trivia-api-types": "dist/graphql/datasources/open-trivia-api/@types"
   }
 }
