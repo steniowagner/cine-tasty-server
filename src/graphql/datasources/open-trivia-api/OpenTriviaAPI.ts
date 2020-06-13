@@ -1,11 +1,10 @@
-import { QuestionCategory, QuizInput, Question } from '@lib/types';
 import { RESTDataSource } from 'apollo-datasource-rest';
 
 import { GetRequestResponse, GetOpenTriviaAPIRequest } from '@open-trivia-api-types';
+import { QuestionCategory, QuizInput, Question } from '@lib/types';
 
 import QuestionsMixedTypesHandler from './handlers/questions-mixed-types/QuestionsMixedTypesHandler';
 import QuestionSingleTypeHandler from './handlers/question-single-type/QuestionSingleTypeHandler';
-
 import CONSTANTS from './utils/constants';
 
 class OpenTriviaAPI extends RESTDataSource {

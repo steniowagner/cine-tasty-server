@@ -1,10 +1,7 @@
 const mockRestDataSourceGet = jest.fn();
 
+import { rawArticleWithId } from '../../../../../../__tests__/mocks/articles';
 import { ArticleLanguage } from '../../../../../lib/types';
-import {
-  rawArticleWithId,
-  articleWithId,
-} from '../../../../../../__tests__/mocks/articles';
 import env from '../../../../../config/environment';
 import { makeDateParam } from '../../helpers';
 import CONSTANTS from '../../utils/constants';
@@ -64,7 +61,7 @@ describe('Unity: DataSources/NewsAPI', () => {
       const result = await newsAPI.getArticles({ page: 1, language: ArticleLanguage.En });
 
       expect(result).toEqual({
-        items: [articleWithId],
+        items: [rawArticleWithId],
         hasMore: false,
       });
     });
@@ -80,7 +77,7 @@ describe('Unity: DataSources/NewsAPI', () => {
       const result = await newsAPI.getArticles({ page: 1, language: ArticleLanguage.En });
 
       expect(result).toEqual({
-        items: Array(CONSTANTS.PAGE_SIZE).fill(articleWithId),
+        items: Array(CONSTANTS.PAGE_SIZE).fill(rawArticleWithId),
         hasMore: true,
       });
     });

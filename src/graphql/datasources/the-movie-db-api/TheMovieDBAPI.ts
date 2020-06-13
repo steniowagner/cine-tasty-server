@@ -1,7 +1,7 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
 
-import * as TMDBAPITypes from '@tmdb-api-types';
 import { InvalidTMDBApiKeyError } from '@errors';
+import * as TMDBAPITypes from '@tmdb-api-types';
 import * as LibTypes from '@lib/types';
 
 import TVShowsHandler from './handlers/tv-show/TVShowHandler';
