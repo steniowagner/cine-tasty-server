@@ -3,7 +3,7 @@ import { RESTDataSource } from 'apollo-datasource-rest';
 import { ArticleQueryResult, QueryArticlesArgs } from '@lib/types';
 import { GetArticlesResultItem } from '@news-api-types';
 
-import { makeRequestParams, parseArticle } from './helpers';
+import { makeRequestParams } from './helpers';
 import CONSTANTS from './utils/constants';
 
 type GetRequestResponse = {
@@ -23,13 +23,9 @@ class NewsAPI extends RESTDataSource {
     try {
       const { articles } = await this.get<GetRequestResponse>(CONSTANTS.ENDPOINT, params);
 
-      const result = articles.map((article: GetArticlesResultItem) =>
-        parseArticle(article),
-      );
-
       return {
         hasMore: articles.length === CONSTANTS.PAGE_SIZE,
-        items: result,
+        items: articles,
       };
     } catch (err) {
       return {
