@@ -43,9 +43,27 @@ export enum ArticleLanguage {
   Zh = 'ZH'
 }
 
-export type ArticleQueryResult = {
-   __typename?: 'ArticleQueryResult',
+export type ArticleResponse = {
+   __typename?: 'ArticleResponse',
+  description?: Maybe<Scalars['String']>,
+  content?: Maybe<Scalars['String']>,
+  urlToImage?: Maybe<Scalars['String']>,
+  author?: Maybe<Scalars['String']>,
+  publishedAt?: Maybe<Scalars['String']>,
+  source: Source,
+  url?: Maybe<Scalars['String']>,
+  title?: Maybe<Scalars['String']>,
+};
+
+export type Articles = {
+   __typename?: 'Articles',
   items: Array<Article>,
+  hasMore: Scalars['Boolean'],
+};
+
+export type ArticlesResult = {
+   __typename?: 'ArticlesResult',
+  items: Array<ArticleResponse>,
   hasMore: Scalars['Boolean'],
 };
 
@@ -819,7 +837,7 @@ export type Query = {
   trendingTvShows: TrendingTvShows,
   tvShow?: Maybe<TvShow>,
   movie?: Maybe<Movie>,
-  articles: ArticleQueryResult,
+  articles: Articles,
   people: PeopleQueryResult,
   person?: Maybe<Person>,
   quiz: Array<Question>,
@@ -952,6 +970,12 @@ export type SeasonResponse = {
   overview?: Maybe<Scalars['String']>,
   poster_path?: Maybe<Scalars['String']>,
   season_number?: Maybe<Scalars['Int']>,
+};
+
+export type Source = {
+   __typename?: 'Source',
+  name?: Maybe<Scalars['String']>,
+  id?: Maybe<Scalars['String']>,
 };
 
 export type Thumbnail = {
@@ -1247,7 +1271,7 @@ export type ResolversTypes = ResolversObject<{
   Review: ResolverTypeWrapper<Review>;
   Movie: ResolverTypeWrapper<Movie>;
   ArticleLanguage: ArticleLanguage;
-  ArticleQueryResult: ResolverTypeWrapper<ArticleQueryResult>;
+  Articles: ResolverTypeWrapper<Articles>;
   Article: ResolverTypeWrapper<Article>;
   PeopleQueryResult: ResolverTypeWrapper<PeopleQueryResult>;
   Person: ResolverTypeWrapper<Person>;
@@ -1268,6 +1292,9 @@ export type ResolversTypes = ResolversObject<{
   SeasonResponse: ResolverTypeWrapper<SeasonResponse>;
   TVShowResponse: ResolverTypeWrapper<TvShowResponse>;
   BaseTVShowResponse: ResolverTypeWrapper<BaseTvShowResponse>;
+  ArticlesResult: ResolverTypeWrapper<ArticlesResult>;
+  ArticleResponse: ResolverTypeWrapper<ArticleResponse>;
+  Source: ResolverTypeWrapper<Source>;
   CastResponse: ResolversTypes['CastMovieResponse'] | ResolversTypes['CastTVShowResponse'];
   CastMovieResponse: ResolverTypeWrapper<CastMovieResponse>;
   CastTVShowResponse: ResolverTypeWrapper<CastTvShowResponse>;
@@ -1317,7 +1344,7 @@ export type ResolversParentTypes = ResolversObject<{
   Review: Review;
   Movie: Movie;
   ArticleLanguage: ArticleLanguage;
-  ArticleQueryResult: ArticleQueryResult;
+  Articles: Articles;
   Article: Article;
   PeopleQueryResult: PeopleQueryResult;
   Person: Person;
@@ -1338,6 +1365,9 @@ export type ResolversParentTypes = ResolversObject<{
   SeasonResponse: SeasonResponse;
   TVShowResponse: TvShowResponse;
   BaseTVShowResponse: BaseTvShowResponse;
+  ArticlesResult: ArticlesResult;
+  ArticleResponse: ArticleResponse;
+  Source: Source;
   CastResponse: ResolversParentTypes['CastMovieResponse'] | ResolversParentTypes['CastTVShowResponse'];
   CastMovieResponse: CastMovieResponse;
   CastTVShowResponse: CastTvShowResponse;
@@ -1364,8 +1394,26 @@ export type ArticleResolvers<ContextType = any, ParentType extends ResolversPare
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 
-export type ArticleQueryResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['ArticleQueryResult'] = ResolversParentTypes['ArticleQueryResult']> = ResolversObject<{
+export type ArticleResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ArticleResponse'] = ResolversParentTypes['ArticleResponse']> = ResolversObject<{
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  urlToImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  publishedAt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  source?: Resolver<ResolversTypes['Source'], ParentType, ContextType>;
+  url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type ArticlesResolvers<ContextType = any, ParentType extends ResolversParentTypes['Articles'] = ResolversParentTypes['Articles']> = ResolversObject<{
   items?: Resolver<Array<ResolversTypes['Article']>, ParentType, ContextType>;
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type ArticlesResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['ArticlesResult'] = ResolversParentTypes['ArticlesResult']> = ResolversObject<{
+  items?: Resolver<Array<ResolversTypes['ArticleResponse']>, ParentType, ContextType>;
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
@@ -1843,7 +1891,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   trendingTvShows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType>;
   tvShow?: Resolver<Maybe<ResolversTypes['TVShow']>, ParentType, ContextType, RequireFields<QueryTvShowArgs, 'id'>>;
   movie?: Resolver<Maybe<ResolversTypes['Movie']>, ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>;
-  articles?: Resolver<ResolversTypes['ArticleQueryResult'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page' | 'language'>>;
+  articles?: Resolver<ResolversTypes['Articles'], ParentType, ContextType, RequireFields<QueryArticlesArgs, 'page' | 'language'>>;
   people?: Resolver<ResolversTypes['PeopleQueryResult'], ParentType, ContextType, RequireFields<QueryPeopleArgs, 'page'>>;
   person?: Resolver<Maybe<ResolversTypes['Person']>, ParentType, ContextType, RequireFields<QueryPersonArgs, 'id'>>;
   quiz?: Resolver<Array<ResolversTypes['Question']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>;
@@ -1897,6 +1945,12 @@ export type SeasonResponseResolvers<ContextType = any, ParentType extends Resolv
   overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   poster_path?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   season_number?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+
+export type SourceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Source'] = ResolversParentTypes['Source']> = ResolversObject<{
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 
@@ -2020,7 +2074,9 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 
 export type Resolvers<ContextType = any> = ResolversObject<{
   Article?: ArticleResolvers<ContextType>;
-  ArticleQueryResult?: ArticleQueryResultResolvers<ContextType>;
+  ArticleResponse?: ArticleResponseResolvers<ContextType>;
+  Articles?: ArticlesResolvers<ContextType>;
+  ArticlesResult?: ArticlesResultResolvers<ContextType>;
   BaseMovie?: BaseMovieResolvers<ContextType>;
   BaseMovieResponse?: BaseMovieResponseResolvers<ContextType>;
   BasePerson?: BasePersonResolvers<ContextType>;
@@ -2060,6 +2116,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   SearchResultItem?: SearchResultItemResolvers;
   Season?: SeasonResolvers<ContextType>;
   SeasonResponse?: SeasonResponseResolvers<ContextType>;
+  Source?: SourceResolvers<ContextType>;
   Thumbnail?: ThumbnailResolvers<ContextType>;
   TrendingMovies?: TrendingMoviesResolvers<ContextType>;
   TrendingMoviesQueryResult?: TrendingMoviesQueryResultResolvers<ContextType>;

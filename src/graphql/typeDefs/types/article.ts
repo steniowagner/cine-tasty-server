@@ -18,9 +18,30 @@ export default gql`
     ZH
   }
 
-  type ArticleQueryResult {
+  type Articles {
     items: [Article!]!
     hasMore: Boolean!
+  }
+
+  type ArticlesResult {
+    items: [ArticleResponse!]!
+    hasMore: Boolean!
+  }
+
+  type Source {
+    name: String
+    id: String
+  }
+
+  type ArticleResponse {
+    description: String
+    content: String
+    urlToImage: String
+    author: String
+    publishedAt: String
+    source: Source!
+    url: String
+    title: String
   }
 
   type Article {
