@@ -23,6 +23,7 @@ const server = new ApolloServer({
 
     return new GraphQLError(error.message);
   },
+  introspection: true,
   resolvers,
   typeDefs,
 });
