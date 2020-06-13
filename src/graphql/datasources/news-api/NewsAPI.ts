@@ -1,13 +1,13 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { URLSearchParamsInit } from 'apollo-server-env';
 
-import { ArticleQueryResult, QueryArticlesArgs } from '@lib/types';
-import { GetArticlesResultItem } from '@news-api-types';
+import { ArticlesResult, QueryArticlesArgs, ArticleResponse } from '@lib/types';
 
 import { makeRequestParams } from './helpers';
 import CONSTANTS from './utils/constants';
 
 type GetRequestResponse = {
-  articles: GetArticlesResultItem[];
+  articles: ArticleResponse[];
   status: string;
 };
 
@@ -17,8 +17,8 @@ class NewsAPI extends RESTDataSource {
     this.baseURL = CONSTANTS.BASE_URL;
   }
 
-  async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticleQueryResult> {
-    const params = makeRequestParams(page, language);
+  async getArticles({ page, language }: QueryArticlesArgs): Promise<ArticlesResult> {
+    const params = makeRequestParams(page, language) as URLSearchParamsInit;
 
     try {
       const { articles } = await this.get<GetRequestResponse>(CONSTANTS.ENDPOINT, params);

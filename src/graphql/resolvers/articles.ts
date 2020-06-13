@@ -1,5 +1,9 @@
-import { QueryResolvers, QueryArticlesArgs, ArticleQueryResult } from '@lib/types';
-import { GetArticlesResultItem } from '@news-api-types';
+import {
+  ArticlesResult,
+  QueryArticlesArgs,
+  ArticleResponse,
+  QueryResolvers,
+} from '@lib/types';
 import { Context } from '@types';
 
 const resolvers: QueryResolvers = {
@@ -8,15 +12,15 @@ const resolvers: QueryResolvers = {
       _: {},
       args: QueryArticlesArgs,
       { dataSources }: Context,
-    ): Promise<ArticleQueryResult> => dataSources.news.getArticles(args),
+    ): Promise<ArticlesResult> => dataSources.news.getArticles(args),
   },
 
   Article: {
-    image: ({ urlToImage }: GetArticlesResultItem): string | undefined => urlToImage,
+    image: ({ urlToImage }: ArticleResponse): string | undefined | null => urlToImage,
 
-    source: ({ source }: GetArticlesResultItem): string | undefined => source.name,
+    source: ({ source }: ArticleResponse): string | undefined | null => source.name,
 
-    id: ({ url }: GetArticlesResultItem): string | undefined => url,
+    id: ({ url }: ArticleResponse): string | undefined | null => url,
   },
 };
 

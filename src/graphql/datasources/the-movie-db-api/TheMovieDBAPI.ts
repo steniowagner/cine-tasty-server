@@ -1,4 +1,5 @@
 import { RESTDataSource } from 'apollo-datasource-rest';
+import { URLSearchParamsInit } from 'apollo-server-env';
 
 import { InvalidTMDBApiKeyError } from '@errors';
 import * as TMDBAPITypes from '@tmdb-api-types';
@@ -37,7 +38,7 @@ class TheMovieDBAPI extends RESTDataSource {
     params: P,
     language?: LibTypes.Iso6391Language | null,
   ): Promise<R & { status_code?: number }> => {
-    const requestParams = makeRequestParams<P>(params, language);
+    const requestParams = makeRequestParams<P>(params, language) as URLSearchParamsInit;
 
     const result = await this.get<R & { status_code?: number }>(endpoint, requestParams);
 
