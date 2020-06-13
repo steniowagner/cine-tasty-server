@@ -4,8 +4,10 @@
   "description": "",
   "main": "src/app.ts",
   "scripts": {
-    "dev:server": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --transpileOnly --ignore-watch node_modules src/app.ts",
+    "start:prod": "NODE_ENV=production node -r ./tsconfig-paths-bootstrap.js dist/app.js",
+    "prestart:prod": "rm -rf dist && npm run build",
     "build": "tsc -p tsconfig.json",
+    "dev:server": "NODE_ENV=development ts-node-dev -r tsconfig-paths/register --transpileOnly --ignore-watch node_modules src/app.ts",
     "generate:types": "graphql-codegen --config codegen.yml",
     "lint:fix": "eslint --fix --ext .ts .",
     "prettier:fix": "prettier '**/*.ts' --write",
@@ -62,5 +64,8 @@
     "apollo-datasource-rest": "^0.6.11",
     "apollo-server": "^2.9.15",
     "dotenv": "^8.2.0"
+  },
+  "_moduleAliases": {
+    "@open-trivia-api-types": "dist/graphql/datasources/open-trivia-api/@types"
   }
 }
