@@ -55,7 +55,7 @@ export const person = {
   gender: 1,
   homepage: null,
   images: ['/img1.jpg', '/img2.jpg'],
-  cast: [
+  moviesCast: [
     {
       id: 123,
       character: 'character',
@@ -75,6 +75,8 @@ export const person = {
       releaseDate: 'release_date',
       creditId: 'credit_id',
     },
+  ],
+  tvCast: [
     {
       character: 'character',
       backdropPath: '/backdrop_path.jpg',

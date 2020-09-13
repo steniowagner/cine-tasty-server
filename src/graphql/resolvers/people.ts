@@ -62,6 +62,12 @@ const resolvers: LibTypes.QueryResolvers = {
       profile_path,
 
     imdbId: ({ imdb_id }: LibTypes.PersonResponse): string | null | undefined => imdb_id,
+
+    moviesCast: ({ cast }: LibTypes.PersonResponse): LibTypes.CastResponse[] =>
+      cast.filter(castItem => castItem.media_type === 'movie'),
+
+    tvCast: ({ cast }: LibTypes.PersonResponse): LibTypes.CastResponse[] =>
+      cast.filter(castItem => castItem.media_type === 'tv'),
   },
 
   PersonKnowFor: {

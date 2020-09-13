@@ -24,58 +24,43 @@ const GET_PERSON = gql`
       popularity
       images
       gender
-      cast {
+      moviesCast {
+        originalTitle
+        video
+        title
+        adult
+        releaseDate
         character
         backdropPath
+        genreIds
         overview
         voteAverage
         mediaType
         posterPath
         popularity
         originalLanguage
-        genreIds
         voteCount
         creditId
         id
-        ... on CastMovie {
-          originalTitle
-          video
-          title
-          adult
-          releaseDate
-          character
-          backdropPath
-          genreIds
-          overview
-          voteAverage
-          mediaType
-          posterPath
-          popularity
-          originalLanguage
-          voteCount
-          creditId
-          id
-        }
-
-        ... on CastTVShow {
-          episodeCount
-          originCountry
-          originalName
-          name
-          firstAirDate
-          character
-          backdropPath
-          genreIds
-          overview
-          voteAverage
-          mediaType
-          posterPath
-          popularity
-          originalLanguage
-          voteCount
-          creditId
-          id
-        }
+      }
+      tvCast {
+        episodeCount
+        originCountry
+        originalName
+        name
+        firstAirDate
+        character
+        backdropPath
+        genreIds
+        overview
+        voteAverage
+        mediaType
+        posterPath
+        popularity
+        originalLanguage
+        voteCount
+        creditId
+        id
       }
     }
   }
