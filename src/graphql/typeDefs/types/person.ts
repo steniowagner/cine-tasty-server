@@ -19,7 +19,7 @@ export default gql`
     popularity: Float
     images: [String!]!
     gender: Int
-    cast: [Cast!]!
+    cast: [CastResponse!]!
   }
 
   type Person {
@@ -38,7 +38,8 @@ export default gql`
     popularity: Float
     images: [String!]!
     gender: Int
-    cast: [Cast!]!
+    moviesCast: [CastMovie!]!
+    tvCast: [CastTVShow!]!
   }
 
   type BasePersonResponse {

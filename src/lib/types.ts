@@ -788,7 +788,8 @@ export type Person = {
   popularity?: Maybe<Scalars['Float']>,
   images: Array<Scalars['String']>,
   gender?: Maybe<Scalars['Int']>,
-  cast: Array<Cast>,
+  moviesCast: Array<CastMovie>,
+  tvCast: Array<CastTvShow>,
 };
 
 export type PersonKnowFor = BaseMovie | BaseTvShow;
@@ -810,7 +811,7 @@ export type PersonResponse = {
   popularity?: Maybe<Scalars['Float']>,
   images: Array<Scalars['String']>,
   gender?: Maybe<Scalars['Int']>,
-  cast: Array<Cast>,
+  cast: Array<CastResponse>,
 };
 
 export type ProductionCompany = {
@@ -1275,7 +1276,9 @@ export type ResolversTypes = ResolversObject<{
   Article: ResolverTypeWrapper<Article>;
   PeopleQueryResult: ResolverTypeWrapper<PeopleQueryResult>;
   Person: ResolverTypeWrapper<Person>;
+  CastMovie: ResolverTypeWrapper<CastMovie>;
   Cast: ResolversTypes['CastMovie'] | ResolversTypes['CastTVShow'];
+  CastTVShow: ResolverTypeWrapper<CastTvShow>;
   QuizInput: QuizInput;
   QuestionDifficulty: QuestionDifficulty;
   QuestionType: QuestionType;
@@ -1298,8 +1301,6 @@ export type ResolversTypes = ResolversObject<{
   CastResponse: ResolversTypes['CastMovieResponse'] | ResolversTypes['CastTVShowResponse'];
   CastMovieResponse: ResolverTypeWrapper<CastMovieResponse>;
   CastTVShowResponse: ResolverTypeWrapper<CastTvShowResponse>;
-  CastMovie: ResolverTypeWrapper<CastMovie>;
-  CastTVShow: ResolverTypeWrapper<CastTvShow>;
   PersonResponse: ResolverTypeWrapper<PersonResponse>;
   BasePersonResponse: ResolverTypeWrapper<Omit<BasePersonResponse, 'known_for'> & { known_for: Array<ResolversTypes['PersonKnowFor']> }>;
   PeopleQueryResultResponse: ResolverTypeWrapper<PeopleQueryResultResponse>;
@@ -1348,7 +1349,9 @@ export type ResolversParentTypes = ResolversObject<{
   Article: Article;
   PeopleQueryResult: PeopleQueryResult;
   Person: Person;
+  CastMovie: CastMovie;
   Cast: ResolversParentTypes['CastMovie'] | ResolversParentTypes['CastTVShow'];
+  CastTVShow: CastTvShow;
   QuizInput: QuizInput;
   QuestionDifficulty: QuestionDifficulty;
   QuestionType: QuestionType;
@@ -1371,8 +1374,6 @@ export type ResolversParentTypes = ResolversObject<{
   CastResponse: ResolversParentTypes['CastMovieResponse'] | ResolversParentTypes['CastTVShowResponse'];
   CastMovieResponse: CastMovieResponse;
   CastTVShowResponse: CastTvShowResponse;
-  CastMovie: CastMovie;
-  CastTVShow: CastTvShow;
   PersonResponse: PersonResponse;
   BasePersonResponse: Omit<BasePersonResponse, 'known_for'> & { known_for: Array<ResolversParentTypes['PersonKnowFor']> };
   PeopleQueryResultResponse: PeopleQueryResultResponse;
@@ -1840,7 +1841,8 @@ export type PersonResolvers<ContextType = any, ParentType extends ResolversParen
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  cast?: Resolver<Array<ResolversTypes['Cast']>, ParentType, ContextType>;
+  moviesCast?: Resolver<Array<ResolversTypes['CastMovie']>, ParentType, ContextType>;
+  tvCast?: Resolver<Array<ResolversTypes['CastTVShow']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 
@@ -1864,7 +1866,7 @@ export type PersonResponseResolvers<ContextType = any, ParentType extends Resolv
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  cast?: Resolver<Array<ResolversTypes['Cast']>, ParentType, ContextType>;
+  cast?: Resolver<Array<ResolversTypes['CastResponse']>, ParentType, ContextType>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 
