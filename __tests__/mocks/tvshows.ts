@@ -1,6 +1,96 @@
 import { tvGenres } from './mediaGenres';
 import { review } from './review';
 
+export const rawTVShowSeason = {
+  _id: '59289f41_idc3a368782d03c1e0',
+  air_date: 'air_date',
+  episodes: [
+    {
+      air_date: 'air_date',
+      episode_number: 1,
+      id: 123,
+      name: 'name',
+      overview: 'overview',
+      production_code: 'production_code',
+      season_number: 1,
+      show_id: 123,
+      still_path: 'still_path',
+      vote_average: 1.0,
+      vote_count: 1,
+      crew: [
+        {
+          id: 123,
+          credit_id: 'credit_id',
+          name: 'name',
+          department: 'department',
+          job: 'job',
+          gender: 1,
+          profile_path: 'profile_path',
+        },
+      ],
+      guest_stars: [
+        {
+          id: 2,
+          name: 'name',
+          credit_id: 'credit_id',
+          character: 'character',
+          order: 1,
+          gender: 1,
+          profile_path: 'profile_path',
+        },
+      ],
+    },
+  ],
+  name: 'name',
+  overview: 'overview',
+  id: 123,
+  poster_path: 'poster_path',
+  season_number: 1,
+};
+
+export const TVShowSeason = {
+  airDate: 'air_date',
+  episodes: [
+    {
+      airDate: 'air_date',
+      episodeNumber: 1,
+      id: '123',
+      name: 'name',
+      overview: 'overview',
+      productionCode: 'production_code',
+      seasonNumber: 1,
+      stillPath: 'still_path',
+      voteAverage: 1.0,
+      voteCount: 1,
+      crew: [
+        {
+          id: '123',
+          name: 'name',
+          department: 'department',
+          job: 'job',
+          gender: 1,
+          profilePath: 'profile_path',
+        },
+      ],
+      guestStars: [
+        {
+          id: '2',
+          name: 'name',
+          creditId: 'credit_id',
+          character: 'character',
+          order: 1,
+          profilePath: 'profile_path',
+        },
+      ],
+    },
+  ],
+  name: 'name',
+  overview: 'overview',
+  id: '123',
+  posterPath: 'poster_path',
+  seasonNumber: 1,
+};
+
 export const rawTVShow = {
   poster_path: '/poster_path.jpg',
   popularity: 1.1,

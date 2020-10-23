@@ -31,6 +31,74 @@ export default gql`
     vote_count: Int
   }
 
+  type GuestStarResponse {
+    id: ID!
+    name: String
+    credit_id: String
+    character: String
+    order: Int
+    profile_path: String
+  }
+
+  type GuestStar {
+    id: ID!
+    name: String
+    creditId: String
+    character: String
+    order: Int
+    profilePath: String
+  }
+
+  type TVShowSeasonEpisodeResponse {
+    air_date: String
+    crew: [CrewItemResponse!]!
+    episode_number: Int
+    guest_stars: [GuestStarResponse!]!
+    id: ID
+    name: String
+    overview: String
+    production_code: String
+    season_number: Int
+    still_path: String
+    vote_average: Float
+    vote_count: Int
+  }
+
+  type TVShowSeasonEpisode {
+    airDate: String
+    crew: [CrewItem!]!
+    episodeNumber: Int
+    guestStars: [GuestStar!]!
+    id: ID!
+    name: String
+    overview: String
+    productionCode: String
+    seasonNumber: Int
+    stillPath: String
+    voteAverage: Float
+    voteCount: Int
+  }
+
+  type TVShowSeasonResponse {
+    episodes: TVShowSeasonEpisodeResponse
+    air_date: String
+    name: String
+    overview: String
+    id: ID!
+    poster_path: String
+    season_number: Int
+  }
+
+  type TVShowSeason {
+    episodes: [TVShowSeasonEpisode!]!
+    airDate: String
+    name: String
+    overview: String
+    id: ID!
+    posterPath: String
+    seasonNumber: Int
+  }
+
   type LastEpisodeToAir {
     airDate: String
     episodeNumber: Int

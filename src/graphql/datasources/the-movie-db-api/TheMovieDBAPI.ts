@@ -94,6 +94,12 @@ class TheMovieDBAPI extends RESTDataSource {
   async getTVShowImages(id: string): Promise<string[]> {
     return this.tvshowsHandler.getImages(id);
   }
+
+  async getTVShowSeason(
+    args: LibTypes.QueryTvShowSeasonArgs,
+  ): Promise<LibTypes.TvShowSeasonResponse | null> {
+    return this.tvshowsHandler.getSeason(args);
+  }
 }
 
 export default TheMovieDBAPI;

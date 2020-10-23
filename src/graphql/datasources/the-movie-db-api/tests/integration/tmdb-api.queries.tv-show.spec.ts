@@ -9,6 +9,8 @@ import { Iso6391Language } from '../../../../../lib/types';
 import { TrendingTVShowsEndpoints } from '../../@types';
 import {
   rawTVShowDetail,
+  rawTVShowSeason,
+  TVShowSeason,
   tvShowDetail,
   rawTVShow,
   tvshow,
@@ -180,6 +182,48 @@ const GET_TV_SHOW_DETAIL = gql`
         id
         url
       }
+    }
+  }
+`;
+
+const GET_TV_SHOW_SEASON = gql`
+  query TVShowSeason($id: ID!, $season: Int!, $language: ISO6391Language) {
+    tvShowSeason(id: $id, season: $season, language: $language) {
+      episodes {
+        airDate
+        crew {
+          department
+          id
+          job
+          name
+          gender
+          profilePath
+        }
+        episodeNumber
+        guestStars {
+          id
+          name
+          creditId
+          character
+          order
+          profilePath
+        }
+        id
+        name
+        overview
+        productionCode
+        seasonNumber
+        stillPath
+        voteAverage
+        voteAverage
+        voteCount
+      }
+      airDate
+      name
+      overview
+      id
+      posterPath
+      seasonNumber
     }
   }
 `;
@@ -448,6 +492,57 @@ describe('Integration: DataSources-TVShow', () => {
       );
 
       expect(data.tvShow).toEqual(tvShowDetail);
+    });
+  });
+
+  describe('Query - TV Show Season', () => {
+    const season = 1;
+    const id = '1';
+
+    it('should query a certain season of a tv show from TheMovieDB API and returns the result correctly', async () => {
+      mockRestDataSourceGet.mockReturnValueOnce(rawTVShowSeason);
+
+      const query = makeTestQuery();
+
+      const { data } = await query({
+        query: GET_TV_SHOW_SEASON,
+        variables: { season, id },
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.TV_ENDPOINT}/${id}/season/${season}`,
+        {
+          language: 'en-us',
+        },
+      );
+
+      expect(data.tvShowSeason).toEqual(TVShowSeason);
+    });
+
+    it("hould return null when the season wasn't found", async () => {
+      mockRestDataSourceGet.mockReturnValueOnce({
+        status_code: CONSTANTS.TMDBAPI_ITEM_NOT_FOUND_CODE,
+      });
+
+      const query = makeTestQuery();
+
+      const { data } = await query({
+        query: GET_TV_SHOW_SEASON,
+        variables: { season, id },
+      });
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(1);
+
+      expect(mockRestDataSourceGet).toHaveBeenCalledWith(
+        `${CONSTANTS.TV_ENDPOINT}/${id}/season/${season}`,
+        {
+          language: 'en-us',
+        },
+      );
+
+      expect(data.tvShowSeason).toBeNull();
     });
   });
 
