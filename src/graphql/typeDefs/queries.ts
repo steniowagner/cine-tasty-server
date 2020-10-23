@@ -6,6 +6,7 @@ export default gql`
     trendingMovies: TrendingMovies!
     trendingTvShows: TrendingTVShows!
     tvShow(id: ID!, language: ISO6391Language): TVShow
+    tvShowSeason(id: ID!, season: Int!, language: ISO6391Language): TVShowSeason
     movie(id: ID!, language: ISO6391Language): Movie
     articles(page: Int!, language: ArticleLanguage!): Articles!
     people(page: Int!, language: ISO6391Language): PeopleQueryResult!

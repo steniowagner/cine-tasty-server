@@ -31,6 +31,70 @@ const resolvers: LibTypes.QueryResolvers = {
       args: LibTypes.QueryTvShowArgs,
       { dataSources }: Context,
     ): Promise<LibTypes.TvShowResponse | null> => dataSources.tmdb.getTVShow(args),
+
+    tvShowSeason: (
+      _: {},
+      args: LibTypes.QueryTvShowSeasonArgs,
+      { dataSources }: Context,
+    ): Promise<LibTypes.TvShowSeasonResponse | null> =>
+      dataSources.tmdb.getTVShowSeason(args),
+  },
+
+  TVShowSeason: {
+    airDate: ({ air_date }: LibTypes.TvShowSeasonResponse): string | null | undefined =>
+      air_date,
+
+    posterPath: ({
+      poster_path,
+    }: LibTypes.TvShowSeasonResponse): string | null | undefined => poster_path,
+
+    seasonNumber: ({
+      season_number,
+    }: LibTypes.TvShowSeasonResponse): number | null | undefined => season_number,
+  },
+
+  TVShowSeasonEpisode: {
+    airDate: ({
+      air_date,
+    }: LibTypes.TvShowSeasonEpisodeResponse): string | null | undefined => air_date,
+
+    episodeNumber: ({
+      episode_number,
+    }: LibTypes.TvShowSeasonEpisodeResponse): number | null | undefined => episode_number,
+
+    productionCode: ({
+      production_code,
+    }: LibTypes.TvShowSeasonEpisodeResponse): string | null | undefined =>
+      production_code,
+
+    seasonNumber: ({
+      season_number,
+    }: LibTypes.TvShowSeasonEpisodeResponse): number | null | undefined => season_number,
+
+    voteAverage: ({
+      vote_average,
+    }: LibTypes.TvShowSeasonEpisodeResponse): number | null | undefined => vote_average,
+
+    voteCount: ({
+      vote_count,
+    }: LibTypes.TvShowSeasonEpisodeResponse): number | null | undefined => vote_count,
+
+    stillPath: ({
+      still_path,
+    }: LibTypes.TvShowSeasonEpisodeResponse): string | null | undefined => still_path,
+
+    guestStars: ({
+      guest_stars,
+    }: LibTypes.TvShowSeasonEpisodeResponse): LibTypes.GuestStarResponse[] => guest_stars,
+  },
+
+  GuestStar: {
+    creditId: ({ credit_id }: LibTypes.GuestStarResponse): string | null | undefined =>
+      credit_id,
+
+    profilePath: ({
+      profile_path,
+    }: LibTypes.GuestStarResponse): string | null | undefined => profile_path,
   },
 
   Creator: {
