@@ -15,6 +15,9 @@ const resolvers: QueryResolvers = {
   Question: {
     question: ({ question }: Question): string => parseEncodedChars(question),
 
+    correctAnswer: ({ correctAnswer }: Question): string =>
+      parseEncodedChars(correctAnswer),
+
     options: ({ options }: Question): string[] =>
       options.map(option => parseEncodedChars(option)),
   },
