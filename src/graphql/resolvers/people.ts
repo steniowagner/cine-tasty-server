@@ -3,6 +3,15 @@
 import * as LibTypes from '@lib/types';
 import { Context } from '@types';
 
+const sortCastArray = (cast: LibTypes.CastResponse[]): LibTypes.CastResponse[] => {
+  return cast.sort((a, b) => {
+    const Avalue = (a.vote_average || 0) + (a.vote_count || 0);
+    const Bvalue = (b.vote_average || 0) + (b.vote_count || 0);
+
+    return Avalue < Bvalue ? 1 : Bvalue < Avalue ? -1 : 0;
+  });
+};
+
 type PersonKnownForResultSample = {
   original_title?: string;
   originalTitle?: string;
@@ -63,11 +72,17 @@ const resolvers: LibTypes.QueryResolvers = {
 
     imdbId: ({ imdb_id }: LibTypes.PersonResponse): string | null | undefined => imdb_id,
 
-    moviesCast: ({ cast }: LibTypes.PersonResponse): LibTypes.CastResponse[] =>
-      cast.filter(castItem => castItem.media_type === 'movie'),
+    moviesCast: ({ cast }: LibTypes.PersonResponse): LibTypes.CastResponse[] => {
+      const movieCast = cast.filter(castItem => castItem.media_type === 'movie');
 
-    tvCast: ({ cast }: LibTypes.PersonResponse): LibTypes.CastResponse[] =>
-      cast.filter(castItem => castItem.media_type === 'tv'),
+      return sortCastArray(movieCast);
+    },
+
+    tvCast: ({ cast }: LibTypes.PersonResponse): LibTypes.CastResponse[] => {
+      const tvCast = cast.filter(castItem => castItem.media_type === 'tv');
+
+      return sortCastArray(tvCast);
+    },
   },
 
   PersonKnowFor: {
