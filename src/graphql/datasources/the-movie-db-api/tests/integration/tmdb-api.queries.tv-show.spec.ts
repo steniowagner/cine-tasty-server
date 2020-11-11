@@ -279,6 +279,12 @@ describe('Integration: DataSources-TVShow', () => {
           total_results: 1,
           results: [rawTVShow],
         })
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawTVShow],
+        })
+        .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
@@ -290,7 +296,7 @@ describe('Integration: DataSources-TVShow', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(7);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(8);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -388,6 +394,12 @@ describe('Integration: DataSources-TVShow', () => {
           total_results: 2,
           results: [rawTVShow],
         })
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 2,
+          results: [rawTVShow],
+        })
+        .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
@@ -399,7 +411,7 @@ describe('Integration: DataSources-TVShow', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(7);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(8);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
