@@ -61,6 +61,14 @@ const GET_TRENDING_TV_SHOWS = gql`
           ...TrendingTVShowItem
         }
       }
+      airingToday(args: { page: $page }) {
+        totalResults
+        totalPages
+        hasMore
+        items {
+          ...TrendingTVShowItem
+        }
+      }
     }
   }
 `;
@@ -271,6 +279,12 @@ describe('Integration: DataSources-TVShow', () => {
           total_results: 1,
           results: [rawTVShow],
         })
+        .mockReturnValueOnce({
+          total_pages: 1,
+          total_results: 1,
+          results: [rawTVShow],
+        })
+        .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
@@ -282,7 +296,7 @@ describe('Integration: DataSources-TVShow', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(6);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(8);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -349,6 +363,12 @@ describe('Integration: DataSources-TVShow', () => {
           items: [tvshow],
         },
         popular: {
+          hasMore: false,
+          totalPages: 1,
+          totalResults: 1,
+          items: [tvshow],
+        },
+        airingToday: {
           hasMore: false,
           totalPages: 1,
           totalResults: 1,
@@ -374,6 +394,12 @@ describe('Integration: DataSources-TVShow', () => {
           total_results: 2,
           results: [rawTVShow],
         })
+        .mockReturnValueOnce({
+          total_pages: 2,
+          total_results: 2,
+          results: [rawTVShow],
+        })
+        .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres })
         .mockReturnValueOnce({ genres: tvGenres });
@@ -385,7 +411,7 @@ describe('Integration: DataSources-TVShow', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(6);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(8);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -452,6 +478,12 @@ describe('Integration: DataSources-TVShow', () => {
           items: [tvshow],
         },
         popular: {
+          hasMore: true,
+          totalPages: 2,
+          totalResults: 2,
+          items: [tvshow],
+        },
+        airingToday: {
           hasMore: true,
           totalPages: 2,
           totalResults: 2,

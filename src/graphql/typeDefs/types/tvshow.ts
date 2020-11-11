@@ -269,5 +269,6 @@ export default gql`
     onTheAir(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
     popular(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
     topRated(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
+    airingToday(args: TrendingTVShowsArgs!): TrendingTVShowsQueryResult!
   }
 `;
