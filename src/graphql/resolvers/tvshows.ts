@@ -369,6 +369,16 @@ const resolvers: LibTypes.QueryResolvers = {
         args,
         TMDBAPITypes.TrendingTVShowsEndpoints.TopRated,
       ),
+
+    airingToday: (
+      _: {},
+      { args }: LibTypes.TrendingTvShowsTopRatedArgs,
+      { dataSources }: Context,
+    ): Promise<LibTypes.TrendingTvShowsQueryResult> =>
+      dataSources.tmdb.getTrendingTVShows(
+        args,
+        TMDBAPITypes.TrendingTVShowsEndpoints.AiringToday,
+      ),
   },
 };
 

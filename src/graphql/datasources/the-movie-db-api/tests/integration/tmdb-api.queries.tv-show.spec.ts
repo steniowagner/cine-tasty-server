@@ -61,6 +61,14 @@ const GET_TRENDING_TV_SHOWS = gql`
           ...TrendingTVShowItem
         }
       }
+      airingToday(args: { page: $page }) {
+        totalResults
+        totalPages
+        hasMore
+        items {
+          ...TrendingTVShowItem
+        }
+      }
     }
   }
 `;
@@ -282,7 +290,7 @@ describe('Integration: DataSources-TVShow', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(6);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(7);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -349,6 +357,12 @@ describe('Integration: DataSources-TVShow', () => {
           items: [tvshow],
         },
         popular: {
+          hasMore: false,
+          totalPages: 1,
+          totalResults: 1,
+          items: [tvshow],
+        },
+        airingToday: {
           hasMore: false,
           totalPages: 1,
           totalResults: 1,
@@ -385,7 +399,7 @@ describe('Integration: DataSources-TVShow', () => {
         variables: { page: 1 },
       });
 
-      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(6);
+      expect(mockRestDataSourceGet).toHaveBeenCalledTimes(7);
 
       expect(mockRestDataSourceGet).toHaveBeenCalledWith(
         TrendingTVShowsEndpoints.OnTheAir,
@@ -452,6 +466,12 @@ describe('Integration: DataSources-TVShow', () => {
           items: [tvshow],
         },
         popular: {
+          hasMore: true,
+          totalPages: 2,
+          totalResults: 2,
+          items: [tvshow],
+        },
+        airingToday: {
           hasMore: true,
           totalPages: 2,
           totalResults: 2,

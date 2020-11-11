@@ -1067,6 +1067,7 @@ export type TrendingTvShows = {
   onTheAir: TrendingTvShowsQueryResult,
   popular: TrendingTvShowsQueryResult,
   topRated: TrendingTvShowsQueryResult,
+  airingToday: TrendingTvShowsQueryResult,
 };
 
 
@@ -1081,6 +1082,11 @@ export type TrendingTvShowsPopularArgs = {
 
 
 export type TrendingTvShowsTopRatedArgs = {
+  args: TrendingTvShowsArgs
+};
+
+
+export type TrendingTvShowsAiringTodayArgs = {
   args: TrendingTvShowsArgs
 };
 
@@ -2100,6 +2106,7 @@ export type TrendingTvShowsResolvers<ContextType = any, ParentType extends Resol
   onTheAir?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsOnTheAirArgs, 'args'>>;
   popular?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsPopularArgs, 'args'>>;
   topRated?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsTopRatedArgs, 'args'>>;
+  airingToday?: Resolver<ResolversTypes['TrendingTVShowsQueryResult'], ParentType, ContextType, RequireFields<TrendingTvShowsAiringTodayArgs, 'args'>>;
   __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 

@@ -37,6 +37,7 @@ export enum TrendingTVShowsEndpoints {
   OnTheAir = 'tv/on_the_air',
   Popular = 'tv/popular',
   TopRated = 'tv/top_rated',
+  AiringToday = 'tv/airing_today',
 }
 
 export enum TrendingMoviesEndpoints {
