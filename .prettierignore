@@ -1,5 +1,5 @@
-node_modules
-coverage
 src/lib
+node_modules
+build
+coverage
 dist
-eslintrc
