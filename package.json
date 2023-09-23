@@ -32,6 +32,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@apollo/datasource-rest": "^6.2.0",
     "@apollo/server": "^4.9.3",
     "graphql": "^16.8.1"
   }
