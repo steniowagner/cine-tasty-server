@@ -5,13 +5,17 @@
     "module": "commonjs",
     "rootDir": "src",
     "outDir": "build",
+    "baseUrl": "src",
     "resolveJsonModule": true,
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitAny": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@news-api/*": ["graphql/datasources/news-api/*"]
+    }
   },
   "exclude": ["node_modules", "src/**/*.test.ts", "jest.config.js", "coverage", "build"]
 }
