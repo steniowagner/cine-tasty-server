@@ -3,3 +3,4 @@ coverage
 src/lib
 dist
 eslintrc
+src/generated
