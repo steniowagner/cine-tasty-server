@@ -1,18 +1,4 @@
-type Source = {
-  name: string;
-  id: string;
-};
-
-type NewsAPIResponse = {
-  description: string;
-  content: string;
-  urlToImage: string;
-  author: string;
-  publishedAt: string;
-  source: Source;
-  url: string;
-  title: string;
-};
+import { NewsAPIResponse } from "@news-api/types";
 
 export const resolvers = {
   Query: {
