@@ -12,6 +12,7 @@
     "build": "tsc -p tsconfig.json",
     "prepare": "husky install",
     "test": "jest --passWithNoTests --no-cache",
+    "test:integration": "npm test -- --watch --testMatch **/*.spec.ts --runInBand",
     "test:unit": "npm test -- --watch --testMatch **/*.test.ts",
     "test:coverage": "jest --coverage --passWithNoTests"
   },
