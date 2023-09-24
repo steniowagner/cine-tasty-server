@@ -1,6 +1,7 @@
 export default {
-  BASE_URL: "http://newsapi.org/v2",
+  BASE_URL: "https://newsapi.org/v2/",
   ENDPOINT: "everything",
-  QUERY: ["cinema", "movies", "tv+series"],
+  SORT_BY: "popularity",
   PAGE_SIZE: 12,
+  FROM_DAYS_AGO: 2,
 };

@@ -3,7 +3,7 @@ type Source = {
   id: string;
 };
 
-export type NewsAPIResponse = {
+export type NewsAPIResponseArticles = {
   description: string;
   content: string;
   urlToImage: string;
@@ -12,4 +12,10 @@ export type NewsAPIResponse = {
   source: Source;
   url: string;
   title: string;
+};
+
+export type NewsAPIResponse = {
+  status: "ok" | "error";
+  totalResults: number;
+  articles: NewsAPIResponseArticles[];
 };
