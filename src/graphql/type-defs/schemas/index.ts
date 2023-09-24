@@ -1,3 +1,3 @@
-import newsSchema from "./news.schema";
-
-export default [newsSchema];
+import news from "./news.schema";
+import quiz from "./quiz.schema";
+export default [news, quiz];
