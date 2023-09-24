@@ -14,8 +14,17 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "paths": {
-      "@news-api/*": ["graphql/datasources/news-api/*"]
+      "@news-api/*": ["graphql/datasources/news-api/*"],
+      "@generated-types": ["generated/graphql.ts"],
+      "@types": ["types/index.ts"]
     }
   },
-  "exclude": ["node_modules", "src/**/*.test.ts", "jest.config.js", "coverage", "build"]
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts",
+    "jest.config.js",
+    "coverage",
+    "build",
+    "jest-*.js"
+  ]
 }
