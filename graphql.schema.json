@@ -165,85 +165,79 @@
         "enumValues": [
           {
             "name": "AR",
-            "description": null,
+            "description": "Arabic",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "DE",
-            "description": null,
+            "description": "German",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "EN",
-            "description": null,
+            "description": "English",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ES",
-            "description": null,
+            "description": "Spanish",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "FR",
-            "description": null,
+            "description": "French",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "HE",
-            "description": null,
+            "description": "Hebrew",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "IT",
-            "description": null,
+            "description": "Italian",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "NL",
-            "description": null,
+            "description": "Dutch",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "NO",
-            "description": null,
+            "description": "Norwegian",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "PT",
-            "description": null,
+            "description": "Portuguese",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "RU",
-            "description": null,
+            "description": "Russian",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SE",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "UD",
-            "description": null,
+            "description": "Northern Sami",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "ZH",
-            "description": null,
+            "description": "Mandarim",
             "isDeprecated": false,
             "deprecationReason": null
           }
