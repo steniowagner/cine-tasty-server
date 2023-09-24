@@ -16,7 +16,8 @@
     "paths": {
       "@news-api/*": ["graphql/datasources/news-api/*"],
       "@generated-types": ["generated/graphql.ts"],
-      "@types": ["types/index.ts"]
+      "@types": ["types/index.ts"],
+      "@/*": ["*"]
     }
   },
   "exclude": [
