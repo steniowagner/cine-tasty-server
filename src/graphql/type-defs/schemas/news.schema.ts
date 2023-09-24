@@ -1,18 +1,30 @@
 export default `#graphql
   enum NewsLanguage {
+    "Arabic"
     AR
+    "German"
     DE
+    "English"
     EN
+    "Spanish"
     ES
+    "French"
     FR
+    "Hebrew"
     HE
+    "Italian"
     IT
+    "Dutch"
     NL
+    "Norwegian"
     NO
+    "Portuguese"
     PT
+    "Russian"
     RU
+    "Northern Sami"
     SE
-    UD
+    "Mandarim"
     ZH
   }
 
