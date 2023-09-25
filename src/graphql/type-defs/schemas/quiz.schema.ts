@@ -1,5 +1,5 @@
 export default `#graphql
-enum QuizQuestionDifficulty {
+  enum QuizQuestionDifficulty {
     EASY
     MEDIUM
     HARD
