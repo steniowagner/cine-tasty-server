@@ -1,0 +1,11 @@
+export const CONSTANTS = {
+  BASE_URL: "https://opentdb.com",
+  MOVIE_CATEGORY_CODE: "11",
+  TV_CATEGORY_CODE: "14",
+  NO_RESPONSE_CODE: 1,
+  MIN_QUESTIONS_REQUEST: 1,
+  MAX_QUESTIONS_REQUEST: 50,
+  ENDPOINT: "api.php",
+  MULTIPLE_CHOICE_QUIZ_PARAM: "multiple",
+  BOOLEAN_CHOICE_QUIZ_PARAM: "boolean",
+};

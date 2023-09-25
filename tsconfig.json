@@ -3,7 +3,7 @@
     "target": "es2016",
     "lib": ["es6"],
     "module": "commonjs",
-    "rootDir": "src",
+    "rootDirs": ["src", "__tests__"],
     "outDir": "build",
     "baseUrl": "src",
     "resolveJsonModule": true,
@@ -15,6 +15,7 @@
     "skipLibCheck": true,
     "paths": {
       "@news-api/*": ["graphql/datasources/news-api/*"],
+      "@open-trivia-api/*": ["graphql/datasources/open-trivia-api/*"],
       "@generated-types": ["generated/graphql.ts"],
       "@types": ["types/index.ts"],
       "@/*": ["*"]

@@ -14,6 +14,9 @@ dependencies:
   graphql:
     specifier: ^16.8.1
     version: 16.8.1
+  he:
+    specifier: ^1.2.0
+    version: 1.2.0
 
 devDependencies:
   '@graphql-codegen/cli':
@@ -28,6 +31,9 @@ devDependencies:
   '@graphql-codegen/typescript-resolvers':
     specifier: 4.0.1
     version: 4.0.1(graphql@16.8.1)
+  '@types/he':
+    specifier: ^1.2.1
+    version: 1.2.1
   '@types/jest':
     specifier: ^29.5.5
     version: 29.5.5
@@ -2117,6 +2123,10 @@ packages:
       '@types/node': 20.6.4
     dev: true
 
+  /@types/he@1.2.1:
+    resolution: {integrity: sha512-CdNmJMcSqX1BiP3iSsWt+VgixndRIDGzWyaGpBnW3i5heATSk5bJu2j3buutsoBQNjyryqxaNpr8M7fRsGL15w==}
+    dev: true
+
   /@types/http-cache-semantics@4.0.2:
     resolution: {integrity: sha512-FD+nQWA2zJjh4L9+pFXqWOi0Hs1ryBCfI+985NjluQ1p8EYtoLvjLOKidXBtZ4/IcxDX4o8/E8qDS3540tNliw==}
     dev: false
@@ -3934,6 +3944,11 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+
+  /he@1.2.0:
+    resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
+    hasBin: true
+    dev: false
 
   /header-case@2.0.4:
     resolution: {integrity: sha512-H/vuk5TEEVZwrR0lp2zed9OCo1uAILMlx0JEMgC26rzyJJ3N1v6XkwHHXJQdR2doSjcGPM6OKPYoJgf0plJ11Q==}
