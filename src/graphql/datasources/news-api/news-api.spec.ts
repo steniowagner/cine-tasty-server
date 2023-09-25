@@ -46,7 +46,7 @@ type ExecDatasourceTestOperationResponse = {
   news: NewsResult;
 };
 
-describe("NewsAPI", () => {
+describe("DataSources/NewsAPI", () => {
   it("should return the query correctly when has some more data to be returned", async () => {
     const articles = mockNewsArticles(CONSTANTS.PAGE_SIZE);
     jest.spyOn(RESTDataSource.prototype as any, "get").mockImplementation(async () =>

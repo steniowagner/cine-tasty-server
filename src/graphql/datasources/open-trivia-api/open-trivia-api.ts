@@ -18,14 +18,21 @@ export default class OpenTriviaAPI extends RESTDataSource {
   }
 
   private async execRequest(params: HandleRequestParams) {
-    const response = await this.get<OpenTriviaAPIResponse>(CONSTANTS.ENDPOINT, {
-      params: makeRequestParams({
-        ...params.input,
-        numberOfQuestions: params.numberOfQuestions ?? params.input.numberOfQuestions,
-        category: params.category ?? params.input.category,
-      }),
-    });
-    return parseOpenTriviaAPIResult(response.results);
+    try {
+      const response = await this.get<OpenTriviaAPIResponse>(CONSTANTS.ENDPOINT, {
+        params: makeRequestParams({
+          ...params.input,
+          numberOfQuestions: params.numberOfQuestions ?? params.input.numberOfQuestions,
+          category: params.category ?? params.input.category,
+        }),
+      });
+      if (response.response_code !== CONSTANTS.SUCCESS_RESPONSE_CODE) {
+        return [];
+      }
+      return parseOpenTriviaAPIResult(response.results);
+    } catch (err) {
+      return [];
+    }
   }
 
   private async handleRequestSingleMixedQuestionQuiz(params: QuizInput) {
@@ -58,15 +65,11 @@ export default class OpenTriviaAPI extends RESTDataSource {
   }
 
   async getQuiz(params: QueryQuizArgs) {
-    try {
-      if (
-        params.input.category.toLowerCase() === QuizQuestionCategory.Mixed.toLowerCase()
-      ) {
-        return this.handleRequestMixedCategoryQuiz(params.input);
-      }
-      return this.execRequest({ input: params.input });
-    } catch (err) {
-      console.error(err);
+    if (
+      params.input.category.toLowerCase() === QuizQuestionCategory.Mixed.toLowerCase()
+    ) {
+      return this.handleRequestMixedCategoryQuiz(params.input);
     }
+    return this.execRequest({ input: params.input });
   }
 }
