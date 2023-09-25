@@ -21,8 +21,8 @@ const getCategory = (category: GeneratedTypes.QuizQuestionCategory) => {
 
 const getType = (type: GeneratedTypes.QuizQuestionType) => {
   const quizTypeMapping: Record<GeneratedTypes.QuizQuestionType, string | undefined> = {
-    BOOLEAN: CONSTANTS.BOOLEAN_CHOICE_QUIZ_PARAM,
-    MULTIPLE: CONSTANTS.MULTIPLE_CHOICE_QUIZ_PARAM,
+    BOOLEAN: GeneratedTypes.QuizQuestionType.Boolean.toLowerCase(),
+    MULTIPLE: GeneratedTypes.QuizQuestionType.Multiple.toLowerCase(),
     MIXED: undefined,
   };
   return quizTypeMapping[type];

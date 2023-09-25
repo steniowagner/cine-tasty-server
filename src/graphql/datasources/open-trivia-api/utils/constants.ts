@@ -6,6 +6,4 @@ export const CONSTANTS = {
   MIN_QUESTIONS_REQUEST: 1,
   MAX_QUESTIONS_REQUEST: 50,
   ENDPOINT: "api.php",
-  MULTIPLE_CHOICE_QUIZ_PARAM: "multiple",
-  BOOLEAN_CHOICE_QUIZ_PARAM: "boolean",
 };
