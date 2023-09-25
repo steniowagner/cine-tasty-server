@@ -1,5 +1,5 @@
 import queries from "./queries";
-import news from "./schemas";
+import schemas from "./schemas";
 import root from "./root";
 
-export default [root, queries, ...news];
+export default [root, queries, ...schemas];

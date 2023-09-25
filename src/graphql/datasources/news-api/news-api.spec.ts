@@ -1,15 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ApolloServer } from "@apollo/server";
 import { RESTDataSource } from "@apollo/datasource-rest";
 
-import resolvers from "@/graphql/resolvers";
-import typeDefs from "@/graphql/type-defs";
-import { Context } from "@types";
+import { execDatasourceTestOperation } from "../../../../__test__";
+import { NewsResult } from "@generated-types";
 
-import NewsAPI from "./news-api";
 import CONSTANTS from "./utils/constants";
-
-const newsAPI = new NewsAPI();
 
 const mockNewsArticles = (lenght: number) =>
   Array(lenght)
@@ -47,16 +42,11 @@ const QUERY_NEWS = `#graphql
 }
 `;
 
-const server = new ApolloServer<Context>({
-  typeDefs,
-  resolvers,
-});
-
-type Response = {
-  body: any;
+type ExecDatasourceTestOperationResponse = {
+  news: NewsResult;
 };
 
-describe("NewsAPI", () => {
+describe("DataSources/NewsAPI", () => {
   it("should return the query correctly when has some more data to be returned", async () => {
     const articles = mockNewsArticles(CONSTANTS.PAGE_SIZE);
     jest.spyOn(RESTDataSource.prototype as any, "get").mockImplementation(async () =>
@@ -64,17 +54,11 @@ describe("NewsAPI", () => {
         articles,
       }),
     );
-    const response = (await server.executeOperation(
-      {
-        query: QUERY_NEWS,
-        variables: { page: 1, language: "EN" },
-      },
-      {
-        contextValue: {
-          newsAPI,
-        },
-      },
-    )) as Response;
+    const response =
+      await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(QUERY_NEWS, {
+        page: 1,
+        language: "EN",
+      });
     const news = response.body.singleResult.data.news;
     expect(response.body.kind === "single");
     expect(response.body.singleResult.errors).toBeUndefined();
@@ -100,17 +84,11 @@ describe("NewsAPI", () => {
         articles,
       }),
     );
-    const response = (await server.executeOperation(
-      {
-        query: QUERY_NEWS,
-        variables: { page: 1, language: "EN" },
-      },
-      {
-        contextValue: {
-          newsAPI,
-        },
-      },
-    )) as Response;
+    const response =
+      await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(QUERY_NEWS, {
+        page: 1,
+        language: "EN",
+      });
     const news = response.body.singleResult.data.news;
     expect(response.body.kind === "single");
     expect(response.body.singleResult.errors).toBeUndefined();
@@ -129,21 +107,15 @@ describe("NewsAPI", () => {
     }
   });
 
-  it("should return the query correctly when some error", async () => {
+  it("should return the query correctly when some error happens", async () => {
     jest
       .spyOn(RESTDataSource.prototype as any, "get")
       .mockImplementation(async () => Promise.reject());
-    const response = (await server.executeOperation(
-      {
-        query: QUERY_NEWS,
-        variables: { page: 1, language: "EN" },
-      },
-      {
-        contextValue: {
-          newsAPI,
-        },
-      },
-    )) as Response;
+    const response =
+      await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(QUERY_NEWS, {
+        page: 1,
+        language: "EN",
+      });
     const news = response.body.singleResult.data.news;
     expect(response.body.kind === "single");
     expect(response.body.singleResult.errors).toBeUndefined();

@@ -1,6 +1,7 @@
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServer } from "@apollo/server";
 
+import OpenTriviaAPI from "@open-trivia-api/open-trivia-api";
 import NewsAPI from "@news-api/news-api";
 
 import typeDefs from "./graphql/type-defs";
@@ -16,6 +17,7 @@ const server = new ApolloServer<Context>({
   const { url } = await startStandaloneServer(server, {
     async context() {
       return {
+        openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(),
       };
     },

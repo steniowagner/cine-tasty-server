@@ -78,12 +78,53 @@ export type Query = {
   __typename?: "Query";
   _?: Maybe<Scalars["String"]["output"]>;
   news: NewsResult;
+  quiz: Array<QuizQuestion>;
 };
 
 export type QueryNewsArgs = {
   language: NewsLanguage;
   page: Scalars["Int"]["input"];
 };
+
+export type QueryQuizArgs = {
+  input: QuizInput;
+};
+
+export type QuizInput = {
+  category: QuizQuestionCategory;
+  difficulty: QuizQuestionDifficulty;
+  numberOfQuestions: Scalars["Int"]["input"];
+  type: QuizQuestionType;
+};
+
+export type QuizQuestion = {
+  __typename?: "QuizQuestion";
+  category: Scalars["String"]["output"];
+  correctAnswer: Scalars["String"]["output"];
+  difficulty: Scalars["String"]["output"];
+  options: Array<Scalars["String"]["output"]>;
+  question: Scalars["String"]["output"];
+  type: Scalars["String"]["output"];
+};
+
+export enum QuizQuestionCategory {
+  Mixed = "MIXED",
+  Movie = "MOVIE",
+  Tv = "TV",
+}
+
+export enum QuizQuestionDifficulty {
+  Easy = "EASY",
+  Hard = "HARD",
+  Medium = "MEDIUM",
+  Mixed = "MIXED",
+}
+
+export enum QuizQuestionType {
+  Boolean = "BOOLEAN",
+  Mixed = "MIXED",
+  Multiple = "MULTIPLE",
+}
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
 
@@ -181,6 +222,11 @@ export type ResolversTypes = {
   NewsLanguage: NewsLanguage;
   NewsResult: ResolverTypeWrapper<NewsResult>;
   Query: ResolverTypeWrapper<{}>;
+  QuizInput: QuizInput;
+  QuizQuestion: ResolverTypeWrapper<QuizQuestion>;
+  QuizQuestionCategory: QuizQuestionCategory;
+  QuizQuestionDifficulty: QuizQuestionDifficulty;
+  QuizQuestionType: QuizQuestionType;
   String: ResolverTypeWrapper<Scalars["String"]["output"]>;
 };
 
@@ -192,6 +238,8 @@ export type ResolversParentTypes = {
   NewsArticle: NewsArticle;
   NewsResult: NewsResult;
   Query: {};
+  QuizInput: QuizInput;
+  QuizQuestion: QuizQuestion;
   String: Scalars["String"]["output"];
 };
 
@@ -233,10 +281,31 @@ export type QueryResolvers<
     ContextType,
     RequireFields<QueryNewsArgs, "language" | "page">
   >;
+  quiz?: Resolver<
+    Array<ResolversTypes["QuizQuestion"]>,
+    ParentType,
+    ContextType,
+    RequireFields<QueryQuizArgs, "input">
+  >;
+};
+
+export type QuizQuestionResolvers<
+  ContextType = any,
+  ParentType extends
+    ResolversParentTypes["QuizQuestion"] = ResolversParentTypes["QuizQuestion"],
+> = {
+  category?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  correctAnswer?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  difficulty?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  options?: Resolver<Array<ResolversTypes["String"]>, ParentType, ContextType>;
+  question?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes["String"], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
   NewsArticle?: NewsArticleResolvers<ContextType>;
   NewsResult?: NewsResultResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  QuizQuestion?: QuizQuestionResolvers<ContextType>;
 };
