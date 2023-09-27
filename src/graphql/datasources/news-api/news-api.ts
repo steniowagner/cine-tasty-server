@@ -26,9 +26,12 @@ export default class NewsAPI extends RESTDataSource {
       const response = await this.get<NewsAPIResponse>(CONSTANTS.ENDPOINT, {
         params: requestParams,
       });
+      const isRequestSuccessful = response.status === "ok";
       return {
-        hasMore: response.articles.length === CONSTANTS.PAGE_SIZE,
-        items: response.articles,
+        hasMore: isRequestSuccessful
+          ? response.articles.length === CONSTANTS.PAGE_SIZE
+          : false,
+        items: isRequestSuccessful ? response.articles : [],
       };
     } catch (err) {
       return {
