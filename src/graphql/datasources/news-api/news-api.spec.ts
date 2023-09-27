@@ -52,6 +52,7 @@ describe("DataSources/NewsAPI/Integration", () => {
     jest.spyOn(RESTDataSource.prototype as any, "get").mockImplementation(async () =>
       Promise.resolve({
         articles,
+        status: "ok",
       }),
     );
     const response =
@@ -82,6 +83,7 @@ describe("DataSources/NewsAPI/Integration", () => {
     jest.spyOn(RESTDataSource.prototype as any, "get").mockImplementation(async () =>
       Promise.resolve({
         articles,
+        status: "ok",
       }),
     );
     const response =
@@ -107,19 +109,46 @@ describe("DataSources/NewsAPI/Integration", () => {
     }
   });
 
-  it("should return the query correctly when some error happens", async () => {
-    jest
-      .spyOn(RESTDataSource.prototype as any, "get")
-      .mockImplementation(async () => Promise.reject());
-    const response =
-      await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(QUERY_NEWS, {
-        page: 1,
-        language: "EN",
-      });
-    const news = response.body.singleResult.data.news;
-    expect(response.body.kind === "single");
-    expect(response.body.singleResult.errors).toBeUndefined();
-    expect(news.hasMore).toEqual(false);
-    expect(news.items.length).toEqual(0);
+  describe("When some error happens", () => {
+    it("should return the query correctly when some is thrown during the request", async () => {
+      jest
+        .spyOn(RESTDataSource.prototype as any, "get")
+        .mockImplementation(async () => Promise.reject());
+      const response =
+        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
+          QUERY_NEWS,
+          {
+            page: 1,
+            language: "EN",
+          },
+        );
+      const news = response.body.singleResult.data.news;
+      expect(response.body.kind === "single");
+      expect(response.body.singleResult.errors).toBeUndefined();
+      expect(news.hasMore).toEqual(false);
+      expect(news.items.length).toEqual(0);
+    });
+
+    it('should return the query correctly when the "status" is "error"', async () => {
+      jest.spyOn(RESTDataSource.prototype as any, "get").mockImplementation(async () =>
+        Promise.resolve({
+          articles: [],
+          status: "error",
+        }),
+      );
+      const response =
+        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
+          QUERY_NEWS,
+          {
+            page: 1,
+            language: "EN",
+          },
+        );
+      const news = response.body.singleResult.data.news;
+      expect(response.body.kind === "single");
+      expect(response.body.singleResult.errors).toBeUndefined();
+      expect(news.hasMore).toEqual(false);
+      expect(news.items).toEqual([]);
+    });
   });
 });
