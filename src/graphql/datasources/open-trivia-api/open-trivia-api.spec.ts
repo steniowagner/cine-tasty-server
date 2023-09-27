@@ -1,275 +1,179 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { RESTDataSource } from "@apollo/datasource-rest";
+
 import * as GeneratedTypes from "@generated-types";
 
-import OpenTriviaAPI from "./open-trivia-api";
+import { execDatasourceTestOperation } from "../../../../__test__";
 import { CONSTANTS } from "./utils";
 
-const DEFAULT_AMOUNT = 3;
+type ExecDatasourceTestOperationResponse = {
+  quiz: GeneratedTypes.QuizQuestion[];
+};
 
-const mockGet = jest.fn().mockReturnValue({
-  response_code: 0,
-  results: [],
-});
+const makeResults = (length: number) =>
+  Array(length)
+    .fill({})
+    .map((_, index) => ({
+      category: `category-${index}`,
+      type: `type-${index}`,
+      difficulty: `difficulty-${index}`,
+      question: `question-${index}`,
+      correct_answer: `correct_answer-${index}`,
+      incorrect_answers: ["incorrect_answer-1", "incorrect_answer-2"],
+    }));
 
-jest.mock("@apollo/datasource-rest", () => {
-  ("");
-  class MockRESTDataSource {
-    baseUrl = "";
-    get = mockGet;
+const QUERY_QUIZ = `#graphql
+  query QuizQuestions($input: QuizInput!) {
+    quiz(input: $input) {
+      options,
+      difficulty,
+      category,
+      question,
+      type,
+    }
   }
-  return {
-    RESTDataSource: MockRESTDataSource,
-  };
-});
+`;
 
-describe("DataSources/OpenTriviaAPI/Unit", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
+describe("DataSources/OpenTriviaAPI/Integration", () => {
+  describe("When the request finishes successfuly", () => {
+    describe('When "category" is "MIXED"', () => {
+      it(`should return the data correctly when the "response_code" is "${CONSTANTS.SUCCESS_RESPONSE_CODE}"`, async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () =>
+            Promise.resolve({
+              response_code: CONSTANTS.SUCCESS_RESPONSE_CODE,
+              results: makeResults(1),
+            }),
+          )
+          .mockImplementationOnce(async () =>
+            Promise.resolve({
+              response_code: CONSTANTS.SUCCESS_RESPONSE_CODE,
+              results: makeResults(2),
+            }),
+          );
+        const numberOfQuestions = 3;
+        const response =
+          await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
+            QUERY_QUIZ,
+            {
+              input: {
+                difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard,
+                type: GeneratedTypes.QuizQuestionType.Boolean,
+                category: GeneratedTypes.QuizQuestionCategory.Mixed,
+                numberOfQuestions,
+              },
+            },
+          );
+        const quiz = response.body.singleResult.data.quiz;
+        expect(quiz.length).toEqual(numberOfQuestions);
+        for (let i = 0; i < quiz.length; i++) {
+          expect(quiz[i].options).toBeDefined();
+          expect(Array.isArray(quiz[i].options)).toEqual(true);
+          expect(
+            quiz[i].options.every((option: string) => typeof option === "string"),
+          ).toEqual(true);
+          expect(quiz[i].difficulty).toBeDefined();
+          expect(typeof quiz[i].difficulty === "string").toEqual(true);
+          expect(quiz[i].category).toBeDefined();
+          expect(typeof quiz[i].category === "string").toEqual(true);
+          expect(quiz[i].question).toBeDefined();
+          expect(typeof quiz[i].question === "string").toEqual(true);
+          expect(quiz[i].type).toBeDefined();
+          expect(typeof quiz[i].type === "string").toEqual(true);
+        }
+      });
+    });
+
+    describe('When "category" different of "MIXED"', () => {
+      it(`should return the data correctly when the "response_code" is "${CONSTANTS.SUCCESS_RESPONSE_CODE}"`, async () => {
+        const numberOfQuestions = 3;
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () =>
+            Promise.resolve({
+              response_code: CONSTANTS.SUCCESS_RESPONSE_CODE,
+              results: makeResults(numberOfQuestions),
+            }),
+          );
+        const response =
+          await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
+            QUERY_QUIZ,
+            {
+              input: {
+                difficulty: GeneratedTypes.QuizQuestionDifficulty.Medium,
+                type: GeneratedTypes.QuizQuestionType.Boolean,
+                category: GeneratedTypes.QuizQuestionCategory.Tv,
+                numberOfQuestions,
+              },
+            },
+          );
+        const quiz = response.body.singleResult.data.quiz;
+        expect(quiz.length).toEqual(numberOfQuestions);
+        for (let i = 0; i < quiz.length; i++) {
+          expect(quiz[i].options).toBeDefined();
+          expect(Array.isArray(quiz[i].options)).toEqual(true);
+          expect(
+            quiz[i].options.every((option: string) => typeof option === "string"),
+          ).toEqual(true);
+          expect(quiz[i].difficulty).toBeDefined();
+          expect(typeof quiz[i].difficulty === "string").toEqual(true);
+          expect(quiz[i].category).toBeDefined();
+          expect(typeof quiz[i].category === "string").toEqual(true);
+          expect(quiz[i].question).toBeDefined();
+          expect(typeof quiz[i].question === "string").toEqual(true);
+          expect(quiz[i].type).toBeDefined();
+          expect(typeof quiz[i].type === "string").toEqual(true);
+        }
+      });
+    });
   });
 
-  describe('When "category" is "MIXED"', () => {
-    describe('When "numberOfQuestions" is greater than "1"', () => {
-      describe('When "difficulty" and "type" are not "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
+  describe("When some error happens", () => {
+    it('should return an empty array when the "response_code" is different of "0"', async () => {
+      jest
+        .spyOn(RESTDataSource.prototype as any, "get")
+        .mockImplementationOnce(async () =>
+          Promise.resolve({
+            response_code: 1,
+            results: makeResults(1),
+          }),
+        );
+      const numberOfQuestions = 3;
+      const response =
+        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
+          QUERY_QUIZ,
+          {
             input: {
-              numberOfQuestions: 3,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Easy,
+              difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard,
               type: GeneratedTypes.QuizQuestionType.Boolean,
+              category: GeneratedTypes.QuizQuestionCategory.Tv,
+              numberOfQuestions,
             },
-          });
-          const tvRequestParams = mockGet.mock.calls[0][1].params;
-          const movieRequestParams = mockGet.mock.calls[1][1].params;
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[1][0]).toEqual(CONSTANTS.ENDPOINT);
-          // tv-request-params
-          expect(tvRequestParams.amount).toEqual(String(1));
-          expect(tvRequestParams.category).toEqual(CONSTANTS.TV_CATEGORY_CODE);
-          expect(tvRequestParams.difficulty).toEqual(
-            GeneratedTypes.QuizQuestionDifficulty.Easy.toLowerCase(),
-          );
-          expect(tvRequestParams.type).toEqual(
-            GeneratedTypes.QuizQuestionType.Boolean.toLowerCase(),
-          );
-          // movie-request-params
-          expect(movieRequestParams.amount).toEqual(String(2));
-          expect(movieRequestParams.category).toEqual(CONSTANTS.MOVIE_CATEGORY_CODE);
-          expect(movieRequestParams.difficulty).toEqual(
-            GeneratedTypes.QuizQuestionDifficulty.Easy.toLowerCase(),
-          );
-          expect(movieRequestParams.type).toEqual(
-            GeneratedTypes.QuizQuestionType.Boolean.toLowerCase(),
-          );
-        });
-      });
+          },
+        );
+      const quiz = response.body.singleResult.data.quiz;
+      expect(quiz.length).toEqual(0);
+    });
 
-      describe('When "difficulty" is "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
+    it("should return an empty array when some error happens during the request", async () => {
+      jest
+        .spyOn(RESTDataSource.prototype as any, "get")
+        .mockImplementationOnce(async () => Promise.reject({}));
+      const numberOfQuestions = 3;
+      const response =
+        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
+          QUERY_QUIZ,
+          {
             input: {
-              numberOfQuestions: 3,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Mixed,
+              difficulty: GeneratedTypes.QuizQuestionDifficulty.Easy,
               type: GeneratedTypes.QuizQuestionType.Multiple,
+              category: GeneratedTypes.QuizQuestionCategory.Movie,
+              numberOfQuestions,
             },
-          });
-          const tvRequestParams = mockGet.mock.calls[0][1].params;
-          const movieRequestParams = mockGet.mock.calls[1][1].params;
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[1][0]).toEqual(CONSTANTS.ENDPOINT);
-          // tv-request-params
-          expect(tvRequestParams).toEqual({
-            amount: String(1),
-            category: CONSTANTS.TV_CATEGORY_CODE,
-            type: GeneratedTypes.QuizQuestionType.Multiple.toLowerCase(),
-          });
-          // movie-request-params
-          expect(movieRequestParams).toEqual({
-            amount: String(2),
-            category: CONSTANTS.MOVIE_CATEGORY_CODE,
-            type: GeneratedTypes.QuizQuestionType.Multiple.toLowerCase(),
-          });
-        });
-      });
-
-      describe('When "type" is "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
-            input: {
-              numberOfQuestions: 3,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard,
-              type: GeneratedTypes.QuizQuestionType.Mixed,
-            },
-          });
-          const tvRequestParams = mockGet.mock.calls[0][1].params;
-          const movieRequestParams = mockGet.mock.calls[1][1].params;
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[1][0]).toEqual(CONSTANTS.ENDPOINT);
-          // tv-request-params
-          expect(tvRequestParams).toEqual({
-            amount: String(1),
-            category: CONSTANTS.TV_CATEGORY_CODE,
-            difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard.toLowerCase(),
-          });
-          // movie-request-params
-          expect(movieRequestParams).toEqual({
-            amount: String(2),
-            category: CONSTANTS.MOVIE_CATEGORY_CODE,
-            difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard.toLowerCase(),
-          });
-        });
-      });
-
-      describe('When "type" and "difficulty" are "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
-            input: {
-              numberOfQuestions: 3,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Mixed,
-              type: GeneratedTypes.QuizQuestionType.Mixed,
-            },
-          });
-          const tvRequestParams = mockGet.mock.calls[0][1].params;
-          const movieRequestParams = mockGet.mock.calls[1][1].params;
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[1][0]).toEqual(CONSTANTS.ENDPOINT);
-          // tv-request-params
-          expect(tvRequestParams).toEqual({
-            amount: String(1),
-            category: CONSTANTS.TV_CATEGORY_CODE,
-          });
-          // movie-request-params
-          expect(movieRequestParams).toEqual({
-            amount: String(2),
-            category: CONSTANTS.MOVIE_CATEGORY_CODE,
-          });
-        });
-      });
-    });
-
-    describe('When "numberOfQuestions" is "1"', () => {
-      describe('When "difficulty" and "type" are not "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
-            input: {
-              numberOfQuestions: 1,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Easy,
-              type: GeneratedTypes.QuizQuestionType.Boolean,
-            },
-          });
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[0][1].params.amount).toEqual(String(1));
-          expect(
-            mockGet.mock.calls[0][1].params.category === CONSTANTS.MOVIE_CATEGORY_CODE ||
-              mockGet.mock.calls[0][1].params.category === CONSTANTS.TV_CATEGORY_CODE,
-          ).toEqual(true);
-          expect(mockGet.mock.calls[0][1].params.difficulty).toEqual(
-            GeneratedTypes.QuizQuestionDifficulty.Easy.toLowerCase(),
-          );
-          expect(mockGet.mock.calls[0][1].params.type).toEqual(
-            GeneratedTypes.QuizQuestionType.Boolean.toLowerCase(),
-          );
-        });
-      });
-
-      describe('When "difficulty" is "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
-            input: {
-              numberOfQuestions: 1,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Mixed,
-              type: GeneratedTypes.QuizQuestionType.Boolean,
-            },
-          });
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[0][1].params.amount).toEqual(String(1));
-          expect(
-            mockGet.mock.calls[0][1].params.category === CONSTANTS.MOVIE_CATEGORY_CODE ||
-              mockGet.mock.calls[0][1].params.category === CONSTANTS.TV_CATEGORY_CODE,
-          ).toEqual(true);
-          expect(mockGet.mock.calls[0][1].params.difficulty).toEqual(undefined);
-          expect(mockGet.mock.calls[0][1].params.type).toEqual(
-            GeneratedTypes.QuizQuestionType.Boolean.toLowerCase(),
-          );
-        });
-      });
-
-      describe('When "type" is "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
-            input: {
-              numberOfQuestions: 1,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard,
-              type: GeneratedTypes.QuizQuestionType.Mixed,
-            },
-          });
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[0][1].params.amount).toEqual(String(1));
-          expect(
-            mockGet.mock.calls[0][1].params.category === CONSTANTS.MOVIE_CATEGORY_CODE ||
-              mockGet.mock.calls[0][1].params.category === CONSTANTS.TV_CATEGORY_CODE,
-          ).toEqual(true);
-          expect(mockGet.mock.calls[0][1].params.difficulty).toEqual(
-            GeneratedTypes.QuizQuestionDifficulty.Hard.toLowerCase(),
-          );
-          expect(mockGet.mock.calls[0][1].params.type).toEqual(undefined);
-        });
-      });
-
-      describe('When "difficulty" and "type" are not "MIXED"', () => {
-        it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-          const openTriviaAPI = new OpenTriviaAPI();
-          await openTriviaAPI.getQuiz({
-            input: {
-              numberOfQuestions: 1,
-              category: GeneratedTypes.QuizQuestionCategory.Mixed,
-              difficulty: GeneratedTypes.QuizQuestionDifficulty.Mixed,
-              type: GeneratedTypes.QuizQuestionType.Mixed,
-            },
-          });
-          expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-          expect(mockGet.mock.calls[0][1].params.amount).toEqual(String(1));
-          expect(
-            mockGet.mock.calls[0][1].params.category === CONSTANTS.MOVIE_CATEGORY_CODE ||
-              mockGet.mock.calls[0][1].params.category === CONSTANTS.TV_CATEGORY_CODE,
-          ).toEqual(true);
-          expect(mockGet.mock.calls[0][1].params.difficulty).toEqual(undefined);
-          expect(mockGet.mock.calls[0][1].params.type).toEqual(undefined);
-        });
-      });
-    });
-  });
-
-  describe('When "category" is not "MIXED"', () => {
-    it('should call "RESTDatasource.get" with the correct "query-params"', async () => {
-      const openTriviaAPI = new OpenTriviaAPI();
-      await openTriviaAPI.getQuiz({
-        input: {
-          numberOfQuestions: DEFAULT_AMOUNT,
-          category: GeneratedTypes.QuizQuestionCategory.Movie,
-          difficulty: GeneratedTypes.QuizQuestionDifficulty.Medium,
-          type: GeneratedTypes.QuizQuestionType.Multiple,
-        },
-      });
-      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
-      expect(mockGet.mock.calls[0][1].params).toEqual({
-        amount: String(DEFAULT_AMOUNT),
-        category: CONSTANTS.MOVIE_CATEGORY_CODE,
-        difficulty: GeneratedTypes.QuizQuestionDifficulty.Medium.toLowerCase(),
-        type: GeneratedTypes.QuizQuestionType.Multiple.toLowerCase(),
-      });
+          },
+        );
+      expect(response.body.singleResult.data.quiz.length).toEqual(0);
     });
   });
 });
