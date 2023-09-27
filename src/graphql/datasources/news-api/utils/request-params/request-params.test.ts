@@ -2,7 +2,7 @@ import { getRequestParams } from "./request-params";
 
 import { NewsLanguage } from "@generated-types";
 
-import CONSTANTS from "../constants";
+import { CONSTANTS } from "../constants";
 
 const newsLanguages = Object.values(NewsLanguage);
 

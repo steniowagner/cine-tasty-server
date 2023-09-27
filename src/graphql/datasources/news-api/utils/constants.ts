@@ -1,4 +1,4 @@
-export default {
+export const CONSTANTS = {
   BASE_URL: "https://newsapi.org/v2/",
   ENDPOINT: "everything",
   SORT_BY: "popularity",

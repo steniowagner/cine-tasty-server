@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RESTDataSource } from "@apollo/datasource-rest";
 
-import { execDatasourceTestOperation } from "../../../../__test__";
 import { NewsResult } from "@generated-types";
 
-import CONSTANTS from "./utils/constants";
+import { execDatasourceTestOperation } from "../../../../__test__";
+import { CONSTANTS } from "./utils";
 
 const mockNewsArticles = (lenght: number) =>
   Array(lenght)
@@ -46,7 +46,7 @@ type ExecDatasourceTestOperationResponse = {
   news: NewsResult;
 };
 
-describe("DataSources/NewsAPI", () => {
+describe("DataSources/NewsAPI/Integration", () => {
   it("should return the query correctly when has some more data to be returned", async () => {
     const articles = mockNewsArticles(CONSTANTS.PAGE_SIZE);
     jest.spyOn(RESTDataSource.prototype as any, "get").mockImplementation(async () =>

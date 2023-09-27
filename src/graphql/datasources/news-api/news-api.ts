@@ -4,7 +4,7 @@ import { NewsAPIResponse } from "@news-api/types";
 import { QueryNewsArgs } from "@generated-types";
 
 import { getRequestParams } from "./utils/request-params/request-params";
-import CONSTANTS from "./utils/constants";
+import { CONSTANTS } from "./utils/constants";
 
 export default class NewsAPI extends RESTDataSource {
   constructor() {
