@@ -4,10 +4,10 @@ import { NewsAPIResponse } from "@news-api/types";
 import { QueryNewsArgs } from "@generated-types";
 
 import { getRequestParams } from "./utils/request-params/request-params";
-import CONSTANTS from "./utils/constants";
+import { CONSTANTS } from "./utils/constants";
 
 export default class NewsAPI extends RESTDataSource {
-  constructor() {
+  constructor(private today: Date) {
     super();
     this.baseURL = CONSTANTS.BASE_URL;
   }
@@ -21,14 +21,17 @@ export default class NewsAPI extends RESTDataSource {
       const requestParams = getRequestParams({
         language: params.language,
         page: params.page,
-        today: new Date(),
+        today: this.today,
       });
       const response = await this.get<NewsAPIResponse>(CONSTANTS.ENDPOINT, {
         params: requestParams,
       });
+      const isRequestSuccessful = response.status === "ok";
       return {
-        hasMore: response.articles.length === CONSTANTS.PAGE_SIZE,
-        items: response.articles,
+        hasMore: isRequestSuccessful
+          ? response.articles.length === CONSTANTS.PAGE_SIZE
+          : false,
+        items: isRequestSuccessful ? response.articles : [],
       };
     } catch (err) {
       return {

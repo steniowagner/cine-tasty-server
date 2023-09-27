@@ -18,7 +18,7 @@ const server = new ApolloServer<Context>({
     async context() {
       return {
         openTriviaAPI: new OpenTriviaAPI(),
-        newsAPI: new NewsAPI(),
+        newsAPI: new NewsAPI(new Date()),
       };
     },
     listen: { port: parseInt(process.env.PORT! as string) },

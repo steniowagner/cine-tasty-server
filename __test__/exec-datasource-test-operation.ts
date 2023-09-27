@@ -32,7 +32,7 @@ export const execDatasourceTestOperation = async <TResult>(
     {
       contextValue: {
         openTriviaAPI: new OpenTriviaAPI(),
-        newsAPI: new NewsAPI(),
+        newsAPI: new NewsAPI(new Date()),
       },
     },
   );
