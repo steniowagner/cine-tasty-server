@@ -2,7 +2,7 @@ import TheMovieDBAPI from "@tmdb-api/tmdb-movie-db-api";
 import { Iso6391Language } from "@generated-types";
 import { CONSTANTS as TMDBAPI_CONSTANTS } from "@tmdb-api/utils";
 
-import { handler } from "./media-genres-movies.handler";
+import { handler } from "./media-genres-tv-series.handlers";
 import { CONSTANTS } from "./media-genres.constants";
 
 const mockGet = jest.fn();
@@ -10,12 +10,8 @@ const mockGet = jest.fn();
 const genresIds = {
   genres: [
     {
-      id: 28,
-      name: "Ação",
-    },
-    {
-      id: 12,
-      name: "Aventura",
+      id: 10759,
+      name: "Action & Adventure",
     },
     {
       id: 16,
@@ -42,44 +38,36 @@ const genresIds = {
       name: "Família",
     },
     {
-      id: 14,
-      name: "Fantasia",
-    },
-    {
-      id: 36,
-      name: "História",
-    },
-    {
-      id: 27,
-      name: "Terror",
-    },
-    {
-      id: 10402,
-      name: "Música",
+      id: 10762,
+      name: "Kids",
     },
     {
       id: 9648,
       name: "Mistério",
     },
     {
-      id: 10749,
-      name: "Romance",
+      id: 10763,
+      name: "News",
     },
     {
-      id: 878,
-      name: "Ficção científica",
+      id: 10764,
+      name: "Reality",
     },
     {
-      id: 10770,
-      name: "Cinema TV",
+      id: 10765,
+      name: "Sci-Fi & Fantasy",
     },
     {
-      id: 53,
-      name: "Thriller",
+      id: 10766,
+      name: "Soap",
     },
     {
-      id: 10752,
-      name: "Guerra",
+      id: 10767,
+      name: "Talk",
+    },
+    {
+      id: 10768,
+      name: "War & Politics",
     },
     {
       id: 37,
@@ -88,7 +76,7 @@ const genresIds = {
   ],
 };
 
-const requestGenreIds = [28, 12, 16, 35];
+const requestGenreIds = [9648, 10751, 18, 37];
 
 jest.mock("@apollo/datasource-rest", () => {
   class MockRESTDataSource {
@@ -100,7 +88,7 @@ jest.mock("@apollo/datasource-rest", () => {
   };
 });
 
-describe("DataSources/TheMovieDBApi/MoviesGenres-Query-Handler", () => {
+describe("DataSources/TheMovieDBApi/TVShowsGenres-Query-Handler", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -112,7 +100,7 @@ describe("DataSources/TheMovieDBApi/MoviesGenres-Query-Handler", () => {
         language: Iso6391Language.Pt,
         genreIds: requestGenreIds,
       });
-      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.MOVIES_ENDPOINT);
+      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.TV_SHOWS_ENDPOINT);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language: Iso6391Language.Pt,
       });
@@ -126,7 +114,7 @@ describe("DataSources/TheMovieDBApi/MoviesGenres-Query-Handler", () => {
         tmdbAPI: new TheMovieDBAPI(),
         genreIds: requestGenreIds,
       });
-      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.MOVIES_ENDPOINT);
+      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.TV_SHOWS_ENDPOINT);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language: TMDBAPI_CONSTANTS.FALLBACK_LANGUAGE,
       });
@@ -163,7 +151,7 @@ describe("DataSources/TheMovieDBApi/MoviesGenres-Query-Handler", () => {
         tmdbAPI: new TheMovieDBAPI(),
         genreIds: requestGenreIds,
       });
-      expect(response).toEqual(["Ação", "Aventura", "Animação", "Comédia"]);
+      expect(response).toEqual(["Mistério", "Família", "Drama", "Faroeste"]);
     });
   });
 });
