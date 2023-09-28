@@ -92,26 +92,26 @@ export type Famous = {
   __typename?: 'Famous';
   biography?: Maybe<Scalars['String']['output']>;
   birthday?: Maybe<Scalars['String']['output']>;
+  cast: FamousCast;
   deathday?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   images: Array<Scalars['String']['output']>;
   knownForDepartment?: Maybe<Scalars['String']['output']>;
-  moviesCast: Array<CastMovie>;
   name?: Maybe<Scalars['String']['output']>;
   placeOfBirth?: Maybe<Scalars['String']['output']>;
   popularity?: Maybe<Scalars['Float']['output']>;
   profilePath?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type FamousCastArgs = {
+  language?: InputMaybe<Iso6391Language>;
+};
+
+export type FamousCast = {
+  __typename?: 'FamousCast';
+  moviesCast: Array<CastMovie>;
   tvShowsCast: Array<CastTvShow>;
-};
-
-
-export type FamousMoviesCastArgs = {
-  language?: InputMaybe<Iso6391Language>;
-};
-
-
-export type FamousTvShowsCastArgs = {
-  language?: InputMaybe<Iso6391Language>;
 };
 
 export enum Iso6391Language {
@@ -523,6 +523,7 @@ export type ResolversTypes = {
   CastMovie: ResolverTypeWrapper<CastMovie>;
   CastTVShow: ResolverTypeWrapper<CastTvShow>;
   Famous: ResolverTypeWrapper<Famous>;
+  FamousCast: ResolverTypeWrapper<FamousCast>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   ISO6391Language: Iso6391Language;
@@ -546,6 +547,7 @@ export type ResolversParentTypes = {
   CastMovie: CastMovie;
   CastTVShow: CastTvShow;
   Famous: Famous;
+  FamousCast: FamousCast;
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
@@ -618,16 +620,21 @@ export type CastTvShowResolvers<ContextType = any, ParentType extends ResolversP
 export type FamousResolvers<ContextType = any, ParentType extends ResolversParentTypes['Famous'] = ResolversParentTypes['Famous']> = {
   biography?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   birthday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cast?: Resolver<ResolversTypes['FamousCast'], ParentType, ContextType, Partial<FamousCastArgs>>;
   deathday?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   knownForDepartment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  moviesCast?: Resolver<Array<ResolversTypes['CastMovie']>, ParentType, ContextType, Partial<FamousMoviesCastArgs>>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   placeOfBirth?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   profilePath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  tvShowsCast?: Resolver<Array<ResolversTypes['CastTVShow']>, ParentType, ContextType, Partial<FamousTvShowsCastArgs>>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type FamousCastResolvers<ContextType = any, ParentType extends ResolversParentTypes['FamousCast'] = ResolversParentTypes['FamousCast']> = {
+  moviesCast?: Resolver<Array<ResolversTypes['CastMovie']>, ParentType, ContextType>;
+  tvShowsCast?: Resolver<Array<ResolversTypes['CastTVShow']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -672,6 +679,7 @@ export type Resolvers<ContextType = any> = {
   CastMovie?: CastMovieResolvers<ContextType>;
   CastTVShow?: CastTvShowResolvers<ContextType>;
   Famous?: FamousResolvers<ContextType>;
+  FamousCast?: FamousCastResolvers<ContextType>;
   NewsArticle?: NewsArticleResolvers<ContextType>;
   NewsResult?: NewsResultResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

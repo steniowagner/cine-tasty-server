@@ -1,4 +1,9 @@
 export default `#graphql
+  type FamousCast {
+    moviesCast: [CastMovie!]!
+    tvShowsCast: [CastTVShow!]!
+  }
+
   type Famous {
     biography: String
     birthday: String
@@ -6,11 +11,10 @@ export default `#graphql
     id: Int!
     images: [String!]!
     knownForDepartment: String
-    moviesCast(language: ISO6391Language): [CastMovie!]!
     name: String
     placeOfBirth: String
     popularity: Float
     profilePath: String
-    tvShowsCast(language: ISO6391Language): [CastTVShow!]!
+    cast(language: ISO6391Language): FamousCast!
   }
 `;

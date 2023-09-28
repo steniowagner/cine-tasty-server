@@ -1,11 +1,11 @@
 import TheMovieDBAPI from "@tmdb-api/tmdb-movie-db-api";
-import { FamousMoviesCastArgs } from "@generated-types";
+import { FamousCastArgs } from "@generated-types";
 import { CONSTANTS as TMDB_CONSTANS } from "@tmdb-api/utils";
 
 import { CONSTANTS } from "./famous-cast.constants";
 import { Response, MovieCast, TvShowCast } from "./famous-cast.types";
 
-type HandlerParams = FamousMoviesCastArgs & {
+type HandlerParams = FamousCastArgs & {
   tmdbAPI: TheMovieDBAPI;
   id: number;
 };
