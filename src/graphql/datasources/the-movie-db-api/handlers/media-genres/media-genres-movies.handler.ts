@@ -1,6 +1,6 @@
 import TheMovieDBAPI from "@tmdb-api/tmdb-movie-db-api";
 import { CastMovieGenreIdsArgs } from "@generated-types";
-import { CONSTANTS as TMDB_CONSTANS } from "@tmdb-api/utils";
+import { CONSTANTS as TMDBAPI_CONSTANTS } from "@tmdb-api/utils";
 
 import { CONSTANTS } from "./media-genres.constants";
 import { Response } from "./media-genres.types";
@@ -14,7 +14,7 @@ type HandlerParams = CastMovieGenreIdsArgs & {
 export const handler = {
   handle: async (params: HandlerParams) => {
     const response = await params.tmdbAPI.handle<Response>(CONSTANTS.MOVIES_ENDPOINT, {
-      language: params.language?.toLowerCase() ?? TMDB_CONSTANS.FALLBACK_LANGUAGE,
+      language: params.language ?? TMDBAPI_CONSTANTS.FALLBACK_LANGUAGE,
     });
     if (!response) {
       return [];
