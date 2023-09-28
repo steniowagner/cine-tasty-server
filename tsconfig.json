@@ -16,6 +16,7 @@
     "paths": {
       "@news-api/*": ["graphql/datasources/news-api/*"],
       "@open-trivia-api/*": ["graphql/datasources/open-trivia-api/*"],
+      "@tmdb-api/*": ["graphql/datasources/the-movie-db-api/*"],
       "@generated-types": ["generated/graphql.ts"],
       "@types": ["types/index.ts"],
       "@/*": ["*"]
