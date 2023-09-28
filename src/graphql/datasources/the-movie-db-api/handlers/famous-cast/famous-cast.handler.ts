@@ -15,7 +15,7 @@ export const handler = {
     const response = await params.tmdbAPI.handle<Response>(
       CONSTANTS.ENDPOINT(params.id),
       {
-        language: params.language?.toLowerCase() ?? TMDB_CONSTANS.FALLBACK_LANGUAGE,
+        language: params.language ?? TMDB_CONSTANS.FALLBACK_LANGUAGE,
       },
     );
     if (!response) {
