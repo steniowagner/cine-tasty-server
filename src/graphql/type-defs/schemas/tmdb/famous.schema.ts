@@ -6,11 +6,11 @@ export default `#graphql
     id: Int!
     images: [String!]!
     knownForDepartment: String
-    moviesCast: [CastMovie!]!
+    moviesCast(language: ISO6391Language): [CastMovie!]!
     name: String
     placeOfBirth: String
     popularity: Float
     profilePath: String
-    tvCast: [CastTVShow!]!
+    tvShowsCast(language: ISO6391Language): [CastTVShow!]!
   }
 `;
