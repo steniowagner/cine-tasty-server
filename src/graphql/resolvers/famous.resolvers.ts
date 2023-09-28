@@ -28,5 +28,17 @@ export const resolvers = {
       });
       return cast.moviesCast;
     },
+    tvShowsCast: async (
+      parent: FamousHandlerTypes.Result,
+      params: FamousMoviesCastArgs,
+      context: Context,
+    ) => {
+      const cast = await famousCastHandler.handle({
+        language: params.language,
+        tmdbAPI: context.tmdbAPI,
+        id: parent.id,
+      });
+      return cast.tvShowsCast;
+    },
   },
 };

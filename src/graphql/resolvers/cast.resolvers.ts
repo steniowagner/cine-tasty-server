@@ -1,6 +1,6 @@
 import {
   mediaGenresMoviesHandler,
-  // mediaGenresTVShowsHandler,
+  mediaGenresTVShowsHandler,
 } from "@tmdb-api/handlers/media-genres";
 import { CastGenreIdsArgs } from "@generated-types";
 import { FamousCastTypes } from "@tmdb-api/handlers/famous-cast";
@@ -29,18 +29,27 @@ export const resolvers = {
     voteCount: (parent: FamousCastTypes.MovieCast) => parent.vote_count,
   },
 
-  // CastTVShow: {
-  //   backdropPath: (parent: CastResponse) => parent.backdrop_path,
-  //   creditId: (parent: CastResponse) => parent.credit_id,
-  //   episodeCount: Int
-  //   firstAirDate: String
-  //   genreIds(language: ISO6391Language): [String!]!
-  //   mediaType: String
-  //   originalLanguage: String
-  //   originalName: String
-  //   originCountry: [String!]!
-  //   posterPath: String
-  //   voteAverage: Float
-  //   voteCount: Float
-  // },
+  CastTVShow: {
+    backdropPath: (parent: FamousCastTypes.TvShowCast) => parent.backdrop_path,
+    genreIds: (
+      parent: FamousCastTypes.TvShowCast,
+      params: CastGenreIdsArgs,
+      context: Context,
+    ) =>
+      mediaGenresTVShowsHandler.handle({
+        tmdbAPI: context.tmdbAPI,
+        genreIds: parent.genre_ids,
+        language: params.language,
+      }),
+    originCountry: (parent: FamousCastTypes.TvShowCast) => parent.origin_country,
+    originalLanguage: (parent: FamousCastTypes.TvShowCast) => parent.original_language,
+    originalName: (parent: FamousCastTypes.TvShowCast) => parent.original_name,
+    posterPath: (parent: FamousCastTypes.TvShowCast) => parent.poster_path,
+    firstAirDate: (parent: FamousCastTypes.TvShowCast) => parent.first_air_date,
+    voteAverage: (parent: FamousCastTypes.TvShowCast) => parent.vote_average,
+    voteCount: (parent: FamousCastTypes.TvShowCast) => parent.vote_count,
+    creditId: (parent: FamousCastTypes.TvShowCast) => parent.credit_id,
+    episodeCount: (parent: FamousCastTypes.TvShowCast) => parent.episode_count,
+    mediaType: (parent: FamousCastTypes.TvShowCast) => parent.media_type,
+  },
 };
