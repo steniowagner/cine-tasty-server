@@ -1,7 +1,7 @@
-import { QueryFamousArgs } from "@generated-types";
-import { Context } from "@/types";
-
+import { QueryFamousArgs, FamousMoviesCastArgs } from "@generated-types";
 import { famousHandler, FamousHandlerTypes } from "@tmdb-api/handlers/famous";
+import { famousCastHandler } from "@tmdb-api/handlers/famous-cast";
+import { Context } from "@/types";
 
 export const resolvers = {
   Query: {
@@ -16,5 +16,17 @@ export const resolvers = {
     profilePath: (parent: FamousHandlerTypes.Result) => parent.profile_path,
     knownForDepartment: (parent: FamousHandlerTypes.Result) =>
       parent.known_for_department,
+    moviesCast: async (
+      parent: FamousHandlerTypes.Result,
+      params: FamousMoviesCastArgs,
+      context: Context,
+    ) => {
+      const cast = await famousCastHandler.handle({
+        language: params.language,
+        tmdbAPI: context.tmdbAPI,
+        id: parent.id,
+      });
+      return cast.moviesCast;
+    },
   },
 };
