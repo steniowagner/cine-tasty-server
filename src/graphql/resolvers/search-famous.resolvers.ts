@@ -53,7 +53,7 @@ export const resolvers = {
     originalLanguage: (parent: SearchMovieHandlerTypes.KnowForTVShow) =>
       parent.original_language,
     originalName: (parent: SearchMovieHandlerTypes.KnowForTVShow) => parent.original_name,
-    posterPath: (parent: SearchMovieHandlerTypes.KnowForTVShow) => parent.posterPath,
+    posterPath: (parent: SearchMovieHandlerTypes.KnowForTVShow) => parent.poster_path,
     mediaType: (parent: SearchMovieHandlerTypes.KnowForTVShow) => parent.media_type,
     firstAirDate: (parent: SearchMovieHandlerTypes.KnowForTVShow) =>
       parent.first_air_date,

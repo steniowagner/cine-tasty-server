@@ -6,7 +6,7 @@ export type KnowForTVShow = {
   original_language: string;
   original_name: string;
   overview: string;
-  posterPath: string;
+  poster_path: string;
   media_type: string;
   genre_ids: number[];
   popularity: number;
