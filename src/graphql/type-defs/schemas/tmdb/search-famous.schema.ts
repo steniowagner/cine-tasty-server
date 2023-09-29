@@ -31,6 +31,7 @@ export default `#graphql
 
   type SearchFamousResult {
     totalResults: Int!
+    totalPages: Int!
     items: [SearchFamousItem!]!
     hasMore: Boolean!
   }

@@ -485,6 +485,7 @@ export type SearchFamousResult = {
   __typename?: 'SearchFamousResult';
   hasMore: Scalars['Boolean']['output'];
   items: Array<SearchFamousItem>;
+  totalPages: Scalars['Int']['output'];
   totalResults: Scalars['Int']['output'];
 };
 
@@ -769,6 +770,7 @@ export type SearchFamousItemKnownForResolvers<ContextType = any, ParentType exte
 export type SearchFamousResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchFamousResult'] = ResolversParentTypes['SearchFamousResult']> = {
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   items?: Resolver<Array<ResolversTypes['SearchFamousItem']>, ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalResults?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
