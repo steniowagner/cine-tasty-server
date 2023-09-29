@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { RESTDataSource } from "@apollo/datasource-rest";
 
-import { Famous } from "@generated-types";
+import { Famous, Iso6391Language } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
 import * as fixtures from "../../../../__test__/datasources/tmdb-api/fixtures";
@@ -35,7 +35,7 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           queries.QUERY_FAMOUS,
           {
             id: 64,
-            language: "PT",
+            language: Iso6391Language.Pt,
           },
         );
         const famous = response.body.singleResult.data.famous;
