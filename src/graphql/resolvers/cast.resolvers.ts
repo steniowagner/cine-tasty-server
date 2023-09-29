@@ -2,7 +2,7 @@ import {
   mediaGenresMoviesHandler,
   mediaGenresTVShowsHandler,
 } from "@tmdb-api/handlers/media-genres";
-import { CastGenreIdsArgs } from "@generated-types";
+import { CastGenresArgs } from "@generated-types";
 import { FamousCastTypes } from "@tmdb-api/handlers/famous-cast";
 import { Context } from "@types";
 
@@ -10,9 +10,9 @@ export const resolvers = {
   CastMovie: {
     backdropPath: (parent: FamousCastTypes.MovieCast) => parent.backdrop_path,
     creditId: (parent: FamousCastTypes.MovieCast) => parent.credit_id,
-    genreIds: (
+    genres: (
       parent: FamousCastTypes.MovieCast,
-      params: CastGenreIdsArgs,
+      params: CastGenresArgs,
       context: Context,
     ) =>
       mediaGenresMoviesHandler.handle({
@@ -31,9 +31,9 @@ export const resolvers = {
 
   CastTVShow: {
     backdropPath: (parent: FamousCastTypes.TvShowCast) => parent.backdrop_path,
-    genreIds: (
+    genres: (
       parent: FamousCastTypes.TvShowCast,
-      params: CastGenreIdsArgs,
+      params: CastGenresArgs,
       context: Context,
     ) =>
       mediaGenresTVShowsHandler.handle({

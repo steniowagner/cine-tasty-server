@@ -58,7 +58,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genreIds",
+            "name": "genres",
             "description": null,
             "args": [
               {
@@ -265,7 +265,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genreIds",
+            "name": "genres",
             "description": null,
             "args": [
               {
@@ -527,7 +527,7 @@
             "deprecationReason": null
           },
           {
-            "name": "genreIds",
+            "name": "genres",
             "description": null,
             "args": [
               {

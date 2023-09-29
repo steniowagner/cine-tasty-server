@@ -4,7 +4,7 @@ export default `#graphql
     character: String
     creditId: String
     id: Int!
-    genreIds(language: ISO6391Language): [String!]!
+    genres(language: ISO6391Language): [String!]!
     mediaType: String
     originalLanguage: String
     overview: String
@@ -19,7 +19,7 @@ export default `#graphql
     backdropPath: String
     character: String
     creditId: String
-    genreIds(language: ISO6391Language): [String!]!
+    genres(language: ISO6391Language): [String!]!
     id: Int!
     originalLanguage: String
     originalTitle: String
@@ -40,7 +40,7 @@ export default `#graphql
     creditId: String
     episodeCount: Int
     firstAirDate: String
-    genreIds(language: ISO6391Language): [String!]!
+    genres(language: ISO6391Language): [String!]!
     id: Int!
     mediaType: String
     name: String

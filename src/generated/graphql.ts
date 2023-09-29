@@ -20,7 +20,7 @@ export type Cast = {
   backdropPath?: Maybe<Scalars['String']['output']>;
   character?: Maybe<Scalars['String']['output']>;
   creditId?: Maybe<Scalars['String']['output']>;
-  genreIds: Array<Scalars['String']['output']>;
+  genres: Array<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   mediaType?: Maybe<Scalars['String']['output']>;
   originalLanguage?: Maybe<Scalars['String']['output']>;
@@ -32,7 +32,7 @@ export type Cast = {
 };
 
 
-export type CastGenreIdsArgs = {
+export type CastGenresArgs = {
   language?: InputMaybe<Iso6391Language>;
 };
 
@@ -42,7 +42,7 @@ export type CastMovie = Cast & {
   backdropPath?: Maybe<Scalars['String']['output']>;
   character?: Maybe<Scalars['String']['output']>;
   creditId?: Maybe<Scalars['String']['output']>;
-  genreIds: Array<Scalars['String']['output']>;
+  genres: Array<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   mediaType?: Maybe<Scalars['String']['output']>;
   originalLanguage?: Maybe<Scalars['String']['output']>;
@@ -58,7 +58,7 @@ export type CastMovie = Cast & {
 };
 
 
-export type CastMovieGenreIdsArgs = {
+export type CastMovieGenresArgs = {
   language?: InputMaybe<Iso6391Language>;
 };
 
@@ -69,7 +69,7 @@ export type CastTvShow = Cast & {
   creditId?: Maybe<Scalars['String']['output']>;
   episodeCount?: Maybe<Scalars['Int']['output']>;
   firstAirDate?: Maybe<Scalars['String']['output']>;
-  genreIds: Array<Scalars['String']['output']>;
+  genres: Array<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   mediaType?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
@@ -84,7 +84,7 @@ export type CastTvShow = Cast & {
 };
 
 
-export type CastTvShowGenreIdsArgs = {
+export type CastTvShowGenresArgs = {
   language?: InputMaybe<Iso6391Language>;
 };
 
@@ -564,7 +564,7 @@ export type CastResolvers<ContextType = any, ParentType extends ResolversParentT
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   character?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   creditId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genreIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<CastGenreIdsArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<CastGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -580,7 +580,7 @@ export type CastMovieResolvers<ContextType = any, ParentType extends ResolversPa
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   character?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   creditId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genreIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<CastMovieGenreIdsArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<CastMovieGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -602,7 +602,7 @@ export type CastTvShowResolvers<ContextType = any, ParentType extends ResolversP
   creditId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   episodeCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genreIds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<CastTvShowGenreIdsArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<CastTvShowGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

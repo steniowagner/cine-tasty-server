@@ -1,12 +1,12 @@
 import TheMovieDBAPI from "@tmdb-api/tmdb-movie-db-api";
-import { CastMovieGenreIdsArgs } from "@generated-types";
+import { CastMovieGenresArgs } from "@generated-types";
 import { CONSTANTS as TMDBAPI_CONSTANTS } from "@tmdb-api/utils";
 
 import { CONSTANTS } from "./media-genres.constants";
 import { Response } from "./media-genres.types";
 import { parseResponse } from "./parse-response";
 
-type HandlerParams = CastMovieGenreIdsArgs & {
+type HandlerParams = CastMovieGenresArgs & {
   tmdbAPI: TheMovieDBAPI;
   genreIds: number[];
 };
