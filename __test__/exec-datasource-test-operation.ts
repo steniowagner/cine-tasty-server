@@ -4,6 +4,8 @@ import OpenTriviaAPI from "@open-trivia-api/open-trivia-api";
 import resolvers from "@/graphql/resolvers";
 import typeDefs from "@/graphql/type-defs";
 import NewsAPI from "@news-api/news-api";
+import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
+
 import { Context } from "@types";
 
 type ExecuteOperationResponse<TData> = {
@@ -33,6 +35,7 @@ export const execDatasourceTestOperation = async <TResult>(
       contextValue: {
         openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(new Date()),
+        tmdbAPI: new TMDBApi(),
       },
     },
   );

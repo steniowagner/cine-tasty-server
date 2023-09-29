@@ -3,6 +3,7 @@ import { ApolloServer } from "@apollo/server";
 
 import OpenTriviaAPI from "@open-trivia-api/open-trivia-api";
 import NewsAPI from "@news-api/news-api";
+import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 
 import typeDefs from "./graphql/type-defs";
 import resolvers from "./graphql/resolvers";
@@ -19,6 +20,7 @@ const server = new ApolloServer<Context>({
       return {
         openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(new Date()),
+        tmdbAPI: new TMDBApi(),
       };
     },
     listen: { port: parseInt(process.env.PORT! as string) },
