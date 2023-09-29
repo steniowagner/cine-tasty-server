@@ -55,3 +55,61 @@ query Famous($id: Int!, $language: ISO6391Language) {
   }
 }
 `;
+
+export const QUERY_SEARCH_FAMOUS = `#graphql
+query SearchFamous($input: SearchInput!) {
+  searchFamous(input: $input) {
+    hasMore
+    items {
+      name
+      adult
+      id
+      gender
+      knownForDepartment
+      knownFor {
+        ... on KnowForMovie {
+          adult
+          backdropPath
+          id
+          title
+          originalLanguage
+          originalTitle
+          overview
+          posterPath
+          mediaType
+          genres(input: $input)
+          popularity
+          releaseDate
+          video
+          voteAverage
+          voteCount
+        }
+
+        ... on KnowForTVShow {
+          adult
+          backdropPath
+          id
+          name
+          originalLanguage
+          originalName
+          overview
+          posterPath
+          mediaType
+          genres(input: $input)
+          popularity
+          firstAirDate
+          voteAverage
+          voteCount
+          originCountry
+        }
+      }
+      name
+      originalName
+      popularity
+      profilePath
+    }
+    totalPages
+    totalResults
+  }
+}
+`;

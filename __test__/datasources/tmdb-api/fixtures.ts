@@ -346,3 +346,54 @@ export const famous = {
     ],
   },
 };
+
+export const searchFamousResult = [
+  {
+    adult: false,
+    gender: 2,
+    id: 52583,
+    known_for_department: "Acting",
+    name: "Wagner Moura",
+    original_name: "Wagner Moura",
+    popularity: 26.295,
+    profile_path: "/yJjV1ZCQbCSSgRy05FncCKjyaY4.jpg",
+    known_for: [
+      {
+        adult: false,
+        backdrop_path: "/go5LNIFH9IdoSwv8j9cNyTk2uPU.jpg",
+        id: 63351,
+        name: "Narcos",
+        original_language: "en",
+        original_name: "Narcos",
+        overview:
+          "A gritty chronicle of the war against Colombia's infamously violent and powerful drug cartels.",
+        poster_path: "/rTmal9fDbwh5F0waol2hq35U4ah.jpg",
+        media_type: "tv",
+        genre_ids: [80, 18],
+        popularity: 86.0,
+        first_air_date: "2015-08-28",
+        vote_average: 8.005,
+        vote_count: 2490,
+        origin_country: ["US"],
+      },
+      {
+        adult: false,
+        backdrop_path: "/tGb044NgQYQJr58fta5O3OB6SpQ.jpg",
+        id: 7347,
+        title: "Elite Squad",
+        original_language: "pt",
+        original_title: "Tropa de Elite",
+        overview:
+          "In 1997, before the visit of the pope to Rio de Janeiro, Captain Nascimento from BOPE (Special Police Operations Battalion) is assigned to eliminate the risks of the drug dealers in a dangerous slum nearby where the pope intends to be lodged.",
+        poster_path: "/lwIXz785N2fXi8hsBr1IXciFlkM.jpg",
+        media_type: "movie",
+        genre_ids: [18, 28, 80],
+        popularity: 31.549,
+        release_date: "2007-10-12",
+        video: false,
+        vote_average: 8.057,
+        vote_count: 2149,
+      },
+    ],
+  },
+];

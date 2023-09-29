@@ -3,5 +3,6 @@ export default `#graphql
     quiz(input: QuizInput!): [QuizQuestion!]!
     news(page: Int!, language: NewsLanguage!): NewsResult!
     famous(id: Int!, language: ISO6391Language): Famous
+    searchFamous(input: SearchInput!): SearchFamousResult!
   }
 `;
