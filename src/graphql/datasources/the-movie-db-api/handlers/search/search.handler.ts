@@ -2,13 +2,15 @@ import { CONSTANTS as TMDBAPI_CONSTANTS } from "@tmdb-api/utils/constants";
 import { SearchInput } from "@generated-types";
 import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 
-import { SearchResponse } from "./search-famous.types";
-import { CONSTANTS } from "./search-famous.constants";
+import { SearchResponse } from "./search.types";
+import { CONSTANTS } from "./search.constants";
+
+export type Type = "person";
 
 export type HandlerParams = {
   tmdbAPI: TMDBApi;
   input: SearchInput;
-  type: "person";
+  type: Type;
 };
 
 export const handler = {
