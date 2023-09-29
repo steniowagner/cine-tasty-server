@@ -2,80 +2,11 @@ import TheMovieDBAPI from "@tmdb-api/tmdb-movie-db-api";
 import { Iso6391Language } from "@generated-types";
 import { CONSTANTS as TMDBAPI_CONSTANTS } from "@tmdb-api/utils";
 
+import { tvShowGenres } from "../../../../../../__test__/datasources/tmdb-api/fixtures";
 import { handler } from "./media-genres-tv-series.handlers";
 import { CONSTANTS } from "./media-genres.constants";
 
 const mockGet = jest.fn();
-
-const genresIds = {
-  genres: [
-    {
-      id: 10759,
-      name: "Action & Adventure",
-    },
-    {
-      id: 16,
-      name: "Animação",
-    },
-    {
-      id: 35,
-      name: "Comédia",
-    },
-    {
-      id: 80,
-      name: "Crime",
-    },
-    {
-      id: 99,
-      name: "Documentário",
-    },
-    {
-      id: 18,
-      name: "Drama",
-    },
-    {
-      id: 10751,
-      name: "Família",
-    },
-    {
-      id: 10762,
-      name: "Kids",
-    },
-    {
-      id: 9648,
-      name: "Mistério",
-    },
-    {
-      id: 10763,
-      name: "News",
-    },
-    {
-      id: 10764,
-      name: "Reality",
-    },
-    {
-      id: 10765,
-      name: "Sci-Fi & Fantasy",
-    },
-    {
-      id: 10766,
-      name: "Soap",
-    },
-    {
-      id: 10767,
-      name: "Talk",
-    },
-    {
-      id: 10768,
-      name: "War & Politics",
-    },
-    {
-      id: 37,
-      name: "Faroeste",
-    },
-  ],
-};
-
 const requestGenreIds = [9648, 10751, 18, 37];
 
 jest.mock("@apollo/datasource-rest", () => {
@@ -146,7 +77,7 @@ describe("DataSources/TheMovieDBApi/TVShowsGenres-Query-Handler", () => {
 
   describe('When the response is "defined"', () => {
     it("should return the response correctly", async () => {
-      mockGet.mockReturnValueOnce(genresIds);
+      mockGet.mockReturnValueOnce(tvShowGenres);
       const response = await handler.handle({
         tmdbAPI: new TheMovieDBAPI(),
         genreIds: requestGenreIds,
