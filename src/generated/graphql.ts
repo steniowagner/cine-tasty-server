@@ -466,7 +466,7 @@ export type SearchFamousItemKnownFor = {
   __typename?: 'SearchFamousItemKnownFor';
   adult?: Maybe<Scalars['Boolean']['output']>;
   backdropPath?: Maybe<Scalars['String']['output']>;
-  genreIds: Array<Scalars['Int']['output']>;
+  genres: Array<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
   mediaType?: Maybe<Scalars['String']['output']>;
   originalLanguage?: Maybe<Scalars['String']['output']>;
@@ -479,6 +479,11 @@ export type SearchFamousItemKnownFor = {
   video?: Maybe<Scalars['Boolean']['output']>;
   voteAverage?: Maybe<Scalars['Float']['output']>;
   voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type SearchFamousItemKnownForGenresArgs = {
+  input?: InputMaybe<SearchInput>;
 };
 
 export type SearchFamousResult = {
@@ -751,7 +756,7 @@ export type SearchFamousItemResolvers<ContextType = any, ParentType extends Reso
 export type SearchFamousItemKnownForResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchFamousItemKnownFor'] = ResolversParentTypes['SearchFamousItemKnownFor']> = {
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genreIds?: Resolver<Array<ResolversTypes['Int']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<SearchFamousItemKnownForGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

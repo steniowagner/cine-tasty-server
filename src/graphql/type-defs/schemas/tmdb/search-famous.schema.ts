@@ -2,7 +2,7 @@ export default `#graphql
   type SearchFamousItemKnownFor {
     adult: Boolean
     backdropPath: String
-    genreIds: [Int!]!
+    genres(input: SearchInput): [String!]!
     id: Int!
     originalLanguage: String
     originalTitle: String
