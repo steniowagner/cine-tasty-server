@@ -1,4 +1,4 @@
-type KnownFor = {
+export type SearchFamousResultItemKnownFor = {
   adult: boolean;
   backdrop_path: string;
   genre_ids: number[];
@@ -16,21 +16,14 @@ type KnownFor = {
   media_type: string;
 };
 
-type Result = {
+export type SearchFamousResultItem = {
   adult: boolean;
   id: number;
   gender: number;
-  known_for: KnownFor[];
+  known_for: SearchFamousResultItemKnownFor[];
   known_for_department: string;
   name: string;
   original_name: string;
   popularity: number;
   profile_path: string;
-};
-
-export type Response = {
-  page: number;
-  total_pages: number;
-  total_results: number;
-  results: Result[];
 };
