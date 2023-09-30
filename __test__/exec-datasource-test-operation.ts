@@ -20,7 +20,7 @@ type ExecuteOperationResponse<TData> = {
   };
 };
 
-class MockCacheHandler implements CacheHandler {
+export class MockCacheHandler implements CacheHandler {
   async get(_key: string) {
     return Promise.resolve(undefined);
   }
