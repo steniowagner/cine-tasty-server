@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ApolloServer } from "@apollo/server";
 
 import OpenTriviaAPI from "@open-trivia-api/open-trivia-api";
@@ -7,6 +8,7 @@ import NewsAPI from "@news-api/news-api";
 import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 
 import { Context } from "@types";
+import { SetCacheParmas, CacheHandler } from "@/utils";
 
 type ExecuteOperationResponse<TData> = {
   body: {
@@ -17,6 +19,20 @@ type ExecuteOperationResponse<TData> = {
     };
   };
 };
+
+class MockCacheHandler implements CacheHandler {
+  async get(_key: string) {
+    return Promise.resolve(undefined);
+  }
+
+  async set(_params: SetCacheParmas) {
+    return Promise.resolve(undefined);
+  }
+
+  async init() {
+    return Promise.resolve();
+  }
+}
 
 export const execDatasourceTestOperation = async <TResult>(
   query: string,
@@ -33,6 +49,7 @@ export const execDatasourceTestOperation = async <TResult>(
     },
     {
       contextValue: {
+        cacheHandler: new MockCacheHandler(),
         openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(new Date()),
         tmdbAPI: new TMDBApi(),
