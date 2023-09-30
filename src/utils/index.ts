@@ -1,3 +1,4 @@
-import { CacheHandler } from "./cache/cache-handler";
+import RedisCacheHandler from "./cache/redis/redis-cache-handler";
 
-export { CacheHandler };
+export * from "./cache/cache-handler";
+export { RedisCacheHandler };
