@@ -1,10 +1,9 @@
-import {
-  mediaGenresMoviesHandler,
-  mediaGenresTVShowsHandler,
-} from "@tmdb-api/handlers/media-genres";
+import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
 import { CastGenresArgs } from "@generated-types";
 import { FamousCastTypes } from "@tmdb-api/handlers/famous-cast";
 import { Context } from "@types";
+import { CONSTANTS as TMDB_CONSTANTS } from "@tmdb-api/utils";
+import { CONSTANTS as MEDIA_GENRES_CONSTANTS } from "@tmdb-api/handlers/media-genres";
 
 export const resolvers = {
   CastMovie: {
@@ -15,10 +14,12 @@ export const resolvers = {
       params: CastGenresArgs,
       context: Context,
     ) =>
-      mediaGenresMoviesHandler.handle({
+      mediaGenresHandler.handle({
+        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.language),
+        endpoint: MEDIA_GENRES_CONSTANTS.MOVIES_ENDPOINT,
+        cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
-        language: params.language,
       }),
     mediaType: (parent: FamousCastTypes.MovieCast) => parent.media_type,
     originalLanguage: (parent: FamousCastTypes.MovieCast) => parent.original_language,
@@ -36,10 +37,12 @@ export const resolvers = {
       params: CastGenresArgs,
       context: Context,
     ) =>
-      mediaGenresTVShowsHandler.handle({
+      mediaGenresHandler.handle({
+        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.language),
+        endpoint: MEDIA_GENRES_CONSTANTS.TV_SHOWS_ENDPOINT,
+        cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
-        language: params.language,
       }),
     originCountry: (parent: FamousCastTypes.TvShowCast) => parent.origin_country,
     originalLanguage: (parent: FamousCastTypes.TvShowCast) => parent.original_language,

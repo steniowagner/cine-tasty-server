@@ -1,10 +1,10 @@
 import { QuerySearchFamousArgs } from "@generated-types";
-import { Context } from "@types";
 import { SearchMovieHandlerTypes } from "@tmdb-api/handlers/search-famous";
-import {
-  mediaGenresMoviesHandler,
-  mediaGenresTVShowsHandler,
-} from "@tmdb-api/handlers/media-genres";
+import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
+import { Context } from "@types";
+
+import { CONSTANTS as TMDB_CONSTANTS } from "@tmdb-api/utils";
+import { CONSTANTS as MEDIA_GENRES_CONSTANTS } from "@tmdb-api/handlers/media-genres";
 
 type KnownForResult = {
   media_type: string;
@@ -37,15 +37,14 @@ export const resolvers = {
       parent: SearchMovieHandlerTypes.KnowForMovie,
       params: QuerySearchFamousArgs,
       context: Context,
-    ) => {
-      const isMovie = parent.media_type === "movie";
-      const handler = isMovie ? mediaGenresMoviesHandler : mediaGenresTVShowsHandler;
-      return handler.handle({
-        language: params.input.language,
-        genreIds: parent.genre_ids,
+    ) =>
+      mediaGenresHandler.handle({
+        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.input.language),
+        endpoint: MEDIA_GENRES_CONSTANTS.MOVIES_ENDPOINT,
+        cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
-      });
-    },
+        genreIds: parent.genre_ids,
+      }),
   },
 
   KnowForTVShow: {
@@ -65,15 +64,14 @@ export const resolvers = {
       parent: SearchMovieHandlerTypes.KnowForTVShow,
       params: QuerySearchFamousArgs,
       context: Context,
-    ) => {
-      const isMovie = parent.media_type === "tv";
-      const handler = isMovie ? mediaGenresMoviesHandler : mediaGenresTVShowsHandler;
-      return handler.handle({
-        language: params.input.language,
-        genreIds: parent.genre_ids,
+    ) =>
+      mediaGenresHandler.handle({
+        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.input.language),
+        endpoint: MEDIA_GENRES_CONSTANTS.TV_SHOWS_ENDPOINT,
+        cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
-      });
-    },
+        genreIds: parent.genre_ids,
+      }),
   },
 
   KnownFor: {
