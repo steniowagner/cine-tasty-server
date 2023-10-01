@@ -54,9 +54,9 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
           );
         const numberOfQuestions = 3;
         const response =
-          await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
-            QUERY_QUIZ,
-            {
+          await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>({
+            query: QUERY_QUIZ,
+            variables: {
               input: {
                 difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard,
                 type: GeneratedTypes.QuizQuestionType.Boolean,
@@ -64,7 +64,7 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
                 numberOfQuestions,
               },
             },
-          );
+          });
         const quiz = response.body.singleResult.data.quiz;
         expect(quiz.length).toEqual(numberOfQuestions);
         for (let i = 0; i < quiz.length; i++) {
@@ -97,9 +97,9 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
             }),
           );
         const response =
-          await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
-            QUERY_QUIZ,
-            {
+          await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>({
+            query: QUERY_QUIZ,
+            variables: {
               input: {
                 difficulty: GeneratedTypes.QuizQuestionDifficulty.Medium,
                 type: GeneratedTypes.QuizQuestionType.Boolean,
@@ -107,7 +107,7 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
                 numberOfQuestions,
               },
             },
-          );
+          });
         const quiz = response.body.singleResult.data.quiz;
         expect(quiz.length).toEqual(numberOfQuestions);
         for (let i = 0; i < quiz.length; i++) {
@@ -141,9 +141,9 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
         );
       const numberOfQuestions = 3;
       const response =
-        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
-          QUERY_QUIZ,
-          {
+        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>({
+          query: QUERY_QUIZ,
+          variables: {
             input: {
               difficulty: GeneratedTypes.QuizQuestionDifficulty.Hard,
               type: GeneratedTypes.QuizQuestionType.Boolean,
@@ -151,7 +151,7 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
               numberOfQuestions,
             },
           },
-        );
+        });
       const quiz = response.body.singleResult.data.quiz;
       expect(quiz.length).toEqual(0);
     });
@@ -162,9 +162,9 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
         .mockImplementationOnce(async () => Promise.reject({}));
       const numberOfQuestions = 3;
       const response =
-        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>(
-          QUERY_QUIZ,
-          {
+        await execDatasourceTestOperation<ExecDatasourceTestOperationResponse>({
+          query: QUERY_QUIZ,
+          variables: {
             input: {
               difficulty: GeneratedTypes.QuizQuestionDifficulty.Easy,
               type: GeneratedTypes.QuizQuestionType.Multiple,
@@ -172,7 +172,7 @@ describe("DataSources/OpenTriviaAPI/Integration", () => {
               numberOfQuestions,
             },
           },
-        );
+        });
       expect(response.body.singleResult.data.quiz.length).toEqual(0);
     });
   });

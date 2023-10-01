@@ -1,5 +1,6 @@
 import { NewsLanguage } from "@generated-types";
 
+import { MockCacheHandler } from "../../../../__test__";
 import { languageQueryMapping, CONSTANTS } from "./utils";
 import NewsAPI from "./news-api";
 
@@ -28,10 +29,13 @@ describe("DataSources/NewsAPI/Unit", () => {
     'should call "RESTDatasource.get" with the correct "query-params" %p',
     async (language: string, queries: string[]) => {
       const newsAPI = new NewsAPI(new Date("2023-09-27"));
-      await newsAPI.getNews({
-        language: language as NewsLanguage,
-        page: 1,
-      });
+      await newsAPI.getNews(
+        {
+          language: language as NewsLanguage,
+          page: 1,
+        },
+        new MockCacheHandler(),
+      );
       expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT);
       expect(mockGet.mock.calls[0][1].params.from).toEqual("2023-09-25");
       expect(mockGet.mock.calls[0][1].params.to).toEqual("2023-09-27");

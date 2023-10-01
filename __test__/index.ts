@@ -1,1 +1,4 @@
-export { execDatasourceTestOperation } from "./exec-datasource-test-operation";
+export {
+  execDatasourceTestOperation,
+  MockCacheHandler,
+} from "./exec-datasource-test-operation";

@@ -37,13 +37,13 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         jest
           .spyOn(RESTDataSource.prototype as any, "get")
           .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
-        const response = await execDatasourceTestOperation<{ famous: Famous }>(
-          queries.QUERY_FAMOUS,
-          {
+        const response = await execDatasourceTestOperation<{ famous: Famous }>({
+          query: queries.QUERY_FAMOUS,
+          variables: {
             id: 64,
             language: Iso6391Language.Pt,
           },
-        );
+        });
         const famous = response.body.singleResult.data.famous;
         // famous
         expect(famous.biography).toEqual(fixtures.famous.biography);
@@ -126,8 +126,11 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
         const response = await execDatasourceTestOperation<{
           searchFamous: SearchFamousResult;
-        }>(queries.QUERY_SEARCH_FAMOUS, {
-          input: { page: 1, query: "Wagner M", language: Iso6391Language.Pt },
+        }>({
+          query: queries.QUERY_SEARCH_FAMOUS,
+          variables: {
+            input: { page: 1, query: "Wagner M", language: Iso6391Language.Pt },
+          },
         });
         expect(response.body.singleResult.errors).toBeUndefined();
         const searchFamous = response.body.singleResult.data.searchFamous;
