@@ -3,5 +3,6 @@ import famous from "./famous.schema";
 import ISO6391Language from "./ISO6391Language.schema";
 import searchFamous from "./search-famous.schema";
 import search from "./search.schema";
+import trendingFamous from "./trending-famous.schema";
 
-export default [cast, famous, ISO6391Language, searchFamous, search];
+export default [trendingFamous, cast, famous, ISO6391Language, searchFamous, search];

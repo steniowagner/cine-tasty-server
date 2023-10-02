@@ -397,3 +397,55 @@ export const searchFamousResult = [
     ],
   },
 ];
+
+export const trendingFamous = {
+  page: 1,
+  results: [
+    {
+      adult: false,
+      gender: 2,
+      id: 64,
+      known_for: [
+        {
+          adult: false,
+          backdrop_path: "/dqK9Hag1054tghRQSqLSfrkvQnA.jpg",
+          genre_ids: [18, 28, 80, 53],
+          id: 155,
+          media_type: "movie",
+          original_language: "en",
+          original_title: "The Dark Knight",
+          overview:
+            "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.",
+          poster_path: "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+          release_date: "2008-07-16",
+          title: "The Dark Knight",
+          video: false,
+          vote_average: 8.5,
+          vote_count: 30631,
+        },
+        {
+          backdrop_path: "/aRKQdF6AGbhnF9IAyJbte5epH5R.jpg",
+          first_air_date: "2023-08-31",
+          genre_ids: [10759, 10765],
+          id: 111110,
+          media_type: "tv",
+          name: "ONE PIECE",
+          origin_country: ["US"],
+          original_language: "en",
+          original_name: "ONE PIECE",
+          overview:
+            "With his straw hat and ragtag crew, young pirate Monkey D. Luffy goes on an epic voyage for treasure in this live-action adaptation of the popular manga.",
+          poster_path: "/rVX05xRKS5JhEYQFObCi4lAnZT4.jpg",
+          vote_average: 8.2,
+          vote_count: 646,
+        },
+      ],
+      known_for_department: "Acting",
+      name: "Gary Oldman",
+      popularity: 250.277,
+      profile_path: "/yhaSM5habNNI1Tf4ALRwRk3VvSZ.jpg",
+    },
+  ],
+  total_pages: 500,
+  total_results: 10000,
+};

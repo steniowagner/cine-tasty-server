@@ -67,7 +67,7 @@ query SearchFamous($input: SearchInput!) {
       gender
       knownForDepartment
       knownFor {
-        ... on KnowForMovie {
+        ... on SearchFamousKnownForMovie {
           adult
           backdropPath
           id
@@ -85,7 +85,7 @@ query SearchFamous($input: SearchInput!) {
           voteCount
         }
 
-        ... on KnowForTVShow {
+        ... on SearchFamousKnownForTVShow {
           adult
           backdropPath
           id
@@ -110,6 +110,60 @@ query SearchFamous($input: SearchInput!) {
     }
     totalPages
     totalResults
+  }
+}
+`;
+
+export const QUERY_TRENDING_FAMOUS = `#graphql
+  query TrendingFamous($page: Int!, $language: ISO6391Language) {
+  trendingFamous(page: $page, language: $language) {
+    hasMore
+    totalPages
+    totalResults
+    items {
+      knownForDepartment
+      profilePath
+      name
+      adult
+      gender
+      id
+      name
+      popularity
+      knownFor {
+        ... on TrendingFamousKnownForMovie {
+          adult
+          backdropPath
+          id
+          mediaType
+          originalLanguage
+          originalTitle
+          overview
+          posterPath
+          releaseDate
+          title
+          video
+          voteAverage
+          voteCount
+          genres(language: $language)
+        }
+
+        ... on TrendingFamousKnownForTVShow {
+          backdropPath
+          firstAirDate
+          id
+          mediaType
+          name
+          originCountry
+          originalLanguage
+          originalName
+          overview
+          posterPath
+          voteAverage
+          voteCount
+          genres(language: $language)
+        }
+      }
+    }
   }
 }
 `;

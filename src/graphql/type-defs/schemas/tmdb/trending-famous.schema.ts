@@ -1,58 +1,54 @@
 export default `#graphql
-  type SearchFamousKnownForTVShow {
-    adult: Boolean
+  type TrendingFamousKnownForTVShow {
     backdropPath: String
+    firstAirDate: String
+    genres(language: ISO6391Language): [String!]!
     id: Int!
+    mediaType: String
     name: String
+    originCountry: [String!]!
     originalLanguage: String
     originalName: String
     overview: String
     posterPath: String
-    mediaType: String
-    genres(input: SearchInput!): [String!]!
-    popularity: Float
-    firstAirDate: String
     voteAverage: Float
     voteCount: Int
-    originCountry: [String!]!
   }
 
-  type SearchFamousKnownForMovie {
+  type TrendingFamousKnownForMovie {
     adult: Boolean
     backdropPath: String
+    genres(language: ISO6391Language): [String!]!
     id: Int!
-    title: String
+    mediaType: String
     originalLanguage: String
     originalTitle: String
     overview: String
     posterPath: String
-    mediaType: String
-    genres(input: SearchInput!): [String!]!
-    popularity: Float
     releaseDate: String
+    title: String
     video: Boolean
     voteAverage: Float
     voteCount: Int
   }
 
-  union SearchFamousKnownFor = SearchFamousKnownForTVShow | SearchFamousKnownForMovie
+  union TrendingFamousKnownFor = TrendingFamousKnownForTVShow | TrendingFamousKnownForMovie
 
-  type SearchFamousItem {
+  type TrendingFamousItem {
     adult: Boolean
-    id: Int
     gender: Int
+    id: Int
+    knownFor: [TrendingFamousKnownFor!]!
     knownForDepartment: String
-    knownFor: [SearchFamousKnownFor!]!
     name: String
-    originalName: String
     popularity: Float
     profilePath: String
-}
+  }
 
-  type SearchFamousResult {
+  type TrendingFamousResult {
     totalResults: Int!
     totalPages: Int!
-    items: [SearchFamousItem!]!
+    items: [TrendingFamousItem!]!
     hasMore: Boolean!
   }
 `;

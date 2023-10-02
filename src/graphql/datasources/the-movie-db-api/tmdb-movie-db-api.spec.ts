@@ -5,8 +5,11 @@ import {
   Famous,
   SearchFamousResult,
   Iso6391Language,
-  KnowForMovie,
-  KnowForTvShow,
+  SearchFamousKnownForMovie,
+  SearchFamousKnownForTvShow,
+  TrendingFamousResult,
+  TrendingFamousKnownForMovie,
+  TrendingFamousKnownForTvShow,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -161,7 +164,8 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           );
         }
         // known-for-movies
-        const knownForMovies = searchFamous.items[0].knownFor[1] as KnowForMovie;
+        const knownForMovies = searchFamous.items[0]
+          .knownFor[1] as SearchFamousKnownForMovie;
         expect(knownForMovies.adult).toEqual(
           fixtures.searchFamousResult[0].known_for[1].adult,
         );
@@ -204,7 +208,8 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         );
         expect(knownForMovies.genres).toEqual(["Drama", "Crime"]);
         // known-for-tv-shows
-        const knownForTVShows = searchFamous.items[0].knownFor[0] as KnowForTvShow;
+        const knownForTVShows = searchFamous.items[0]
+          .knownFor[0] as SearchFamousKnownForTvShow;
         expect(knownForTVShows.adult).toEqual(
           fixtures.searchFamousResult[0].known_for[0].adult,
         );
@@ -248,6 +253,129 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           fixtures.searchFamousResult[0].known_for[0].origin_country,
         );
         expect(knownForTVShows.genres).toEqual(["Crime", "Drama"]);
+      });
+    });
+  });
+
+  describe("Trending Famous", () => {
+    describe("When query the data successfuly", () => {
+      it("should return data correctly", async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.trendingFamous));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.moviesGenres));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
+        const response = await execDatasourceTestOperation<{
+          trendingFamous: TrendingFamousResult;
+        }>({
+          query: queries.QUERY_TRENDING_FAMOUS,
+          variables: {
+            page: 1,
+            language: Iso6391Language.Pt,
+          },
+        });
+        expect(response.body.singleResult.errors).toBeUndefined();
+        const trendingFamous = response.body.singleResult.data.trendingFamous;
+        expect(trendingFamous.hasMore).toEqual(true);
+        expect(trendingFamous.totalPages).toEqual(fixtures.trendingFamous.total_pages);
+        expect(trendingFamous.totalResults).toEqual(
+          fixtures.trendingFamous.total_results,
+        );
+        // famous
+        for (let i = 0; i < trendingFamous.items.length; i++) {
+          const famous = trendingFamous.items[i];
+          const fixtureFamous = fixtures.trendingFamous.results[i];
+          expect(famous.adult).toEqual(fixtureFamous.adult);
+          expect(famous.gender).toEqual(fixtureFamous.gender);
+          expect(famous.id).toEqual(fixtureFamous.id);
+          expect(famous.name).toEqual(fixtureFamous.name);
+          expect(famous.knownForDepartment).toEqual(fixtureFamous.known_for_department);
+          expect(famous.profilePath).toEqual(fixtureFamous.profile_path);
+          expect(famous.popularity).toEqual(fixtureFamous.popularity);
+          // known-for
+          for (let j = 0; j < famous.knownFor.length; j++) {
+            if (famous.knownFor[j].mediaType === "movie") {
+              const knownForMovie = famous.knownFor[j] as TrendingFamousKnownForMovie;
+              expect(knownForMovie.adult).toEqual(fixtureFamous.known_for[j].adult);
+              expect(knownForMovie.backdropPath).toEqual(
+                fixtureFamous.known_for[j].backdrop_path,
+              );
+              expect(knownForMovie.genres).toEqual([
+                "Drama",
+                "Ação",
+                "Crime",
+                "Thriller",
+              ]);
+              expect(knownForMovie.id).toEqual(fixtureFamous.known_for[j].id);
+              expect(knownForMovie.mediaType).toEqual(
+                fixtureFamous.known_for[j].media_type,
+              );
+              expect(knownForMovie.originalLanguage).toEqual(
+                fixtureFamous.known_for[j].original_language,
+              );
+              expect(knownForMovie.originalTitle).toEqual(
+                fixtureFamous.known_for[j].original_title,
+              );
+              expect(knownForMovie.overview).toEqual(fixtureFamous.known_for[j].overview);
+              expect(knownForMovie.posterPath).toEqual(
+                fixtureFamous.known_for[j].poster_path,
+              );
+              expect(knownForMovie.releaseDate).toEqual(
+                fixtureFamous.known_for[j].release_date,
+              );
+              expect(knownForMovie.title).toEqual(fixtureFamous.known_for[j].title);
+              expect(knownForMovie.video).toEqual(fixtureFamous.known_for[j].video);
+              expect(knownForMovie.voteAverage).toEqual(
+                fixtureFamous.known_for[j].vote_average,
+              );
+              expect(knownForMovie.voteCount).toEqual(
+                fixtureFamous.known_for[j].vote_count,
+              );
+            } else {
+              const knownForTVShow = famous.knownFor[j] as TrendingFamousKnownForTvShow;
+              expect(knownForTVShow.backdropPath).toEqual(
+                fixtureFamous.known_for[j].backdrop_path,
+              );
+              expect(knownForTVShow.firstAirDate).toEqual(
+                fixtureFamous.known_for[j].first_air_date,
+              );
+              expect(knownForTVShow.id).toEqual(fixtureFamous.known_for[j].id);
+              expect(knownForTVShow.genres).toEqual([
+                "Action & Adventure",
+                "Sci-Fi & Fantasy",
+              ]);
+              expect(knownForTVShow.mediaType).toEqual(
+                fixtureFamous.known_for[j].media_type,
+              );
+              expect(knownForTVShow.name).toEqual(fixtureFamous.known_for[j].name);
+              expect(knownForTVShow.originCountry).toEqual(
+                fixtureFamous.known_for[j].origin_country,
+              );
+              expect(knownForTVShow.originalLanguage).toEqual(
+                fixtureFamous.known_for[j].original_language,
+              );
+              expect(knownForTVShow.originalName).toEqual(
+                fixtureFamous.known_for[j].original_name,
+              );
+              expect(knownForTVShow.overview).toEqual(
+                fixtureFamous.known_for[j].overview,
+              );
+              expect(knownForTVShow.posterPath).toEqual(
+                fixtureFamous.known_for[j].poster_path,
+              );
+              expect(knownForTVShow.voteAverage).toEqual(
+                fixtureFamous.known_for[j].vote_average,
+              );
+              expect(knownForTVShow.voteCount).toEqual(
+                fixtureFamous.known_for[j].vote_count,
+              );
+            }
+          }
+        }
       });
     });
   });

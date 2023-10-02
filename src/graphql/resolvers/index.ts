@@ -5,8 +5,10 @@ import { resolvers as castResolvers } from "./cast.resolvers";
 import { resolvers as searchResolvers } from "./search.resolvers";
 import { resolvers as ISO6391LanguageResolvers } from "./ISO6391Language.resolvers";
 import { resolvers as searchFamousResolvers } from "./search-famous.resolvers";
+import { resolvers as trendingFamousResolvers } from "./trending-famous.resolvers";
 
 export default [
+  trendingFamousResolvers,
   ISO6391LanguageResolvers,
   searchFamousResolvers,
   newsResolvers,
