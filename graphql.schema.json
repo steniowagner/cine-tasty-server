@@ -2617,6 +2617,18 @@
             "deprecationReason": null
           },
           {
+            "name": "knownForDepartment",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "name",
             "description": null,
             "args": [],
@@ -2659,8 +2671,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "UNION",
+        "name": "TrendingFamousKnownFor",
+        "description": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": null,
+        "possibleTypes": [
+          {
+            "kind": "OBJECT",
+            "name": "TrendingFamousKnownForMovie",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "TrendingFamousKnownForTVShow",
+            "ofType": null
+          }
+        ]
+      },
+      {
         "kind": "OBJECT",
-        "name": "TrendingFamousKnowForMovie",
+        "name": "TrendingFamousKnownForMovie",
         "description": null,
         "fields": [
           {
@@ -2868,7 +2901,7 @@
       },
       {
         "kind": "OBJECT",
-        "name": "TrendingFamousKnowForTVShow",
+        "name": "TrendingFamousKnownForTVShow",
         "description": null,
         "fields": [
           {
@@ -3073,27 +3106,6 @@
         "interfaces": [],
         "enumValues": null,
         "possibleTypes": null
-      },
-      {
-        "kind": "UNION",
-        "name": "TrendingFamousKnownFor",
-        "description": null,
-        "fields": null,
-        "inputFields": null,
-        "interfaces": null,
-        "enumValues": null,
-        "possibleTypes": [
-          {
-            "kind": "OBJECT",
-            "name": "TrendingFamousKnowForMovie",
-            "ofType": null
-          },
-          {
-            "kind": "OBJECT",
-            "name": "TrendingFamousKnowForTVShow",
-            "ofType": null
-          }
-        ]
       },
       {
         "kind": "OBJECT",

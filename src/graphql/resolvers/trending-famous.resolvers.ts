@@ -1,6 +1,6 @@
 import {
   QueryTrendingFamousArgs,
-  TrendingFamousKnowForMovieGenresArgs,
+  TrendingFamousKnownForMovieGenresArgs,
 } from "@generated-types";
 import { trendingFamousHandler } from "@tmdb-api/handlers/trending-famous";
 import { Context } from "@types";
@@ -20,15 +20,17 @@ export const resolvers = {
 
   TrendingFamousItem: {
     profilePath: (parent: TrendingFamousTypes.Result) => parent.profile_path,
+    knownForDepartment: (parent: TrendingFamousTypes.Result) =>
+      parent.known_for_department,
     knownFor: (parent: TrendingFamousTypes.Result) => parent.known_for,
   },
 
-  TrendingFamousKnowForTVShow: {
+  TrendingFamousKnownForTVShow: {
     backdropPath: (parent: TrendingFamousTypes.KnownForTVShow) => parent.backdrop_path,
     firstAirDate: (parent: TrendingFamousTypes.KnownForTVShow) => parent.first_air_date,
     genres: async (
       parent: TrendingFamousTypes.KnownForMovie,
-      params: TrendingFamousKnowForMovieGenresArgs,
+      params: TrendingFamousKnownForMovieGenresArgs,
       context: Context,
     ) =>
       mediaGenresHandler.handle({
@@ -48,12 +50,12 @@ export const resolvers = {
     voteCount: (parent: TrendingFamousTypes.KnownForTVShow) => parent.vote_count,
   },
 
-  TrendingFamousKnowForMovie: {
+  TrendingFamousKnownForMovie: {
     backdropPath: (parent: TrendingFamousTypes.KnownForMovie) => parent.backdrop_path,
     mediaType: (parent: TrendingFamousTypes.KnownForMovie) => parent.media_type,
     genres: async (
       parent: TrendingFamousTypes.KnownForMovie,
-      params: TrendingFamousKnowForMovieGenresArgs,
+      params: TrendingFamousKnownForMovieGenresArgs,
       context: Context,
     ) =>
       mediaGenresHandler.handle({
@@ -75,8 +77,8 @@ export const resolvers = {
   TrendingFamousKnownFor: {
     __resolveType(knownForResult: TrendingFamousTypes.KnownFor) {
       return knownForResult.media_type === "movie"
-        ? "TrendingFamousKnowForMovie"
-        : "TrendingFamousKnowForTVShow";
+        ? "TrendingFamousKnownForMovie"
+        : "TrendingFamousKnownForTVShow";
     },
   },
 };

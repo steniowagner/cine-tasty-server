@@ -326,13 +326,16 @@ export type TrendingFamousItem = {
   gender?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
   knownFor: Array<TrendingFamousKnownFor>;
+  knownForDepartment?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   popularity?: Maybe<Scalars['Float']['output']>;
   profilePath?: Maybe<Scalars['String']['output']>;
 };
 
-export type TrendingFamousKnowForMovie = {
-  __typename?: 'TrendingFamousKnowForMovie';
+export type TrendingFamousKnownFor = TrendingFamousKnownForMovie | TrendingFamousKnownForTvShow;
+
+export type TrendingFamousKnownForMovie = {
+  __typename?: 'TrendingFamousKnownForMovie';
   adult?: Maybe<Scalars['Boolean']['output']>;
   backdropPath?: Maybe<Scalars['String']['output']>;
   genres: Array<Scalars['String']['output']>;
@@ -350,12 +353,12 @@ export type TrendingFamousKnowForMovie = {
 };
 
 
-export type TrendingFamousKnowForMovieGenresArgs = {
+export type TrendingFamousKnownForMovieGenresArgs = {
   language?: InputMaybe<Iso6391Language>;
 };
 
-export type TrendingFamousKnowForTvShow = {
-  __typename?: 'TrendingFamousKnowForTVShow';
+export type TrendingFamousKnownForTvShow = {
+  __typename?: 'TrendingFamousKnownForTVShow';
   backdropPath?: Maybe<Scalars['String']['output']>;
   firstAirDate?: Maybe<Scalars['String']['output']>;
   genres: Array<Scalars['String']['output']>;
@@ -372,11 +375,9 @@ export type TrendingFamousKnowForTvShow = {
 };
 
 
-export type TrendingFamousKnowForTvShowGenresArgs = {
+export type TrendingFamousKnownForTvShowGenresArgs = {
   language?: InputMaybe<Iso6391Language>;
 };
-
-export type TrendingFamousKnownFor = TrendingFamousKnowForMovie | TrendingFamousKnowForTvShow;
 
 export type TrendingFamousResult = {
   __typename?: 'TrendingFamousResult';
@@ -456,7 +457,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping of union types */
 export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
   SearchFamousKnownFor: ( SearchFamousKnownForMovie ) | ( SearchFamousKnownForTvShow );
-  TrendingFamousKnownFor: ( TrendingFamousKnowForMovie ) | ( TrendingFamousKnowForTvShow );
+  TrendingFamousKnownFor: ( TrendingFamousKnownForMovie ) | ( TrendingFamousKnownForTvShow );
 };
 
 /** Mapping of interface types */
@@ -493,9 +494,9 @@ export type ResolversTypes = {
   SearchInput: SearchInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   TrendingFamousItem: ResolverTypeWrapper<Omit<TrendingFamousItem, 'knownFor'> & { knownFor: Array<ResolversTypes['TrendingFamousKnownFor']> }>;
-  TrendingFamousKnowForMovie: ResolverTypeWrapper<TrendingFamousKnowForMovie>;
-  TrendingFamousKnowForTVShow: ResolverTypeWrapper<TrendingFamousKnowForTvShow>;
   TrendingFamousKnownFor: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['TrendingFamousKnownFor']>;
+  TrendingFamousKnownForMovie: ResolverTypeWrapper<TrendingFamousKnownForMovie>;
+  TrendingFamousKnownForTVShow: ResolverTypeWrapper<TrendingFamousKnownForTvShow>;
   TrendingFamousResult: ResolverTypeWrapper<TrendingFamousResult>;
 };
 
@@ -523,9 +524,9 @@ export type ResolversParentTypes = {
   SearchInput: SearchInput;
   String: Scalars['String']['output'];
   TrendingFamousItem: Omit<TrendingFamousItem, 'knownFor'> & { knownFor: Array<ResolversParentTypes['TrendingFamousKnownFor']> };
-  TrendingFamousKnowForMovie: TrendingFamousKnowForMovie;
-  TrendingFamousKnowForTVShow: TrendingFamousKnowForTvShow;
   TrendingFamousKnownFor: ResolversUnionTypes<ResolversParentTypes>['TrendingFamousKnownFor'];
+  TrendingFamousKnownForMovie: TrendingFamousKnownForMovie;
+  TrendingFamousKnownForTVShow: TrendingFamousKnownForTvShow;
   TrendingFamousResult: TrendingFamousResult;
 };
 
@@ -714,16 +715,21 @@ export type TrendingFamousItemResolvers<ContextType = any, ParentType extends Re
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   knownFor?: Resolver<Array<ResolversTypes['TrendingFamousKnownFor']>, ParentType, ContextType>;
+  knownForDepartment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   profilePath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type TrendingFamousKnowForMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnowForMovie'] = ResolversParentTypes['TrendingFamousKnowForMovie']> = {
+export type TrendingFamousKnownForResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnownFor'] = ResolversParentTypes['TrendingFamousKnownFor']> = {
+  __resolveType: TypeResolveFn<'TrendingFamousKnownForMovie' | 'TrendingFamousKnownForTVShow', ParentType, ContextType>;
+};
+
+export type TrendingFamousKnownForMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnownForMovie'] = ResolversParentTypes['TrendingFamousKnownForMovie']> = {
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TrendingFamousKnowForMovieGenresArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TrendingFamousKnownForMovieGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -738,10 +744,10 @@ export type TrendingFamousKnowForMovieResolvers<ContextType = any, ParentType ex
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type TrendingFamousKnowForTvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnowForTVShow'] = ResolversParentTypes['TrendingFamousKnowForTVShow']> = {
+export type TrendingFamousKnownForTvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnownForTVShow'] = ResolversParentTypes['TrendingFamousKnownForTVShow']> = {
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TrendingFamousKnowForTvShowGenresArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TrendingFamousKnownForTvShowGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -753,10 +759,6 @@ export type TrendingFamousKnowForTvShowResolvers<ContextType = any, ParentType e
   voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type TrendingFamousKnownForResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnownFor'] = ResolversParentTypes['TrendingFamousKnownFor']> = {
-  __resolveType: TypeResolveFn<'TrendingFamousKnowForMovie' | 'TrendingFamousKnowForTVShow', ParentType, ContextType>;
 };
 
 export type TrendingFamousResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousResult'] = ResolversParentTypes['TrendingFamousResult']> = {
@@ -783,9 +785,9 @@ export type Resolvers<ContextType = any> = {
   SearchFamousKnownForTVShow?: SearchFamousKnownForTvShowResolvers<ContextType>;
   SearchFamousResult?: SearchFamousResultResolvers<ContextType>;
   TrendingFamousItem?: TrendingFamousItemResolvers<ContextType>;
-  TrendingFamousKnowForMovie?: TrendingFamousKnowForMovieResolvers<ContextType>;
-  TrendingFamousKnowForTVShow?: TrendingFamousKnowForTvShowResolvers<ContextType>;
   TrendingFamousKnownFor?: TrendingFamousKnownForResolvers<ContextType>;
+  TrendingFamousKnownForMovie?: TrendingFamousKnownForMovieResolvers<ContextType>;
+  TrendingFamousKnownForTVShow?: TrendingFamousKnownForTvShowResolvers<ContextType>;
   TrendingFamousResult?: TrendingFamousResultResolvers<ContextType>;
 };
 

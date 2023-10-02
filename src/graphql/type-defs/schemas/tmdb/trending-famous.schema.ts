@@ -1,5 +1,5 @@
 export default `#graphql
-  type TrendingFamousKnowForTVShow {
+  type TrendingFamousKnownForTVShow {
     backdropPath: String
     firstAirDate: String
     genres(language: ISO6391Language): [String!]!
@@ -15,7 +15,7 @@ export default `#graphql
     voteCount: Int
   }
 
-  type TrendingFamousKnowForMovie {
+  type TrendingFamousKnownForMovie {
     adult: Boolean
     backdropPath: String
     genres(language: ISO6391Language): [String!]!
@@ -32,13 +32,14 @@ export default `#graphql
     voteCount: Int
   }
 
-  union TrendingFamousKnownFor = TrendingFamousKnowForTVShow | TrendingFamousKnowForMovie
+  union TrendingFamousKnownFor = TrendingFamousKnownForTVShow | TrendingFamousKnownForMovie
 
   type TrendingFamousItem {
     adult: Boolean
     gender: Int
     id: Int
     knownFor: [TrendingFamousKnownFor!]!
+    knownForDepartment: String
     name: String
     popularity: Float
     profilePath: String
