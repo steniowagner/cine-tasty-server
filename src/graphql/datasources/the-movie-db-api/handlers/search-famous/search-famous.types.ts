@@ -1,4 +1,4 @@
-export type KnowForTVShow = {
+export type KnownForTVShow = {
   adult: boolean;
   backdrop_path: string;
   id: number;
@@ -16,7 +16,7 @@ export type KnowForTVShow = {
   origin_country: string[];
 };
 
-export type KnowForMovie = {
+export type KnownForMovie = {
   adult: boolean;
   backdrop_path: string;
   id: number;
@@ -38,7 +38,7 @@ export type SearchFamousResultItem = {
   adult: boolean;
   id: number;
   gender: number;
-  known_for: (KnowForTVShow | KnowForMovie)[];
+  known_for: (KnownForTVShow | KnownForMovie)[];
   known_for_department: string;
   name: string;
   original_name: string;

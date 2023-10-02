@@ -1,5 +1,5 @@
 export default `#graphql
-  type KnowForTVShow {
+  type SearchFamousKnownForTVShow {
     adult: Boolean
     backdropPath: String
     id: Int!
@@ -17,7 +17,7 @@ export default `#graphql
     originCountry: [String!]!
   }
 
-  type KnowForMovie {
+  type SearchFamousKnownForMovie {
     adult: Boolean
     backdropPath: String
     id: Int!
@@ -35,14 +35,14 @@ export default `#graphql
     voteCount: Int
   }
 
-  union KnownFor = KnowForTVShow | KnowForMovie
+  union SearchFamousKnownFor = SearchFamousKnownForTVShow | SearchFamousKnownForMovie
 
   type SearchFamousItem {
     adult: Boolean
     id: Int
     gender: Int
     knownForDepartment: String
-    knownFor: [KnownFor!]!
+    knownFor: [SearchFamousKnownFor!]!
     name: String
     originalName: String
     popularity: Float

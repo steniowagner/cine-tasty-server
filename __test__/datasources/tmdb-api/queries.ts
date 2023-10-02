@@ -67,7 +67,7 @@ query SearchFamous($input: SearchInput!) {
       gender
       knownForDepartment
       knownFor {
-        ... on KnowForMovie {
+        ... on SearchFamousKnownForMovie {
           adult
           backdropPath
           id
@@ -85,7 +85,7 @@ query SearchFamous($input: SearchInput!) {
           voteCount
         }
 
-        ... on KnowForTVShow {
+        ... on SearchFamousKnownForTVShow {
           adult
           backdropPath
           id

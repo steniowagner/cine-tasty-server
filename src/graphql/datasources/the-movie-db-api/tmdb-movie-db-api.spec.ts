@@ -5,8 +5,8 @@ import {
   Famous,
   SearchFamousResult,
   Iso6391Language,
-  KnowForMovie,
-  KnowForTvShow,
+  SearchFamousKnownForMovie,
+  SearchFamousKnownForTvShow,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -161,7 +161,8 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           );
         }
         // known-for-movies
-        const knownForMovies = searchFamous.items[0].knownFor[1] as KnowForMovie;
+        const knownForMovies = searchFamous.items[0]
+          .knownFor[1] as SearchFamousKnownForMovie;
         expect(knownForMovies.adult).toEqual(
           fixtures.searchFamousResult[0].known_for[1].adult,
         );
@@ -204,7 +205,8 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         );
         expect(knownForMovies.genres).toEqual(["Drama", "Crime"]);
         // known-for-tv-shows
-        const knownForTVShows = searchFamous.items[0].knownFor[0] as KnowForTvShow;
+        const knownForTVShows = searchFamous.items[0]
+          .knownFor[0] as SearchFamousKnownForTvShow;
         expect(knownForTVShows.adult).toEqual(
           fixtures.searchFamousResult[0].known_for[0].adult,
         );

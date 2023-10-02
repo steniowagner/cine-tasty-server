@@ -121,56 +121,6 @@ export enum Iso6391Language {
   Pt = 'pt'
 }
 
-export type KnowForMovie = {
-  __typename?: 'KnowForMovie';
-  adult?: Maybe<Scalars['Boolean']['output']>;
-  backdropPath?: Maybe<Scalars['String']['output']>;
-  genres: Array<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  mediaType?: Maybe<Scalars['String']['output']>;
-  originalLanguage?: Maybe<Scalars['String']['output']>;
-  originalTitle?: Maybe<Scalars['String']['output']>;
-  overview?: Maybe<Scalars['String']['output']>;
-  popularity?: Maybe<Scalars['Float']['output']>;
-  posterPath?: Maybe<Scalars['String']['output']>;
-  releaseDate?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-  video?: Maybe<Scalars['Boolean']['output']>;
-  voteAverage?: Maybe<Scalars['Float']['output']>;
-  voteCount?: Maybe<Scalars['Int']['output']>;
-};
-
-
-export type KnowForMovieGenresArgs = {
-  input: SearchInput;
-};
-
-export type KnowForTvShow = {
-  __typename?: 'KnowForTVShow';
-  adult?: Maybe<Scalars['Boolean']['output']>;
-  backdropPath?: Maybe<Scalars['String']['output']>;
-  firstAirDate?: Maybe<Scalars['String']['output']>;
-  genres: Array<Scalars['String']['output']>;
-  id: Scalars['Int']['output'];
-  mediaType?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  originCountry: Array<Scalars['String']['output']>;
-  originalLanguage?: Maybe<Scalars['String']['output']>;
-  originalName?: Maybe<Scalars['String']['output']>;
-  overview?: Maybe<Scalars['String']['output']>;
-  popularity?: Maybe<Scalars['Float']['output']>;
-  posterPath?: Maybe<Scalars['String']['output']>;
-  voteAverage?: Maybe<Scalars['Float']['output']>;
-  voteCount?: Maybe<Scalars['Int']['output']>;
-};
-
-
-export type KnowForTvShowGenresArgs = {
-  input: SearchInput;
-};
-
-export type KnownFor = KnowForMovie | KnowForTvShow;
-
 export type NewsArticle = {
   __typename?: 'NewsArticle';
   author?: Maybe<Scalars['String']['output']>;
@@ -291,12 +241,62 @@ export type SearchFamousItem = {
   adult?: Maybe<Scalars['Boolean']['output']>;
   gender?: Maybe<Scalars['Int']['output']>;
   id?: Maybe<Scalars['Int']['output']>;
-  knownFor: Array<KnownFor>;
+  knownFor: Array<SearchFamousKnownFor>;
   knownForDepartment?: Maybe<Scalars['String']['output']>;
   name?: Maybe<Scalars['String']['output']>;
   originalName?: Maybe<Scalars['String']['output']>;
   popularity?: Maybe<Scalars['Float']['output']>;
   profilePath?: Maybe<Scalars['String']['output']>;
+};
+
+export type SearchFamousKnownFor = SearchFamousKnownForMovie | SearchFamousKnownForTvShow;
+
+export type SearchFamousKnownForMovie = {
+  __typename?: 'SearchFamousKnownForMovie';
+  adult?: Maybe<Scalars['Boolean']['output']>;
+  backdropPath?: Maybe<Scalars['String']['output']>;
+  genres: Array<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  mediaType?: Maybe<Scalars['String']['output']>;
+  originalLanguage?: Maybe<Scalars['String']['output']>;
+  originalTitle?: Maybe<Scalars['String']['output']>;
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity?: Maybe<Scalars['Float']['output']>;
+  posterPath?: Maybe<Scalars['String']['output']>;
+  releaseDate?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['Boolean']['output']>;
+  voteAverage?: Maybe<Scalars['Float']['output']>;
+  voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type SearchFamousKnownForMovieGenresArgs = {
+  input: SearchInput;
+};
+
+export type SearchFamousKnownForTvShow = {
+  __typename?: 'SearchFamousKnownForTVShow';
+  adult?: Maybe<Scalars['Boolean']['output']>;
+  backdropPath?: Maybe<Scalars['String']['output']>;
+  firstAirDate?: Maybe<Scalars['String']['output']>;
+  genres: Array<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  mediaType?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  originCountry: Array<Scalars['String']['output']>;
+  originalLanguage?: Maybe<Scalars['String']['output']>;
+  originalName?: Maybe<Scalars['String']['output']>;
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity?: Maybe<Scalars['Float']['output']>;
+  posterPath?: Maybe<Scalars['String']['output']>;
+  voteAverage?: Maybe<Scalars['Float']['output']>;
+  voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type SearchFamousKnownForTvShowGenresArgs = {
+  input: SearchInput;
 };
 
 export type SearchFamousResult = {
@@ -382,7 +382,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping of union types */
 export type ResolversUnionTypes<RefType extends Record<string, unknown>> = {
-  KnownFor: ( KnowForMovie ) | ( KnowForTvShow );
+  SearchFamousKnownFor: ( SearchFamousKnownForMovie ) | ( SearchFamousKnownForTvShow );
 };
 
 /** Mapping of interface types */
@@ -402,9 +402,6 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   ISO6391Language: Iso6391Language;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
-  KnowForMovie: ResolverTypeWrapper<KnowForMovie>;
-  KnowForTVShow: ResolverTypeWrapper<KnowForTvShow>;
-  KnownFor: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['KnownFor']>;
   NewsArticle: ResolverTypeWrapper<NewsArticle>;
   NewsLanguage: NewsLanguage;
   NewsResult: ResolverTypeWrapper<NewsResult>;
@@ -414,7 +411,10 @@ export type ResolversTypes = {
   QuizQuestionCategory: QuizQuestionCategory;
   QuizQuestionDifficulty: QuizQuestionDifficulty;
   QuizQuestionType: QuizQuestionType;
-  SearchFamousItem: ResolverTypeWrapper<Omit<SearchFamousItem, 'knownFor'> & { knownFor: Array<ResolversTypes['KnownFor']> }>;
+  SearchFamousItem: ResolverTypeWrapper<Omit<SearchFamousItem, 'knownFor'> & { knownFor: Array<ResolversTypes['SearchFamousKnownFor']> }>;
+  SearchFamousKnownFor: ResolverTypeWrapper<ResolversUnionTypes<ResolversTypes>['SearchFamousKnownFor']>;
+  SearchFamousKnownForMovie: ResolverTypeWrapper<SearchFamousKnownForMovie>;
+  SearchFamousKnownForTVShow: ResolverTypeWrapper<SearchFamousKnownForTvShow>;
   SearchFamousResult: ResolverTypeWrapper<SearchFamousResult>;
   SearchInput: SearchInput;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -431,15 +431,15 @@ export type ResolversParentTypes = {
   Float: Scalars['Float']['output'];
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
-  KnowForMovie: KnowForMovie;
-  KnowForTVShow: KnowForTvShow;
-  KnownFor: ResolversUnionTypes<ResolversParentTypes>['KnownFor'];
   NewsArticle: NewsArticle;
   NewsResult: NewsResult;
   Query: {};
   QuizInput: QuizInput;
   QuizQuestion: QuizQuestion;
-  SearchFamousItem: Omit<SearchFamousItem, 'knownFor'> & { knownFor: Array<ResolversParentTypes['KnownFor']> };
+  SearchFamousItem: Omit<SearchFamousItem, 'knownFor'> & { knownFor: Array<ResolversParentTypes['SearchFamousKnownFor']> };
+  SearchFamousKnownFor: ResolversUnionTypes<ResolversParentTypes>['SearchFamousKnownFor'];
+  SearchFamousKnownForMovie: SearchFamousKnownForMovie;
+  SearchFamousKnownForTVShow: SearchFamousKnownForTvShow;
   SearchFamousResult: SearchFamousResult;
   SearchInput: SearchInput;
   String: Scalars['String']['output'];
@@ -524,48 +524,6 @@ export type FamousCastResolvers<ContextType = any, ParentType extends ResolversP
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type KnowForMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['KnowForMovie'] = ResolversParentTypes['KnowForMovie']> = {
-  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<KnowForMovieGenresArgs, 'input'>>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  releaseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  video?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type KnowForTvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['KnowForTVShow'] = ResolversParentTypes['KnowForTVShow']> = {
-  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<KnowForTvShowGenresArgs, 'input'>>;
-  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
-  mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  originCountry?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  originalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type KnownForResolvers<ContextType = any, ParentType extends ResolversParentTypes['KnownFor'] = ResolversParentTypes['KnownFor']> = {
-  __resolveType: TypeResolveFn<'KnowForMovie' | 'KnowForTVShow', ParentType, ContextType>;
-};
-
 export type NewsArticleResolvers<ContextType = any, ParentType extends ResolversParentTypes['NewsArticle'] = ResolversParentTypes['NewsArticle']> = {
   author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -607,12 +565,54 @@ export type SearchFamousItemResolvers<ContextType = any, ParentType extends Reso
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   gender?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  knownFor?: Resolver<Array<ResolversTypes['KnownFor']>, ParentType, ContextType>;
+  knownFor?: Resolver<Array<ResolversTypes['SearchFamousKnownFor']>, ParentType, ContextType>;
   knownForDepartment?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   profilePath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchFamousKnownForResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchFamousKnownFor'] = ResolversParentTypes['SearchFamousKnownFor']> = {
+  __resolveType: TypeResolveFn<'SearchFamousKnownForMovie' | 'SearchFamousKnownForTVShow', ParentType, ContextType>;
+};
+
+export type SearchFamousKnownForMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchFamousKnownForMovie'] = ResolversParentTypes['SearchFamousKnownForMovie']> = {
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<SearchFamousKnownForMovieGenresArgs, 'input'>>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  releaseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  video?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchFamousKnownForTvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchFamousKnownForTVShow'] = ResolversParentTypes['SearchFamousKnownForTVShow']> = {
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<SearchFamousKnownForTvShowGenresArgs, 'input'>>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originCountry?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -630,14 +630,14 @@ export type Resolvers<ContextType = any> = {
   CastTVShow?: CastTvShowResolvers<ContextType>;
   Famous?: FamousResolvers<ContextType>;
   FamousCast?: FamousCastResolvers<ContextType>;
-  KnowForMovie?: KnowForMovieResolvers<ContextType>;
-  KnowForTVShow?: KnowForTvShowResolvers<ContextType>;
-  KnownFor?: KnownForResolvers<ContextType>;
   NewsArticle?: NewsArticleResolvers<ContextType>;
   NewsResult?: NewsResultResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   QuizQuestion?: QuizQuestionResolvers<ContextType>;
   SearchFamousItem?: SearchFamousItemResolvers<ContextType>;
+  SearchFamousKnownFor?: SearchFamousKnownForResolvers<ContextType>;
+  SearchFamousKnownForMovie?: SearchFamousKnownForMovieResolvers<ContextType>;
+  SearchFamousKnownForTVShow?: SearchFamousKnownForTvShowResolvers<ContextType>;
   SearchFamousResult?: SearchFamousResultResolvers<ContextType>;
 };
 
