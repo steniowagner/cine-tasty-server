@@ -5,7 +5,7 @@ import { Context } from "@types";
 export const resolvers = {
   Query: {
     news: (_parent: undefined, args: QueryNewsArgs, context: Context) =>
-      context.newsAPI.getNews(args),
+      context.newsAPI.getNews(args, context.cacheHandler),
   },
 
   NewsArticle: {
