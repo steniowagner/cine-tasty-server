@@ -34,9 +34,14 @@ export class MockCacheHandler implements CacheHandler {
   }
 }
 
+type ExecDatasourceTestOperationParams = {
+  variables: Record<string, unknown>;
+  cacheHandler?: CacheHandler;
+  query: string;
+};
+
 export const execDatasourceTestOperation = async <TResult>(
-  query: string,
-  variables: Record<string, unknown>,
+  params: ExecDatasourceTestOperationParams,
 ) => {
   const server = new ApolloServer<Context>({
     typeDefs,
@@ -44,12 +49,12 @@ export const execDatasourceTestOperation = async <TResult>(
   });
   const response = await server.executeOperation(
     {
-      query,
-      variables,
+      query: params.query,
+      variables: params.variables,
     },
     {
       contextValue: {
-        cacheHandler: new MockCacheHandler(),
+        cacheHandler: params.cacheHandler || new MockCacheHandler(),
         openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(new Date()),
         tmdbAPI: new TMDBApi(),
