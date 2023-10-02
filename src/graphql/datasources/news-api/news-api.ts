@@ -18,6 +18,12 @@ export default class NewsAPI extends RESTDataSource {
 
   async getNews(params: QueryNewsArgs, cacheHandler: CacheHandler) {
     try {
+      if (params.page > CONSTANTS.PAGE_SIZE) {
+        return {
+          items: [],
+          hasMore: false,
+        };
+      }
       const cacheKey = CONSTANTS.CACHE_KEY(params.page, params.language);
       const dataCached = await cacheHandler.get<NewsAPIResponseArticles[]>(cacheKey);
       if (dataCached) {
