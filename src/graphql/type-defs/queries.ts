@@ -4,5 +4,6 @@ export default `#graphql
     news(page: Int!, language: NewsLanguage!): NewsResult!
     famous(id: Int!, language: ISO6391Language): Famous
     searchFamous(input: SearchInput!): SearchFamousResult!
+    trendingFamous(page: Int!, language: ISO6391Language): TrendingFamousResult!
   }
 `;
