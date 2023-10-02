@@ -2692,16 +2692,12 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "language",
                 "description": null,
                 "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "SearchInput",
-                    "ofType": null
-                  }
+                  "kind": "ENUM",
+                  "name": "ISO6391Language",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
@@ -2904,16 +2900,12 @@
             "description": null,
             "args": [
               {
-                "name": "input",
+                "name": "language",
                 "description": null,
                 "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "SearchInput",
-                    "ofType": null
-                  }
+                  "kind": "ENUM",
+                  "name": "ISO6391Language",
+                  "ofType": null
                 },
                 "defaultValue": null,
                 "isDeprecated": false,

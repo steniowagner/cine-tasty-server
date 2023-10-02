@@ -351,7 +351,7 @@ export type TrendingFamousKnowForMovie = {
 
 
 export type TrendingFamousKnowForMovieGenresArgs = {
-  input: SearchInput;
+  language?: InputMaybe<Iso6391Language>;
 };
 
 export type TrendingFamousKnowForTvShow = {
@@ -373,7 +373,7 @@ export type TrendingFamousKnowForTvShow = {
 
 
 export type TrendingFamousKnowForTvShowGenresArgs = {
-  input: SearchInput;
+  language?: InputMaybe<Iso6391Language>;
 };
 
 export type TrendingFamousKnownFor = TrendingFamousKnowForMovie | TrendingFamousKnowForTvShow;
@@ -723,7 +723,7 @@ export type TrendingFamousItemResolvers<ContextType = any, ParentType extends Re
 export type TrendingFamousKnowForMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnowForMovie'] = ResolversParentTypes['TrendingFamousKnowForMovie']> = {
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TrendingFamousKnowForMovieGenresArgs, 'input'>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TrendingFamousKnowForMovieGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -741,7 +741,7 @@ export type TrendingFamousKnowForMovieResolvers<ContextType = any, ParentType ex
 export type TrendingFamousKnowForTvShowResolvers<ContextType = any, ParentType extends ResolversParentTypes['TrendingFamousKnowForTVShow'] = ResolversParentTypes['TrendingFamousKnowForTVShow']> = {
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TrendingFamousKnowForTvShowGenresArgs, 'input'>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TrendingFamousKnowForTvShowGenresArgs>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   mediaType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

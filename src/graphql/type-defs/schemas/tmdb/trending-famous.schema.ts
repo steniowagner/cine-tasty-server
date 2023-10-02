@@ -2,7 +2,7 @@ export default `#graphql
   type TrendingFamousKnowForTVShow {
     backdropPath: String
     firstAirDate: String
-    genres(input: SearchInput!): [String!]!
+    genres(language: ISO6391Language): [String!]!
     id: Int!
     mediaType: String
     name: String
@@ -18,7 +18,7 @@ export default `#graphql
   type TrendingFamousKnowForMovie {
     adult: Boolean
     backdropPath: String
-    genres(input: SearchInput!): [String!]!
+    genres(language: ISO6391Language): [String!]!
     id: Int!
     mediaType: String
     originalLanguage: String
