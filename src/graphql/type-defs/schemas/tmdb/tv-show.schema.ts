@@ -32,7 +32,7 @@ export default `#graphql
     voteCount: Int
     airDate: String
     episodeNumber: Int
-    production_code: String
+    productionCode: String
     runtime: Int
     seasonNumber: Int
     showId: Int
@@ -72,7 +72,7 @@ export default `#graphql
     popularity: Float
     posterPath: String
     productionCompanies: [ProductionCompanies!]!
-    production_countries: [String!]!
+    productionCountries: [String!]!
     seasons: [Seasons!]!
     spokenLanguages: [String!]!
     status: String

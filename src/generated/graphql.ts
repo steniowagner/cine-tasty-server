@@ -406,7 +406,7 @@ export type TvShow = {
   popularity?: Maybe<Scalars['Float']['output']>;
   posterPath?: Maybe<Scalars['String']['output']>;
   productionCompanies: Array<ProductionCompanies>;
-  production_countries: Array<Scalars['String']['output']>;
+  productionCountries: Array<Scalars['String']['output']>;
   seasons: Array<Seasons>;
   spokenLanguages: Array<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
@@ -902,7 +902,7 @@ export type TvShowResolvers<ContextType = any, ParentType extends ResolversParen
   popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   productionCompanies?: Resolver<Array<ResolversTypes['ProductionCompanies']>, ParentType, ContextType>;
-  production_countries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  productionCountries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   seasons?: Resolver<Array<ResolversTypes['Seasons']>, ParentType, ContextType>;
   spokenLanguages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

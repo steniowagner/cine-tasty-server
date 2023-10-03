@@ -3462,7 +3462,7 @@
             "deprecationReason": null
           },
           {
-            "name": "production_countries",
+            "name": "productionCountries",
             "description": null,
             "args": [],
             "type": {
