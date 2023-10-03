@@ -244,3 +244,59 @@ query TVShow ($id: Int!, $language: ISO6391Language) {
   }
 }
 `;
+
+export const QUERY_TV_SHOW_SEASON = `#graphql
+query TVShowSeason($input: TVShowSeasonInput!) {
+  tvShowSeason(input: $input) {
+    _id
+    airDate
+    episodes {
+      airDate
+      episodeNumber
+      episodeType
+      id
+      crew {
+        job
+        department
+        creditId
+        adult
+        gender
+        id
+        knownForDepartment
+        name
+        originalName
+        popularity
+        profilePath
+      }
+      guestStars {
+        character
+        creditId
+        order
+        adult
+        gender
+        id
+        knownForDepartment
+        name
+        originalName
+        popularity
+        profilePath
+      }
+      name
+      overview
+      productionCode
+      runtime
+      seasonNumber
+      showId
+      stillPath
+      voteAverage
+      voteCount
+    }
+    name
+    overview
+    id
+    posterPath
+    seasonNumber
+    voteAverage
+  }
+}
+`;
