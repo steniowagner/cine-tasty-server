@@ -1,6 +1,6 @@
 import { createClient } from "redis";
 
-import { CacheHandler, SetCacheParmas } from "../cache-handler";
+import { CacheHandler, SetCacheParams } from "../cache-handler";
 
 type Client = ReturnType<typeof createClient>;
 
@@ -23,7 +23,7 @@ export default class RedisCacheHandler implements CacheHandler {
     }
   }
 
-  async set(params: SetCacheParmas) {
+  async set(params: SetCacheParams) {
     try {
       await this.client.set(params.key, JSON.stringify(params.value), {
         EX: params.expireIn,

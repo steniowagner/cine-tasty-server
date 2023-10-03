@@ -8,7 +8,7 @@ import NewsAPI from "@news-api/news-api";
 import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 
 import { Context } from "@types";
-import { SetCacheParmas, CacheHandler } from "@/utils";
+import { SetCacheParams, CacheHandler } from "@/utils";
 
 type ExecuteOperationResponse<TData> = {
   body: {
@@ -25,7 +25,7 @@ export class MockCacheHandler implements CacheHandler {
     return Promise.resolve(undefined);
   }
 
-  async set(_params: SetCacheParmas) {
+  async set(_params: SetCacheParams) {
     return Promise.resolve(undefined);
   }
 
