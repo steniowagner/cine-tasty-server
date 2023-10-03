@@ -24,9 +24,9 @@ jest.mock("@apollo/datasource-rest", () => {
 
 describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
   describe('When the "media-type" is "Movie"', () => {
+    const mediaType = "movie";
     const genreIds = [28, 12, 16, 35];
-    const cacheKey = TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(Iso6391Language.Pt);
-    const endpoint = CONSTANTS.MOVIES_ENDPOINT;
+    const endpoint = CONSTANTS.ENDPOINT(mediaType);
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -38,11 +38,10 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           tmdbAPI: new TheMovieDBAPI(),
           language: Iso6391Language.Pt,
           cacheHandler: new MockCacheHandler(),
+          mediaType,
           genreIds,
-          cacheKey,
-          endpoint,
         });
-        expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.MOVIES_ENDPOINT);
+        expect(mockGet.mock.calls[0][0]).toEqual(endpoint);
         expect(mockGet.mock.calls[0][1].params).toEqual({
           language: Iso6391Language.Pt,
         });
@@ -55,11 +54,10 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
         await handler.handle({
           tmdbAPI: new TheMovieDBAPI(),
           cacheHandler: new MockCacheHandler(),
+          mediaType,
           genreIds,
-          cacheKey,
-          endpoint,
         });
-        expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.MOVIES_ENDPOINT);
+        expect(mockGet.mock.calls[0][0]).toEqual(endpoint);
         expect(mockGet.mock.calls[0][1].params).toEqual({
           language: TMDB_CONSTANTS.FALLBACK_LANGUAGE,
         });
@@ -74,8 +72,7 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           tmdbAPI: new TheMovieDBAPI(),
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
         expect(response).toEqual([]);
       });
@@ -88,8 +85,7 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           tmdbAPI: new TheMovieDBAPI(),
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
         expect(response).toEqual([]);
       });
@@ -102,8 +98,7 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           tmdbAPI: new TheMovieDBAPI(),
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
         expect(response).toEqual(["Ação", "Aventura", "Animação", "Comédia"]);
       });
@@ -112,8 +107,8 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
 
   describe('When the "media-type" is "Tv"', () => {
     const genreIds = [9648, 10751, 18, 37];
-    const cacheKey = TMDB_CONSTANTS.KEYS.TV_SHOWS_GENRES_CACHE_KEY(Iso6391Language.Pt);
-    const endpoint = CONSTANTS.TV_SHOWS_ENDPOINT;
+    const mediaType = "tv";
+    const endpoint = CONSTANTS.ENDPOINT(mediaType);
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -126,10 +121,9 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           language: Iso6391Language.Pt,
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
-        expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.TV_SHOWS_ENDPOINT);
+        expect(mockGet.mock.calls[0][0]).toEqual(endpoint);
         expect(mockGet.mock.calls[0][1].params).toEqual({
           language: Iso6391Language.Pt,
         });
@@ -143,10 +137,9 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           tmdbAPI: new TheMovieDBAPI(),
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
-        expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.TV_SHOWS_ENDPOINT);
+        expect(mockGet.mock.calls[0][0]).toEqual(endpoint);
         expect(mockGet.mock.calls[0][1].params).toEqual({
           language: TMDB_CONSTANTS.FALLBACK_LANGUAGE,
         });
@@ -162,8 +155,7 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           language: Iso6391Language.Pt,
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
         expect(response).toEqual([]);
       });
@@ -177,8 +169,7 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           language: Iso6391Language.Pt,
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
         expect(response).toEqual([]);
       });
@@ -192,8 +183,7 @@ describe("DataSources/TheMovieDBApi/MediaGenres-Query-Handler", () => {
           language: Iso6391Language.Pt,
           cacheHandler: new MockCacheHandler(),
           genreIds,
-          cacheKey,
-          endpoint,
+          mediaType,
         });
         expect(response).toEqual(["Mistério", "Família", "Drama", "Faroeste"]);
       });
