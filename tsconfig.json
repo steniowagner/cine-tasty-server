@@ -19,6 +19,7 @@
       "@tmdb-api/*": ["graphql/datasources/the-movie-db-api/*"],
       "@generated-types": ["generated/graphql.ts"],
       "@types": ["types/index.ts"],
+      "@errors": ["graphql/errors"],
       "@/*": ["*"]
     }
   },
