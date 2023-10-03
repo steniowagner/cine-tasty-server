@@ -5,7 +5,7 @@ import { TMDBApiErrors } from "@errors";
 
 import { Response } from "./trending-tv-shows.types";
 
-type Trend = "airing-today" | "on-the-air" | "popular" | "top-rated";
+export type Trend = "airing-today" | "on-the-air" | "popular" | "top-rated";
 
 type Params = QueryTrendingTvShowsArgs & {
   trend: Trend;
