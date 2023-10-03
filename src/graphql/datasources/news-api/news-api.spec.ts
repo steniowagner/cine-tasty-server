@@ -3,7 +3,7 @@ import { RESTDataSource } from "@apollo/datasource-rest";
 
 import { NewsAPIResponseArticles } from "@news-api/types";
 import { NewsLanguage, NewsResult } from "@generated-types";
-import { SetCacheParmas, CacheHandler } from "@/utils";
+import { SetCacheParams, CacheHandler } from "@/utils";
 
 import { execDatasourceTestOperation } from "../../../../__test__";
 import { CONSTANTS } from "./utils";
@@ -189,7 +189,7 @@ describe("DataSources/NewsAPI/Integration", () => {
           return Promise.resolve(undefined);
         }
 
-        async set(_params: SetCacheParmas) {
+        async set(_params: SetCacheParams) {
           return Promise.resolve();
         }
 

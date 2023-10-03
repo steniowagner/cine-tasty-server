@@ -4,7 +4,6 @@ import { ApolloServer } from "@apollo/server";
 import OpenTriviaAPI from "@open-trivia-api/open-trivia-api";
 import NewsAPI from "@news-api/news-api";
 import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
-import { MockCacheHandler } from "../__test__";
 
 import typeDefs from "./graphql/type-defs";
 import resolvers from "./graphql/resolvers";
@@ -19,13 +18,13 @@ const server = new ApolloServer<Context>({
 (async () => {
   const { url } = await startStandaloneServer(server, {
     async context() {
-      // const cacheHandler = new RedisCacheHandler();
-      // await cacheHandler.init();
+      const cacheHandler = new RedisCacheHandler();
+      await cacheHandler.init();
       return {
         openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(new Date()),
         tmdbAPI: new TMDBApi(),
-        cacheHandler: new MockCacheHandler(),
+        cacheHandler,
       };
     },
     listen: { port: parseInt(process.env.PORT! as string) },
