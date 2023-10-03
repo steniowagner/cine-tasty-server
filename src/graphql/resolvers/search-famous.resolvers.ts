@@ -1,8 +1,6 @@
-import { QuerySearchFamousArgs } from "@generated-types";
+import { Iso6391Language, QuerySearchFamousArgs } from "@generated-types";
 import { SearchMovieHandlerTypes } from "@tmdb-api/handlers/search-famous";
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
-import { CONSTANTS as TMDB_CONSTANTS } from "@tmdb-api/utils";
-import { CONSTANTS as MEDIA_GENRES_CONSTANTS } from "@tmdb-api/handlers/media-genres";
 import { Context } from "@types";
 
 type KnownForResult = {
@@ -38,11 +36,11 @@ export const resolvers = {
       context: Context,
     ) =>
       mediaGenresHandler.handle({
-        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.input.language),
-        endpoint: MEDIA_GENRES_CONSTANTS.MOVIES_ENDPOINT,
+        language: params.input.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
+        mediaType: "movie",
       }),
   },
 
@@ -67,11 +65,11 @@ export const resolvers = {
       context: Context,
     ) =>
       mediaGenresHandler.handle({
-        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.input.language),
-        endpoint: MEDIA_GENRES_CONSTANTS.TV_SHOWS_ENDPOINT,
+        language: params.input.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
+        mediaType: "tv",
       }),
   },
 
