@@ -8,8 +8,10 @@ import { resolvers as searchFamousResolvers } from "./search-famous.resolvers";
 import { resolvers as trendingFamousResolvers } from "./trending-famous.resolvers";
 import { resolvers as tvShowResolvers } from "./tv-show.resolvers";
 import { resolvers as tvShowSeasonResolvers } from "./tv-show-season.resolvers";
+import { resolvers as trendingTVShowsResolvers } from "./trending-tv-shows.resolvers";
 
 export default [
+  trendingTVShowsResolvers,
   tvShowSeasonResolvers,
   tvShowResolvers,
   trendingFamousResolvers,
