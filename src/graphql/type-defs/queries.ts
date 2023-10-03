@@ -6,6 +6,6 @@ export default `#graphql
     searchFamous(input: SearchInput!): SearchFamousResult!
     trendingFamous(page: Int!, language: ISO6391Language): TrendingFamousResult!
     tvShow(id: Int!, language: ISO6391Language): TVShow!
-    tvShowSeason(input: TVShowSeasonInput): TVShowSeason!
+    tvShowSeason(input: TVShowSeasonInput!): TVShowSeason!
   }
 `;

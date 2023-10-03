@@ -277,7 +277,7 @@ export type QueryTvShowArgs = {
 
 
 export type QueryTvShowSeasonArgs = {
-  input?: InputMaybe<TvShowSeasonInput>;
+  input: TvShowSeasonInput;
 };
 
 export type QuizInput = {
@@ -893,7 +893,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   searchFamous?: Resolver<ResolversTypes['SearchFamousResult'], ParentType, ContextType, RequireFields<QuerySearchFamousArgs, 'input'>>;
   trendingFamous?: Resolver<ResolversTypes['TrendingFamousResult'], ParentType, ContextType, RequireFields<QueryTrendingFamousArgs, 'page'>>;
   tvShow?: Resolver<ResolversTypes['TVShow'], ParentType, ContextType, RequireFields<QueryTvShowArgs, 'id'>>;
-  tvShowSeason?: Resolver<ResolversTypes['TVShowSeason'], ParentType, ContextType, Partial<QueryTvShowSeasonArgs>>;
+  tvShowSeason?: Resolver<ResolversTypes['TVShowSeason'], ParentType, ContextType, RequireFields<QueryTvShowSeasonArgs, 'input'>>;
 };
 
 export type QuizQuestionResolvers<ContextType = any, ParentType extends ResolversParentTypes['QuizQuestion'] = ResolversParentTypes['QuizQuestion']> = {

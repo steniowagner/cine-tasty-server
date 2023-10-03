@@ -3,11 +3,15 @@ import {
   tvShowSeasonHandler,
   TVShowSeasonTypes,
 } from "@tmdb-api/handlers/tv-show-season";
+import { Context } from "@types";
 
 export const resolvers = {
   Query: {
-    tvShowSeason: async (_parent: undefined, params: QueryTvShowSeasonArgs) =>
-      tvShowSeasonHandler.handle(params),
+    tvShowSeason: async (
+      _parent: undefined,
+      params: QueryTvShowSeasonArgs,
+      context: Context,
+    ) => tvShowSeasonHandler.handle(params, context.tmdbAPI),
   },
 
   TVShowSeason: {
