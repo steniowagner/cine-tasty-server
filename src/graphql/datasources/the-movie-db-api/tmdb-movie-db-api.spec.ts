@@ -12,6 +12,8 @@ import {
   TrendingFamousKnownForTvShow,
   TvShow,
   TvShowSeason,
+  TrendingTvShows,
+  TrendingTvShow,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -592,6 +594,68 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         expect(tvshowSeason.posterPath).toEqual(fixtures.tvShowSeason.poster_path);
         expect(tvshowSeason.seasonNumber).toEqual(fixtures.tvShowSeason.season_number);
         expect(tvshowSeason.voteAverage).toEqual(fixtures.tvShowSeason.vote_average);
+      });
+    });
+  });
+
+  describe("Trending TV-Shows", () => {
+    describe("When query the data successfuly", () => {
+      it("should return data correctly", async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.trendingTVShow));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.trendingTVShow));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.trendingTVShow));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.trendingTVShow));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
+        const response = await execDatasourceTestOperation<{
+          trendingTVShows: TrendingTvShows;
+        }>({
+          query: queries.QUERY_TRENDING_TV_SHOWS,
+          variables: {
+            language: "pt",
+          },
+        });
+        expect(response.body.singleResult.errors).toBeUndefined();
+        const trendingTVShows = response.body.singleResult.data.trendingTVShows;
+        const trends = Object.keys(trendingTVShows);
+        const rawTrending = fixtures.trendingTVShow.results;
+        for (let i = 0; i < trends.length; i++) {
+          const trending = trendingTVShows[
+            trends[i] as keyof TrendingTvShows
+          ] as TrendingTvShow[];
+          for (let j = 0; j < trending!.length; j++) {
+            expect(trending[j].backdropPath).toEqual(rawTrending[j].backdrop_path);
+            expect(trending[j].firstAirDate).toEqual(rawTrending[j].first_air_date);
+            expect(trending[j].id).toEqual(rawTrending[j].id);
+            expect(trending[j].name).toEqual(rawTrending[j].name);
+            expect(trending[j].originCountry).toEqual(rawTrending[j].origin_country);
+            expect(trending[j].originalLanguage).toEqual(
+              rawTrending[j].original_language,
+            );
+            expect(trending[j].originalName).toEqual(rawTrending[j].original_name);
+            expect(trending[j].overview).toEqual(rawTrending[j].overview);
+            expect(trending[j].popularity).toEqual(rawTrending[j].popularity);
+            expect(trending[j].posterPath).toEqual(rawTrending[j].poster_path);
+            expect(trending[j].voteAverage).toEqual(rawTrending[j].vote_average);
+            expect(trending[j].voteCount).toEqual(rawTrending[j].vote_count);
+            expect(trending[j].genres).toEqual(
+              rawTrending[j].genre_ids
+                .map((genre_id) =>
+                  fixtures.tvShowGenres.genres.find((genre) => genre.id === genre_id),
+                )
+                .map((genre) => genre?.name),
+            );
+          }
+        }
       });
     });
   });

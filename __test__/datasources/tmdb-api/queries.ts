@@ -300,3 +300,73 @@ query TVShowSeason($input: TVShowSeasonInput!) {
   }
 }
 `;
+
+export const QUERY_TRENDING_TV_SHOWS = `#graphql
+query TrendingTVShows($language: ISO6391Language) {
+  trendingTVShows {
+    airingToday(language: $language) {
+      backdropPath
+      firstAirDate
+      genres(language: $language)
+      id
+      name
+      originCountry
+      originalLanguage
+      originalName
+      overview
+      popularity
+      posterPath
+      voteAverage
+      voteCount
+    }
+
+    onTheAir(language: $language) {
+      backdropPath
+      firstAirDate
+      genres(language: $language)
+      id
+      name
+      originCountry
+      originalLanguage
+      originalName
+      overview
+      popularity
+      posterPath
+      voteAverage
+      voteCount
+    }
+
+    popular(language: $language) {
+      backdropPath
+      firstAirDate
+      genres(language: $language)
+      id
+      name
+      originCountry
+      originalLanguage
+      originalName
+      overview
+      popularity
+      posterPath
+      voteAverage
+      voteCount
+    }
+
+    topRated(language: $language) {
+      backdropPath
+      firstAirDate
+      genres(language: $language)
+      id
+      name
+      originCountry
+      originalLanguage
+      originalName
+      overview
+      popularity
+      posterPath
+      voteAverage
+      voteCount
+    }
+  }
+}
+`;
