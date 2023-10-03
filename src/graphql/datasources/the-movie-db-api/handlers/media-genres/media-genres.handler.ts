@@ -10,12 +10,11 @@ type HandlerParams = {
   language?: Iso6391Language;
   cacheHandler: CacheHandler;
   tmdbAPI: TheMovieDBAPI;
-  cacheKey: string;
-  endpoint: string;
+  mediaType: "movie" | "tv";
   genreIds: number[];
 };
 
-export const parseResponse = (response: Response, genreIds: number[]) =>
+const parseResponse = (response: Response, genreIds: number[]) =>
   genreIds
     .map((genreId) => {
       const genre = response.genres.find((genre) => genre.id === genreId);
@@ -25,19 +24,23 @@ export const parseResponse = (response: Response, genreIds: number[]) =>
 
 export const handler = {
   handle: async (params: HandlerParams) => {
-    const dataCached = await params.cacheHandler.get<Response>(params.cacheKey);
+    const cacheKey = CONSTANTS.CACHE_KEY(params.mediaType, params.language);
+    const dataCached = await params.cacheHandler.get<Response>(cacheKey);
     if (dataCached) {
       return parseResponse(dataCached, params.genreIds);
     }
-    const response = await params.tmdbAPI.handle<Response>(params.endpoint, {
-      language: params.language ?? TMDB_CONSTANTS.FALLBACK_LANGUAGE,
-    });
+    const response = await params.tmdbAPI.handle<Response>(
+      CONSTANTS.ENDPOINT(params.mediaType),
+      {
+        language: params.language ?? TMDB_CONSTANTS.FALLBACK_LANGUAGE,
+      },
+    );
     if (!response) {
       return [];
     }
     await params.cacheHandler.set({
       expireIn: CONSTANTS.CACHE_EXPIRATION,
-      key: params.cacheKey,
+      key: cacheKey,
       value: response,
     });
     return parseResponse(response, params.genreIds);

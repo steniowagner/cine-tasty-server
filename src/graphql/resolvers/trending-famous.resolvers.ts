@@ -1,11 +1,10 @@
 import {
+  Iso6391Language,
   QueryTrendingFamousArgs,
   TrendingFamousKnownForMovieGenresArgs,
 } from "@generated-types";
 import { trendingFamousHandler } from "@tmdb-api/handlers/trending-famous";
 import { Context } from "@types";
-import { CONSTANTS as TMDB_CONSTANTS } from "@tmdb-api/utils";
-import { CONSTANTS as MEDIA_GENRES_CONSTANTS } from "@tmdb-api/handlers/media-genres";
 import { TrendingFamousTypes } from "@tmdb-api/handlers/trending-famous";
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
 
@@ -34,9 +33,9 @@ export const resolvers = {
       context: Context,
     ) =>
       mediaGenresHandler.handle({
-        cacheKey: TMDB_CONSTANTS.KEYS.TV_SHOWS_GENRES_CACHE_KEY(params.language),
-        endpoint: MEDIA_GENRES_CONSTANTS.TV_SHOWS_ENDPOINT,
+        language: params.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
+        mediaType: "tv",
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
       }),
@@ -59,8 +58,8 @@ export const resolvers = {
       context: Context,
     ) =>
       mediaGenresHandler.handle({
-        cacheKey: TMDB_CONSTANTS.KEYS.MOVIES_GENRES_CACHE_KEY(params.language),
-        endpoint: MEDIA_GENRES_CONSTANTS.MOVIES_ENDPOINT,
+        mediaType: "movie",
+        language: params.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
