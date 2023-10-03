@@ -615,7 +615,7 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           .mockImplementationOnce(async () => Promise.resolve(fixtures.trendingTVShow));
         jest
           .spyOn(RESTDataSource.prototype as any, "get")
-          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
+          .mockImplementation(async () => Promise.resolve(fixtures.tvShowGenres));
         const response = await execDatasourceTestOperation<{
           trendingTVShows: TrendingTvShows;
         }>({
