@@ -1,15 +1,15 @@
 export type TVShowEpisodeGuestStar = {
   character: string;
-  creditId: string;
+  credit_id: string;
   order: number;
   adult: boolean;
   gender: number;
   id: number;
-  knownForDepartment: string;
+  known_for_department: string;
   name: string;
-  originalName: string;
+  original_name: string;
   popularity: number;
-  profilePath: string;
+  profile_path: string;
 };
 
 export type TVShowEpisodeCrew = {
@@ -27,7 +27,7 @@ export type TVShowEpisodeCrew = {
 };
 
 export type Episode = {
-  airDate: string;
+  air_date: string;
   episode_number: number;
   episode_type: string;
   id: number;

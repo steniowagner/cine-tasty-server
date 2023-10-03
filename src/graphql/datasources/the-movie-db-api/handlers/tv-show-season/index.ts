@@ -1,1 +1,2 @@
-export * as TVShowSeason from "./tv-show-season.types";
+export * as TVShowSeasonTypes from "./tv-show-season.types";
+export { handler as tvShowSeasonHandler } from "./tv-show-season.handler";

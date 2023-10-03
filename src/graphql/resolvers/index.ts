@@ -7,8 +7,10 @@ import { resolvers as ISO6391LanguageResolvers } from "./ISO6391Language.resolve
 import { resolvers as searchFamousResolvers } from "./search-famous.resolvers";
 import { resolvers as trendingFamousResolvers } from "./trending-famous.resolvers";
 import { resolvers as tvShowResolvers } from "./tv-show.resolvers";
+import { resolvers as tvShowSeasonResolvers } from "./tv-show-season.resolvers";
 
 export default [
+  tvShowSeasonResolvers,
   tvShowResolvers,
   trendingFamousResolvers,
   ISO6391LanguageResolvers,
