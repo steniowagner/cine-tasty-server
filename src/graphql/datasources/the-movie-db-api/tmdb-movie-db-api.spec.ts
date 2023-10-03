@@ -11,6 +11,7 @@ import {
   TrendingFamousKnownForMovie,
   TrendingFamousKnownForTvShow,
   TvShow,
+  TvShowSeason,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -494,6 +495,103 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         expect(tvshow.type).toEqual(fixtures.tvShow.type);
         expect(tvshow.voteAverage).toEqual(fixtures.tvShow.vote_average);
         expect(tvshow.voteCount).toEqual(fixtures.tvShow.vote_count);
+      });
+    });
+  });
+
+  describe("TV-Show Season", () => {
+    describe("When query the data successfuly", () => {
+      it("should return data correctly", async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowSeason));
+        const response = await execDatasourceTestOperation<{
+          tvShowSeason: TvShowSeason;
+        }>({
+          query: queries.QUERY_TV_SHOW_SEASON,
+          variables: {
+            input: {
+              id: 94997,
+              season: 1,
+              language: "pt",
+            },
+          },
+        });
+        expect(response.body.singleResult.errors).toBeUndefined();
+        const tvshowSeason = response.body.singleResult.data.tvShowSeason;
+        expect(tvshowSeason._id).toEqual(fixtures.tvShowSeason._id);
+        expect(tvshowSeason.airDate).toEqual(fixtures.tvShowSeason.air_date);
+        // episodes
+        for (let i = 0; i < tvshowSeason.episodes.length; i++) {
+          const episode = tvshowSeason.episodes[i];
+          const rawEpisode = fixtures.tvShowSeason.episodes[i];
+          expect(episode.airDate).toEqual(rawEpisode.air_date);
+          expect(episode.episodeNumber).toEqual(rawEpisode.episode_number);
+          expect(episode.episodeType).toEqual(rawEpisode.episode_type);
+          expect(episode.id).toEqual(rawEpisode.id);
+          // crew
+          for (let j = 0; j < episode.crew.length; j++) {
+            expect(episode.crew[j].job).toEqual(rawEpisode.crew[j].job);
+            expect(episode.crew[j].department).toEqual(rawEpisode.crew[j].department);
+            expect(episode.crew[j].creditId).toEqual(rawEpisode.crew[j].credit_id);
+            expect(episode.crew[j].adult).toEqual(rawEpisode.crew[j].adult);
+            expect(episode.crew[j].gender).toEqual(rawEpisode.crew[j].gender);
+            expect(episode.crew[j].id).toEqual(rawEpisode.crew[j].id);
+            expect(episode.crew[j].knownForDepartment).toEqual(
+              rawEpisode.crew[j].known_for_department,
+            );
+            expect(episode.crew[j].name).toEqual(rawEpisode.crew[j].name);
+            expect(episode.crew[j].originalName).toEqual(
+              rawEpisode.crew[j].original_name,
+            );
+            expect(episode.crew[j].popularity).toEqual(rawEpisode.crew[j].popularity);
+            expect(episode.crew[j].profilePath).toEqual(rawEpisode.crew[j].profile_path);
+          }
+          // guest-stars
+          for (let j = 0; j < episode.crew.length; j++) {
+            expect(episode.guestStars[j].character).toEqual(
+              rawEpisode.guest_stars[j].character,
+            );
+            expect(episode.guestStars[j].creditId).toEqual(
+              rawEpisode.guest_stars[j].credit_id,
+            );
+            expect(episode.guestStars[j].order).toEqual(rawEpisode.guest_stars[j].order);
+            expect(episode.guestStars[j].adult).toEqual(rawEpisode.guest_stars[j].adult);
+            expect(episode.guestStars[j].gender).toEqual(
+              rawEpisode.guest_stars[j].gender,
+            );
+            expect(episode.guestStars[j].id).toEqual(rawEpisode.guest_stars[j].id);
+            expect(episode.guestStars[j].knownForDepartment).toEqual(
+              rawEpisode.guest_stars[j].known_for_department,
+            );
+            expect(episode.guestStars[j].name).toEqual(rawEpisode.guest_stars[j].name);
+            expect(episode.guestStars[j].originalName).toEqual(
+              rawEpisode.guest_stars[j].original_name,
+            );
+            expect(episode.guestStars[j].popularity).toEqual(
+              rawEpisode.guest_stars[j].popularity,
+            );
+            expect(episode.guestStars[j].profilePath).toEqual(
+              rawEpisode.guest_stars[j].profile_path,
+            );
+          }
+          expect(episode.name).toEqual(rawEpisode.name);
+          expect(episode.overview).toEqual(rawEpisode.overview);
+          expect(episode.productionCode).toEqual(rawEpisode.production_code);
+          expect(episode.runtime).toEqual(rawEpisode.runtime);
+          expect(episode.seasonNumber).toEqual(rawEpisode.season_number);
+          expect(episode.showId).toEqual(rawEpisode.show_id);
+          expect(episode.stillPath).toEqual(rawEpisode.still_path);
+          expect(episode.voteAverage).toEqual(rawEpisode.vote_average);
+          expect(episode.voteCount).toEqual(rawEpisode.vote_count);
+        }
+        expect(tvshowSeason.name).toEqual(fixtures.tvShowSeason.name);
+        expect(tvshowSeason.overview).toEqual(fixtures.tvShowSeason.overview);
+        expect(tvshowSeason.id).toEqual(fixtures.tvShowSeason.id);
+        expect(tvshowSeason.posterPath).toEqual(fixtures.tvShowSeason.poster_path);
+        expect(tvshowSeason.posterPath).toEqual(fixtures.tvShowSeason.poster_path);
+        expect(tvshowSeason.seasonNumber).toEqual(fixtures.tvShowSeason.season_number);
+        expect(tvshowSeason.voteAverage).toEqual(fixtures.tvShowSeason.vote_average);
       });
     });
   });
