@@ -6,8 +6,10 @@ import search from "./search.schema";
 import trendingFamous from "./trending-famous.schema";
 import tvShow from "./tv-show.schema";
 import tvShowSeason from "./tv-show-season.schema";
+import trendingTVShows from "./trending-tv-shows.schema";
 
 export default [
+  trendingTVShows,
   tvShowSeason,
   tvShow,
   trendingFamous,
