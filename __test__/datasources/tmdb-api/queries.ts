@@ -167,3 +167,80 @@ export const QUERY_TRENDING_FAMOUS = `#graphql
   }
 }
 `;
+
+export const QUERY_TV_SHOW_DETAILS = `#graphql
+query TVShow ($id: Int!, $language: ISO6391Language) {
+  tvShow(id: $id, language: $language) {
+    adult
+    backdropPath
+    createdBy{
+      id
+      creditId
+      name
+      gender
+      profilePath
+    }
+    episodeRunTime
+    firstAirDate
+    genres(language: $language)
+    homepage
+    id
+    inProduction
+    languages
+    lastAirDate
+    lastEpisodeToAir{
+      id
+      name
+      overview
+      voteAverage
+      voteCount
+      airDate
+      episodeNumber
+      productionCode
+      runtime
+      seasonNumber
+      showId
+      stillPath
+    }
+    name
+    nextEpisodeToAir
+    networks {
+      id
+      logoPath
+      name
+      originCountry
+    }
+    numberOfEpisodes
+    numberOfSeasons
+    originCountry
+    originalLanguage
+    originalName,
+    overview
+    popularity
+    posterPath
+    productionCompanies {
+      id
+      logoPath
+      name
+      originCountry
+    }
+    productionCountries
+    seasons {
+      airDate
+      episodeCount
+      id
+      name
+      overview
+      posterPath
+      seasonNumber
+      voteAverage
+    }
+    spokenLanguages
+    status
+    tagline
+    type
+    voteAverage
+    voteCount
+  }
+}
+`;
