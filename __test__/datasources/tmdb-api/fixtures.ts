@@ -22,7 +22,7 @@ export const tvShowCast = {
 
 export const movieCast = {
   adult: false,
-  backdrop_path: null,
+  backdrop_path: "backdrop_path",
   genre_ids: [18, 12],
   id: 300450,
   original_language: "en",
@@ -30,7 +30,7 @@ export const movieCast = {
   overview:
     "A biopic of pioneer photographer Eadweard Muybridge, following the courtship and love affair between Muybridge's wife, Flora, and Harry Larkyns.",
   popularity: 1.973,
-  poster_path: null,
+  poster_path: "poster_path",
   release_date: "release_date",
   title: "Flying Horse",
   video: false,
@@ -214,9 +214,9 @@ export const famous = {
   biography:
     "Gary Leonard Oldman (born 21 March 1958) is an English actor and filmmaker. Regarded as one of the best actors of his generation, he is known for his versatility and intense acting style. He received various accolades, including an Academy Award, a Golden Globe Award, a Screen Actors Guild Award, and three British Academy Film Awards. His films have grossed over $11 billion worldwide, making him one of the highest-grossing actors to date.\n\nOldman began acting in theatre in 1979 and made his film debut in Remembrance (1982). He continued to follow a stage career in London's Royal Court and was a member of the Royal Shakespeare Company, with credits including Cabaret, Romeo and Juliet, Entertaining Mr Sloane, Saved, The Country Wife and Hamlet. He rose to prominence in British film with his portrayals of Sid Vicious in Sid and Nancy (1986), Joe Orton in Prick Up Your Ears (1987) and Rosencrantz in Rosencrantz & Guildenstern Are Dead (1990), while also attracting attention as the leader of a gang of football hooligans in the television film The Firm (1989). Regarded as a member of the \"Brit Pack\", he achieved greater recognition as a New York gangster in State of Grace (1990), Lee Harvey Oswald in JFK (1991) and Count Dracula in Bram Stoker's Dracula (1992).\n\nOldman portrayed the villains in films such as True Romance (1993), The Fifth Element (1997), Air Force One (1997) and The Contender (2000); corrupt DEA agent Norman Stansfield, whom he played in Léon: The Professional (1994), was called one of cinema's best villains. He also played Ludwig van Beethoven in Immortal Beloved (1994) and later appeared in franchise roles such as Sirius Black in the Harry Potter series, James Gordon in The Dark Knight Trilogy (2005–2012) and a human leader, Dreyfus in Dawn of the Planet of the Apes (2014). He won the Academy Award for Best Actor for his role as Winston Churchill in Darkest Hour (2017), and was nominated for his portrayals of George Smiley in Tinker Tailor Soldier Spy (2011) and Herman J. Mankiewicz in Mank (2020).\n\nOldman was executive producer of films like The Contender, Plunkett & Macleane (1999) and Nil by Mouth (1997), the latter of which he also wrote and directed. He featured in television shows such as Fallen Angels, Tracey Takes On... and Friends, voiced Ignitius and Viktor Reznov respectively in The Legend of Spyro and Call of Duty video games and appeared in music videos for David Bowie, Guns N' Roses and Annie Lennox.",
   birthday: "1958-03-21",
-  deathday: null,
+  deathday: "deathday",
   gender: 2,
-  homepage: null,
+  homepage: "homepage",
   id: 64,
   imdb_id: "nm0000198",
   known_for_department: "Acting",
@@ -229,7 +229,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 2160,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/yhaSM5habNNI1Tf4ALRwRk3VvSZ.jpg",
         vote_average: 5.33,
         vote_count: 9,
@@ -238,7 +238,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 622,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/hHP0769L7YrApkMKCOyb9cwgxBW.jpg",
         vote_average: 5.252,
         vote_count: 4,
@@ -247,7 +247,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 984,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/2v9FVVBUrrkW2m3QOcYkuhq9A6o.jpg",
         vote_average: 5.22,
         vote_count: 13,
@@ -256,7 +256,7 @@ export const famous = {
       {
         aspect_ratio: 0.666,
         height: 2048,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/4HxoaJ8619S6eHOO901FMuxQ1FE.jpg",
         vote_average: 5.19,
         vote_count: 5,
@@ -265,7 +265,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 2259,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/7DKdzGtFDbE84Pf96IQ2HDDilCd.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -274,7 +274,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 1024,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/3mr77nrZ1sUFBZrhuNyIQG4giYf.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -283,7 +283,7 @@ export const famous = {
       {
         aspect_ratio: 0.666,
         height: 1000,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/pp21unPsFDSE3uGs5x9J65AaqMn.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -292,7 +292,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 949,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/peKJ7hFHE0Z7YaO9dUmCChI2iHA.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -301,7 +301,7 @@ export const famous = {
       {
         aspect_ratio: 0.666,
         height: 650,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/3cOTcPeJNxBjHashuZ1KFAiU2T8.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -310,7 +310,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 600,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/y2M4UjTopWDu3uVkQDy6pzUYUGd.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -319,7 +319,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 1080,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/g1ueDq0Px0sa8CmOk0dZwocpwLb.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -328,7 +328,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 835,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/j5eCpaDiZaROR2d73gQmhc4rz5s.jpg",
         vote_average: 5.106,
         vote_count: 2,
@@ -337,7 +337,7 @@ export const famous = {
       {
         aspect_ratio: 0.667,
         height: 1080,
-        iso_639_1: null,
+        iso_639_1: "iso_639_1",
         file_path: "/ioVNfh5m8IyoM1DXRIiOU658RXm.jpg",
         vote_average: 5.068,
         vote_count: 7,
@@ -448,4 +448,131 @@ export const trendingFamous = {
   ],
   total_pages: 500,
   total_results: 10000,
+};
+
+export const tvShow = {
+  adult: false,
+  backdrop_path: "/aRKQdF6AGbhnF9IAyJbte5epH5R.jpg",
+  created_by: [
+    {
+      id: 1225826,
+      credit_id: "64f08253caa50800e951a4f1",
+      name: "Steven Maeda",
+      gender: 2,
+      profile_path: "/4QwZvyeiOOsIy3jhtLgS5iy7Whw.jpg",
+    },
+    {
+      id: 1562489,
+      credit_id: "64f0824de0ca7f00ae390791",
+      name: "Matt Owens",
+      gender: 2,
+      profile_path: "/9557f2EgDxHEhnXmXf6Hx9io76S.jpg",
+    },
+  ],
+  episode_run_time: [],
+  first_air_date: "2023-08-31",
+  genres: [
+    {
+      id: 10759,
+      name: "Action & Adventure",
+    },
+    {
+      id: 10765,
+      name: "Sci-Fi & Fantasy",
+    },
+  ],
+  homepage: "https://www.netflix.com/title/80217863",
+  id: 111110,
+  in_production: true,
+  languages: ["en"],
+  last_air_date: "2023-08-31",
+  last_episode_to_air: {
+    id: 4557395,
+    name: "O mais procurado do East Blue",
+    overview:
+      "A tripulação dos chapéus de palha luta para derrotar Arlong e os homens-peixe de uma vez por todas. Após uma difícil reunião de família, Luffy fica mais perto do seu sonho.",
+    vote_average: 7.839,
+    vote_count: 31,
+    air_date: "2023-08-31",
+    episode_number: 8,
+    episode_type: "finale",
+    production_code: "",
+    runtime: 49,
+    season_number: 1,
+    show_id: 111110,
+    still_path: "/nMiFAm30mAkNQS7YGrMEdMCT4NJ.jpg",
+  },
+  name: "ONE PIECE: A Série",
+  next_episode_to_air: "next_episode_to_air",
+  networks: [
+    {
+      id: 213,
+      logo_path: "/wwemzKWzjKYJFfCeiB57q3r4Bcm.png",
+      name: "Netflix",
+      origin_country: "",
+    },
+  ],
+  number_of_episodes: 8,
+  number_of_seasons: 1,
+  origin_country: ["US"],
+  original_language: "en",
+  original_name: "ONE PIECE",
+  overview:
+    "O jovem pirata Monkey D. Luffy veste o chapéu de palha e, com sua tripulação atrapalhada, zarpa em uma jornada épica nesta adaptação em live-action do popular mangá.",
+  popularity: 452.425,
+  poster_path: "/y0VSmak9mSobl9QTKCvR7w4w6Ui.jpg",
+  production_companies: [
+    {
+      id: 104720,
+      logo_path: "logo_path",
+      name: "Tomorrow Studios",
+      origin_country: "US",
+    },
+    {
+      id: 207514,
+      logo_path: "logo_path",
+      name: "Kaji Productions",
+      origin_country: "US",
+    },
+    {
+      id: 773,
+      logo_path: "/qkcN6yZEyBw3cgO5DJu55LGEsf7.png",
+      name: "Film Afrika",
+      origin_country: "ZA",
+    },
+  ],
+  production_countries: [
+    {
+      iso_3166_1: "ZA",
+      name: "South Africa",
+    },
+    {
+      iso_3166_1: "US",
+      name: "United States of America",
+    },
+  ],
+  seasons: [
+    {
+      air_date: "2023-08-31",
+      episode_count: 8,
+      id: 164867,
+      name: "Temporada 1",
+      overview: "",
+      poster_path: "/aesLt9fsKSA6KCgGxA60VVxjtLk.jpg",
+      season_number: 1,
+      vote_average: 8.1,
+    },
+  ],
+  spoken_languages: [
+    {
+      english_name: "English",
+      iso_639_1: "en",
+      name: "English",
+    },
+  ],
+  status: "Returning Series",
+  tagline: "Os piratas estão chegando.",
+  type: "Scripted",
+  vote_average: 8.247,
+  vote_count: 651,
 };

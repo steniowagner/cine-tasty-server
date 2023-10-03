@@ -10,6 +10,7 @@ import {
   TrendingFamousResult,
   TrendingFamousKnownForMovie,
   TrendingFamousKnownForTvShow,
+  TvShow,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -376,6 +377,123 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
             }
           }
         }
+      });
+    });
+  });
+
+  describe("TV-Show details", () => {
+    describe("When query the data successfuly", () => {
+      it("should return data correctly", async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShow));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
+        const response = await execDatasourceTestOperation<{
+          tvShow: TvShow;
+        }>({
+          query: queries.QUERY_TV_SHOW_DETAILS,
+          variables: {
+            id: 111110,
+            language: Iso6391Language.Pt,
+          },
+        });
+        expect(response.body.singleResult.errors).toBeUndefined();
+        const tvshow = response.body.singleResult.data.tvShow;
+        // tvshow
+        expect(tvshow.adult).toEqual(fixtures.tvShow.adult);
+        expect(tvshow.backdropPath).toEqual(fixtures.tvShow.backdrop_path);
+        // created-by
+        for (let i = 0; i < tvshow.createdBy.length; i++) {
+          expect(tvshow.createdBy[i].id).toEqual(fixtures.tvShow.created_by[i].id);
+          expect(tvshow.createdBy[i].creditId).toEqual(
+            fixtures.tvShow.created_by[i].credit_id,
+          );
+          expect(tvshow.createdBy[i].name).toEqual(fixtures.tvShow.created_by[i].name);
+          expect(tvshow.createdBy[i].gender).toEqual(
+            fixtures.tvShow.created_by[i].gender,
+          );
+          expect(tvshow.createdBy[i].profilePath).toEqual(
+            fixtures.tvShow.created_by[i].profile_path,
+          );
+        }
+        expect(tvshow.episodeRunTime).toEqual(fixtures.tvShow.episode_run_time);
+        expect(tvshow.firstAirDate).toEqual(fixtures.tvShow.first_air_date);
+        expect(tvshow.genres).toEqual(["Action & Adventure", "Sci-Fi & Fantasy"]);
+        expect(tvshow.homepage).toEqual(fixtures.tvShow.homepage);
+        expect(tvshow.id).toEqual(fixtures.tvShow.id);
+        expect(tvshow.inProduction).toEqual(fixtures.tvShow.in_production);
+        expect(tvshow.languages).toEqual(fixtures.tvShow.languages);
+        expect(tvshow.lastAirDate).toEqual(fixtures.tvShow.last_air_date);
+        // last-episode-to-air
+        expect(tvshow.lastEpisodeToAir).toEqual({
+          id: fixtures.tvShow.last_episode_to_air.id,
+          name: fixtures.tvShow.last_episode_to_air.name,
+          overview: fixtures.tvShow.last_episode_to_air.overview,
+          voteAverage: fixtures.tvShow.last_episode_to_air.vote_average,
+          voteCount: fixtures.tvShow.last_episode_to_air.vote_count,
+          airDate: fixtures.tvShow.last_episode_to_air.air_date,
+          episodeNumber: fixtures.tvShow.last_episode_to_air.episode_number,
+          productionCode: fixtures.tvShow.last_episode_to_air.production_code,
+          runtime: fixtures.tvShow.last_episode_to_air.runtime,
+          seasonNumber: fixtures.tvShow.last_episode_to_air.season_number,
+          showId: fixtures.tvShow.last_episode_to_air.show_id,
+          stillPath: fixtures.tvShow.last_episode_to_air.still_path,
+        });
+        expect(tvshow.name).toEqual(fixtures.tvShow.name);
+        expect(tvshow.nextEpisodeToAir).toEqual(fixtures.tvShow.next_episode_to_air);
+        // networks
+        for (let i = 0; i < tvshow.networks.length; i++) {
+          expect(tvshow.networks[i]).toEqual({
+            id: fixtures.tvShow.networks[i].id,
+            logoPath: fixtures.tvShow.networks[i].logo_path,
+            name: fixtures.tvShow.networks[i].name,
+            originCountry: fixtures.tvShow.networks[i].origin_country,
+          });
+        }
+        expect(tvshow.numberOfEpisodes).toEqual(fixtures.tvShow.number_of_episodes);
+        expect(tvshow.numberOfSeasons).toEqual(fixtures.tvShow.number_of_seasons);
+        expect(tvshow.originCountry).toEqual(fixtures.tvShow.origin_country);
+        expect(tvshow.originalLanguage).toEqual(fixtures.tvShow.original_language);
+        expect(tvshow.originalName).toEqual(fixtures.tvShow.original_name);
+        expect(tvshow.overview).toEqual(fixtures.tvShow.overview);
+        expect(tvshow.popularity).toEqual(fixtures.tvShow.popularity);
+        expect(tvshow.posterPath).toEqual(fixtures.tvShow.poster_path);
+        // production-companies
+        for (let i = 0; i < tvshow.productionCompanies.length; i++) {
+          expect(tvshow.productionCompanies[i]).toEqual({
+            id: fixtures.tvShow.production_companies[i].id,
+            logoPath: fixtures.tvShow.production_companies[i].logo_path,
+            name: fixtures.tvShow.production_companies[i].name,
+            originCountry: fixtures.tvShow.production_companies[i].origin_country,
+          });
+        }
+        // production-coutries
+        for (let i = 0; i < tvshow.productionCountries.length; i++) {
+          expect(tvshow.productionCountries[i]).toEqual(
+            fixtures.tvShow.production_countries[i].name,
+          );
+        }
+        // seasons
+        for (let i = 0; i < tvshow.seasons.length; i++) {
+          expect(tvshow.seasons[i]).toEqual({
+            airDate: fixtures.tvShow.seasons[i].air_date,
+            episodeCount: fixtures.tvShow.seasons[i].episode_count,
+            id: fixtures.tvShow.seasons[i].id,
+            name: fixtures.tvShow.seasons[i].name,
+            overview: fixtures.tvShow.seasons[i].overview,
+            posterPath: fixtures.tvShow.seasons[i].poster_path,
+            seasonNumber: fixtures.tvShow.seasons[i].season_number,
+            voteAverage: fixtures.tvShow.seasons[i].vote_average,
+          });
+        }
+        expect(tvshow.spokenLanguages).toEqual(["English"]);
+        expect(tvshow.status).toEqual(fixtures.tvShow.status);
+        expect(tvshow.tagline).toEqual(fixtures.tvShow.tagline);
+        expect(tvshow.type).toEqual(fixtures.tvShow.type);
+        expect(tvshow.voteAverage).toEqual(fixtures.tvShow.vote_average);
+        expect(tvshow.voteCount).toEqual(fixtures.tvShow.vote_count);
       });
     });
   });
