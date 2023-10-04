@@ -5,6 +5,7 @@ export default `#graphql
     famous(id: Int!, language: ISO6391Language): Famous!
     searchFamous(input: SearchInput!): SearchFamousResult!
     searchTVShows(input: SearchInput!): SearchTVShowsResult!
+    searchMovies(input: SearchInput!): SearchMoviesResult!
     trendingFamous(page: Int!, language: ISO6391Language): TrendingFamousResult!
     tvShow(id: Int!, language: ISO6391Language): TVShow!
     tvShowSeason(input: TVShowSeasonInput!): TVShowSeason!

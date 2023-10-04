@@ -4,7 +4,7 @@ import {
 } from "@tmdb-api/handlers/trending-movies";
 import {
   QueryTrendingMoviesArgs,
-  QueryMovieArgs,
+  TrendingMovieGenresArgs,
   Iso6391Language,
 } from "@generated-types";
 import { Context } from "@types";
@@ -19,7 +19,7 @@ export const resolvers = {
     backdropPath: (parent: TrendingMoviesTypes.Result) => parent.backdrop_path,
     genres: (
       parent: TrendingMoviesTypes.Result,
-      params: QueryMovieArgs,
+      params: TrendingMovieGenresArgs,
       context: Context,
     ) =>
       mediaGenresHandler.handle({
