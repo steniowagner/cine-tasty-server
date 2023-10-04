@@ -15,6 +15,7 @@ import {
   TvShowSeason,
   TrendingTvShows,
   TrendingTvShow,
+  Movie,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -743,6 +744,81 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
               rawSearchTVShowsResults[i].vote_count,
             );
           }
+        });
+      });
+    });
+  });
+
+  describe("Movies", () => {
+    describe("Querying Movie-details", () => {
+      describe("When query the data successfuly", () => {
+        it("should return data correctly", async () => {
+          jest
+            .spyOn(RESTDataSource.prototype as any, "get")
+            .mockImplementationOnce(async () => Promise.resolve(fixtures.movie));
+          const response = await execDatasourceTestOperation<{
+            movie: Movie;
+          }>({
+            query: queries.QUERY_MOVIE_DETAILS,
+            variables: {
+              id: 111110,
+              language: Iso6391Language.Pt,
+            },
+          });
+          expect(response.body.singleResult.errors).toBeUndefined();
+          const movie = response.body.singleResult.data.movie;
+          // movie
+          expect(movie.adult).toEqual(fixtures.movie.adult);
+          expect(movie.backdropPath).toEqual(fixtures.movie.backdrop_path);
+          // belongs-to-collection
+          expect(movie.belongsToCollection).toEqual({
+            id: fixtures.movie.belongs_to_collection.id,
+            name: fixtures.movie.belongs_to_collection.name,
+            posterPath: fixtures.movie.belongs_to_collection.poster_path,
+            backdropPath: fixtures.movie.belongs_to_collection.backdrop_path,
+          });
+          expect(movie.budget).toEqual(fixtures.movie.budget);
+          expect(movie.genres).toEqual(fixtures.movie.genres.map((genre) => genre.name));
+          expect(movie.homepage).toEqual(fixtures.movie.homepage);
+          expect(movie.id).toEqual(fixtures.movie.id);
+          expect(movie.imdbId).toEqual(fixtures.movie.imdb_id);
+          expect(movie.originalLanguage).toEqual(fixtures.movie.original_language);
+          expect(movie.originalTitle).toEqual(fixtures.movie.original_title);
+          expect(movie.overview).toEqual(fixtures.movie.overview);
+          expect(movie.popularity).toEqual(fixtures.movie.popularity);
+          expect(movie.posterPath).toEqual(fixtures.movie.poster_path);
+          // production-companies
+          for (let i = 0; i < movie.productionCompanies.length; i++) {
+            expect(movie.productionCompanies[i].id).toEqual(
+              fixtures.movie.production_companies[i].id,
+            );
+            expect(movie.productionCompanies[i].logoPath).toEqual(
+              fixtures.movie.production_companies[i].logo_path,
+            );
+            expect(movie.productionCompanies[i].name).toEqual(
+              fixtures.movie.production_companies[i].name,
+            );
+            expect(movie.productionCompanies[i].originCountry).toEqual(
+              fixtures.movie.production_companies[i].origin_country,
+            );
+          }
+          expect(movie.productionCountries).toEqual(
+            fixtures.movie.production_countries.map(
+              (productionCountry) => productionCountry.name,
+            ),
+          );
+          expect(movie.releaseDate).toEqual(fixtures.movie.release_date);
+          expect(movie.revenue).toEqual(fixtures.movie.revenue);
+          expect(movie.runtime).toEqual(fixtures.movie.runtime);
+          expect(movie.spokenLanguages).toEqual(
+            fixtures.movie.spoken_languages.map((spokenLanguage) => spokenLanguage.name),
+          );
+          expect(movie.status).toEqual(fixtures.movie.status);
+          expect(movie.tagline).toEqual(fixtures.movie.tagline);
+          expect(movie.title).toEqual(fixtures.movie.title);
+          expect(movie.video).toEqual(fixtures.movie.video);
+          expect(movie.voteAverage).toEqual(fixtures.movie.vote_average);
+          expect(movie.voteCount).toEqual(fixtures.movie.vote_count);
         });
       });
     });
