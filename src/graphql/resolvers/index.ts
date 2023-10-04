@@ -10,8 +10,10 @@ import { resolvers as tvShowResolvers } from "./tv-show.resolvers";
 import { resolvers as tvShowSeasonResolvers } from "./tv-show-season.resolvers";
 import { resolvers as trendingTVShowsResolvers } from "./trending-tv-shows.resolvers";
 import { resolvers as searchTVShowsResolvers } from "./search-tv-shows.resolvers";
+import { resolvers as movieDetailsResolvers } from "./movie-details.resolvers";
 
 export default [
+  movieDetailsResolvers,
   searchTVShowsResolvers,
   trendingTVShowsResolvers,
   tvShowSeasonResolvers,

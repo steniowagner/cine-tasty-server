@@ -396,3 +396,45 @@ query TrendingTVShows($language: ISO6391Language) {
   }
 }
 `;
+
+export const QUERY_MOVIE_DETAILS = `#graphql
+query Movie ($id: Int!, $language: ISO6391Language) {
+  movie(id: $id, language: $language) {
+    adult
+    backdropPath
+    belongsToCollection {
+      id
+      name
+      posterPath
+      backdropPath
+    }
+    budget
+    genres
+    homepage
+    id
+    imdbId
+    originalLanguage
+    originalTitle
+    overview
+    popularity
+    posterPath
+    productionCompanies {
+      id
+      logoPath
+      name
+      originCountry
+    }
+    productionCountries
+    releaseDate
+    revenue
+    runtime
+    spokenLanguages
+    status
+    tagline
+    title
+    video
+    voteAverage
+    voteCount
+  }
+}
+`;

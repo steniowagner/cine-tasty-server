@@ -5147,3 +5147,110 @@ export const searchTVShowResult = {
   total_pages: 45,
   total_results: 897,
 };
+
+export const movie = {
+  adult: false,
+  backdrop_path: "/tGb044NgQYQJr58fta5O3OB6SpQ.jpg",
+  belongs_to_collection: {
+    id: 119581,
+    name: "Tropa de Elite: Coleção",
+    poster_path: "/yMiTQXAHJdZIWb56UGXVqbtZ75d.jpg",
+    backdrop_path: "/nNUFlXdj8JIV6HnjVS58r0qCvE7.jpg",
+  },
+  budget: 4000000,
+  genres: [
+    {
+      id: 18,
+      name: "Drama",
+    },
+    {
+      id: 28,
+      name: "Ação",
+    },
+    {
+      id: 80,
+      name: "Crime",
+    },
+  ],
+  homepage: "",
+  id: 7347,
+  imdb_id: "tt0861739",
+  original_language: "pt",
+  original_title: "Tropa de Elite",
+  overview:
+    'Rio de Janeiro, 1997. Nascimento, capitão da Tropa de Elite do Rio de Janeiro, é designado para chefiar uma das equipes que tem como missão "apaziguar" o Morro do Turano por um motivo que ele considera insensato. Mas ele tem que cumprir as ordens enquanto procura por um substituto. Sua mulher, Rosane, está no final da gravidez e todos os dias lhe pede para sair da linha de frente do batalhão. Pressionado, o capitão sente os efeitos do estresse.Neste clima, é chamado para mais uma emergência num morro. Em meio a um tiroteio em um baile funk, Nascimento e sua equipe têm que resgatar dois aspirantes a oficiais da PM: Neto e Matias. Ansiosos por entrar em ação e impressionados com a eficiência de seus salvadores, os dois se candidatam ao curso de formação da Tropa de Elite.',
+  popularity: 26.951,
+  poster_path: "/atl4a9VFVP7JYvk4GeSgqhLOfjC.jpg",
+  production_companies: [
+    {
+      id: 47046,
+      logo_path: "/knYFwgHhMHhDrt7SRHqnQlqlc4R.png",
+      name: "Universal Pictures do Brasil",
+      origin_country: "BR",
+    },
+    {
+      id: 308,
+      logo_path: "/e8F3mQM7DkJ5SfYYDp8FYzPBOGX.png",
+      name: "The Weinstein Company",
+      origin_country: "US",
+    },
+    {
+      id: 2427,
+      logo_path: null,
+      name: "Zazen Produções",
+      origin_country: "BR",
+    },
+    {
+      id: 2430,
+      logo_path: null,
+      name: "Estúdios Mega",
+      origin_country: "BR",
+    },
+    {
+      id: 2432,
+      logo_path: "/yxpvByZlaC9XrLM5tFEtjh661Ep.png",
+      name: "Quanta Centro de Produções Cinematográficas",
+      origin_country: "BR",
+    },
+    {
+      id: 10187,
+      logo_path: null,
+      name: "Costa Films",
+      origin_country: "",
+    },
+    {
+      id: 47043,
+      logo_path: null,
+      name: "Posto 9",
+      origin_country: "",
+    },
+    {
+      id: 47044,
+      logo_path: null,
+      name: "Feijão Filmes",
+      origin_country: "BR",
+    },
+  ],
+  production_countries: [
+    {
+      iso_3166_1: "BR",
+      name: "Brazil",
+    },
+  ],
+  release_date: "2007-10-12",
+  revenue: 14759148,
+  runtime: 115,
+  spoken_languages: [
+    {
+      english_name: "Portuguese",
+      iso_639_1: "pt",
+      name: "Português",
+    },
+  ],
+  status: "Released",
+  tagline: "Missão dada é missão cumprida.",
+  title: "Tropa de Elite",
+  video: false,
+  vote_average: 8.059,
+  vote_count: 2153,
+};
