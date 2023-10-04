@@ -3,26 +3,28 @@ import { SearchInput } from "@generated-types";
 import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 
 import { SearchResponse } from "./search.types";
-import { CONSTANTS } from "./search.constants";
 
-export type Type = "famous";
+export type SearchType = "famous" | "tv-shows";
 
 export type HandlerParams = {
   tmdbAPI: TMDBApi;
   input: SearchInput;
-  type: Type;
+  type: SearchType;
+};
+
+export const searchTypeEndpointMapping: Record<SearchType, string> = {
+  famous: "search/person",
+  "tv-shows": "search/tv",
 };
 
 export const handler = {
   handle: async <TData>(params: HandlerParams) => {
-    const response = await params.tmdbAPI.handle<SearchResponse<TData>>(
-      CONSTANTS.ENDPOINT(params.type),
-      {
-        language: params.input.language ?? TMDBAPI_CONSTANTS.FALLBACK_LANGUAGE,
-        query: params.input.query,
-        page: String(params.input.page),
-      },
-    );
+    const endpoint = searchTypeEndpointMapping[params.type];
+    const response = await params.tmdbAPI.handle<SearchResponse<TData>>(endpoint, {
+      language: params.input.language ?? TMDBAPI_CONSTANTS.FALLBACK_LANGUAGE,
+      query: params.input.query,
+      page: String(params.input.page),
+    });
     if (!response) {
       return {
         hasMore: false,
