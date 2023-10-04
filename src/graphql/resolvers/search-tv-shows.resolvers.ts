@@ -18,6 +18,7 @@ export const resolvers = {
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
       }),
+    posterPath: (parent: SearchTVShowsTypes.Result) => parent.poster_path,
     originCountry: (parent: SearchTVShowsTypes.Result) => parent.origin_country,
     originalLanguage: (parent: SearchTVShowsTypes.Result) => parent.original_language,
     originalName: (parent: SearchTVShowsTypes.Result) => parent.original_name,
