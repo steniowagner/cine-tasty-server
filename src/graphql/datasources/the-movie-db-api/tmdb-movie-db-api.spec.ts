@@ -18,6 +18,7 @@ import {
   Movie,
   TrendingMovies,
   TrendingMovie,
+  SearchMoviesResult,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -305,7 +306,7 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
       });
     });
 
-    describe.only("Movies", () => {
+    describe("Movies", () => {
       describe("When query the data successfuly", () => {
         it("should return data correctly", async () => {
           jest
@@ -808,6 +809,77 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
             );
             expect(searchTVShowsResults[i].voteCount).toEqual(
               rawSearchTVShowsResults[i].vote_count,
+            );
+          }
+        });
+      });
+    });
+
+    describe("Movies", () => {
+      describe("When query the data successfuly", () => {
+        it("should return data correctly", async () => {
+          const mockResponse = {
+            results: fixtures.searchMovies.results,
+            page: 1,
+            total_pages: 6,
+            total_results: 113,
+          };
+          jest
+            .spyOn(RESTDataSource.prototype as any, "get")
+            .mockImplementationOnce(async () => Promise.resolve(mockResponse));
+          jest
+            .spyOn(RESTDataSource.prototype as any, "get")
+            .mockImplementation(async () => Promise.resolve(fixtures.moviesGenres));
+          const response = await execDatasourceTestOperation<{
+            searchMovies: SearchMoviesResult;
+          }>({
+            query: queries.SEARCH_MOVIES_QUERY,
+            variables: {
+              input: { page: 1, query: "Fast and", language: Iso6391Language.Pt },
+            },
+          });
+          expect(response.body.singleResult.errors).toBeUndefined();
+          const searchMovies = response.body.singleResult.data.searchMovies;
+          expect(searchMovies.hasMore).toEqual(true);
+          expect(searchMovies.totalPages).toEqual(mockResponse.total_pages);
+          expect(searchMovies.totalResults).toEqual(mockResponse.total_results);
+          const rawSearchMoviesResults = fixtures.searchMovies.results;
+          const searchMoviesResults = searchMovies.items;
+          for (let i = 0; i < searchMoviesResults.length; i++) {
+            expect(searchMoviesResults[i].adult).toEqual(rawSearchMoviesResults[i].adult);
+            expect(searchMoviesResults[i].backdropPath).toEqual(
+              rawSearchMoviesResults[i].backdrop_path,
+            );
+            expect(searchMoviesResults[i].genres).toEqual(
+              rawSearchMoviesResults[i].genre_ids
+                .map((genre_id) =>
+                  fixtures.moviesGenres.genres.find((genre) => genre.id === genre_id),
+                )
+                .map((genre) => genre?.name),
+            );
+            expect(searchMoviesResults[i].id).toEqual(rawSearchMoviesResults[i].id);
+            expect(searchMoviesResults[i].originalLanguage).toEqual(
+              rawSearchMoviesResults[i].original_language,
+            );
+            expect(searchMoviesResults[i].originalTitle).toEqual(
+              rawSearchMoviesResults[i].original_title,
+            );
+            expect(searchMoviesResults[i].overview).toEqual(
+              rawSearchMoviesResults[i].overview,
+            );
+            expect(searchMoviesResults[i].popularity).toEqual(
+              rawSearchMoviesResults[i].popularity,
+            );
+            expect(searchMoviesResults[i].releaseDate).toEqual(
+              rawSearchMoviesResults[i].release_date,
+            );
+            expect(searchMoviesResults[i].title).toEqual(rawSearchMoviesResults[i].title);
+            expect(searchMoviesResults[i].video).toEqual(rawSearchMoviesResults[i].video);
+            expect(searchMoviesResults[i].voteAverage).toEqual(
+              rawSearchMoviesResults[i].vote_average,
+            );
+            expect(searchMoviesResults[i].voteCount).toEqual(
+              rawSearchMoviesResults[i].vote_count,
             );
           }
         });
