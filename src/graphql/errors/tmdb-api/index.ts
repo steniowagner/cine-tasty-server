@@ -1,3 +1,2 @@
-import QueryTrendingTVShowsError from "./query-trending-tv-show-error";
-
-export { QueryTrendingTVShowsError };
+export { QueryTrendingTVShowsError } from "./query-trending-tv-show-error";
+export { QueryMovieError } from "./query-movie-error";
