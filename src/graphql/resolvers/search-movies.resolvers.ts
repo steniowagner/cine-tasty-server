@@ -12,7 +12,7 @@ export const resolvers = {
       context: Context,
     ) =>
       mediaGenresHandler.handle({
-        language: params.language as Iso6391Language,
+        language: params.input.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
         mediaType: "movie",
         tmdbAPI: context.tmdbAPI,

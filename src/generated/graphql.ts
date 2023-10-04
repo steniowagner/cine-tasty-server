@@ -489,7 +489,7 @@ export type SearchMovieItem = {
 
 
 export type SearchMovieItemGenresArgs = {
-  language?: InputMaybe<Iso6391Language>;
+  input: SearchInput;
 };
 
 export type SearchMoviesResult = {
@@ -1283,7 +1283,7 @@ export type SearchFamousResultResolvers<ContextType = any, ParentType extends Re
 export type SearchMovieItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchMovieItem'] = ResolversParentTypes['SearchMovieItem']> = {
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<SearchMovieItemGenresArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<SearchMovieItemGenresArgs, 'input'>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
