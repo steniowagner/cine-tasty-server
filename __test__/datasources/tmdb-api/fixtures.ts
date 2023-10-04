@@ -5035,7 +5035,7 @@ export const searchTVShowResult = {
       overview:
         "Baseado no tradicional conto popular coreano de dois irmãos; o velho e ganancioso irmão mais velho é Man Bo, que é um rico bilionário do setor imobiliário e se preocupa apenas com mulheres e dinheiro. Seu irmão mais novo, Choon Bo, é gentil, atencioso e submisso a ele. Os dois irmãos não se veem há quase vinte anos, desde que Choon Bo deu seu filho mais novo, Yeong Goo, para Man Bo porque ele queria um filho. A esposa de Choon Bo acredita que seu filho mais novo morreu ao nascer. Vinte anos depois, Choon Bo vai à falência e, sem ter para onde ir, pede ajuda ao irmão. Morando na pequena casa ao lado da de Man Bo, Choon Bo traz consigo seus três filhos, sua nora e sua esposa. Juntos eles vivem em direção a um dia melhor.",
       popularity: 9.151,
-      poster_path: null,
+      poster_path: "null",
       first_air_date: "2003-10-27",
       name: "A Problem at My Younger Brother’s House",
       vote_average: 0.0,

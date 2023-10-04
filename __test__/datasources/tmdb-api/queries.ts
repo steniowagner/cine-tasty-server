@@ -114,6 +114,32 @@ query SearchFamous($input: SearchInput!) {
 }
 `;
 
+export const QUERY_SEARCH_TV_SHOWS = `#graphql
+query SearchTVShows($input: SearchInput!) {
+  searchTVShows(input: $input) {
+    hasMore
+    items {
+      adult
+      backdropPath
+      genres
+      id
+      originCountry
+      originalLanguage
+      originalName
+      overview
+      popularity
+      posterPath
+      firstAirDate
+      name
+      voteAverage
+      voteCount
+    }
+    totalPages
+    totalResults
+  }
+}
+`;
+
 export const QUERY_TRENDING_FAMOUS = `#graphql
   query TrendingFamous($page: Int!, $language: ISO6391Language) {
   trendingFamous(page: $page, language: $language) {
