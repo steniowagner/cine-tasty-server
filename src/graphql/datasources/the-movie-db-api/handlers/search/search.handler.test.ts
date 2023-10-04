@@ -1,11 +1,18 @@
 import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 import { Iso6391Language } from "@generated-types";
 
-import { searchFamousResult } from "../../../../../../__test__/datasources/tmdb-api/fixtures";
-import { handler, Type } from "./search.handler";
-import { CONSTANTS } from "./search.constants";
+import {
+  searchFamousResult,
+  searchTVShowResult,
+} from "../../../../../../__test__/datasources/tmdb-api/fixtures";
+import { searchTypeEndpointMapping, handler, SearchType } from "./search.handler";
 
-const searches = ["famous"] as Type[];
+const searchTypeMockResultMapping: Record<SearchType, unknown> = {
+  "tv-shows": searchTVShowResult,
+  famous: searchFamousResult,
+};
+
+const searches = Object.keys(searchTypeEndpointMapping) as SearchType[];
 
 const mockGet = jest.fn();
 
@@ -38,7 +45,7 @@ describe("DataSources/TheMovieDBApi/Search-Query-Handler", () => {
           input,
           type: search,
         });
-        expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT(search));
+        expect(mockGet.mock.calls[0][0]).toEqual(searchTypeEndpointMapping[search]);
         expect(mockGet.mock.calls[0][1].params).toEqual({
           ...input,
           page: String(input.page),
@@ -56,9 +63,10 @@ describe("DataSources/TheMovieDBApi/Search-Query-Handler", () => {
           language: Iso6391Language.Pt,
         };
         const totalResults = 10;
+        const results = searchTypeMockResultMapping[search];
         mockGet.mockReturnValueOnce({
           total_pages: input.page + 1,
-          results: searchFamousResult,
+          results,
           total_results: totalResults,
           page: input.page,
         });
@@ -68,7 +76,7 @@ describe("DataSources/TheMovieDBApi/Search-Query-Handler", () => {
           type: search,
         });
         expect(response.hasMore).toEqual(true);
-        expect(response.items).toEqual(searchFamousResult);
+        expect(response.items).toEqual(results);
         expect(response.totalResults).toEqual(totalResults);
         expect(response.totalPages).toEqual(input.page + 1);
       },
@@ -83,9 +91,10 @@ describe("DataSources/TheMovieDBApi/Search-Query-Handler", () => {
           language: Iso6391Language.Pt,
         };
         const totalResults = 10;
+        const results = searchTypeMockResultMapping[search];
         mockGet.mockReturnValueOnce({
           total_pages: input.page,
-          results: searchFamousResult,
+          results,
           total_results: totalResults,
           page: input.page,
         });
@@ -95,7 +104,7 @@ describe("DataSources/TheMovieDBApi/Search-Query-Handler", () => {
           type: search,
         });
         expect(response.hasMore).toEqual(false);
-        expect(response.items).toEqual(searchFamousResult);
+        expect(response.items).toEqual(results);
         expect(response.totalResults).toEqual(totalResults);
         expect(response.totalPages).toEqual(input.page);
       },
