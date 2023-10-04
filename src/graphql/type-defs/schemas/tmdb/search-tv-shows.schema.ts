@@ -2,7 +2,7 @@ export default `#graphql
   type SearchTVShowItem {
     adult: Boolean
     backdropPath: String
-    genres(language: ISO6391Language): [String!]!
+    genres(input: SearchInput!): [String!]!
     id: Int!
     originCountry: [String!]!
     originalLanguage: String

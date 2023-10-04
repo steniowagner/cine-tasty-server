@@ -121,7 +121,7 @@ query SearchTVShows($input: SearchInput!) {
     items {
       adult
       backdropPath
-      genres
+      genres(input: $input)
       id
       originCountry
       originalLanguage
@@ -208,7 +208,7 @@ query TVShow ($id: Int!, $language: ISO6391Language) {
     }
     episodeRunTime
     firstAirDate
-    genres(language: $language)
+    genres
     homepage
     id
     inProduction

@@ -4201,12 +4201,16 @@
             "description": null,
             "args": [
               {
-                "name": "language",
+                "name": "input",
                 "description": null,
                 "type": {
-                  "kind": "ENUM",
-                  "name": "ISO6391Language",
-                  "ofType": null
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "INPUT_OBJECT",
+                    "name": "SearchInput",
+                    "ofType": null
+                  }
                 },
                 "defaultValue": null,
                 "isDeprecated": false,
