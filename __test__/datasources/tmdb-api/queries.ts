@@ -512,3 +512,29 @@ query TrendingMovies($language: ISO6391Language) {
   }
 }
 `;
+
+export const SEARCH_MOVIES_QUERY = `#graphql
+query SearchMovie($input: SearchInput!) {
+  searchMovies(input: $input) {
+    totalResults
+    totalPages
+    items {
+      adult
+      backdropPath
+      genres(input: $input)
+      id
+      originalLanguage
+      originalTitle
+      overview
+      popularity
+      posterPath
+      releaseDate
+      title
+      video
+      voteAverage
+      voteCount
+    }
+    hasMore
+  }
+}
+`;

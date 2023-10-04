@@ -7,12 +7,12 @@ export default `#graphql
     originalLanguage: String
     originalTitle: String
     overview: String
-    popularity: Int
+    popularity: Float
     posterPath: String
     releaseDate: String
     title: String
     video: Boolean
-    voteAverage: Int
+    voteAverage: Float
     voteCount: Int
   }
 
