@@ -9,5 +9,6 @@ export default `#graphql
     tvShow(id: Int!, language: ISO6391Language): TVShow!
     tvShowSeason(input: TVShowSeasonInput!): TVShowSeason!
     trendingTVShows(language: ISO6391Language): TrendingTVShows!
+    movie(id: Int!, language: ISO6391Language): Movie!
   }
 `;

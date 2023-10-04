@@ -165,6 +165,56 @@ export type LastEpisodeToAir = {
   voteCount?: Maybe<Scalars['Int']['output']>;
 };
 
+export type Movie = {
+  __typename?: 'Movie';
+  adult?: Maybe<Scalars['Boolean']['output']>;
+  backdropPath?: Maybe<Scalars['String']['output']>;
+  belongsToCollection?: Maybe<MovieBelongsToCollection>;
+  budget?: Maybe<Scalars['Float']['output']>;
+  genres: Array<Scalars['String']['output']>;
+  homepage?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  imdbId?: Maybe<Scalars['String']['output']>;
+  originalLanguage?: Maybe<Scalars['String']['output']>;
+  originalTitle?: Maybe<Scalars['String']['output']>;
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity?: Maybe<Scalars['Float']['output']>;
+  posterPath?: Maybe<Scalars['String']['output']>;
+  productionCompanies: Array<MovieProductionCompany>;
+  productionCountries: Array<Scalars['String']['output']>;
+  releaseDate?: Maybe<Scalars['String']['output']>;
+  revenue?: Maybe<Scalars['Float']['output']>;
+  runtime?: Maybe<Scalars['Int']['output']>;
+  spokenLanguages: Array<Scalars['String']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+  tagline?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['Boolean']['output']>;
+  voteAverage?: Maybe<Scalars['Float']['output']>;
+  voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type MovieGenresArgs = {
+  language?: InputMaybe<Iso6391Language>;
+};
+
+export type MovieBelongsToCollection = {
+  __typename?: 'MovieBelongsToCollection';
+  backdropPath?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  posterPath?: Maybe<Scalars['String']['output']>;
+};
+
+export type MovieProductionCompany = {
+  __typename?: 'MovieProductionCompany';
+  id: Scalars['Int']['output'];
+  logoPath?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  originCountry?: Maybe<Scalars['String']['output']>;
+};
+
 export type Networks = {
   __typename?: 'Networks';
   id: Scalars['Int']['output'];
@@ -233,6 +283,7 @@ export type Query = {
   __typename?: 'Query';
   _?: Maybe<Scalars['String']['output']>;
   famous: Famous;
+  movie: Movie;
   news: NewsResult;
   quiz: Array<QuizQuestion>;
   searchFamous: SearchFamousResult;
@@ -245,6 +296,12 @@ export type Query = {
 
 
 export type QueryFamousArgs = {
+  id: Scalars['Int']['input'];
+  language?: InputMaybe<Iso6391Language>;
+};
+
+
+export type QueryMovieArgs = {
   id: Scalars['Int']['input'];
   language?: InputMaybe<Iso6391Language>;
 };
@@ -748,6 +805,9 @@ export type ResolversTypes = {
   ISO6391Language: Iso6391Language;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   LastEpisodeToAir: ResolverTypeWrapper<LastEpisodeToAir>;
+  Movie: ResolverTypeWrapper<Movie>;
+  MovieBelongsToCollection: ResolverTypeWrapper<MovieBelongsToCollection>;
+  MovieProductionCompany: ResolverTypeWrapper<MovieProductionCompany>;
   Networks: ResolverTypeWrapper<Networks>;
   NewsArticle: ResolverTypeWrapper<NewsArticle>;
   NewsLanguage: NewsLanguage;
@@ -797,6 +857,9 @@ export type ResolversParentTypes = {
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
   LastEpisodeToAir: LastEpisodeToAir;
+  Movie: Movie;
+  MovieBelongsToCollection: MovieBelongsToCollection;
+  MovieProductionCompany: MovieProductionCompany;
   Networks: Networks;
   NewsArticle: NewsArticle;
   NewsResult: NewsResult;
@@ -951,6 +1014,51 @@ export type LastEpisodeToAirResolvers<ContextType = any, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type MovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['Movie'] = ResolversParentTypes['Movie']> = {
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  belongsToCollection?: Resolver<Maybe<ResolversTypes['MovieBelongsToCollection']>, ParentType, ContextType>;
+  budget?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<MovieGenresArgs>>;
+  homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  imdbId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  productionCompanies?: Resolver<Array<ResolversTypes['MovieProductionCompany']>, ParentType, ContextType>;
+  productionCountries?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  releaseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  revenue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  runtime?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  spokenLanguages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  tagline?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  video?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MovieBelongsToCollectionResolvers<ContextType = any, ParentType extends ResolversParentTypes['MovieBelongsToCollection'] = ResolversParentTypes['MovieBelongsToCollection']> = {
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MovieProductionCompanyResolvers<ContextType = any, ParentType extends ResolversParentTypes['MovieProductionCompany'] = ResolversParentTypes['MovieProductionCompany']> = {
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  logoPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originCountry?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type NetworksResolvers<ContextType = any, ParentType extends ResolversParentTypes['Networks'] = ResolversParentTypes['Networks']> = {
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   logoPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -989,6 +1097,7 @@ export type ProductionCompaniesResolvers<ContextType = any, ParentType extends R
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   famous?: Resolver<ResolversTypes['Famous'], ParentType, ContextType, RequireFields<QueryFamousArgs, 'id'>>;
+  movie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>;
   news?: Resolver<ResolversTypes['NewsResult'], ParentType, ContextType, RequireFields<QueryNewsArgs, 'language' | 'page'>>;
   quiz?: Resolver<Array<ResolversTypes['QuizQuestion']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>;
   searchFamous?: Resolver<ResolversTypes['SearchFamousResult'], ParentType, ContextType, RequireFields<QuerySearchFamousArgs, 'input'>>;
@@ -1282,6 +1391,9 @@ export type Resolvers<ContextType = any> = {
   Famous?: FamousResolvers<ContextType>;
   FamousCast?: FamousCastResolvers<ContextType>;
   LastEpisodeToAir?: LastEpisodeToAirResolvers<ContextType>;
+  Movie?: MovieResolvers<ContextType>;
+  MovieBelongsToCollection?: MovieBelongsToCollectionResolvers<ContextType>;
+  MovieProductionCompany?: MovieProductionCompanyResolvers<ContextType>;
   Networks?: NetworksResolvers<ContextType>;
   NewsArticle?: NewsArticleResolvers<ContextType>;
   NewsResult?: NewsResultResolvers<ContextType>;

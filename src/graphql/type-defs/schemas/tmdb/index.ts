@@ -8,8 +8,10 @@ import tvShow from "./tv-show.schema";
 import tvShowSeason from "./tv-show-season.schema";
 import trendingTVShows from "./trending-tv-shows.schema";
 import searchTvShows from "./search-tv-shows.schema";
+import movie from "./movie.schema";
 
 export default [
+  movie,
   searchTvShows,
   trendingTVShows,
   tvShowSeason,
