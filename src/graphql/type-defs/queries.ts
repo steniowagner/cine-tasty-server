@@ -10,5 +10,6 @@ export default `#graphql
     tvShowSeason(input: TVShowSeasonInput!): TVShowSeason!
     trendingTVShows(language: ISO6391Language): TrendingTVShows!
     movie(id: Int!, language: ISO6391Language): Movie!
+    trendingMovies(language: ISO6391Language): TrendingMovies!
   }
 `;

@@ -9,8 +9,10 @@ import tvShowSeason from "./tv-show-season.schema";
 import trendingTVShows from "./trending-tv-shows.schema";
 import searchTvShows from "./search-tv-shows.schema";
 import movie from "./movie.schema";
+import trendingMovies from "./trending-movies.schema";
 
 export default [
+  trendingMovies,
   movie,
   searchTvShows,
   trendingTVShows,
