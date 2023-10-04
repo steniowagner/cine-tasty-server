@@ -208,7 +208,7 @@ query TVShow ($id: Int!, $language: ISO6391Language) {
     }
     episodeRunTime
     firstAirDate
-    genres(language: $language)
+    genres
     homepage
     id
     inProduction

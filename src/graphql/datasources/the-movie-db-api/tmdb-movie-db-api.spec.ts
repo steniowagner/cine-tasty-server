@@ -373,9 +373,6 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         jest
           .spyOn(RESTDataSource.prototype as any, "get")
           .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShow));
-        jest
-          .spyOn(RESTDataSource.prototype as any, "get")
-          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
         const response = await execDatasourceTestOperation<{
           tvShow: TvShow;
         }>({

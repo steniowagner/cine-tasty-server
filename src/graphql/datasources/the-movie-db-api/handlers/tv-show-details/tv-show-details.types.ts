@@ -24,7 +24,7 @@ export type CreatedBy = {
   profile_path: string;
 };
 
-export type Genres = {
+export type Genre = {
   id: number;
   name: string;
 };
@@ -69,7 +69,7 @@ export type Response = {
   created_by: CreatedBy[];
   episode_run_time: number[];
   first_air_date: string;
-  genres: Genres[];
+  genres: Genre[];
   homepage: string;
   id: number;
   in_production: true;

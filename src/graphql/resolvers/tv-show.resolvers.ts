@@ -1,5 +1,4 @@
-import { QueryTvShowArgs, TvShowGenresArgs, Iso6391Language } from "@generated-types";
-import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
+import { QueryTvShowArgs } from "@generated-types";
 import { tvShowDetailsHandler, TVShowTypes } from "@tmdb-api/handlers/tv-show-details";
 import { Context } from "@types";
 
@@ -14,14 +13,7 @@ export const resolvers = {
     createdBy: (parent: TVShowTypes.Response) => parent.created_by,
     episodeRunTime: (parent: TVShowTypes.Response) => parent.episode_run_time,
     firstAirDate: (parent: TVShowTypes.Response) => parent.first_air_date,
-    genres: (parent: TVShowTypes.Response, params: TvShowGenresArgs, context: Context) =>
-      mediaGenresHandler.handle({
-        cacheHandler: context.cacheHandler,
-        tmdbAPI: context.tmdbAPI,
-        genreIds: parent.genres.map((genre) => genre.id),
-        language: params.language as Iso6391Language,
-        mediaType: "tv",
-      }),
+    genres: (parent: TVShowTypes.Response) => parent.genres.map((genre) => genre.name),
     inProduction: (parent: TVShowTypes.Response) => parent.in_production,
     lastAirDate: (parent: TVShowTypes.Response) => parent.last_air_date,
     lastEpisodeToAir: (parent: TVShowTypes.Response) => parent.last_episode_to_air,
