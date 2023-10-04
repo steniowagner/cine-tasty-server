@@ -4,7 +4,7 @@ import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 
 import { SearchResponse } from "./search.types";
 
-export type SearchType = "famous" | "tv-shows";
+export type SearchType = "famous" | "tv-shows" | "movies";
 
 export type HandlerParams = {
   tmdbAPI: TMDBApi;
@@ -15,6 +15,7 @@ export type HandlerParams = {
 export const searchTypeEndpointMapping: Record<SearchType, string> = {
   famous: "search/person",
   "tv-shows": "search/tv",
+  movies: "search/movie",
 };
 
 export const handler = {

@@ -1,6 +1,10 @@
 import { searchHandler } from "@tmdb-api/handlers/search";
-import { QuerySearchFamousArgs, QuerySearchTvShowsArgs } from "@generated-types";
 import { Context } from "@types";
+import {
+  QuerySearchFamousArgs,
+  QuerySearchTvShowsArgs,
+  QuerySearchMoviesArgs,
+} from "@generated-types";
 
 export const resolvers = {
   Query: {
@@ -24,6 +28,17 @@ export const resolvers = {
         tmdbAPI: context.tmdbAPI,
         input: params.input,
         type: "tv-shows",
+      }),
+
+    searchMovies: async (
+      _parent: undefined,
+      params: QuerySearchMoviesArgs,
+      context: Context,
+    ) =>
+      searchHandler.handle({
+        tmdbAPI: context.tmdbAPI,
+        input: params.input,
+        type: "movies",
       }),
   },
 };
