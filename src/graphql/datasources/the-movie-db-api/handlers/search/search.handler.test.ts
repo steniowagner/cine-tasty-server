@@ -5,7 +5,7 @@ import { searchFamousResult } from "../../../../../../__test__/datasources/tmdb-
 import { handler, Type } from "./search.handler";
 import { CONSTANTS } from "./search.constants";
 
-const searches = ["person"] as Type[];
+const searches = ["famous"] as Type[];
 
 const mockGet = jest.fn();
 
