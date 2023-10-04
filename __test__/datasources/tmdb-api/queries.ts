@@ -438,3 +438,77 @@ query Movie ($id: Int!, $language: ISO6391Language) {
   }
 }
 `;
+
+export const QUERY_TRENDING_MOVIES = `#graphql
+query TrendingMovies($language: ISO6391Language) {
+  trendingMovies {
+    nowPlaying(language: $language) {
+      adult
+      backdropPath
+      genres(language: $language)
+      id
+      originalLanguage
+      originalTitle
+      overview
+      popularity
+      posterPath
+      releaseDate
+      title
+      video
+      voteAverage
+      voteCount
+    }
+
+    popular(language: $language) {
+      adult
+      backdropPath
+      genres(language: $language)
+      id
+      originalLanguage
+      originalTitle
+      overview
+      popularity
+      posterPath
+      releaseDate
+      title
+      video
+      voteAverage
+      voteCount
+    }
+
+    topRated(language: $language) {
+      adult
+      backdropPath
+      genres(language: $language)
+      id
+      originalLanguage
+      originalTitle
+      overview
+      popularity
+      posterPath
+      releaseDate
+      title
+      video
+      voteAverage
+      voteCount
+    }
+
+    upcoming(language: $language) {
+      adult
+      backdropPath
+      genres(language: $language)
+      id
+      originalLanguage
+      originalTitle
+      overview
+      popularity
+      posterPath
+      releaseDate
+      title
+      video
+      voteAverage
+      voteCount
+    }
+  }
+}
+`;
