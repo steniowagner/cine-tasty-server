@@ -236,6 +236,7 @@ export type Query = {
   news: NewsResult;
   quiz: Array<QuizQuestion>;
   searchFamous: SearchFamousResult;
+  searchTVShows: SearchTvShowsResult;
   trendingFamous: TrendingFamousResult;
   trendingTVShows: TrendingTvShows;
   tvShow: TvShow;
@@ -261,6 +262,11 @@ export type QueryQuizArgs = {
 
 
 export type QuerySearchFamousArgs = {
+  input: SearchInput;
+};
+
+
+export type QuerySearchTvShowsArgs = {
   input: SearchInput;
 };
 
@@ -397,6 +403,37 @@ export type SearchInput = {
   language?: InputMaybe<Iso6391Language>;
   page: Scalars['Int']['input'];
   query: Scalars['String']['input'];
+};
+
+export type SearchTvShowItem = {
+  __typename?: 'SearchTVShowItem';
+  adult?: Maybe<Scalars['Boolean']['output']>;
+  backdropPath?: Maybe<Scalars['String']['output']>;
+  firstAirDate?: Maybe<Scalars['String']['output']>;
+  genres: Array<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  originCountry: Array<Scalars['String']['output']>;
+  originalLanguage?: Maybe<Scalars['String']['output']>;
+  originalName?: Maybe<Scalars['String']['output']>;
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity?: Maybe<Scalars['Float']['output']>;
+  posterPath?: Maybe<Scalars['String']['output']>;
+  voteAverage?: Maybe<Scalars['Float']['output']>;
+  voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type SearchTvShowItemGenresArgs = {
+  language?: InputMaybe<Iso6391Language>;
+};
+
+export type SearchTvShowsResult = {
+  __typename?: 'SearchTVShowsResult';
+  hasMore: Scalars['Boolean']['output'];
+  items: Array<SearchTvShowItem>;
+  totalPages: Scalars['Int']['output'];
+  totalResults: Scalars['Int']['output'];
 };
 
 export type Seasons = {
@@ -728,6 +765,8 @@ export type ResolversTypes = {
   SearchFamousKnownForTVShow: ResolverTypeWrapper<SearchFamousKnownForTvShow>;
   SearchFamousResult: ResolverTypeWrapper<SearchFamousResult>;
   SearchInput: SearchInput;
+  SearchTVShowItem: ResolverTypeWrapper<SearchTvShowItem>;
+  SearchTVShowsResult: ResolverTypeWrapper<SearchTvShowsResult>;
   Seasons: ResolverTypeWrapper<Seasons>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   TVShow: ResolverTypeWrapper<TvShow>;
@@ -771,6 +810,8 @@ export type ResolversParentTypes = {
   SearchFamousKnownForTVShow: SearchFamousKnownForTvShow;
   SearchFamousResult: SearchFamousResult;
   SearchInput: SearchInput;
+  SearchTVShowItem: SearchTvShowItem;
+  SearchTVShowsResult: SearchTvShowsResult;
   Seasons: Seasons;
   String: Scalars['String']['output'];
   TVShow: TvShow;
@@ -951,6 +992,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   news?: Resolver<ResolversTypes['NewsResult'], ParentType, ContextType, RequireFields<QueryNewsArgs, 'language' | 'page'>>;
   quiz?: Resolver<Array<ResolversTypes['QuizQuestion']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>;
   searchFamous?: Resolver<ResolversTypes['SearchFamousResult'], ParentType, ContextType, RequireFields<QuerySearchFamousArgs, 'input'>>;
+  searchTVShows?: Resolver<ResolversTypes['SearchTVShowsResult'], ParentType, ContextType, RequireFields<QuerySearchTvShowsArgs, 'input'>>;
   trendingFamous?: Resolver<ResolversTypes['TrendingFamousResult'], ParentType, ContextType, RequireFields<QueryTrendingFamousArgs, 'page'>>;
   trendingTVShows?: Resolver<ResolversTypes['TrendingTVShows'], ParentType, ContextType, Partial<QueryTrendingTvShowsArgs>>;
   tvShow?: Resolver<ResolversTypes['TVShow'], ParentType, ContextType, RequireFields<QueryTvShowArgs, 'id'>>;
@@ -1025,6 +1067,32 @@ export type SearchFamousKnownForTvShowResolvers<ContextType = any, ParentType ex
 export type SearchFamousResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchFamousResult'] = ResolversParentTypes['SearchFamousResult']> = {
   hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   items?: Resolver<Array<ResolversTypes['SearchFamousItem']>, ParentType, ContextType>;
+  totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  totalResults?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchTvShowItemResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchTVShowItem'] = ResolversParentTypes['SearchTVShowItem']> = {
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<SearchTvShowItemGenresArgs>>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originCountry?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SearchTvShowsResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['SearchTVShowsResult'] = ResolversParentTypes['SearchTVShowsResult']> = {
+  hasMore?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  items?: Resolver<Array<ResolversTypes['SearchTVShowItem']>, ParentType, ContextType>;
   totalPages?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   totalResults?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -1225,6 +1293,8 @@ export type Resolvers<ContextType = any> = {
   SearchFamousKnownForMovie?: SearchFamousKnownForMovieResolvers<ContextType>;
   SearchFamousKnownForTVShow?: SearchFamousKnownForTvShowResolvers<ContextType>;
   SearchFamousResult?: SearchFamousResultResolvers<ContextType>;
+  SearchTVShowItem?: SearchTvShowItemResolvers<ContextType>;
+  SearchTVShowsResult?: SearchTvShowsResultResolvers<ContextType>;
   Seasons?: SeasonsResolvers<ContextType>;
   TVShow?: TvShowResolvers<ContextType>;
   TVShowEpisodeCrew?: TvShowEpisodeCrewResolvers<ContextType>;
