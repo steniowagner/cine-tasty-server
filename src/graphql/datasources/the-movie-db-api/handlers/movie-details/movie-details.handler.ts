@@ -4,7 +4,7 @@ import { QueryMovieArgs } from "@generated-types";
 import * as TMDBApiErrors from "@/graphql/errors/tmdb-api";
 
 export const handler = {
-  hanle: async (params: QueryMovieArgs, tmdbAPI: TheMovieDBAPI) => {
+  handle: async (params: QueryMovieArgs, tmdbAPI: TheMovieDBAPI) => {
     const endpoint = `movie/${params.id}`;
     const response = await tmdbAPI.handle(endpoint, {
       language: params.language ?? TMDB_CONSTANTS.FALLBACK_LANGUAGE,

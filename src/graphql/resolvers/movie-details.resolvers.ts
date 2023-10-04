@@ -5,7 +5,7 @@ import { Context } from "@/types";
 export const resolvers = {
   Query: {
     movie: async (_parent: undefined, params: QueryMovieArgs, context: Context) =>
-      movieDetailsHandler.hanle(params, context.tmdbAPI),
+      movieDetailsHandler.handle(params, context.tmdbAPI),
   },
 
   MovieProductionCompany: {
