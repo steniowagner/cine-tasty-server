@@ -10,8 +10,10 @@ import trendingTVShows from "./trending-tv-shows.schema";
 import searchTvShows from "./search-tv-shows.schema";
 import movie from "./movie.schema";
 import trendingMovies from "./trending-movies.schema";
+import searchMovies from "./search-movies.schema";
 
 export default [
+  searchMovies,
   trendingMovies,
   movie,
   searchTvShows,
