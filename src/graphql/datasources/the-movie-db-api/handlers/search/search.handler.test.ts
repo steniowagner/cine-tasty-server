@@ -4,12 +4,14 @@ import { Iso6391Language } from "@generated-types";
 import {
   searchFamousResult,
   searchTVShowResult,
+  searchMovies,
 } from "../../../../../../__test__/datasources/tmdb-api/fixtures";
 import { searchTypeEndpointMapping, handler, SearchType } from "./search.handler";
 
 const searchTypeMockResultMapping: Record<SearchType, unknown> = {
   "tv-shows": searchTVShowResult,
   famous: searchFamousResult,
+  movies: searchMovies,
 };
 
 const searches = Object.keys(searchTypeEndpointMapping) as SearchType[];
