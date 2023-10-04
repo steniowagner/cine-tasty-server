@@ -121,7 +121,7 @@ query SearchTVShows($input: SearchInput!) {
     items {
       adult
       backdropPath
-      genres
+      genres(input: $input)
       id
       originCountry
       originalLanguage

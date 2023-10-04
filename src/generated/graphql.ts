@@ -520,7 +520,7 @@ export type SearchTvShowItem = {
 
 
 export type SearchTvShowItemGenresArgs = {
-  language?: InputMaybe<Iso6391Language>;
+  input: SearchInput;
 };
 
 export type SearchTvShowsResult = {
@@ -1310,7 +1310,7 @@ export type SearchTvShowItemResolvers<ContextType = any, ParentType extends Reso
   adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   firstAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<SearchTvShowItemGenresArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<SearchTvShowItemGenresArgs, 'input'>>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originCountry?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
