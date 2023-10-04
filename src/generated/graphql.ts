@@ -194,11 +194,6 @@ export type Movie = {
   voteCount?: Maybe<Scalars['Int']['output']>;
 };
 
-
-export type MovieGenresArgs = {
-  language?: InputMaybe<Iso6391Language>;
-};
-
 export type MovieBelongsToCollection = {
   __typename?: 'MovieBelongsToCollection';
   backdropPath?: Maybe<Scalars['String']['output']>;
@@ -1019,7 +1014,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   belongsToCollection?: Resolver<Maybe<ResolversTypes['MovieBelongsToCollection']>, ParentType, ContextType>;
   budget?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<MovieGenresArgs>>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   imdbId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

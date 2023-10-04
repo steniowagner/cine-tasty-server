@@ -1526,20 +1526,7 @@
           {
             "name": "genres",
             "description": null,
-            "args": [
-              {
-                "name": "language",
-                "description": null,
-                "type": {
-                  "kind": "ENUM",
-                  "name": "ISO6391Language",
-                  "ofType": null
-                },
-                "defaultValue": null,
-                "isDeprecated": false,
-                "deprecationReason": null
-              }
-            ],
+            "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
