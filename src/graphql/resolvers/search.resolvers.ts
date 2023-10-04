@@ -12,7 +12,7 @@ export const resolvers = {
       searchHandler.handle({
         tmdbAPI: context.tmdbAPI,
         input: params.input,
-        type: "person",
+        type: "famous",
       }),
   },
 };

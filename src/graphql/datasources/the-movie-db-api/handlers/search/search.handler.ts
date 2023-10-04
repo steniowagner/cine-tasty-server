@@ -5,7 +5,7 @@ import TMDBApi from "@tmdb-api/tmdb-movie-db-api";
 import { SearchResponse } from "./search.types";
 import { CONSTANTS } from "./search.constants";
 
-export type Type = "person";
+export type Type = "famous";
 
 export type HandlerParams = {
   tmdbAPI: TMDBApi;
