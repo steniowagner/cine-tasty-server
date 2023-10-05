@@ -14,6 +14,7 @@ export const resolvers = {
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         mediaType: params.mediaType,
+        shouldReturnRaw: true,
         genreIds: [],
       }),
   },
