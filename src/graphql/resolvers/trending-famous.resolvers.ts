@@ -1,6 +1,7 @@
 import {
   Iso6391Language,
   QueryTrendingFamousArgs,
+  MediaType,
   TrendingFamousKnownForMovieGenresArgs,
 } from "@generated-types";
 import { trendingFamousHandler } from "@tmdb-api/handlers/trending-famous";
@@ -35,7 +36,7 @@ export const resolvers = {
       mediaGenresHandler.handle({
         language: params.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
-        mediaType: "tv",
+        mediaType: MediaType.Tv,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
       }),
@@ -58,7 +59,7 @@ export const resolvers = {
       context: Context,
     ) =>
       mediaGenresHandler.handle({
-        mediaType: "movie",
+        mediaType: MediaType.Movie,
         language: params.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,

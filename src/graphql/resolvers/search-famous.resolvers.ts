@@ -1,4 +1,4 @@
-import { Iso6391Language, QuerySearchFamousArgs } from "@generated-types";
+import { Iso6391Language, QuerySearchFamousArgs, MediaType } from "@generated-types";
 import { SearchMovieHandlerTypes } from "@tmdb-api/handlers/search-famous";
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
 import { Context } from "@types";
@@ -40,7 +40,7 @@ export const resolvers = {
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
-        mediaType: "movie",
+        mediaType: MediaType.Movie,
       }),
   },
 
@@ -69,7 +69,7 @@ export const resolvers = {
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
-        mediaType: "tv",
+        mediaType: MediaType.Tv,
       }),
   },
 

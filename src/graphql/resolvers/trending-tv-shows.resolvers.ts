@@ -1,5 +1,5 @@
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
-import { QueryTrendingTvShowsArgs, Iso6391Language } from "@generated-types";
+import { QueryTrendingTvShowsArgs, Iso6391Language, MediaType } from "@generated-types";
 import {
   TrendingTVShowsTypes,
   trendingTVShowsHandler,
@@ -70,7 +70,7 @@ export const resolvers = {
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
-        mediaType: "tv",
+        mediaType: MediaType.Tv,
       }),
     originCountry: (parent: TrendingTVShowsTypes.Result) => parent.origin_country,
     originalLanguage: (parent: TrendingTVShowsTypes.Result) => parent.original_language,
