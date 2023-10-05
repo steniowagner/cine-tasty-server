@@ -12,6 +12,6 @@ export default `#graphql
     trendingTVShows(language: ISO6391Language): TrendingTVShows!
     movie(id: Int!, language: ISO6391Language): Movie!
     trendingMovies(language: ISO6391Language): TrendingMovies!
-    mediaGenres(mediaTye: MediaType!, language: ISO6391Language): [MediaGenre!]!
+    mediaGenres(mediaType: MediaType!, language: ISO6391Language): [MediaGenre!]!
   }
 `;

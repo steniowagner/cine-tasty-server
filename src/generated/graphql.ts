@@ -312,7 +312,7 @@ export type QueryFamousArgs = {
 
 export type QueryMediaGenresArgs = {
   language?: InputMaybe<Iso6391Language>;
-  mediaTye: MediaType;
+  mediaType: MediaType;
 };
 
 
@@ -1221,7 +1221,7 @@ export type ProductionCompaniesResolvers<ContextType = any, ParentType extends R
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   _?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   famous?: Resolver<ResolversTypes['Famous'], ParentType, ContextType, RequireFields<QueryFamousArgs, 'id'>>;
-  mediaGenres?: Resolver<Array<ResolversTypes['MediaGenre']>, ParentType, ContextType, RequireFields<QueryMediaGenresArgs, 'mediaTye'>>;
+  mediaGenres?: Resolver<Array<ResolversTypes['MediaGenre']>, ParentType, ContextType, RequireFields<QueryMediaGenresArgs, 'mediaType'>>;
   movie?: Resolver<ResolversTypes['Movie'], ParentType, ContextType, RequireFields<QueryMovieArgs, 'id'>>;
   news?: Resolver<ResolversTypes['NewsResult'], ParentType, ContextType, RequireFields<QueryNewsArgs, 'language' | 'page'>>;
   quiz?: Resolver<Array<ResolversTypes['QuizQuestion']>, ParentType, ContextType, RequireFields<QueryQuizArgs, 'input'>>;

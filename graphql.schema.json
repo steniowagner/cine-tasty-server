@@ -2485,7 +2485,7 @@
                 "deprecationReason": null
               },
               {
-                "name": "mediaTye",
+                "name": "mediaType",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",
