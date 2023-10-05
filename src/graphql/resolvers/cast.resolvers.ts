@@ -1,5 +1,5 @@
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
-import { CastGenresArgs, Iso6391Language } from "@generated-types";
+import { CastGenresArgs, Iso6391Language, MediaType } from "@generated-types";
 import { FamousCastTypes } from "@tmdb-api/handlers/famous-cast";
 import { Context } from "@types";
 
@@ -17,7 +17,7 @@ export const resolvers = {
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
         language: params.language as Iso6391Language,
-        mediaType: "movie",
+        mediaType: MediaType.Movie,
       }),
     mediaType: (parent: FamousCastTypes.MovieCast) => parent.media_type,
     originalLanguage: (parent: FamousCastTypes.MovieCast) => parent.original_language,
@@ -40,7 +40,7 @@ export const resolvers = {
         cacheHandler: context.cacheHandler,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
-        mediaType: "tv",
+        mediaType: MediaType.Tv,
       }),
     originCountry: (parent: FamousCastTypes.TvShowCast) => parent.origin_country,
     originalLanguage: (parent: FamousCastTypes.TvShowCast) => parent.original_language,

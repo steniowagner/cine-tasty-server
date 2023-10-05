@@ -538,3 +538,12 @@ query SearchMovie($input: SearchInput!) {
   }
 }
 `;
+
+export const MEDIA_GENRES_QUERY = `#graphql
+query MediaGenres($mediaType: MediaType!, $language: ISO6391Language) {
+  mediaGenres(mediaType: $mediaType, language: $language) {
+    id
+    name
+  }
+}
+`;

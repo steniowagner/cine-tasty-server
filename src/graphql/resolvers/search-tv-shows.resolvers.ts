@@ -1,4 +1,4 @@
-import { SearchTvShowItemGenresArgs, Iso6391Language } from "@generated-types";
+import { SearchTvShowItemGenresArgs, Iso6391Language, MediaType } from "@generated-types";
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
 import { SearchTVShowsTypes } from "@tmdb-api/handlers/search-tv-shows";
 import { Context } from "@types";
@@ -14,7 +14,7 @@ export const resolvers = {
       mediaGenresHandler.handle({
         language: params.input.language as Iso6391Language,
         cacheHandler: context.cacheHandler,
-        mediaType: "tv",
+        mediaType: MediaType.Tv,
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
       }),

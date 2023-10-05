@@ -5,6 +5,7 @@ import {
 import {
   QueryTrendingMoviesArgs,
   TrendingMovieGenresArgs,
+  MediaType,
   Iso6391Language,
 } from "@generated-types";
 import { Context } from "@types";
@@ -27,7 +28,7 @@ export const resolvers = {
         tmdbAPI: context.tmdbAPI,
         genreIds: parent.genre_ids,
         language: params.language as Iso6391Language,
-        mediaType: "movie",
+        mediaType: MediaType.Movie,
       }),
     originalLanguage: (parent: TrendingMoviesTypes.Result) => parent.original_language,
     originalTitle: (parent: TrendingMoviesTypes.Result) => parent.original_title,

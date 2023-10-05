@@ -19,6 +19,8 @@ import {
   TrendingMovies,
   TrendingMovie,
   SearchMoviesResult,
+  MediaType,
+  MediaGenre,
 } from "@generated-types";
 
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
@@ -955,6 +957,48 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           expect(movie.voteAverage).toEqual(fixtures.movie.vote_average);
           expect(movie.voteCount).toEqual(fixtures.movie.vote_count);
         });
+      });
+    });
+  });
+
+  describe("Media genres", () => {
+    describe('Querying the "Movies-genres"', () => {
+      it("should return data correctly", async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.moviesGenres));
+        const response = await execDatasourceTestOperation<{
+          mediaGenres: MediaGenre[];
+        }>({
+          query: queries.MEDIA_GENRES_QUERY,
+          variables: {
+            language: Iso6391Language.Pt,
+            mediaType: MediaType.Movie,
+          },
+        });
+        expect(response.body.singleResult.errors).toBeUndefined();
+        const mediaGenres = response.body.singleResult.data.mediaGenres;
+        expect(mediaGenres).toEqual(fixtures.moviesGenres.genres);
+      });
+    });
+
+    describe('Querying the "TV-Shows-genres"', () => {
+      it("should return data correctly", async () => {
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowGenres));
+        const response = await execDatasourceTestOperation<{
+          mediaGenres: MediaGenre[];
+        }>({
+          query: queries.MEDIA_GENRES_QUERY,
+          variables: {
+            language: Iso6391Language.Pt,
+            mediaType: MediaType.Tv,
+          },
+        });
+        expect(response.body.singleResult.errors).toBeUndefined();
+        const mediaGenres = response.body.singleResult.data.mediaGenres;
+        expect(mediaGenres).toEqual(fixtures.tvShowGenres.genres);
       });
     });
   });
