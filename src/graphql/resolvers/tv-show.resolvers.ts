@@ -1,5 +1,7 @@
-import { QueryTvShowArgs } from "@generated-types";
+import { QueryTvShowArgs, TvShowImagesArgs } from "@generated-types";
 import { tvShowDetailsHandler, TVShowTypes } from "@tmdb-api/handlers/tv-show-details";
+import { handler as tvShowImagesHandler } from "@tmdb-api/handlers/tv-show-images/tv-show-images.handler";
+
 import { Context } from "@types";
 
 export const resolvers = {
@@ -33,6 +35,11 @@ export const resolvers = {
       parent.spoken_languages.map((spokenLanguage) => spokenLanguage.name),
     voteAverage: (parent: TVShowTypes.Response) => parent.vote_average,
     voteCount: (parent: TVShowTypes.Response) => parent.vote_count,
+    images: (
+      _: TVShowTypes.Response,
+      params: TvShowImagesArgs,
+      context: Context,
+    ): Promise<string[]> => tvShowImagesHandler.handle(params, context.tmdbAPI),
   },
 
   CreatedBy: {

@@ -4,7 +4,7 @@ import { CONSTANTS as TMDBAPI_CONSTANS } from "@tmdb-api/utils";
 
 import * as fixtures from "../../../../../../__test__/datasources/tmdb-api/fixtures";
 
-import { handler } from "./tv-show-details.handler";
+import { handler } from "./tv-show-images.handler";
 
 const ID = 1;
 
@@ -20,7 +20,7 @@ jest.mock("@apollo/datasource-rest", () => {
   };
 });
 
-describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
+describe("DataSources/TheMovieDBApi/TVShow-Images-Query-Handler", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -36,7 +36,7 @@ describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
         },
         tmdbAPI,
       );
-      expect(mockGet.mock.calls[0][0]).toEqual("tv/1");
+      expect(mockGet.mock.calls[0][0]).toEqual(`tv/${ID}/images`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language,
       });
@@ -53,7 +53,7 @@ describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
         },
         tmdbAPI,
       );
-      expect(mockGet.mock.calls[0][0]).toEqual(`tv/${ID}`);
+      expect(mockGet.mock.calls[0][0]).toEqual(`tv/${ID}/images`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language: TMDBAPI_CONSTANS.FALLBACK_LANGUAGE,
       });
@@ -61,9 +61,9 @@ describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
     });
   });
 
-  describe("When receive the data", () => {
+  describe('When the response received is "undefined"', () => {
     it("should return the data correctly", async () => {
-      mockGet.mockReturnValueOnce(fixtures.tvShow);
+      mockGet.mockReturnValueOnce(undefined);
       const tmdbAPI = new TheMovieDBAPI();
       const result = await handler.handle(
         {
@@ -71,7 +71,24 @@ describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
         },
         tmdbAPI,
       );
-      expect(result).toEqual(fixtures.tvShow);
+      expect(result).toEqual([]);
+    });
+  });
+
+  describe("When receive the data", () => {
+    it("should return the data correctly", async () => {
+      mockGet.mockReturnValueOnce(fixtures.tvShowImages);
+      const tmdbAPI = new TheMovieDBAPI();
+      const result = await handler.handle(
+        {
+          id: ID,
+        },
+        tmdbAPI,
+      );
+      const images = fixtures.tvShowImages.backdrops.map(
+        (backdrop) => backdrop.file_path,
+      );
+      expect(result).toEqual(images);
     });
   });
 });
