@@ -5,7 +5,6 @@ import { CONSTANTS as TMDBAPI_CONSTANS } from "@tmdb-api/utils";
 import * as fixtures from "../../../../../../__test__/datasources/tmdb-api/fixtures";
 
 import { handler } from "./tv-show-details.handler";
-import { CONSTANTS } from "./tv-show-details.constants";
 
 const ID = 1;
 
@@ -37,7 +36,7 @@ describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
         },
         tmdbAPI,
       );
-      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT(1));
+      expect(mockGet.mock.calls[0][0]).toEqual("tv/1");
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language,
       });
@@ -54,7 +53,7 @@ describe("DataSources/TheMovieDBApi/TVShow-Details-Query-Handler", () => {
         },
         tmdbAPI,
       );
-      expect(mockGet.mock.calls[0][0]).toEqual(CONSTANTS.ENDPOINT(ID));
+      expect(mockGet.mock.calls[0][0]).toEqual(`tv/${ID}`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language: TMDBAPI_CONSTANS.FALLBACK_LANGUAGE,
       });

@@ -571,6 +571,7 @@ export type TvShow = {
   genres: Array<Scalars['String']['output']>;
   homepage?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
+  images: Array<Scalars['String']['output']>;
   inProduction?: Maybe<Scalars['Boolean']['output']>;
   languages: Array<Scalars['String']['output']>;
   lastAirDate?: Maybe<Scalars['String']['output']>;
@@ -599,6 +600,12 @@ export type TvShow = {
 
 
 export type TvShowGenresArgs = {
+  language?: InputMaybe<Iso6391Language>;
+};
+
+
+export type TvShowImagesArgs = {
+  id: Scalars['Int']['input'];
   language?: InputMaybe<Iso6391Language>;
 };
 
@@ -1381,6 +1388,7 @@ export type TvShowResolvers<ContextType = any, ParentType extends ResolversParen
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<TvShowGenresArgs>>;
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<TvShowImagesArgs, 'id'>>;
   inProduction?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   languages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   lastAirDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

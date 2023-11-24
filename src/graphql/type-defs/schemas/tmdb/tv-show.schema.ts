@@ -80,5 +80,6 @@ export default `#graphql
     type: String
     voteAverage: Float
     voteCount: Int
+    images(id: Int!, language: ISO6391Language): [String!]!
   }
 `;
