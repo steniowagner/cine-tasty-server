@@ -267,6 +267,20 @@ query TVShow ($id: Int!, $language: ISO6391Language) {
     type
     voteAverage
     voteCount
+    videos(id: $id) {
+      thumbnail {
+        extraSmall
+        small
+        medium
+        large
+        extraLarge
+      }
+      key
+      name
+      site
+      id
+      type
+    }
   }
 }
 `;

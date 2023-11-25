@@ -1,6 +1,6 @@
 import { MediaVideo } from "@generated-types";
 
-const YOUTUBE_THUMBNAIL_URL = "https://img.youtube.com/vi";
+export const YOUTUBE_THUMBNAIL_URL = "https://img.youtube.com/vi";
 
 export const resolvers = {
   MediaVideo: {
