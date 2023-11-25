@@ -7735,3 +7735,33 @@ export const tvShowSimilar = {
   total_pages: 1704,
   total_results: 34078,
 };
+
+export const tvShowVideos = {
+  id: 78191,
+  results: [
+    {
+      iso_639_1: "en",
+      iso_3166_1: "US",
+      name: "International Trailer #2",
+      key: "ga1m0wjzscU",
+      site: "YouTube",
+      size: 1080,
+      type: "Trailer",
+      published_at: "2018-12-03T12:00:04.000Z",
+      official: true,
+      id: "5c7507010e0a260b521960ef",
+    },
+    {
+      iso_639_1: "en",
+      iso_3166_1: "US",
+      name: "Trailer #2",
+      key: "7ZtRnIwv_FY",
+      site: "NonYouTube",
+      size: 1080,
+      type: "Trailer",
+      official: true,
+      published_at: "2018-12-03T12:00:00.000Z",
+      id: "5eb0653371f095001faeff2d",
+    },
+  ],
+};

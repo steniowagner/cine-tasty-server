@@ -12,8 +12,10 @@ import movie from "./movie.schema";
 import trendingMovies from "./trending-movies.schema";
 import searchMovies from "./search-movies.schema";
 import mediaGenres from "./media-genres.schema";
+import mediaVideo from "./media-video.schema";
 
 export default [
+  mediaVideo,
   mediaGenres,
   searchMovies,
   trendingMovies,
