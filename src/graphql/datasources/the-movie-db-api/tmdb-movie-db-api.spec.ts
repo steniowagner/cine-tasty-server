@@ -26,6 +26,7 @@ import {
 import * as queries from "../../../../__test__/datasources/tmdb-api/queries";
 import * as fixtures from "../../../../__test__/datasources/tmdb-api/fixtures";
 import { execDatasourceTestOperation } from "../../../../__test__";
+import { YOUTUBE_THUMBNAIL_URL } from "../../resolvers/media-videos.resolvers";
 
 describe("DataSources/TheMovieDBApi/Integration", () => {
   beforeEach(() => {
@@ -375,6 +376,9 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         jest
           .spyOn(RESTDataSource.prototype as any, "get")
           .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShow));
+        jest
+          .spyOn(RESTDataSource.prototype as any, "get")
+          .mockImplementationOnce(async () => Promise.resolve(fixtures.tvShowVideos));
         const response = await execDatasourceTestOperation<{
           tvShow: TvShow;
         }>({
@@ -479,6 +483,21 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
         expect(tvshow.type).toEqual(fixtures.tvShow.type);
         expect(tvshow.voteAverage).toEqual(fixtures.tvShow.vote_average);
         expect(tvshow.voteCount).toEqual(fixtures.tvShow.vote_count);
+        // videos
+        for (let i = 0; i < tvshow.videos.length; i++) {
+          expect(tvshow.videos[i].thumbnail).toEqual({
+            extraSmall: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.tvShowVideos.results[0].key}/default.jpg`,
+            small: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.tvShowVideos.results[0].key}/mqdefault.jpg`,
+            medium: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.tvShowVideos.results[0].key}/hqdefault.jpg`,
+            large: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.tvShowVideos.results[0].key}/sddefault.jpg`,
+            extraLarge: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.tvShowVideos.results[0].key}/maxresdefault.jpg`,
+          });
+          expect(tvshow.videos[i].key).toEqual(fixtures.tvShowVideos.results[0].key);
+          expect(tvshow.videos[i].name).toEqual(fixtures.tvShowVideos.results[0].name);
+          expect(tvshow.videos[i].site).toEqual(fixtures.tvShowVideos.results[0].site);
+          expect(tvshow.videos[i].id).toEqual(fixtures.tvShowVideos.results[0].id);
+          expect(tvshow.videos[i].type).toEqual(fixtures.tvShowVideos.results[0].type);
+        }
       });
     });
   });

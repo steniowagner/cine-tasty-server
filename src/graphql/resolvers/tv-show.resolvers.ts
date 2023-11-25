@@ -1,8 +1,14 @@
-import { QueryTvShowArgs, TvShowImagesArgs, TvShowSimilarArgs } from "@generated-types";
+import {
+  QueryTvShowArgs,
+  TvShowImagesArgs,
+  TvShowSimilarArgs,
+  TvShowVideosArgs,
+} from "@generated-types";
 import { tvShowDetailsHandler, TVShowTypes } from "@tmdb-api/handlers/tv-show-details";
 import { handler as tvShowImagesHandler } from "@tmdb-api/handlers/tv-show-images/tv-show-images.handler";
 import * as TVShowSimilar from "@tmdb-api/handlers/tv-show-similar";
 import { Context } from "@types";
+import * as handlers from "@tmdb-api/handlers/tv-shows";
 
 export const resolvers = {
   Query: {
@@ -42,6 +48,11 @@ export const resolvers = {
     ): Promise<string[]> => tvShowImagesHandler.handle(params, context.tmdbAPI),
     similar: (_: TVShowTypes.Response, params: TvShowSimilarArgs, context: Context) =>
       TVShowSimilar.handle(params, context.tmdbAPI),
+    videos: (
+      _: TVShowTypes.Response,
+      params: handlers.tvShowVideos.types.Params,
+      context: Context,
+    ) => handlers.tvShowVideos.handler(params, context.tmdbAPI),
   },
 
   CreatedBy: {
