@@ -47,6 +47,22 @@ export default `#graphql
     profilePath: String
   }
 
+  type SimilarTVShow {
+    adult: Boolean
+    backdropPath: String
+    id: Int!
+    originCountry: [String!]!
+    originalLanguage: String
+    originalName: String
+    overview: String
+    popularity: Float
+    posterPath: String
+    firstAirDate: String
+    name: String
+    voteAverage: Float
+    voteCount: Int
+  }
+
   type TVShow {
     adult: Boolean
     backdropPath: String
@@ -81,5 +97,6 @@ export default `#graphql
     voteAverage: Float
     voteCount: Int
     images(id: Int!, language: ISO6391Language): [String!]!
+    similar(id: Int!, language: ISO6391Language): [SimilarTVShow!]!
   }
 `;

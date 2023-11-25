@@ -1,7 +1,7 @@
-import { QueryTvShowArgs, TvShowImagesArgs } from "@generated-types";
+import { QueryTvShowArgs, TvShowImagesArgs, TvShowSimilarArgs } from "@generated-types";
 import { tvShowDetailsHandler, TVShowTypes } from "@tmdb-api/handlers/tv-show-details";
 import { handler as tvShowImagesHandler } from "@tmdb-api/handlers/tv-show-images/tv-show-images.handler";
-
+import * as TVShowSimilar from "@tmdb-api/handlers/tv-show-similar";
 import { Context } from "@types";
 
 export const resolvers = {
@@ -40,6 +40,8 @@ export const resolvers = {
       params: TvShowImagesArgs,
       context: Context,
     ): Promise<string[]> => tvShowImagesHandler.handle(params, context.tmdbAPI),
+    similar: (_: TVShowTypes.Response, params: TvShowSimilarArgs, context: Context) =>
+      TVShowSimilar.handle(params, context.tmdbAPI),
   },
 
   CreatedBy: {
@@ -74,5 +76,16 @@ export const resolvers = {
     posterPath: (parent: TVShowTypes.Season) => parent.poster_path,
     seasonNumber: (parent: TVShowTypes.Season) => parent.season_number,
     voteAverage: (parent: TVShowTypes.Season) => parent.vote_average,
+  },
+
+  SimilarTVShow: {
+    backdropPath: (parent: TVShowSimilar.types.Result) => parent.backdrop_path,
+    originCountry: (parent: TVShowSimilar.types.Result) => parent.origin_country,
+    originalLanguage: (parent: TVShowSimilar.types.Result) => parent.original_language,
+    originalName: (parent: TVShowSimilar.types.Result) => parent.original_name,
+    posterPath: (parent: TVShowSimilar.types.Result) => parent.poster_path,
+    firstAirDate: (parent: TVShowSimilar.types.Result) => parent.first_air_date,
+    voteAverage: (parent: TVShowSimilar.types.Result) => parent.vote_average,
+    voteCount: (parent: TVShowSimilar.types.Result) => parent.vote_count,
   },
 };
