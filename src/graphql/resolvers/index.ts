@@ -15,8 +15,10 @@ import { resolvers as trendingMoviesResolvers } from "./trending-movies.resolver
 import { resolvers as searchMoviesResolvers } from "./search-movies.resolvers";
 import { resolvers as mediaGenresResolvers } from "./media-genres.resolvers";
 import { resolvers as mediaVideoResolvers } from "./media-videos.resolvers";
+import { resolvers as mediaCrewResolvers } from "./media-crew.resolvers";
 
 export default [
+  mediaCrewResolvers,
   mediaVideoResolvers,
   mediaGenresResolvers,
   searchMoviesResolvers,

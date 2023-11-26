@@ -100,5 +100,6 @@ export default `#graphql
     similar(id: Int!, language: ISO6391Language): [SimilarTVShow!]!
     videos(id: Int!, language: ISO6391Language): [MediaVideo!]!
     cast: [MediaCast!]!
+    crew: [MediaCrew!]!
   }
 `;

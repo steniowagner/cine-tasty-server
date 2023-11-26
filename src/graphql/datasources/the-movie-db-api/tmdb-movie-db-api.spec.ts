@@ -523,6 +523,18 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           );
           expect(tvshow.cast[i].order).toEqual(fixtures.tvShow.credits.cast[i].order);
         }
+        // crew
+        for (let i = 0; i < tvshow.crew.length; i++) {
+          expect(tvshow.crew[i].department).toEqual(
+            fixtures.tvShow.credits.crew[i].department,
+          );
+          expect(tvshow.crew[i].id).toEqual(fixtures.tvShow.credits.crew[i].id);
+          expect(tvshow.crew[i].job).toEqual(fixtures.tvShow.credits.crew[i].job);
+          expect(tvshow.crew[i].name).toEqual(fixtures.tvShow.credits.crew[i].name);
+          expect(tvshow.crew[i].profilePath).toEqual(
+            fixtures.tvShow.credits.crew[i].profile_path,
+          );
+        }
       });
     });
   });
