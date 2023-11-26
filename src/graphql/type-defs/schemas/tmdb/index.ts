@@ -13,10 +13,10 @@ import trendingMovies from "./trending-movies.schema";
 import searchMovies from "./search-movies.schema";
 import mediaGenres from "./media-genres.schema";
 import mediaVideo from "./media-video.schema";
-import crew from "./crew.schema";
+import mediaCrew from "./media-crew.schema";
 
 export default [
-  crew,
+  mediaCrew,
   mediaVideo,
   mediaGenres,
   searchMovies,

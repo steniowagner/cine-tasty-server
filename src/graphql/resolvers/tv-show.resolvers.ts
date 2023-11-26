@@ -64,6 +64,7 @@ export const resolvers = {
       context: Context,
     ) => handlers.tvShowVideos.handler(params, context.tmdbAPI),
     cast: (parent: handlers.tvShowDetails.types.Response) => parent.credits.cast,
+    crew: (parent: handlers.tvShowDetails.types.Response) => parent.credits.crew,
   },
 
   CreatedBy: {

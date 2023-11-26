@@ -1,5 +1,5 @@
 export default `#graphql
-  type Crew {
+  type MediaCrew {
     department: String
     id: Int!
     job: String
