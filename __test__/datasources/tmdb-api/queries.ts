@@ -293,6 +293,13 @@ query TVShow ($id: Int!, $language: ISO6391Language) {
       popularity
       profilePath
     }
+    crew {
+      department
+      id
+      job
+      name
+      profilePath
+    }
   }
 }
 `;
