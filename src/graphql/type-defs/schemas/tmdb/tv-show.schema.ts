@@ -99,5 +99,6 @@ export default `#graphql
     images(id: Int!, language: ISO6391Language): [String!]!
     similar(id: Int!, language: ISO6391Language): [SimilarTVShow!]!
     videos(id: Int!, language: ISO6391Language): [MediaVideo!]!
+    cast: [MediaCast!]!
   }
 `;

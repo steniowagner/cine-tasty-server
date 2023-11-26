@@ -1,7 +1,7 @@
 export default `#graphql
   type FamousCast {
-    moviesCast: [CastMovie!]!
-    tvShowsCast: [CastTVShow!]!
+    moviesCast: [FamousCastMovie!]!
+    tvShowsCast: [FamousCastTVShow!]!
   }
 
   type Famous {

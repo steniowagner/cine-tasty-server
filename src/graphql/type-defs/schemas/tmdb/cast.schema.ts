@@ -1,5 +1,5 @@
 export default `#graphql
-  interface Cast {
+  interface BaseFamousCast {
     backdropPath: String
     character: String
     creditId: String
@@ -14,7 +14,7 @@ export default `#graphql
     voteCount: Float
   }
 
-  type CastMovie implements Cast {
+  type FamousCastMovie implements BaseFamousCast {
     adult: Boolean
     backdropPath: String
     character: String
@@ -34,7 +34,7 @@ export default `#graphql
     voteCount: Float
   }
 
-  type CastTVShow implements Cast {
+  type FamousCastTVShow implements BaseFamousCast {
     backdropPath: String
     character: String
     creditId: String
@@ -52,5 +52,18 @@ export default `#graphql
     posterPath: String
     voteAverage: Float
     voteCount: Float
+  }
+
+  type MediaCast {
+    adult: Boolean
+    id: Int!
+    knownForDepartment: String
+    name: String
+    originalName: String
+    popularity: Float
+    profilePath: String
+    character: String
+    creditId: String
+    order: Int
   }
 `;

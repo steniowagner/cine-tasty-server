@@ -1,3 +1,6 @@
+import { QueryTvShowArgs } from "@generated-types";
+import { MediaCast, MediaCrew } from "tmdb-types";
+
 export type Season = {
   air_date: string;
   episode_count: number;
@@ -96,4 +99,10 @@ export type Response = {
   type: string;
   vote_average: number;
   vote_count: number;
+  credits: {
+    cast: MediaCast[];
+    crew: MediaCrew[];
+  };
 };
+
+export type Params = QueryTvShowArgs;

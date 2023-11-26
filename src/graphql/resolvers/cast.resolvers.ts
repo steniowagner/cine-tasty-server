@@ -1,15 +1,22 @@
+import { MediaCast } from "tmdb-types";
+
 import { mediaGenresHandler } from "@tmdb-api/handlers/media-genres";
-import { CastGenresArgs, Iso6391Language, MediaType } from "@generated-types";
+import {
+  FamousCastMovieGenresArgs,
+  FamousCastTvShowGenresArgs,
+  Iso6391Language,
+  MediaType,
+} from "@generated-types";
 import { FamousCastTypes } from "@tmdb-api/handlers/famous-cast";
 import { Context } from "@types";
 
 export const resolvers = {
-  CastMovie: {
+  FamousCastMovie: {
     backdropPath: (parent: FamousCastTypes.MovieCast) => parent.backdrop_path,
     creditId: (parent: FamousCastTypes.MovieCast) => parent.credit_id,
     genres: (
       parent: FamousCastTypes.MovieCast,
-      params: CastGenresArgs,
+      params: FamousCastMovieGenresArgs,
       context: Context,
     ) =>
       mediaGenresHandler.handle({
@@ -28,11 +35,11 @@ export const resolvers = {
     voteCount: (parent: FamousCastTypes.MovieCast) => parent.vote_count,
   },
 
-  CastTVShow: {
+  FamousCastTVShow: {
     backdropPath: (parent: FamousCastTypes.TvShowCast) => parent.backdrop_path,
     genres: (
       parent: FamousCastTypes.TvShowCast,
-      params: CastGenresArgs,
+      params: FamousCastTvShowGenresArgs,
       context: Context,
     ) =>
       mediaGenresHandler.handle({
@@ -52,5 +59,12 @@ export const resolvers = {
     creditId: (parent: FamousCastTypes.TvShowCast) => parent.credit_id,
     episodeCount: (parent: FamousCastTypes.TvShowCast) => parent.episode_count,
     mediaType: (parent: FamousCastTypes.TvShowCast) => parent.media_type,
+  },
+
+  MediaCast: {
+    knownForDepartment: (parent: MediaCast) => parent.known_for_department,
+    originalName: (parent: MediaCast) => parent.original_name,
+    profilePath: (parent: MediaCast) => parent.profile_path,
+    creditId: (parent: MediaCast) => parent.credit_id,
   },
 };
