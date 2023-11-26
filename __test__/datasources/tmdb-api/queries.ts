@@ -281,6 +281,18 @@ query TVShow ($id: Int!, $language: ISO6391Language) {
       id
       type
     }
+    cast {
+      adult
+      character
+      creditId
+      id
+      knownForDepartment
+      name
+      order
+      originalName
+      popularity
+      profilePath
+    }
   }
 }
 `;

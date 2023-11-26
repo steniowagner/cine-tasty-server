@@ -498,6 +498,31 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           expect(tvshow.videos[i].id).toEqual(fixtures.tvShowVideos.results[0].id);
           expect(tvshow.videos[i].type).toEqual(fixtures.tvShowVideos.results[0].type);
         }
+        // cast
+        for (let i = 0; i < tvshow.cast.length; i++) {
+          expect(tvshow.cast[i].adult).toEqual(fixtures.tvShow.credits.cast[i].adult);
+          expect(tvshow.cast[i].id).toEqual(fixtures.tvShow.credits.cast[i].id);
+          expect(tvshow.cast[i].knownForDepartment).toEqual(
+            fixtures.tvShow.credits.cast[i].known_for_department,
+          );
+          expect(tvshow.cast[i].name).toEqual(fixtures.tvShow.credits.cast[i].name);
+          expect(tvshow.cast[i].originalName).toEqual(
+            fixtures.tvShow.credits.cast[i].original_name,
+          );
+          expect(tvshow.cast[i].popularity).toEqual(
+            fixtures.tvShow.credits.cast[i].popularity,
+          );
+          expect(tvshow.cast[i].profilePath).toEqual(
+            fixtures.tvShow.credits.cast[i].profile_path,
+          );
+          expect(tvshow.cast[i].character).toEqual(
+            fixtures.tvShow.credits.cast[i].character,
+          );
+          expect(tvshow.cast[i].creditId).toEqual(
+            fixtures.tvShow.credits.cast[i].credit_id,
+          );
+          expect(tvshow.cast[i].order).toEqual(fixtures.tvShow.credits.cast[i].order);
+        }
       });
     });
   });
