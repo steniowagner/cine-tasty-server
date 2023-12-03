@@ -482,6 +482,7 @@ query Movie ($id: Int!, $language: ISO6391Language) {
       }
       type
     }
+    images(id: $id, language: $language)
   }
 }
 `;

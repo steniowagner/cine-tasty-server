@@ -40,5 +40,6 @@ export default `#graphql
     voteAverage: Float
     voteCount: Int
     videos(id: Int!, language: ISO6391Language): [MediaVideo!]!
+    images(id: Int!, language: ISO6391Language): [String!]!
   }
 `;
