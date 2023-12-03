@@ -218,6 +218,7 @@ export type Movie = {
   genres: Array<Scalars['String']['output']>;
   homepage?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
+  images: Array<Scalars['String']['output']>;
   imdbId?: Maybe<Scalars['String']['output']>;
   originalLanguage?: Maybe<Scalars['String']['output']>;
   originalTitle?: Maybe<Scalars['String']['output']>;
@@ -237,6 +238,12 @@ export type Movie = {
   videos: Array<MediaVideo>;
   voteAverage?: Maybe<Scalars['Float']['output']>;
   voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type MovieImagesArgs = {
+  id: Scalars['Int']['input'];
+  language?: InputMaybe<Iso6391Language>;
 };
 
 
@@ -1283,6 +1290,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MovieImagesArgs, 'id'>>;
   imdbId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

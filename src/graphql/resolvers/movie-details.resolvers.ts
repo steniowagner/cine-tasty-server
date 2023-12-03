@@ -1,3 +1,4 @@
+import { MovieImagesArgs } from "@generated-types";
 import * as movies from "@/graphql/datasources/the-movie-db-api/handlers/movies";
 import { QueryMovieArgs } from "@generated-types";
 import { Context } from "@/types";
@@ -44,5 +45,10 @@ export const resolvers = {
       params: movies.videos.types.Params,
       context: Context,
     ) => movies.videos.handler(params, context.tmdbAPI),
+    images: (
+      _: movies.details.types.Response,
+      params: MovieImagesArgs,
+      context: Context,
+    ): Promise<string[]> => movies.images.handler(params, context.tmdbAPI),
   },
 };
