@@ -945,7 +945,7 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
   describe("Movies", () => {
     describe("Querying Movie-details", () => {
       describe("When query the data successfuly", () => {
-        it.only("should return data correctly", async () => {
+        it("should return data correctly", async () => {
           jest
             .spyOn(RESTDataSource.prototype as any, "get")
             .mockImplementationOnce(async () => Promise.resolve(fixtures.movie));
@@ -1036,6 +1036,43 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           // images
           for (let i = 0; i < movie.images.length; i++) {
             expect(movie.images[i]).toEqual(fixtures.movieImages.backdrops[i].file_path);
+          }
+          // credits
+          for (let i = 0; i < movie.cast.length; i++) {
+            expect(movie.cast[i].adult).toEqual(fixtures.movie.credits.cast[i].adult);
+            expect(movie.cast[i].character).toEqual(
+              fixtures.movie.credits.cast[i].character,
+            );
+            expect(movie.cast[i].creditId).toEqual(
+              fixtures.movie.credits.cast[i].credit_id,
+            );
+            expect(movie.cast[i].id).toEqual(fixtures.movie.credits.cast[i].id);
+            expect(movie.cast[i].knownForDepartment).toEqual(
+              fixtures.movie.credits.cast[i].known_for_department,
+            );
+            expect(movie.cast[i].name).toEqual(fixtures.movie.credits.cast[i].name);
+            expect(movie.cast[i].order).toEqual(fixtures.movie.credits.cast[i].order);
+            expect(movie.cast[i].originalName).toEqual(
+              fixtures.movie.credits.cast[i].original_name,
+            );
+            expect(movie.cast[i].popularity).toEqual(
+              fixtures.movie.credits.cast[i].popularity,
+            );
+            expect(movie.cast[i].profilePath).toEqual(
+              fixtures.movie.credits.cast[i].profile_path,
+            );
+          }
+          // cast
+          for (let i = 0; i < movie.crew.length; i++) {
+            expect(movie.crew[i].department).toEqual(
+              fixtures.movie.credits.crew[i].department,
+            );
+            expect(movie.crew[i].id).toEqual(fixtures.movie.credits.crew[i].id);
+            expect(movie.crew[i].job).toEqual(fixtures.movie.credits.crew[i].job);
+            expect(movie.crew[i].name).toEqual(fixtures.movie.credits.crew[i].name);
+            expect(movie.crew[i].profilePath).toEqual(
+              fixtures.movie.credits.crew[i].profile_path,
+            );
           }
         });
       });
