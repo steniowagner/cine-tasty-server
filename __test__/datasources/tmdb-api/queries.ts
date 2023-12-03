@@ -483,6 +483,25 @@ query Movie ($id: Int!, $language: ISO6391Language) {
       type
     }
     images(id: $id, language: $language)
+    cast {
+      adult
+      character
+      creditId
+      id
+      knownForDepartment
+      name
+      order
+      originalName
+      popularity
+      profilePath
+    }
+    crew {
+      department
+      id
+      job
+      name
+      profilePath
+    }
   }
 }
 `;

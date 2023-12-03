@@ -4,7 +4,7 @@ import { CONSTANTS as TMDBAPI_CONSTANS } from "@tmdb-api/utils";
 import * as TMDBApiErrors from "@/graphql/errors/tmdb-api";
 
 import * as fixtures from "../../../../../../../__test__/datasources/tmdb-api/fixtures";
-import { handler } from "./movie-details.handler";
+import { handler, APPEND_TO_RESPONSE } from "./movie-details.handler";
 
 const ID = 1;
 
@@ -39,6 +39,7 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
       );
       expect(mockGet.mock.calls[0][0]).toEqual(`movie/${ID}`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
+        append_to_response: APPEND_TO_RESPONSE.join(","),
         language,
       });
       expect(typeof mockGet.mock.calls[0][1].headers.Authorization).toEqual("string");
@@ -57,6 +58,7 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
       );
       expect(mockGet.mock.calls[0][0]).toEqual(`movie/${ID}`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
+        append_to_response: APPEND_TO_RESPONSE.join(","),
         language: TMDBAPI_CONSTANS.FALLBACK_LANGUAGE,
       });
       expect(typeof mockGet.mock.calls[0][1].headers.Authorization).toEqual("string");

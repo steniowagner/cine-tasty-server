@@ -1,3 +1,6 @@
+import { MediaCast, MediaCrew } from "tmdb-types";
+import { QueryMovieArgs } from "@generated-types";
+
 export type ProductionCompany = {
   id: number;
   logo_path: string;
@@ -54,4 +57,10 @@ export type Response = {
   video: false;
   vote_average: number;
   vote_count: number;
+  credits: {
+    cast: MediaCast[];
+    crew: MediaCrew[];
+  };
 };
+
+export type Params = QueryMovieArgs;

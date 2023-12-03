@@ -215,6 +215,8 @@ export type Movie = {
   backdropPath?: Maybe<Scalars['String']['output']>;
   belongsToCollection?: Maybe<MovieBelongsToCollection>;
   budget?: Maybe<Scalars['Float']['output']>;
+  cast: Array<MediaCast>;
+  crew: Array<MediaCrew>;
   genres: Array<Scalars['String']['output']>;
   homepage?: Maybe<Scalars['String']['output']>;
   id: Scalars['Int']['output'];
@@ -1287,6 +1289,8 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   belongsToCollection?: Resolver<Maybe<ResolversTypes['MovieBelongsToCollection']>, ParentType, ContextType>;
   budget?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  cast?: Resolver<Array<ResolversTypes['MediaCast']>, ParentType, ContextType>;
+  crew?: Resolver<Array<ResolversTypes['MediaCrew']>, ParentType, ContextType>;
   genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
