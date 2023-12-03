@@ -949,6 +949,9 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           jest
             .spyOn(RESTDataSource.prototype as any, "get")
             .mockImplementationOnce(async () => Promise.resolve(fixtures.movie));
+          jest
+            .spyOn(RESTDataSource.prototype as any, "get")
+            .mockImplementationOnce(async () => Promise.resolve(fixtures.movieVideos));
           const response = await execDatasourceTestOperation<{
             movie: Movie;
           }>({
@@ -1012,6 +1015,21 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           expect(movie.video).toEqual(fixtures.movie.video);
           expect(movie.voteAverage).toEqual(fixtures.movie.vote_average);
           expect(movie.voteCount).toEqual(fixtures.movie.vote_count);
+          // videos
+          for (let i = 0; i < movie.videos.length; i++) {
+            expect(movie.videos[i].id).toEqual(fixtures.movieVideos.results[i].id);
+            expect(movie.videos[i].key).toEqual(fixtures.movieVideos.results[i].key);
+            expect(movie.videos[i].name).toEqual(fixtures.movieVideos.results[i].name);
+            expect(movie.videos[i].type).toEqual(fixtures.movieVideos.results[i].type);
+            expect(movie.videos[i].site).toEqual(fixtures.movieVideos.results[i].site);
+            expect(movie.videos[i].thumbnail).toEqual({
+              extraSmall: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/default.jpg`,
+              small: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/mqdefault.jpg`,
+              medium: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/hqdefault.jpg`,
+              large: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/sddefault.jpg`,
+              extraLarge: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/maxresdefault.jpg`,
+            });
+          }
         });
       });
     });

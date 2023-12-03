@@ -468,6 +468,20 @@ query Movie ($id: Int!, $language: ISO6391Language) {
     video
     voteAverage
     voteCount
+    videos(id: $id) {
+      id
+      key
+      name
+      site
+      thumbnail {
+        extraSmall
+        small
+        medium
+        large
+        extraLarge
+      }
+      type
+    }
   }
 }
 `;

@@ -234,8 +234,15 @@ export type Movie = {
   tagline?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   video?: Maybe<Scalars['Boolean']['output']>;
+  videos: Array<MediaVideo>;
   voteAverage?: Maybe<Scalars['Float']['output']>;
   voteCount?: Maybe<Scalars['Int']['output']>;
+};
+
+
+export type MovieVideosArgs = {
+  id: Scalars['Int']['input'];
+  language?: InputMaybe<Iso6391Language>;
 };
 
 export type MovieBelongsToCollection = {
@@ -1292,6 +1299,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   tagline?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   video?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  videos?: Resolver<Array<ResolversTypes['MediaVideo']>, ParentType, ContextType, RequireFields<MovieVideosArgs, 'id'>>;
   voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

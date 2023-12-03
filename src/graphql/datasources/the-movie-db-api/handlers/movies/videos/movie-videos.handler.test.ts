@@ -1,10 +1,10 @@
 import TheMovieDBAPI from "@tmdb-api/tmdb-movie-db-api";
 import { Iso6391Language } from "@generated-types";
 import { CONSTANTS as TMDBAPI_CONSTANS } from "@tmdb-api/utils";
-import * as TMDBApiErrors from "@/graphql/errors/tmdb-api";
 
-import * as fixtures from "../../../../../../__test__/datasources/tmdb-api/fixtures";
-import { handler } from "./movie-details.handler";
+import * as fixtures from "../../../../../../../__test__/datasources/tmdb-api/fixtures";
+
+import { handler } from "./movie-videos.handler";
 
 const ID = 1;
 
@@ -20,7 +20,7 @@ jest.mock("@apollo/datasource-rest", () => {
   };
 });
 
-describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
+describe("DataSources/TheMovieDBApi/Movie-Videos-Query-Handler", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -28,16 +28,15 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
   describe('When the "language" is defined', () => {
     it('should call "RESTDatasource.get" correctly', async () => {
       const tmdbAPI = new TheMovieDBAPI();
-      mockGet.mockReturnValueOnce(fixtures.movie);
       const language = Iso6391Language.Pt;
-      await handler.handle(
+      await handler(
         {
           language,
           id: ID,
         },
         tmdbAPI,
       );
-      expect(mockGet.mock.calls[0][0]).toEqual(`movie/${ID}`);
+      expect(mockGet.mock.calls[0][0]).toEqual(`movie/${ID}/videos`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language,
       });
@@ -48,14 +47,13 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
   describe('When the "language" is not defined', () => {
     it('should call "RESTDatasource.get" correctly', async () => {
       const tmdbAPI = new TheMovieDBAPI();
-      mockGet.mockReturnValueOnce(fixtures.movie);
-      await handler.handle(
+      await handler(
         {
           id: ID,
         },
         tmdbAPI,
       );
-      expect(mockGet.mock.calls[0][0]).toEqual(`movie/${ID}`);
+      expect(mockGet.mock.calls[0][0]).toEqual(`movie/${ID}/videos`);
       expect(mockGet.mock.calls[0][1].params).toEqual({
         language: TMDBAPI_CONSTANS.FALLBACK_LANGUAGE,
       });
@@ -63,31 +61,35 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
     });
   });
 
-  describe('When "response" is "defiend"', () => {
+  describe('When "response" is "undefined"', () => {
     it("should return the data correctly", async () => {
-      mockGet.mockReturnValueOnce(fixtures.movie);
+      mockGet.mockReturnValueOnce(undefined);
       const tmdbAPI = new TheMovieDBAPI();
-      const result = await handler.handle(
+      const result = await handler(
         {
           id: ID,
         },
         tmdbAPI,
       );
-      expect(result).toEqual(fixtures.movie);
+      expect(result).toEqual([]);
     });
   });
 
-  describe('When "response" is "undefiend"', () => {
-    it('should throw "QueryTrendingTVShowsError"', async () => {
+  describe("When receive the data", () => {
+    it("should return the data correctly", async () => {
+      mockGet.mockReturnValueOnce(fixtures.movieVideos);
       const tmdbAPI = new TheMovieDBAPI();
-      await expect(() =>
-        handler.handle(
-          {
-            id: ID,
-          },
-          tmdbAPI,
+      const result = await handler(
+        {
+          id: ID,
+        },
+        tmdbAPI,
+      );
+      expect(result).toEqual(
+        fixtures.movieVideos.results.filter(
+          (movieVideo) => movieVideo.site === "YouTube",
         ),
-      ).rejects.toThrow(new TMDBApiErrors.QueryMovieError(ID));
+      );
     });
   });
 });
