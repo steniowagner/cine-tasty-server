@@ -13,6 +13,21 @@ export default `#graphql
     backdropPath: String
   }
 
+  type SimilarMovie {
+    adult: Boolean
+    backdropPath: String
+    id: Int!
+    originalLanguage: String
+    originalTitle: String
+    overview: String
+    popularity: Float
+    posterPath: String
+    releaseDate: String
+    title: String
+    voteAverage: Float
+    voteCount: Int
+  }
+
   type Movie {
     adult: Boolean
     backdropPath: String
@@ -39,6 +54,7 @@ export default `#graphql
     video: Boolean
     voteAverage: Float
     voteCount: Int
+    similar(id: Int!, language: ISO6391Language): [SimilarMovie!]!
     videos(id: Int!, language: ISO6391Language): [MediaVideo!]!
     images(id: Int!, language: ISO6391Language): [String!]!
     cast: [MediaCast!]!

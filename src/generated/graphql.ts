@@ -232,6 +232,7 @@ export type Movie = {
   releaseDate?: Maybe<Scalars['String']['output']>;
   revenue?: Maybe<Scalars['Float']['output']>;
   runtime?: Maybe<Scalars['Int']['output']>;
+  similar: Array<SimilarMovie>;
   spokenLanguages: Array<Scalars['String']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   tagline?: Maybe<Scalars['String']['output']>;
@@ -244,6 +245,12 @@ export type Movie = {
 
 
 export type MovieImagesArgs = {
+  id: Scalars['Int']['input'];
+  language?: InputMaybe<Iso6391Language>;
+};
+
+
+export type MovieSimilarArgs = {
   id: Scalars['Int']['input'];
   language?: InputMaybe<Iso6391Language>;
 };
@@ -608,6 +615,22 @@ export type Seasons = {
   posterPath?: Maybe<Scalars['String']['output']>;
   seasonNumber?: Maybe<Scalars['Int']['output']>;
   voteAverage?: Maybe<Scalars['Float']['output']>;
+};
+
+export type SimilarMovie = {
+  __typename?: 'SimilarMovie';
+  adult?: Maybe<Scalars['Boolean']['output']>;
+  backdropPath?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  originalLanguage?: Maybe<Scalars['String']['output']>;
+  originalTitle?: Maybe<Scalars['String']['output']>;
+  overview?: Maybe<Scalars['String']['output']>;
+  popularity?: Maybe<Scalars['Float']['output']>;
+  posterPath?: Maybe<Scalars['String']['output']>;
+  releaseDate?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  voteAverage?: Maybe<Scalars['Float']['output']>;
+  voteCount?: Maybe<Scalars['Int']['output']>;
 };
 
 export type SimilarTvShow = {
@@ -1045,6 +1068,7 @@ export type ResolversTypes = {
   SearchTVShowItem: ResolverTypeWrapper<SearchTvShowItem>;
   SearchTVShowsResult: ResolverTypeWrapper<SearchTvShowsResult>;
   Seasons: ResolverTypeWrapper<Seasons>;
+  SimilarMovie: ResolverTypeWrapper<SimilarMovie>;
   SimilarTVShow: ResolverTypeWrapper<SimilarTvShow>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   TVShow: ResolverTypeWrapper<TvShow>;
@@ -1103,6 +1127,7 @@ export type ResolversParentTypes = {
   SearchTVShowItem: SearchTvShowItem;
   SearchTVShowsResult: SearchTvShowsResult;
   Seasons: Seasons;
+  SimilarMovie: SimilarMovie;
   SimilarTVShow: SimilarTvShow;
   String: Scalars['String']['output'];
   TVShow: TvShow;
@@ -1306,6 +1331,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   releaseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   revenue?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   runtime?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  similar?: Resolver<Array<ResolversTypes['SimilarMovie']>, ParentType, ContextType, RequireFields<MovieSimilarArgs, 'id'>>;
   spokenLanguages?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   tagline?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -1519,6 +1545,22 @@ export type SeasonsResolvers<ContextType = any, ParentType extends ResolversPare
   posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   seasonNumber?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SimilarMovieResolvers<ContextType = any, ParentType extends ResolversParentTypes['SimilarMovie'] = ResolversParentTypes['SimilarMovie']> = {
+  adult?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  backdropPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  originalLanguage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  originalTitle?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  overview?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  popularity?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  posterPath?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  releaseDate?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  voteAverage?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  voteCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -1774,6 +1816,7 @@ export type Resolvers<ContextType = any> = {
   SearchTVShowItem?: SearchTvShowItemResolvers<ContextType>;
   SearchTVShowsResult?: SearchTvShowsResultResolvers<ContextType>;
   Seasons?: SeasonsResolvers<ContextType>;
+  SimilarMovie?: SimilarMovieResolvers<ContextType>;
   SimilarTVShow?: SimilarTvShowResolvers<ContextType>;
   TVShow?: TvShowResolvers<ContextType>;
   TVShowEpisodeCrew?: TvShowEpisodeCrewResolvers<ContextType>;
