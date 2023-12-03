@@ -50,5 +50,7 @@ export const resolvers = {
       params: MovieImagesArgs,
       context: Context,
     ): Promise<string[]> => movies.images.handler(params, context.tmdbAPI),
+    cast: (parent: movies.details.types.Response) => parent.credits.cast,
+    crew: (parent: movies.details.types.Response) => parent.credits.crew,
   },
 };
