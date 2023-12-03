@@ -945,13 +945,16 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
   describe("Movies", () => {
     describe("Querying Movie-details", () => {
       describe("When query the data successfuly", () => {
-        it("should return data correctly", async () => {
+        it.only("should return data correctly", async () => {
           jest
             .spyOn(RESTDataSource.prototype as any, "get")
             .mockImplementationOnce(async () => Promise.resolve(fixtures.movie));
           jest
             .spyOn(RESTDataSource.prototype as any, "get")
             .mockImplementationOnce(async () => Promise.resolve(fixtures.movieVideos));
+          jest
+            .spyOn(RESTDataSource.prototype as any, "get")
+            .mockImplementationOnce(async () => Promise.resolve(fixtures.movieImages));
           const response = await execDatasourceTestOperation<{
             movie: Movie;
           }>({
@@ -1029,6 +1032,10 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
               large: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/sddefault.jpg`,
               extraLarge: `${YOUTUBE_THUMBNAIL_URL}/${fixtures.movieVideos.results[i].key}/maxresdefault.jpg`,
             });
+          }
+          // images
+          for (let i = 0; i < movie.images.length; i++) {
+            expect(movie.images[i]).toEqual(fixtures.movieImages.backdrops[i].file_path);
           }
         });
       });
