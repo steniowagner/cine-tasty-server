@@ -1,8 +1,8 @@
 import { TvShowImagesArgs, TvShowSimilarArgs } from "@generated-types";
 import { handler as tvShowImagesHandler } from "@tmdb-api/handlers/tv-show-images/tv-show-images.handler";
 import * as TVShowSimilar from "@tmdb-api/handlers/tv-show-similar";
-import { Context } from "@types";
 import * as handlers from "@tmdb-api/handlers/tv-shows";
+import { Context } from "@types";
 
 export const resolvers = {
   Query: {

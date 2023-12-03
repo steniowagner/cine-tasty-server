@@ -1,1 +1,4 @@
-export * as movieDetails from "./details";
+import * as details from "./details";
+import * as videos from "./videos";
+
+export { details, videos };

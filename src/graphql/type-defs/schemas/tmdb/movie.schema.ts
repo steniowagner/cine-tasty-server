@@ -39,5 +39,6 @@ export default `#graphql
     video: Boolean
     voteAverage: Float
     voteCount: Int
+    videos(id: Int!, language: ISO6391Language): [MediaVideo!]!
   }
 `;
