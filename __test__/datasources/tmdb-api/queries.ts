@@ -502,6 +502,20 @@ query Movie ($id: Int!, $language: ISO6391Language) {
       name
       profilePath
     }
+    similar(id: $id, language: $language) {
+      adult
+      backdropPath
+      id
+      originalLanguage
+      originalTitle
+      overview
+      popularity
+      posterPath
+      releaseDate
+      title
+      voteAverage
+      voteCount
+    }
   }
 }
 `;
