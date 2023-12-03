@@ -3,7 +3,7 @@ import { Iso6391Language } from "@generated-types";
 import { CONSTANTS as TMDBAPI_CONSTANS } from "@tmdb-api/utils";
 import * as TMDBApiErrors from "@/graphql/errors/tmdb-api";
 
-import * as fixtures from "../../../../../../__test__/datasources/tmdb-api/fixtures";
+import * as fixtures from "../../../../../../../__test__/datasources/tmdb-api/fixtures";
 import { handler } from "./movie-details.handler";
 
 const ID = 1;
@@ -30,7 +30,7 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
       const tmdbAPI = new TheMovieDBAPI();
       mockGet.mockReturnValueOnce(fixtures.movie);
       const language = Iso6391Language.Pt;
-      await handler.handle(
+      await handler(
         {
           language,
           id: ID,
@@ -49,7 +49,7 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
     it('should call "RESTDatasource.get" correctly', async () => {
       const tmdbAPI = new TheMovieDBAPI();
       mockGet.mockReturnValueOnce(fixtures.movie);
-      await handler.handle(
+      await handler(
         {
           id: ID,
         },
@@ -67,7 +67,7 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
     it("should return the data correctly", async () => {
       mockGet.mockReturnValueOnce(fixtures.movie);
       const tmdbAPI = new TheMovieDBAPI();
-      const result = await handler.handle(
+      const result = await handler(
         {
           id: ID,
         },
@@ -81,7 +81,7 @@ describe("DataSources/TheMovieDBApi/Movie-Details-Query-Handler", () => {
     it('should throw "QueryTrendingTVShowsError"', async () => {
       const tmdbAPI = new TheMovieDBAPI();
       await expect(() =>
-        handler.handle(
+        handler(
           {
             id: ID,
           },
