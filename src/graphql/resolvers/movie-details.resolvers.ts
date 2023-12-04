@@ -52,5 +52,20 @@ export const resolvers = {
     ): Promise<string[]> => movies.images.handler(params, context.tmdbAPI),
     cast: (parent: movies.details.types.Response) => parent.credits.cast,
     crew: (parent: movies.details.types.Response) => parent.credits.crew,
+    similar: (
+      _: movies.details.types.Response,
+      params: movies.similar.types.Params,
+      context: Context,
+    ) => movies.similar.handler(params, context.tmdbAPI),
+  },
+
+  SimilarMovie: {
+    backdropPath: (parent: movies.similar.types.Result) => parent.backdrop_path,
+    originalLanguage: (parent: movies.similar.types.Result) => parent.original_language,
+    originalTitle: (parent: movies.similar.types.Result) => parent.original_title,
+    posterPath: (parent: movies.similar.types.Result) => parent.poster_path,
+    releaseDate: (parent: movies.similar.types.Result) => parent.release_date,
+    voteAverage: (parent: movies.similar.types.Result) => parent.vote_average,
+    voteCount: (parent: movies.similar.types.Result) => parent.vote_count,
   },
 };

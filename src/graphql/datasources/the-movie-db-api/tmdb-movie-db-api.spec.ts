@@ -955,6 +955,9 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
           jest
             .spyOn(RESTDataSource.prototype as any, "get")
             .mockImplementationOnce(async () => Promise.resolve(fixtures.movieImages));
+          jest
+            .spyOn(RESTDataSource.prototype as any, "get")
+            .mockImplementationOnce(async () => Promise.resolve(fixtures.movieSimilar));
           const response = await execDatasourceTestOperation<{
             movie: Movie;
           }>({
@@ -1072,6 +1075,40 @@ describe("DataSources/TheMovieDBApi/Integration", () => {
             expect(movie.crew[i].name).toEqual(fixtures.movie.credits.crew[i].name);
             expect(movie.crew[i].profilePath).toEqual(
               fixtures.movie.credits.crew[i].profile_path,
+            );
+          }
+          // similar
+          for (let i = 0; i < movie.similar.length; i++) {
+            expect(movie.similar[i].adult).toEqual(
+              fixtures.movieSimilar.results[i].adult,
+            );
+            expect(movie.similar[i].backdropPath).toEqual(
+              fixtures.movieSimilar.results[i].backdrop_path,
+            );
+            expect(movie.similar[i].id).toEqual(fixtures.movieSimilar.results[i].id);
+            expect(movie.similar[i].originalLanguage).toEqual(
+              fixtures.movieSimilar.results[i].original_language,
+            );
+            expect(movie.similar[i].originalTitle).toEqual(
+              fixtures.movieSimilar.results[i].original_title,
+            );
+            expect(movie.similar[i].overview).toEqual(
+              fixtures.movieSimilar.results[i].overview,
+            );
+            expect(movie.similar[i].popularity).toEqual(
+              fixtures.movieSimilar.results[i].popularity,
+            );
+            expect(movie.similar[i].releaseDate).toEqual(
+              fixtures.movieSimilar.results[i].release_date,
+            );
+            expect(movie.similar[i].title).toEqual(
+              fixtures.movieSimilar.results[i].title,
+            );
+            expect(movie.similar[i].voteAverage).toEqual(
+              fixtures.movieSimilar.results[i].vote_average,
+            );
+            expect(movie.similar[i].voteCount).toEqual(
+              fixtures.movieSimilar.results[i].vote_count,
             );
           }
         });
