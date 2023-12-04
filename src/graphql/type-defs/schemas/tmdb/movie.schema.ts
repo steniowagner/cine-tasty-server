@@ -18,7 +18,7 @@ export default `#graphql
     backdropPath: String
     belongsToCollection: MovieBelongsToCollection
     budget: Float
-    genres: [String!]!
+    genres(language: ISO6391Language): [String!]!
     homepage: String
     id: Int!
     imdbId: String

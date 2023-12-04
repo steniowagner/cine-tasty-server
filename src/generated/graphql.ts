@@ -243,6 +243,11 @@ export type Movie = {
 };
 
 
+export type MovieGenresArgs = {
+  language?: InputMaybe<Iso6391Language>;
+};
+
+
 export type MovieImagesArgs = {
   id: Scalars['Int']['input'];
   language?: InputMaybe<Iso6391Language>;
@@ -1291,7 +1296,7 @@ export type MovieResolvers<ContextType = any, ParentType extends ResolversParent
   budget?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   cast?: Resolver<Array<ResolversTypes['MediaCast']>, ParentType, ContextType>;
   crew?: Resolver<Array<ResolversTypes['MediaCrew']>, ParentType, ContextType>;
-  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  genres?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, Partial<MovieGenresArgs>>;
   homepage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   images?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType, RequireFields<MovieImagesArgs, 'id'>>;
