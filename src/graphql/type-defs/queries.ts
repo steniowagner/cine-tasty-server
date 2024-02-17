@@ -1,5 +1,6 @@
 export default `#graphql
   extend type Query {
+    "Returns a set of questions related to TV-Shows, Movies and Cinema in general"
     quiz(input: QuizInput!): [QuizQuestion!]!
     "Returns paginated articles for the specified language"
     news(page: Int!, language: NewsLanguage!): NewsResult!
