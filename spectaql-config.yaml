@@ -1,0 +1,22 @@
+# config.yaml
+
+spectaql:
+  logoFile: ./docs/icon.png
+
+introspection:
+  url: "http://localhost:3000/"
+  headers:
+    Authorization: "apikey {{process.env.STEP_ZEN_KEY}}"
+
+info:
+  title: CineTasty GraphQL-API - Documentation
+  description: "[Client-apps repository](https://github.com/steniowagner/cine-tasty-mobile) | [Server repository](https://github.com/steniowagner/cine-tasty-server)"
+  contact:
+    name: Stenio Wagner
+    url: https://github.com/steniowagner
+    email: stenio.wagner1@gmail.com
+
+servers:
+  - url: "http://localhost:3000/"
+    description: Development
+    production: false
