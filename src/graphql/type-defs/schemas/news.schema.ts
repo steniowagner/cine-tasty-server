@@ -29,19 +29,30 @@ export default `#graphql
   }
 
   type NewsArticle {
+    "Publication date"
     publishedAt: String
+    "Description"
     description: String
+    "Content"
     content: String
+    "Source"
     source: String
+    "Author"
     author: String
+    "Title"
     title: String
+    "Image"
     image: String
+    "URL to the article source"
     url: String
+    "Id attached to the Article"
     id: ID
   }
 
   type NewsResult {
+    "Response array"
     items: [NewsArticle!]!
+    "Indicates if there is more items to be fetched"
     hasMore: Boolean!
   }
 `;
