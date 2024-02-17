@@ -29,5 +29,7 @@ const server = new ApolloServer<Context>({
     },
     listen: { port: parseInt(process.env.PORT! as string) },
   });
-  console.log(`UHUL! Cine-Tasty-API is running at ${url}!`);
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`UHUL! Cine-Tasty-API is running at ${url}!`);
+  }
 })();
