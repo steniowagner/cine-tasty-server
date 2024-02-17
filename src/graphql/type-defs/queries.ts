@@ -1,6 +1,7 @@
 export default `#graphql
   extend type Query {
     quiz(input: QuizInput!): [QuizQuestion!]!
+    "Returns paginated articles for the specified language"
     news(page: Int!, language: NewsLanguage!): NewsResult!
     famous(id: Int!, language: ISO6391Language): Famous!
     searchFamous(input: SearchInput!): SearchFamousResult!
