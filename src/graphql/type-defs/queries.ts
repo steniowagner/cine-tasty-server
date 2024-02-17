@@ -4,6 +4,7 @@ export default `#graphql
     quiz(input: QuizInput!): [QuizQuestion!]!
     "Returns paginated articles for the specified language"
     news(page: Int!, language: NewsLanguage!): NewsResult!
+    "Returns the info about a certain Actor/Actress"
     famous(id: Int!, language: ISO6391Language): Famous!
     searchFamous(input: SearchInput!): SearchFamousResult!
     searchTVShows(input: SearchInput!): SearchTVShowsResult!
