@@ -1,4 +1,4 @@
-import { GraphQLError } from "graphql";
+import { GraphQLError } from "../../../../node_modules/graphql";
 
 export default class TMDBApiError extends GraphQLError {
   extensions: Record<string, string | number> = {};

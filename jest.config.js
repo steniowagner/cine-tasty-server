@@ -5,14 +5,15 @@ const { pathsToModuleNameMapper } = require("ts-jest");
 
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  roots: ["<rootDir>/src"],
+  preset: "ts-jest",
   testEnvironment: "node",
   testMatch: ["**/*.(test|spec).ts"],
   transform: {
     ".+\\.ts$": "ts-jest",
   },
-  preset: "ts-jest",
-  modulePaths: [tsconfig.compilerOptions.baseUrl],
-  moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths),
+  modulePaths: ["<rootDir>"],
+  moduleNameMapper: pathsToModuleNameMapper(tsconfig.compilerOptions.paths, {
+    prefix: "<rootDir>",
+  }),
   coverageReporters: ["html", "text"],
 };

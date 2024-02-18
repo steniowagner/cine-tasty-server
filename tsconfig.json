@@ -3,9 +3,8 @@
     "target": "es2016",
     "lib": ["es6"],
     "module": "commonjs",
-    "rootDirs": ["src", "__tests__"],
     "outDir": "build",
-    "baseUrl": "src",
+    "baseUrl": ".",
     "resolveJsonModule": true,
     "allowJs": true,
     "esModuleInterop": true,
@@ -14,21 +13,25 @@
     "noImplicitAny": true,
     "skipLibCheck": true,
     "paths": {
-      "@news-api/*": ["graphql/datasources/news-api/*"],
-      "@open-trivia-api/*": ["graphql/datasources/open-trivia-api/*"],
-      "@tmdb-api/*": ["graphql/datasources/the-movie-db-api/*"],
-      "@generated-types": ["generated/graphql.ts"],
-      "@types": ["types/index.ts"],
-      "@errors": ["graphql/errors"],
-      "@/*": ["*"]
+      "@news-api/*": ["./src/graphql/datasources/news-api/*"],
+      "@open-trivia-api/*": ["./src/graphql/datasources/open-trivia-api/*"],
+      "@tmdb-api/*": ["./src/graphql/datasources/the-movie-db-api/*"],
+      "@generated-types": ["./src/generated/graphql.ts"],
+      "@types": ["./src/types/index.ts"],
+      "@errors": ["./src/graphql/errors"],
+      "@/*": ["./src/*"]
     }
   },
   "exclude": [
+    "__test__",
     "node_modules",
     "src/**/*.test.ts",
+    "src/**/*.spec.ts",
     "jest.config.js",
     "coverage",
     "build",
-    "jest-*.js"
+    "jest-*.js",
+    "static",
+    "docs"
   ]
 }
