@@ -22,6 +22,7 @@ This project is still under development, and you can check the Roadmap of planne
 
 ## Architecture
 ![High-level architecture](https://github.com/steniowagner/cine-tasty-server/blob/development/static/architecture-high-level.png)
+*High-level architecture*
 
 This server lives in docker containers. The clients will send requests to the server and the server will request this data from one of the REST datasources. At the moment, the app requests data from three different datasources:
 
@@ -35,6 +36,7 @@ Also, Redis is used to cache some of the responses returned by the datasources.
 
 ### Request flow
 ![Request flow](https://github.com/steniowagner/cine-tasty-server/blob/development/static/request-flow.png)
+*Example of request flow - user requesting details about a Movie*
 
 1) The clients will send GraphQL queries to the server
 2) The server will fetch the data requested in the step 2 by requesting the data from the proper REST datasource
