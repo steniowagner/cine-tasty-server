@@ -6,7 +6,7 @@ This server is a GraphQL-API that requests data from different REST datasources 
 
 ## 🚧 This project is not finished 🚧
 
-This project is still under development, and you can check the Roadmap of planned features [here](www.google.com). 
+This project is still under development, and you can check the Roadmap of planned features [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#roadmap---future-features). 
 
 ## Features
 ### Movies, TV-Shows, Actors and Actresses
@@ -46,7 +46,7 @@ You can check the documentation with the possible queries [here](https://steniow
 
 This documentation is created using [github-pages](https://pages.github.com/).
 
-Also, you can check how to generate it [here](www.google.com)
+Also, you can check how to generate it [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#generating-documentation)
 
 ## Getting Started
 
