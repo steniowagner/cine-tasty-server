@@ -15,7 +15,8 @@
     "test:watch": "jest --watch",
     "test:integration": "npm test -- --watch --testMatch **/*.spec.ts --runInBand",
     "test:unit": "npm test -- --watch --testMatch **/*.test.ts",
-    "test:coverage": "jest --coverage --passWithNoTests"
+    "test:coverage": "jest --coverage --passWithNoTests",
+    "docs:generate": "npx spectaql spectaql-config.yaml -t ./docs"
   },
   "keywords": [],
   "author": "",

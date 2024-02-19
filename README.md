@@ -1,28 +1,33 @@
 # CineTasty-Server
 
-This is the back-end of the [CineTasty app](https://github.com/steniowagner/cine-tasty-mobile). 
+This is the back-end of the [CineTasty app](https://github.com/steniowagner/cine-tasty-mobile).
 
 This server is a GraphQL-API that requests data from different REST datasources and return them as graphql-responses to the clients. No data is stored nor generated (for now).
 
 ## 🚧 This project is not finished 🚧
 
-This project is still under development, and you can check the Roadmap of planned features [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#roadmap---future-features). 
+This project is still under development, and you can check the Roadmap of planned features [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#roadmap---future-features).
 
 ## Features
+
 ### Movies, TV-Shows, Actors and Actresses
+
 - Get details
 - Search
 - Get the latests trends
 
 ### Quizes
+
 - Create trivia-questionnaires about Cinema
 
 ### News
+
 - Get the latests news about Cinema
 
 ## Architecture
+
 ![High-level architecture](https://github.com/steniowagner/cine-tasty-server/blob/development/static/architecture-high-level.png)
-*High-level architecture*
+_High-level architecture_
 
 This server lives in docker containers. The clients will send requests to the server and the server will request this data from one of the REST datasources. At the moment, the app requests data from three different datasources:
 
@@ -35,20 +40,22 @@ Depending on the query, the server will resolve the requested data by fetching t
 Also, Redis is used to cache some of the responses returned by the datasources.
 
 ### Request flow
-![Request flow](https://github.com/steniowagner/cine-tasty-server/blob/development/static/request-flow.png)
-*Example of request flow - user requesting details about a Movie*
 
-1) The clients will send GraphQL queries to the server
-2) The server will fetch the data requested in the step 2 by requesting the data from the proper REST datasource
-3) The REST datasource will return the data to the server
-4) The server will return the data to the user as a graphql-response
+![Request flow](https://github.com/steniowagner/cine-tasty-server/blob/development/static/request-flow.png)
+_Example of request flow - user requesting details about a Movie_
+
+1. The clients will send GraphQL queries to the server
+2. The server will fetch the data requested in the step 2 by requesting the data from the proper REST datasource (In this case, TMDB API)
+3. The REST datasource will return the data to the server
+4. The server will return the data to the user as a graphql-response
 
 ### Documentation
+
 You can check the documentation with the possible queries [here](https://steniowagner.github.io/cine-tasty-server/).
 
 This documentation is created using [github-pages](https://pages.github.com/).
 
-Also, you can check how to generate it [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#generating-documentation)
+Also, you can check how to generate it [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#generating-documentation).
 
 ## Getting Started
 
@@ -83,6 +90,7 @@ To setup the environment variables, create a new `.env` file and add the mandato
 ### Running
 
 To run the app, you just need start the containers using `docker compose`
+
 ```
 $ docker-compose up -d
 ```
@@ -91,31 +99,68 @@ You'll find the app runing at your [localhost:3000](http://localhost:3000/).
 
 > I'll be using npm as package-manager to run the tasks described below, but you can use yarn or pnpm.
 
+### Starting the dev-server
+
+To start the development server, run:
+
+```
+$ npm run start:dev
+```
+
+### Building
+
+To build the application, run:
+
+```
+$ npm run build
+```
+
+### Running prettier
+
+To prettify the code, run:
+
+```
+$ npm run prettier:fix
+```
+
+### Running eslint
+
+To lint the code, run:
+
+```
+$ npm run lint:fix
+```
+
 ### Testing
 
 The tests are divided in `integration` and `unit`. The unit-tests files are the `.test.ts` files and the integration-test files are the `.spec.ts`.
 
 To only run the unit-tests:
+
 ```
 $ npm run test:unit
 ```
 
 To only run the integration-tests:
+
 ```
 $ npm run test:integration
 ```
 
 To run all tests:
+
 ```
 $ npm run test
 ```
 
 To run all tests in watch mode:
+
 ```
 $ npm run test:watch
 ```
 
 To run all tests with code-coverage metrics:
+
 ```
 $ npm run test:coverage
 ```
@@ -125,11 +170,13 @@ $ npm run test:coverage
 This project uses [graphql-code-generator](https://github.com/dotansimha/graphql-code-generator) to generate the static typescript types of the graphql operations.
 
 To initiate the graphql-code-generator (it's already initiated):
+
 ```
 $ npm run codegen:init
 ```
 
 To generate the types:
+
 ```
 $ npm run codegen:generate
 ```
@@ -161,21 +208,13 @@ To accomplish this, the project will need to have a database. Due the structure 
 
 ## About
 
-
 This project is part of my personal portfolio. So, I would be happy if you could provide me any feedback about the project, code, structure or anything that you can report that could make me a better developer!
 
-  
 Email-me: stenio.wagner1@gmail.com
-
-  
 
 Connect with me at [LinkedIn](https://www.linkedin.com/in/steniowagner/)
 
-  
-
 Also, you can use this Project as you wish, be for study, be for make improvements or earn money with it!
-
-  
 
 It's free!
 
