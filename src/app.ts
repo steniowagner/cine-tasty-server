@@ -16,10 +16,10 @@ const server = new ApolloServer<Context>({
 });
 
 (async () => {
+  const cacheHandler = new RedisCacheHandler();
+  await cacheHandler.init();
   const { url } = await startStandaloneServer(server, {
     async context() {
-      const cacheHandler = new RedisCacheHandler();
-      await cacheHandler.init();
       return {
         openTriviaAPI: new OpenTriviaAPI(),
         newsAPI: new NewsAPI(new Date()),
@@ -27,7 +27,7 @@ const server = new ApolloServer<Context>({
         cacheHandler,
       };
     },
-    listen: { port: parseInt(process.env.PORT! as string) },
+    listen: { port: parseInt(process.env.NODEJS_SERVER_PORT! as string) },
   });
   if (process.env.NODE_ENV !== "production") {
     console.log(`UHUL! Cine-Tasty-API is running at ${url}!`);
