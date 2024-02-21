@@ -53,8 +53,6 @@ _Example of request flow - user requesting details about a Movie_
 
 You can check the documentation with the possible queries [here](https://steniowagner.github.io/cine-tasty-server/).
 
-This documentation is created using [github-pages](https://pages.github.com/).
-
 Also, you can check how to generate it [here](https://github.com/steniowagner/cine-tasty-server/blob/development/README.md#generating-documentation).
 
 ## Getting Started
@@ -85,17 +83,19 @@ The `STEP_ZEN_KEY` is used by [spectaql](https://github.com/anvilco/spectaql), t
 
 The [.env.example](https://github.com/steniowagner/cine-tasty-server/blob/development/.env.example) file shows all the enviroment variables that you'll need to set in order to run the app (except for the `STEP_ZEN_KEY`).
 
-To setup the environment variables, create a new `.env` file and add the mandatory variables (`NEWS_API_KEY` and `THE_MOVIE_DB_API_READ_ACCESS_TOKEN`) with their respectives values.
+To setup the environment variables, create a new `.env` file and add their respectives values.
 
 ### Running
 
-To run the app, you just need start the containers using `docker compose`
+At this point, you should already have your environment variables declared in a .env file.
+
+To run the app, you just need start the containers using `docker compose`.
 
 ```
-$ docker-compose up -d
+$ docker-compose --env-file .env up --build
 ```
 
-You'll find the app runing at your [localhost:3000](http://localhost:3000/).
+You'll find the app runing at your localhost:<NODEJS_SERVER_PORT>
 
 > I'll be using npm as package-manager to run the tasks described below, but you can use yarn or pnpm.
 
