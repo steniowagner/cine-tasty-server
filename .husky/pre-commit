@@ -5,7 +5,3 @@ npm run prettier:fix
 npm run lint:fix
 npm run build
 npm run test
-# rm -rf docs
-# mkdir docs
-# npx spectaql spectaql-config.yaml -t ./docs
-# git add -A .
