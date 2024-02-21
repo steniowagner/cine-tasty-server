@@ -1,0 +1,39 @@
+version: "3"
+
+networks:
+  cine-tasty-net:
+    driver: bridge
+
+volumes:
+  node_modules:
+
+services:
+  cache:
+    container_name: cine-tasty-cache
+    image: redis:7.2.4-alpine
+    restart: unless-stopped
+    ports:
+      - "${REDIS_HOST_PORT}:6379"
+    networks:
+      - cine-tasty-net
+
+  server:
+    container_name: cine-tasty-server
+    build: .
+    depends_on:
+      - cache
+    restart: unless-stopped
+    ports:
+      - "${NODEJS_SERVER_PORT}:3000"
+    networks:
+      - cine-tasty-net
+    volumes:
+      - .:/usr/app
+      - node_modules:/usr/app/node_modules
+    environment:
+      - NEWS_API_KEY=${NEWS_API_KEY}
+      - THE_MOVIE_DB_API_READ_ACCESS_TOKEN=${THE_MOVIE_DB_API_READ_ACCESS_TOKEN}
+      - NODEJS_SERVER_PORT=${NODEJS_SERVER_PORT}
+      - STEP_ZEN_KEY=${STEP_ZEN_KEY}
+      - REDIS_HOST_NAME=${REDIS_HOST_NAME}
+      - REDIS_HOST_PORT=${REDIS_HOST_PORT}

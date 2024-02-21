@@ -8,7 +8,12 @@ export default class RedisCacheHandler implements CacheHandler {
   private client: Client;
 
   constructor() {
-    this.client = createClient();
+    this.client = createClient({
+      socket: {
+        port: parseInt(process.env.REDIS_HOST_PORT! as string),
+        host: process.env.REDIS_HOST_NAME! as string,
+      },
+    });
   }
 
   async get<TData>(key: string) {
